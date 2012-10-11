@@ -1,13 +1,13 @@
-package cucumber
-package runtime
+package cucumber.runtime.scala
 
 import _root_.java.lang.reflect.Type
 import _root_.gherkin.formatter.model.Step
 import _root_.gherkin.I18n
-
-import _root_.scala.collection.JavaConversions._
-
 import _root_.java.util.regex.Pattern
+import _root_.cucumber.runtime.StepDefinition
+import _root_.cucumber.runtime.JdkPatternArgumentMatcher
+import _root_.cucumber.runtime.ParameterType
+import collection.JavaConversions._
 
 class ScalaStepDefinition(frame:StackTraceElement, name:String, pattern:String, parameterTypes:List[Class[_]], f:List[Any] => Any) extends StepDefinition {
 

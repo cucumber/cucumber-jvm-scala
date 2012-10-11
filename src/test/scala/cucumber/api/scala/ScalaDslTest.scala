@@ -1,10 +1,12 @@
-package cucumber.runtime
+package cucumber.api.scala
 
-import org.junit.{Test, Assert}
+import _root_.org.junit.{Test, Assert}
 import Assert._
-import collection.JavaConverters._
 import _root_.gherkin.I18n
-import gherkin.formatter.model.Tag
+import _root_.gherkin.formatter.model.Tag
+import collection.JavaConverters._
+
+import _root_.cucumber.runtime.scala.Transform
 
 class ScalaDslTest {
 
@@ -130,7 +132,7 @@ class ScalaDslTest {
 
     assertEquals(1, Dummy.stepDefinitions.size)
     val step = Dummy.stepDefinitions.head
-    assertEquals("ScalaDslTest.scala:126", step.getLocation(true)) // be careful with formatting or this test will break
+    assertEquals("ScalaDslTest.scala:128", step.getLocation(true)) // be careful with formatting or this test will break
     assertEquals("x", step.getPattern)
     step.execute(new I18n("en"), Array())
     assertTrue(called)

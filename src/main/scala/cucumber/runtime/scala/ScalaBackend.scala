@@ -1,15 +1,16 @@
-package cucumber
-package runtime
+package cucumber.runtime.scala
 
 import _root_.java.util.{List => JList}
-
-import gherkin.formatter.model.Step
+import _root_.gherkin.formatter.model.Step
 import _root_.java.lang.reflect.Modifier
-import snippets.SnippetGenerator
-import io.ResourceLoader
-import io.ClasspathResourceLoader
-
-import scala.collection.JavaConversions._
+import _root_.cucumber.runtime.snippets.SnippetGenerator
+import _root_.cucumber.api.scala.ScalaDsl
+import _root_.cucumber.runtime.io.ResourceLoader
+import _root_.cucumber.runtime.io.ClasspathResourceLoader
+import _root_.cucumber.runtime.Backend
+import _root_.cucumber.runtime.UnreportedStepExecutor
+import _root_.cucumber.runtime.Glue
+import collection.JavaConversions._
 
 class ScalaBackend(ignore:ResourceLoader) extends Backend {
   private var snippetGenerator = new SnippetGenerator(new ScalaSnippetGenerator())
@@ -33,7 +34,7 @@ class ScalaBackend(ignore:ResourceLoader) extends Backend {
 
   def loadGlue(glue: Glue, gluePaths: JList[String]) {
     val cl = new ClasspathResourceLoader(Thread.currentThread().getContextClassLoader)
-    val packages = gluePaths map { cucumber.io.MultiLoader.packageName(_) }
+    val packages = gluePaths map { cucumber.runtime.io.MultiLoader.packageName(_) }
     val dslClasses = packages flatMap { cl.getDescendants(classOf[ScalaDsl], _) } filter { cls =>
       try {
         cls.getDeclaredConstructor()

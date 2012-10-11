@@ -1,6 +1,11 @@
-package cucumber
-package runtime
+package cucumber.api.scala
 
+import _root_.cucumber.runtime._
+import _root_.cucumber.runtime.scala.Transform
+import _root_.cucumber.runtime.scala.ScalaHookDefinition
+import _root_.cucumber.runtime.scala.ScalaStepDefinition
+import _root_.cucumber.runtime.HookDefinition
+import _root_.cucumber.runtime.StepDefinition
 import collection.mutable.ArrayBuffer
 
 trait ScalaDsl { self =>

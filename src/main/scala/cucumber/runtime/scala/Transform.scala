@@ -1,7 +1,6 @@
-package cucumber
-package runtime
+package cucumber.runtime.scala
 
-import table.DataTable
+import _root_.cucumber.api.DataTable
 
 trait Transform[T] {
   def apply(a: Any): T
