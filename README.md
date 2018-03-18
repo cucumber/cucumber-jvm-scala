@@ -1,6 +1,5 @@
 # cucumber-jvm-scala
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala-aggregator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala-aggregator)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala_2.12)
 
 ## Dependency
 
@@ -11,7 +10,7 @@ To use cucumber-jvm-scala in your project, add the following dependency to your 
 ```xml
 <dependency>
     <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-scala</artifactId>
+    <artifactId>cucumber-scala_2.12</artifactId>
     <version>2.0.1</version>
     <scope>test</scope>
 </dependency>
