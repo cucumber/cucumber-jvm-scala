@@ -1,6 +1,6 @@
 # cucumber-jvm-scala
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala-aggregator/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala-aggregator)
 
 ## Dependency
 
