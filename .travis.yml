@@ -1,0 +1,23 @@
+language: scala
+sudo: false
+
+scala:
+   - 2.10.7
+   - 2.11.12
+   - 2.12.6
+
+cache:
+  directories:
+  - "$HOME/.m2"
+
+before_cache:
+- rm -rf $HOME/.m2/repository/io/cucumber
+
+before_install:
+- export MODULES_TO_RUN="scala/scala_"$(echo $TRAVIS_SCALA_VERSION | sed -e 's/\([0-9]*\.[0-9]*\)\..*/\1/')",examples" && echo $MODULES_TO_RUN
+
+install:
+- mvn install -pl $MODULES_TO_RUN -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+script:
+- mvn test -pl $MODULES_TO_RUN -B
