@@ -1,5 +1,5 @@
 # cucumber-jvm-scala
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala_2.12)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.cucumber/cucumber-scala_2.12) [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-scala.svg?branch=master)](https://travis-ci.org/cucumber/cucumber-jvm-scala)
 
 ## Dependency
 
