@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-jvm-scala</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.4.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>scala-examples</artifactId>
