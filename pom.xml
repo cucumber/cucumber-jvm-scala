@@ -31,7 +31,7 @@
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
         <scala.2.12.version>2.12.7</scala.2.12.version>
-        <scala.2.11.version>2.11.11</scala.2.11.version>
+        <scala.2.11.version>2.11.12</scala.2.11.version>
 
     </properties>
     <licenses>
