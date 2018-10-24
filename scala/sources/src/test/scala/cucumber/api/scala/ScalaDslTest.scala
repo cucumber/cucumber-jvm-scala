@@ -1,10 +1,14 @@
 package cucumber.api.scala
 
-import _root_.org.junit.{Test, Assert}
+import java.util.Locale
+
+import _root_.org.junit.{Assert, Test}
 import Assert._
 import _root_.gherkin.pickles.PickleTag
+
 import collection.JavaConverters._
 import cucumber.api.Scenario
+import io.cucumber.stepexpression.TypeRegistry
 
 class ScalaDslTest {
 
@@ -131,11 +135,11 @@ class ScalaDslTest {
       Given("x") { called = true }
     }
 
-    assertEquals(1, Dummy.stepDefinitions.size)
-    val step = Dummy.stepDefinitions.head
-    assertEquals("ScalaDslTest.scala:131", step.getLocation(true)) // be careful with formatting or this test will break
+    assertEquals(1, Dummy.getStepDefs(new TypeRegistry(Locale.ENGLISH)).size)
+    val step = Dummy.getStepDefs(new TypeRegistry(Locale.ENGLISH)).head
+    assertEquals("ScalaDslTest.scala:135", step.getLocation(true)) // be careful with formatting or this test will break
     assertEquals("x", step.getPattern)
-    step.execute("en", Array())
+    step.execute( Array())
     assertTrue(called)
   }
 
@@ -151,9 +155,9 @@ class ScalaDslTest {
       }
     }
 
-    assertEquals(1, Dummy.stepDefinitions.size)
-    val step = Dummy.stepDefinitions(0)
-    step.execute("en", Array(new java.lang.Integer(5), "green"))
+    assertEquals(1, Dummy.getStepDefs(new TypeRegistry(Locale.ENGLISH)).size)
+    val step = Dummy.getStepDefs(new TypeRegistry(Locale.ENGLISH))(0)
+    step.execute(Array(new java.lang.Integer(5), "green"))
     assertEquals(5, thenumber)
     assertEquals("green", thecolour)
   }

@@ -1,19 +1,20 @@
 package cucumber.runtime.scala.test
 
 import _root_.cucumber.api.scala._
-
-import cucumber.api.DataTable
 import junit.framework.Assert._
+
 import scala.collection.JavaConverters._
 import cucumber.runtime.scala.model.{Cukes, Person, Snake}
 import java.util.{List => JList, Map => JMap}
+
+import io.cucumber.datatable.DataTable
 
 /**
   * Test step definitions to exercise Scala cucumber
   */
 class CukesStepDefinitions extends ScalaDsl with EN {
 
-  Given("""^I have (\d+) "([^"]*)" in my belly$""") { (howMany: Int, what: String) =>
+  Given("""I have {int} {string} in my belly""") { (howMany: Int, what: String) =>
 
   }
 
@@ -23,13 +24,13 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     val maps: JList[JMap[String, String]] = table.asMaps(classOf[String], classOf[String])
     calorieCount = maps.asScala.map(_.get("CALORIES")).map(_.toDouble).fold(0.0)(_ + _)
   }
-  And("""^have eaten (.*) calories today""") { (calories: Double) =>
+  And("""have eaten {double} calories today""") { (calories: Double) =>
     assertEquals(calories, calorieCount)
   }
 
   var intBelly: Int = 0
 
-  Given("""^I have eaten an int (\d+)$""") { (arg0: Int) =>
+  Given("""I have eaten an int {int}""") { (arg0: Int) =>
     intBelly = arg0
   }
   Then("""^I should have one hundred in my belly$""") { () =>
@@ -38,7 +39,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var longBelly: Long = 0L
 
-  Given("""^I have eaten a long (\d+)$""") { (arg0: Long) =>
+  Given("""I have eaten a long {long}""") { (arg0: Long) =>
     longBelly = arg0
   }
   Then("""^I should have long one hundred in my belly$""") { () =>
@@ -56,7 +57,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var doubleBelly: Double = 0.0
 
-  Given("""^I have eaten (.*) doubles$""") { (arg0: Double) =>
+  Given("""I have eaten {double} doubles""") { (arg0: Double) =>
     doubleBelly = arg0
   }
   Then("""^I should have one and a half doubles in my belly$""") { () =>
@@ -65,7 +66,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var floatBelly: Float = 0.0f
 
-  Given("""^I have eaten (.*) floats$""") { (arg0: Float) =>
+  Given("""I have eaten {float} floats""") { (arg0: Float) =>
     floatBelly = arg0
   }
   Then("""^I should have one and a half floats in my belly$""") { () =>
@@ -74,7 +75,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var shortBelly: Short = 0.toShort
 
-  Given("""^I have eaten a short (\d+)$""") { (arg0: Short) =>
+  Given("""I have eaten a short {short}""") { (arg0: Short) =>
     shortBelly = arg0
   }
   Then("""^I should have short one hundred in my belly$""") { () =>
@@ -83,7 +84,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var byteBelly: Byte = 0.toByte
 
-  Given("""^I have eaten a byte (\d+)$""") { (arg0: Byte) =>
+  Given("""I have eaten a byte {byte}""") { (arg0: Byte) =>
     byteBelly = arg0
   }
   Then("""^I should have two byte in my belly$""") { () =>
@@ -92,7 +93,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var bigDecimalBelly: BigDecimal = BigDecimal(0)
 
-  Given("""^I have eaten (.*) big decimals$""") { (arg0: java.math.BigDecimal) =>
+  Given("""I have eaten {bigdecimal} big decimals""") { (arg0: java.math.BigDecimal) =>
     bigDecimalBelly = arg0
   }
   Then("""^I should have one and a half big decimals in my belly$""") { () =>
@@ -101,7 +102,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var bigIntBelly: BigInt = BigInt(0)
 
-  Given("""^I have eaten (\d+) big int$""") { (arg0: java.math.BigInteger) =>
+  Given("""I have eaten {biginteger} big int""") { (arg0: java.math.BigInteger) =>
     bigIntBelly = arg0.intValue()
   }
   Then("""^I should have a ten big int in my belly$""") { () =>
@@ -110,7 +111,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var charBelly: Char = 'A'
 
-  Given("""^I have eaten char '(.*)'$""") { (arg0: Char) =>
+  Given("""I have eaten char '{char}'""") { (arg0: Char) =>
     charBelly = 'C'
   }
   Then("""^I should have character C in my belly$""") { () =>
@@ -119,20 +120,20 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var boolBelly: Boolean = false
 
-  Given("""^I have eaten boolean (.*)""") { (arg0: Boolean) =>
+  Given("""I have eaten boolean {boolean}""") { (arg0: Boolean) =>
     boolBelly = arg0
   }
   Then("""^I should have truth in my belly$""") { () =>
     assertEquals(true, boolBelly)
   }
 
-  Given("""^I have a table the sum of all rows should be (\d+) :$""") { (value: Int, table: DataTable) =>
-    assertEquals(value, table.asList(classOf[String]).asScala.drop(1).map(_.toInt).foldLeft(0)(_ + _))
+ Given("""I have a table the sum of all rows should be {int} :""") { (value: Int, table: DataTable) =>
+    assertEquals(value, table.asList(classOf[String]).asScala.drop(1).map(String.valueOf(_:String).toInt).foldLeft(0)(_ + _))
   }
 
   var snake: Snake = null
 
-  Given("""^I see in the distance ... (.*)$""") { (s: Snake) =>
+  Given("""I see in the distance ... {snake}""") { (s: Snake) =>
     snake = s
   }
   Then("""^I have a snake of length (\d+) moving (.*)$""") { (size: Int, dir: String) =>
@@ -142,7 +143,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var person: Person = null
 
-  Given("""^I have a person (.*)""") { (p: Person) =>
+  Given("""I have a person {person}""") { (p: Person) =>
     person = p
   }
 
@@ -156,7 +157,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     cukes = cs
   }
 
-  Then("""^I should have eaten (\d) cukes$""") { total: Int =>
+  Then("""I should have eaten {int} cukes""") { total: Int =>
     assertEquals(total, cukes.asScala.map(_.number).sum)
   }
 

@@ -5,6 +5,7 @@ import java.lang.reflect.{ParameterizedType, Type}
 import cucumber.api.Scenario
 import cucumber.runtime.{HookDefinition, StepDefinition}
 import cucumber.runtime.scala.{ScalaHookDefinition, ScalaStepDefinition}
+import io.cucumber.stepexpression.TypeRegistry
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -16,12 +17,20 @@ trait ScalaDsl {
   self =>
   import scala.language.implicitConversions
 
-
-  private[cucumber] val stepDefinitions = new ArrayBuffer[StepDefinition]
+  private val stepDefinitions = new ArrayBuffer[StepDefinition]
 
   private[cucumber] val beforeHooks = new ArrayBuffer[HookDefinition]
 
+  private[cucumber] val beforeStepHooks = new ArrayBuffer[HookDefinition]
+
   private[cucumber] val afterHooks = new ArrayBuffer[HookDefinition]
+
+  private[cucumber] val afterStepHooks = new ArrayBuffer[HookDefinition]
+
+  private[cucumber] def getStepDefs(typeRegistry: TypeRegistry): ArrayBuffer[StepDefinition]={
+    stepDefinitions.foreach(d=>d.asInstanceOf[ScalaStepDefinition].typeRegistry = typeRegistry)
+    stepDefinitions
+  }
 
   def Before(f: Scenario => Unit) {
     Before()(f)
@@ -35,6 +44,18 @@ trait ScalaDsl {
     beforeHooks += new ScalaHookDefinition(f, order, tags)
   }
 
+  def BeforeStep(f: Scenario => Unit) {
+    BeforeStep()(f)
+  }
+
+  def BeforeStep(tags: String*)(f: Scenario => Unit) {
+    BeforeStep(Int.MaxValue, tags: _*)(f)
+  }
+
+  def BeforeStep(order: Int, tags: String*)(f: Scenario => Unit) {
+    beforeStepHooks += new ScalaHookDefinition(f, order, tags)
+  }
+
   def After(f: Scenario => Unit) {
     After()(f)
   }
@@ -46,6 +67,19 @@ trait ScalaDsl {
   def After(order: Int, tags: String*)(f: Scenario => Unit) {
     afterHooks += new ScalaHookDefinition(f, order, tags)
   }
+
+  def AfterStep(f: Scenario => Unit) {
+    AfterStep()(f)
+  }
+
+  def AfterStep(tags: String*)(f: Scenario => Unit) {
+    AfterStep(Int.MaxValue, tags: _*)(f)
+  }
+
+  def AfterStep(order: Int, tags: String*)(f: Scenario => Unit) {
+    afterStepHooks += new ScalaHookDefinition(f, order, tags)
+  }
+
 
   final class Step(name: String) {
     def apply(regex: String): StepBody = new StepBody(name, regex)

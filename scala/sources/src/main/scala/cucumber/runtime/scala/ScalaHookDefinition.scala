@@ -2,9 +2,11 @@ package cucumber.runtime.scala
 
 import gherkin.pickles.PickleTag
 import java.util.Collection
+
 import cucumber.api.Scenario
 import cucumber.runtime.HookDefinition
-import cucumber.runtime.TagPredicate
+import cucumber.runtime.filter.TagPredicate
+
 import scala.collection.JavaConverters._
 
 class ScalaHookDefinition(f:Scenario => Unit,
