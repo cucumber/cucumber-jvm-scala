@@ -1,8 +1,10 @@
 package cucumber.runtime.scala
 
+import java.lang.reflect.Type
+import java.util
+
 import cucumber.runtime.snippets.Snippet
-import gherkin.pickles.PickleStep
-import java.util.List
+
 import collection.JavaConverters._
 
 class ScalaSnippetGenerator extends Snippet {
@@ -15,8 +17,14 @@ class ScalaSnippetGenerator extends Snippet {
 
   def tableHint() = null
 
-  def arguments(argumentTypes: List[Class[_]]) = {
-    val indexed = argumentTypes.asScala.zipWithIndex
+  def namedGroupStart() = null
+
+  def namedGroupEnd() = null
+
+  def escapePattern(pattern:String) = pattern
+
+  override def arguments(map: util.Map[String, Type]): String = {
+    val indexed = map.asScala.zipWithIndex
 
     def name(clazz: Class[_]) =
       if(clazz.isPrimitive){
@@ -26,16 +34,9 @@ class ScalaSnippetGenerator extends Snippet {
         clazz.getSimpleName
 
     val named = indexed.map {
-      case (c, i) => "arg" + i + ":" + name(c)
+      case (c, i) => "arg" + i + ":" + name(c._2.getClass)
     }
 
     named.mkString(", ")
   }
-
-  def namedGroupStart() = null
-
-  def namedGroupEnd() = null
-
-  def escapePattern(pattern:String) = pattern
-
 }

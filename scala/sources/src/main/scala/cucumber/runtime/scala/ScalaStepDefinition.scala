@@ -1,13 +1,10 @@
 package cucumber.runtime.scala
 
 import java.lang.reflect.Type
-import gherkin.pickles.PickleStep
-import java.util.regex.Pattern
+
 import cucumber.runtime.StepDefinition
-import cucumber.runtime.JdkPatternArgumentMatcher
-import cucumber.runtime.ParameterInfo
-import collection.JavaConversions._
-import cucumber.api.Transform
+import gherkin.pickles.PickleStep
+import io.cucumber.stepexpression._
 
 /**
  * Implementation of step definition for scala.
@@ -29,17 +26,27 @@ class ScalaStepDefinition(frame:StackTraceElement,
                           parameterInfos:Array[Type],
                           f:List[Any] => Any) extends StepDefinition {
 
-  /**
-   * Compiled pattern matcher for the cucumber step regex.
-   */
-  private val argumentMatcher = new JdkPatternArgumentMatcher(Pattern.compile(pattern))
+  private[cucumber] var typeRegistry: TypeRegistry = null
+  private var expression: StepExpression = null
 
   /**
    * Returns a list of arguments. Return null if the step definition
    * doesn't match at all. Return an empty List if it matches with 0 arguments
    * and bigger sizes if it matches several.
    */
-  def matchedArguments(step: PickleStep) = argumentMatcher.argumentsFrom(step.getText)
+  def matchedArguments(step: PickleStep) = {
+     expression = createExpression(pattern, typeRegistry)
+     val argumentMatcher = new ExpressionArgumentMatcher(expression)
+     argumentMatcher.argumentsFrom(step)
+  }
+
+  private def createExpression(expression: String, typeRegistry: TypeRegistry): StepExpression = {
+    if (parameterInfos.isEmpty) new StepExpressionFactory(typeRegistry).createExpression(expression)
+    else {
+      val parameterInfo = parameterInfos(parameterInfos.size - 1)
+      new StepExpressionFactory(typeRegistry).createExpression(expression, parameterInfo, false)
+    }
+  }
 
   /**
    * The source line where the step definition is defined.
@@ -47,12 +54,12 @@ class ScalaStepDefinition(frame:StackTraceElement,
    *
    * @param detail true if extra detailed location information should be included.
    */
-  def getLocation(detail: Boolean) = frame.getFileName + ":" + frame.getLineNumber
+  override def getLocation(detail: Boolean) = frame.getFileName + ":" + frame.getLineNumber
 
   /**
    * How many declared parameters this stepdefinition has. Returns null if unknown.
    */
-  def getParameterCount() = parameterInfos.size
+  override def getParameterCount() = parameterInfos.size
 
   /**
    * The parameter type at index n. A hint about the raw parameter type is passed to make
@@ -60,25 +67,27 @@ class ScalaStepDefinition(frame:StackTraceElement,
    * As Scala is a statically typed language, the javaType parameter is ignored
    */
   def getParameterType(index: Int, javaType: Type) = {
-    new ParameterInfo(parameterInfos(index), null, null, null)
+    parameterInfos(index)
   }
 
   /**
    * Invokes the step definition. The method should raise a Throwable
    * if the invocation fails, which will cause the step to fail.
    */
-  def execute(language: String, args: Array[AnyRef]) { f(args.toList) }
+  override def execute(args: Array[AnyRef]): Unit = {
+    f(args.toList)
+  }
 
   /**
    * Return true if this matches the location. This is used to filter
    * stack traces.
    */
-  def isDefinedAt(stackTraceElement: StackTraceElement) = stackTraceElement == frame
+  override def isDefinedAt(stackTraceElement: StackTraceElement) = stackTraceElement == frame
 
   /**
    * @return the pattern associated with this instance. Used for error reporting only.
    */
-  def getPattern = pattern
+  override def getPattern = pattern
 
-  def isScenarioScoped = false
+  override def isScenarioScoped = false
 }

@@ -1,8 +1,10 @@
 package cucumber.runtime.scala
 
 import java.util.{List => JList}
+
 import gherkin.pickles.PickleStep
 import java.lang.reflect.Modifier
+
 import cucumber.runtime.snippets.SnippetGenerator
 import cucumber.runtime.snippets.FunctionNameGenerator
 import cucumber.api.scala.ScalaDsl
@@ -11,19 +13,25 @@ import cucumber.runtime.io.ResourceLoaderClassFinder
 import cucumber.runtime.io.ResourceLoader
 import cucumber.runtime.io.MultiLoader
 import cucumber.runtime.Backend
-import cucumber.runtime.UnreportedStepExecutor
 import cucumber.runtime.Glue
+import io.cucumber.stepexpression.TypeRegistry
+
 import scala.collection.JavaConverters._
 
-class ScalaBackend(resourceLoader:ResourceLoader) extends Backend {
-  private var snippetGenerator = new SnippetGenerator(new ScalaSnippetGenerator())
+class ScalaBackend(resourceLoader:ResourceLoader, typeRegistry: TypeRegistry) extends Backend {
+  private val snippetGenerator = new SnippetGenerator(new ScalaSnippetGenerator(), typeRegistry.parameterTypeRegistry())
   private var instances:Seq[ScalaDsl] = Nil
 
-  def getStepDefinitions = instances.flatMap(_.stepDefinitions)
+  
+  def getStepDefinitions = instances.flatMap(_.getStepDefs(typeRegistry))
 
   def getBeforeHooks = instances.flatMap(_.beforeHooks)
 
   def getAfterHooks = instances.flatMap(_.afterHooks)
+
+  def getAfterStepHooks = instances.flatMap(_.afterStepHooks)
+
+  def getBeforeStepHooks = instances.flatMap(_.beforeStepHooks)
 
   def disposeWorld() {
     instances = Nil
@@ -61,14 +69,15 @@ class ScalaBackend(resourceLoader:ResourceLoader) extends Backend {
       instField.setAccessible(true)
       instField.get(null).asInstanceOf[ScalaDsl]
     }
-    val clsInstances = (clsClasses map {_.newInstance()})
+    val clsInstances = clsClasses map {_.newInstance()}
 
     instances = objInstances ++ clsInstances
 
     getStepDefinitions map {glue.addStepDefinition(_)}
     getBeforeHooks map {glue.addBeforeHook(_)}
     getAfterHooks map  {glue.addAfterHook(_)}
+    getAfterStepHooks map  {glue.addAfterStepHook(_)}
+    getBeforeStepHooks map  {glue.addBeforeStepHook(_)}
   }
 
-  def setUnreportedStepExecutor(executor:UnreportedStepExecutor) {}
 }
