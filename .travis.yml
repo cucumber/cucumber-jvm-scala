@@ -1,43 +1,32 @@
 language: scala
 sudo: false
 
-matrix:
-  include:
-   - scala: 2.11
-   - scala: 2.12
-     env: EXECUTE_EXAMPLES=true
-  fast_finish: true
-
 cache:
   directories:
   - "$HOME/.m2"
 
-before_cache:
-- rm -rf $HOME/.m2/repository/io/cucumber
-
-before_install:
-- |
-  export MODULES_TO_RUN="scala/scala_"$(echo $TRAVIS_SCALA_VERSION | sed -e 's/\([0-9]*\.[0-9]*\)\..*/\1/')
-  [[ $EXECUTE_EXAMPLES = true ]] && export MODULES_TO_RUN=$MODULES_TO_RUN",examples"
-  echo $MODULES_TO_RUN
-
-install:
-- mvn install -pl $MODULES_TO_RUN -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-script:
-- mvn test -pl $MODULES_TO_RUN -B
-
-deploy:
-  provider: script
-  script:
-- "./continuous-deployment/before-deploy.sh"
-- "./continuous-deployment/deploy.sh"
-  on:
-    branch: master
+jobs:
+  include:
+  - stage: test
+    scala: 2.11
+    script: mvn test -pl scala/scala_2.11 -B
+  - stage: test
+    scala: 2.12
+    script: mvn test -pl scala/scala_2.12,examples -B
+  - stage: deploy
+    jdk: oraclejdk8
+    script:
+    - "./continuous-deployment/before-deploy.sh"
+    - "./continuous-deployment/deploy.sh"
+    on:
+      repo: cucumber/cucumber-jvm-scala
+branches:
+  only:
+  - master
 
 env:
   global:
-  - secure: TO_BE_PROVIDED=
-  - secure: TO_BE_PROVIDED=
-  - secure: TO_BE_PROVIDED=
-  - secure: TO_BE_PROVIDED=
+  - secure: Y9nYw5h1gHqjx3IYFDcp0G6LDxG3QiXWuU8Ak3EOeli+jeE+84E/ZaLSXQOXxHXi4j+H+0iMOTkfuSowPQxS5WHo09gPn5QqxrUURZQaKzXXEhEITgnf5qpXuXrbPYLgGS2BLksFbUPpSittuhkO8fp66Fz+m5+mF+FUAyen6p3EH7+F52fEq7SXPAjZnfKCuoTch0XSsFGhWJcaUAZ2cFtVMKCLEuBZP9mpFUcN45SR8z0wk6oavNLd2BPr76tDiNuQeaqQFsgccvuNmiP3qiTp+0mbVFcgqzlHQa9EyvbpKtnHs8vOhOra1Yqi61HzblB4jEoxFmVdCnhRhURW54XXvEGiuQFk2etCEMw6u/Fxg9m440+3DC4fPcrJdqvz7OS24x6gcRtBVAblolk0GEzd7V/oLg71R0Pj79gMz8m5JttEoksHgY4CMbnp4/xYC+JoKl09L3sD7d9WjWIOQz/Xen/5YEDV96LSHOIcJk7LrlON9+Mf/dhkFjLY4snPRWPwlZpvdvSG32I2MZaY34eAe9EImPSLV2eYbWm7jqf7DASnD6eYLXLwkvOPsgmeV7aR3Bb3BmZCKq/PUIBfxzdr0bUqr1dKVMi1D0IqRn+WxbidcVpWPhMncqXcMCb+Gz2ByawJyv9ByX6nQor0o0LSt9ywdIofZYWsKARch+I=
+  - secure: DLsE1rTQb5l41bKwv5TWh0ixHRXm7ecpSVNMCVAIufgxSmWvQ2bnUkQ67KajxkLxRglmiDvpCnsGsMBLm6a+29e6STJbvdlxpTA6B8yVoV3NJGcyTZjFazeliVgyLMO7MsottbWgserLjY+s93K2+o+UtqNcS5gwIqe7zMlU2a8VZRHKihrk0m4ByP56nuzbX+u7hEhtmxdV7+coUBuox9LSgCqszqvcii7JvUTN0MwCKpJqEdttMNGy/E8jeZ8eFSSSElbZh7+VGBtyE0B8BDuuXajKMPaM+CIXyLXJy0oSH2s/tV7n64ugGF5E5NMfgKAMp33ldqKlwjx/Ee0BRIlz9ZCW77XX6DOzngh1acHPXblj04WG9oD7Xr53zHd9j6EQthlDO8QPBxtgauiAyA02cbZkhScqY9zOVOTwM7r9a3GO3yUfeFxDuzhtbp1jat6bdzxVADvqxPYFigC9A2tGvbHzNyy2fjHy9mtO93aFsAN9sMXgqtS4u2ltqWHPtCC/yLgop+rXAWu57gGXAs3e89DTQf7kyO1HDUXKvtANN3QBtc4Kcc2dRCUI6+FXPDtVNNLPurgpKY/1C6Kd6n68zBxVfRGmZlk5inhbf5a3fiqSmwczXNrA38jVRNdrgSOqGPDKTZYlQ+h4Z6ooFDaBBxM/U0rbhAaE82jfirM=
+  - secure: CagJHGqYbb/HFwGgI55+jXMEf0vOx5KVv7wxtDFITUk4E0fgUyBVFuJOWHkuQyB2OHLgJx2uR2oSWnpgBU0LIcBlyORj0XZMDnFuosCVw3aorUGuUoHszTw5G52FDeaiLhnU008+Tke7da/dckUd+lDQblGVgadtol36HX6OgSDmiguNkOTJiK8JmgY/ygoY0uHxXiTJWOI8us20nwL3ikkSJwwOw+kV6ZGagHcV5anmppznzOTj+QcI0e/SS8Dd90mjebh7OU9OhW02yxsvqL4Wfos39vSFBHs1zPHDQOMGYeW0fxcSeEMA3uz2aWR4CL50tXvTG6FIbq/5BoYOkF+qnjWMOqaHV1stvoP7EYo/VO/LezX7gwMAXoDLe5TOEhM8PlXkyHkO5rFEFbl4JkeafwweWjvWZ810o/VVhgOGqG+g348YrVNCqyTwrz923BnOMXuu55I1cqZ8HtAN4wRbKSjmLg9re530jlOGhA7g0BAS7bZ9yAK0EkjBwX6HqH1lvxgrJV5B5Jh2F/PpoZHGTcY+/+SVSqjOImchBS4lzbmPVxGv9jvkrcTIMKm8hqP///8XxL3kNgyjUF3cYGko9BCTFcMCej+5jzZv8KyARMOv6KxHsLDeUgHdeb+HKb1oUbZ+XVew+LSAqTJTXD81bF2FC4M05STALR36VmA=
+  - secure: MUqkBtzlzhXEIw6pGawCJHmt1MGuuYvLFpD+prISfODjtAH2BZ2i33lzFYvgTdE2aE8GZprir+Vj0NYEzj/sQ9KHailP+xQffFvVS0vsl/C7kGyyypJnmA8DjKQ0tr1kDwjmdywPcQGq5RvFi+cvL7YdCQHYkYas3binlPO08iYvGA7Dcbr5k17xrja8/EtP+JoNeNbAu5iZJ6Qx8+LR2qp8GsKk1hH2mNrvXZ/KDj6FDwRdJmNoFztZAsI3wlt1OZuNSz7/7LftEWRHf0g4DzqMO/Bm0wCgNJroUbJr+1X+Gjc/fU9fN5kS6/l6hp0ROzUidAuIHmXIwRCGyLoNWCCRI8gTheJw9Ro/Yjx9nwg+zseZefjVISMktfComxB0TihsQElnPggaaYYxFzFNivnJVaB1VFjUrEfQFD8x57Zv2ogj7bhd9b4pgd/DesEX6jnlvbOPDQnfJElD6aqN0fn61hfy4JbmWB3CPgl9sTi6hNDmtNIVcEMcaCTLBFAmAtFr4RNPb4/GbO6Vx0WG1FSJIsjUqD+y/h6MkJvcJC+JDJMA1+d0sbeZDXwEHnbeKSunsxkb0KFJ2Z1QgATQLRLHOxKWxHVFxDS8OigfE2aKacTt6a5zxgLQzoPKPWS2BXP++PsZ+uUmdYifK0LzbwKZGcbkD7+L37oMu5vVT6c=

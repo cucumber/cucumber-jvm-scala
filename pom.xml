@@ -111,10 +111,19 @@
 
     <modules>
         <module>scala</module>
-        <module>examples</module>
     </modules>
 
     <profiles>
+        <profile>
+            <id>examples</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>examples</module>
+            </modules>
+        </profile>
+
         <profile>
             <id>sign-source-javadoc</id>
             <build>
