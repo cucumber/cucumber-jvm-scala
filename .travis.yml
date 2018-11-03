@@ -26,3 +26,18 @@ install:
 
 script:
 - mvn test -pl $MODULES_TO_RUN -B
+
+deploy:
+  provider: script
+  script:
+- "./continuous-deployment/before-deploy.sh"
+- "./continuous-deployment/deploy.sh"
+  on:
+    branch: master
+
+env:
+  global:
+  - secure: TO_BE_PROVIDED=
+  - secure: TO_BE_PROVIDED=
+  - secure: TO_BE_PROVIDED=
+  - secure: TO_BE_PROVIDED=
