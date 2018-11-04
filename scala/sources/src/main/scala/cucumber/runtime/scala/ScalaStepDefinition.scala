@@ -1,7 +1,6 @@
 package cucumber.runtime.scala
 
 import java.lang.reflect.Type
-
 import cucumber.runtime.StepDefinition
 import gherkin.pickles.PickleStep
 import io.cucumber.stepexpression._
@@ -37,7 +36,7 @@ class ScalaStepDefinition(frame:StackTraceElement,
   def matchedArguments(step: PickleStep) = {
      expression = createExpression(pattern, typeRegistry)
      val argumentMatcher = new ExpressionArgumentMatcher(expression)
-     argumentMatcher.argumentsFrom(step)
+     argumentMatcher.argumentsFrom(step, parameterInfos:_*)
   }
 
   private def createExpression(expression: String, typeRegistry: TypeRegistry): StepExpression = {

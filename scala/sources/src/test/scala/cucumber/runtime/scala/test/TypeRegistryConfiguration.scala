@@ -1,12 +1,13 @@
 package cucumber.runtime.scala.test
 
+import java.lang.reflect.Type
 import java.util
 import java.util.Locale
-
 import cucumber.api.{TypeRegistry, TypeRegistryConfigurer}
 import cucumber.runtime.scala.model.{Cukes, Person, Snake}
-import io.cucumber.cucumberexpressions.{ParameterType, Transformer}
-import io.cucumber.datatable.{DataTableType, TableEntryTransformer}
+import io.cucumber.cucumberexpressions.{ParameterByTypeTransformer, ParameterType, Transformer}
+import io.cucumber.datatable.dependency.com.fasterxml.jackson.databind.ObjectMapper
+import io.cucumber.datatable.{DataTableType, TableCellByTypeTransformer, TableEntryByTypeTransformer, TableEntryTransformer}
 
 class TypeRegistryConfiguration extends TypeRegistryConfigurer {
 
@@ -56,6 +57,11 @@ class TypeRegistryConfiguration extends TypeRegistryConfigurer {
   override def locale(): Locale = Locale.ENGLISH
 
   override def configureTypeRegistry(typeRegistry: TypeRegistry): Unit = {
+    val defaultTransformer = new DefaultTransformer()
+    typeRegistry.setDefaultDataTableCellTransformer(defaultTransformer)
+    typeRegistry.setDefaultDataTableEntryTransformer(defaultTransformer)
+    typeRegistry.setDefaultParameterTransformer(defaultTransformer)
+
     typeRegistry.defineParameterType(new ParameterType[Snake](
       "snake",
       "[=><]+",
@@ -85,6 +91,25 @@ class TypeRegistryConfiguration extends TypeRegistryConfigurer {
     ))
 
     typeRegistry.defineDataTableType(new DataTableType(classOf[Cukes],listTransformer))
+  }
+  private class DefaultTransformer
+    extends ParameterByTypeTransformer
+      with TableEntryByTypeTransformer
+      with TableCellByTypeTransformer {
+
+    var objectMapper: ObjectMapper = new ObjectMapper()
+
+    override def transform(s: String, `type`: Type): AnyRef =
+      objectMapper.convertValue(s, objectMapper.constructType(`type`))
+
+
+    override def transform[T](s: String, aClass: Class[T]): T =
+      objectMapper.convertValue(s, aClass)
+
+    override def transform[T](map: util.Map[String, String],
+                              aClass: Class[T],
+                              tableCellByTypeTransformer: TableCellByTypeTransformer): T =
+      objectMapper.convertValue(map, aClass)
   }
 
 }

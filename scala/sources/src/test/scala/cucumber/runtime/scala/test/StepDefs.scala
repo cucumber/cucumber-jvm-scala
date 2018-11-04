@@ -14,7 +14,7 @@ import io.cucumber.datatable.DataTable
   */
 class CukesStepDefinitions extends ScalaDsl with EN {
 
-  Given("""I have {int} {string} in my belly""") { (howMany: Int, what: String) =>
+  Given("""I have {} {string} in my belly""") { (howMany: Int, what: String) =>
 
   }
 
@@ -66,7 +66,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var floatBelly: Float = 0.0f
 
-  Given("""I have eaten {float} floats""") { (arg0: Float) =>
+  Given("""I have eaten {} floats""") { (arg0: Float) =>
     floatBelly = arg0
   }
   Then("""^I should have one and a half floats in my belly$""") { () =>
