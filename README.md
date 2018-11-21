@@ -7,7 +7,7 @@
 To use cucumber-jvm-scala in your project, add the following line to your `build.sbt`
 
 ```scala
-libraryDependencies += "io.cucumber" %% "cucumber-scala" % 4.2.0 % Test
+libraryDependencies += "io.cucumber" %% "cucumber-scala" % "4.2.0" % Test
 ```
 
 ### Maven
