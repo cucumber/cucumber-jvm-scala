@@ -4,6 +4,7 @@ import java.util.{List => JList}
 
 import gherkin.pickles.PickleStep
 import java.lang.reflect.Modifier
+import java.net.URI
 
 import cucumber.runtime.snippets.SnippetGenerator
 import cucumber.runtime.snippets.FunctionNameGenerator
@@ -43,11 +44,11 @@ class ScalaBackend(resourceLoader:ResourceLoader, typeRegistry: TypeRegistry) ex
     //I don't believe scala has to do anything to clean out its world
   }
 
-  def loadGlue(glue: Glue, gluePaths: JList[String]) {
+  def loadGlue(glue: Glue, gluePaths: JList[URI]) {
 
     val cl = Thread.currentThread().getContextClassLoader
     val classFinder = new ResourceLoaderClassFinder(resourceLoader, cl)
-    val packages = gluePaths.asScala map { cucumber.runtime.io.MultiLoader.packageName(_) }
+    val packages = gluePaths.asScala
     val dslClasses = packages flatMap { classFinder.getDescendants(classOf[ScalaDsl], _).asScala } filter { cls =>
       try {
         cls.getDeclaredConstructor()
