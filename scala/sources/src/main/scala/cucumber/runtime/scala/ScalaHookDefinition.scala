@@ -15,9 +15,9 @@ class ScalaHookDefinition(f:Scenario => Unit,
 
   val tagPredicate = new TagPredicate(tags.asJava)
 
-  def getLocation(detail: Boolean) = "TODO: Implement getLocation in similar fashion to ScalaStepDefinition"
+  def getLocation(detail: Boolean)  = "TODO: Implement getLocation in similar fashion to ScalaStepDefinition"
 
-  def execute(scenario: Scenario) { f(scenario) }
+  def execute(scenario: Scenario): Unit = f(scenario) 
 
   def matches(tags: Collection[PickleTag]) = tagPredicate.apply(tags)
 

@@ -34,17 +34,15 @@ class ScalaBackend(resourceLoader:ResourceLoader, typeRegistry: TypeRegistry) ex
 
   def getBeforeStepHooks = instances.flatMap(_.beforeStepHooks)
 
-  def disposeWorld() {
-    instances = Nil
-  }
+  def disposeWorld() : Unit  = { instances = Nil }
 
   def getSnippet(step: PickleStep, keyword: String, functionNameGenerator: FunctionNameGenerator) = snippetGenerator.getSnippet(step, keyword, functionNameGenerator)
 
-  def buildWorld() {
+  def buildWorld() : Unit = {
     //I don't believe scala has to do anything to clean out its world
   }
 
-  def loadGlue(glue: Glue, gluePaths: JList[URI]) {
+  def loadGlue(glue: Glue, gluePaths: JList[URI]) : Unit = {
 
     val cl = Thread.currentThread().getContextClassLoader
     val classFinder = new ResourceLoaderClassFinder(resourceLoader, cl)
@@ -70,15 +68,16 @@ class ScalaBackend(resourceLoader:ResourceLoader, typeRegistry: TypeRegistry) ex
       instField.setAccessible(true)
       instField.get(null).asInstanceOf[ScalaDsl]
     }
-    val clsInstances = clsClasses map {_.newInstance()}
+    val clsInstances = clsClasses.map {_.newInstance()}
 
-    instances = objInstances ++ clsInstances
+    instances = objInstances.toSeq ++ clsInstances
 
     getStepDefinitions map {glue.addStepDefinition(_)}
     getBeforeHooks map {glue.addBeforeHook(_)}
     getAfterHooks map  {glue.addAfterHook(_)}
     getAfterStepHooks map  {glue.addAfterStepHook(_)}
     getBeforeStepHooks map  {glue.addBeforeStepHook(_)}
+    ()
   }
 
 }

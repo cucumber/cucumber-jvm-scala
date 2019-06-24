@@ -29,7 +29,7 @@ class ScalaSnippetGenerator extends Snippet {
     def name(clazz: Class[_]) =
       if(clazz.isPrimitive){
         val name = clazz.getName
-        name.charAt(0).toUpper + name.substring(1)
+        s"${name.charAt(0).toUpper}${name.substring(1)}"
       } else
         clazz.getSimpleName
 

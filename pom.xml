@@ -37,7 +37,7 @@
         <mockito.version>1.10.19</mockito.version>
         <scala.2.12.version>2.12.7</scala.2.12.version>
         <scala.2.11.version>2.11.12</scala.2.11.version>
-
+	<scala.2.13.version>2.13.0</scala.2.13.version>
     </properties>
 
     <scm>
@@ -119,6 +119,7 @@
                                 <sourceDirectories>
                                     <sourceDirectory>${basedir}/scala/scala_2.11/target/generated-sources/i18n</sourceDirectory>
                                     <sourceDirectory>${basedir}/scala/scala_2.12/target/generated-sources/i18n</sourceDirectory>
+				    <sourceDirectory>${basedir}/scala/scala_2.13/target/generated-sources/i18n</sourceDirectory>
                                 </sourceDirectories>
                             </configuration>
                         </plugin>
