@@ -14,7 +14,7 @@ case class Op(value: String) extends Arg
 case class Val(value: Double) extends Arg
 
 class RpnCalculator {
-  private val stack = new Queue[Double]
+  private val stack = Queue.empty[Double]
 
   private def op(f: (Double, Double) => Double) =
     stack += f(stack.dequeue(), stack.dequeue())
