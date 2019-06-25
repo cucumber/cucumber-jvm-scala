@@ -13,6 +13,7 @@
 
     <modules>
         <module>scala_2.11</module>
+	<module>scala_2.13</module>
     </modules>
 
     <profiles>
