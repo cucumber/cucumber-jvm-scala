@@ -10,12 +10,15 @@ jobs:
   - stage: test
     scala: 2.11
     script: mvn test -pl scala/scala_2.11 -B
+    jdk: openjdk8
   - stage: test
     scala: 2.12
     script: mvn test -pl scala/scala_2.12,examples -B
+    jdk: openjdk8
   - stage: test
     scala: 2.13
     script: mvn test -pl scala/scala_2.13,examples -B
+    jdk: openjdk8
   - stage: deploy
     jdk: openjdk8
     script:
