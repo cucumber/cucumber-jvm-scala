@@ -21,6 +21,8 @@ class ScalaDslTest {
 
     def embed(p1: Array[Byte], p2: String) {}
 
+    def embed(p1: Array[Byte], p2: String, p3: String) {}
+
     def write(p1: String) {}
 
     def getName = ""
@@ -137,7 +139,7 @@ class ScalaDslTest {
 
     assertEquals(1, Dummy.getStepDefs(new TypeRegistry(Locale.ENGLISH)).size)
     val step = Dummy.getStepDefs(new TypeRegistry(Locale.ENGLISH)).head
-    assertEquals("ScalaDslTest.scala:135", step.getLocation(true)) // be careful with formatting or this test will break
+    assertEquals("ScalaDslTest.scala:137", step.getLocation(true)) // be careful with formatting or this test will break
     assertEquals("x", step.getPattern)
     step.execute( Array())
     assertTrue(called)
