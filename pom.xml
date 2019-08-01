@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-jvm-scala</artifactId>
-    <version>4.6.0-SNAPSHOT</version>
+    <version>4.5.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Scala</name>
     <description>Cucumber for Scala</description>
@@ -199,11 +199,6 @@
                     <groupId>net.alchim31.maven</groupId>
                     <artifactId>scala-maven-plugin</artifactId>
                     <version>${scala-maven-plugin.version}</version>
-                    <configuration>
-                        <args>
-                            <arg>-nobootcp</arg>
-                        </args>
-                    </configuration>
                 </plugin>
 
             </plugins>
