@@ -1,4 +1,4 @@
-package cucumber.api.scala
+package io.cucumber.scala
 
 <% gherkin.GherkinDialectProvider.DIALECTS.keySet().findAll { !unsupported.contains(it) }.each { language -> %>
 trait ${language.replaceAll("[\\s-]", "_").toUpperCase()} {

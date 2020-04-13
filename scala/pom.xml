@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-jvm-scala</artifactId>
-        <version>4.7.2-SNAPSHOT</version>
+        <version>5.6.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>cucumber-scala-aggregator</artifactId>
@@ -41,6 +41,11 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -112,7 +117,7 @@ def unsupported = ["em"]
 def dialectProvider = new GherkinDialectProvider()
 def binding = ["dialectProvider":dialectProvider, "unsupported":unsupported]
 template = engine.createTemplate(templateSource).make(binding)
-def file = new File(project.baseDir, "target${File.separator}generated-sources${File.separator}i18n${File.separator}cucumber${File.separator}api${File.separator}scala${File.separator}I18n.scala")
+def file = new File(project.baseDir, "target${File.separator}generated-sources${File.separator}i18n${File.separator}io${File.separator}cucumber${File.separator}scala${File.separator}I18n.scala")
 file.parentFile.mkdirs()
 file.write(template.toString(), "UTF-8")
         ]]></groovy>
