@@ -29,10 +29,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
-        <scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>
+        <scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
         <cucumber.version>5.6.0</cucumber.version>
         <gherkin.version>5.1.0</gherkin.version>
-        <groovy.version>2.4.12</groovy.version>
+        <groovy.version>2.4.19</groovy.version>
         <jackson-databind.version>2.10.3</jackson-databind.version>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
