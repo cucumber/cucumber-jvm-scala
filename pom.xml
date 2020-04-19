@@ -36,9 +36,9 @@
         <jackson-databind.version>2.10.3</jackson-databind.version>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
-        <scala.2.12.version>2.12.7</scala.2.12.version>
         <scala.2.11.version>2.11.12</scala.2.11.version>
-	    <scala.2.13.version>2.13.0</scala.2.13.version>
+        <scala.2.12.version>2.12.11</scala.2.12.version>
+	    <scala.2.13.version>2.13.1</scala.2.13.version>
         <mockito-scala.version>1.13.9</mockito-scala.version>
     </properties>
 
