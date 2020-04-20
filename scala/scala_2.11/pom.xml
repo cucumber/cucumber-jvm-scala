@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-scala-aggregator</artifactId>
-        <version>4.7.2-SNAPSHOT</version>
+        <version>5.6.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>cucumber-scala_2.11</artifactId>
@@ -25,10 +25,22 @@
             <version>${scala.2.11.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-scala_2.11</artifactId>
+            <version>${mockito-scala.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <sourceDirectory>../sources/src/main/scala</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>../sources/src/main/resources</directory>
+            </resource>
+        </resources>
         <testSourceDirectory>../sources/src/test/scala</testSourceDirectory>
         <testResources>
             <testResource>
