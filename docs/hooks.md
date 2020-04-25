@@ -14,7 +14,7 @@ Scenario hooks run for every scenario.
 `Before` hooks run before the first step of each scenario.
 
 ```scala
-Before { scenario : Scenario =>
+Before {
   // Do something before each scenario
 }
 ```
@@ -24,7 +24,7 @@ Before { scenario : Scenario =>
 `After` hooks run after the last step of each scenario.
 
 ```scala
-After { scenario : Scenario =>
+After {
   // Do something after each scenario
 }
 ```
@@ -36,7 +36,7 @@ Step hooks invoked before and after a step.
 ### BeforeStep
 
 ```scala
-BeforeStep { scenario : Scenario =>
+BeforeStep { 
   // Do something before step
 }
 ```
@@ -44,8 +44,19 @@ BeforeStep { scenario : Scenario =>
 ### AfterStep
 
 ```scala
-AfterStep { scenario : Scenario =>
+AfterStep { 
   // Do something after step
+}
+```
+
+## Scenario parameter
+
+The scenario is available as parameter in all hooks.
+
+You can use it like this:
+```scala
+Before { scenario : Scenario =>
+  // Do something with the scenario
 }
 ```
 
@@ -54,7 +65,7 @@ AfterStep { scenario : Scenario =>
 Hooks can be conditionally selected for execution based on the tags of the scenario.
 
 ```scala
-Before("@browser and not @headless") { _ =>
+Before("@browser and not @headless") { 
   // Do something before each scenario with tag @browser but not @headless
 }
 ```
@@ -64,11 +75,11 @@ Before("@browser and not @headless") { _ =>
 You can define an order between multiple hooks.
 
 ```scala
-Before(10) { _ =>
+Before(10) { 
   // Do something before each scenario
 }
 
-Before(20) { _ =>
+Before(20) { 
   // Do something before each scenario
 }
 ```
@@ -79,7 +90,7 @@ The **default order is 1000**.
 
 You mix up conditional and order hooks with following syntax:
 ```scala
-Before("@browser and not @headless", 10) { _ =>
+Before("@browser and not @headless", 10) {
   // Do something before each scenario
 }
 ```
