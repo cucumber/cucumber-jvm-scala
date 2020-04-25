@@ -2,7 +2,10 @@ package io.cucumber.scala
 
 import java.lang.reflect.{ParameterizedType, Type}
 
+import io.cucumber.core.backend.{HookDefinition, StepDefinition}
 import io.cucumber.scala.Aliases.HookBody
+
+import scala.collection.mutable.ArrayBuffer
 
 /**
  * Base trait for a scala step definition implementation.
@@ -17,6 +20,8 @@ trait ScalaDsl {
   import scala.language.implicitConversions
 
   val registry = new ScalaDslRegistry()
+
+  // TODO support Before/After with no parameter
 
   def Before(body: HookBody): Unit = {
     Before(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)(body)
