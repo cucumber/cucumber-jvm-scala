@@ -1,4 +1,4 @@
-package tests
+package tests.cukes
 
 import java.lang.reflect.Type
 import java.util
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.cucumber.core.api.{TypeRegistry, TypeRegistryConfigurer}
 import io.cucumber.cucumberexpressions.{ParameterByTypeTransformer, ParameterType, Transformer}
 import io.cucumber.datatable.{DataTableType, TableCellByTypeTransformer, TableEntryByTypeTransformer, TableEntryTransformer}
-import tests.model.{Cukes, Person, Snake}
+import tests.cukes.model.{Cukes, Person, Snake}
 
 class TypeRegistryConfiguration extends TypeRegistryConfigurer {
 

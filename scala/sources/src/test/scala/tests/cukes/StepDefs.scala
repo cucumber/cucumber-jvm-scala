@@ -1,11 +1,11 @@
-package tests
+package tests.cukes
 
 import java.util.{List => JList, Map => JMap}
 
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
 import junit.framework.Assert._
-import tests.model.{Cukes, Person, Snake}
+import tests.cukes.model.{Cukes, Person, Snake}
 
 import scala.collection.JavaConverters._
 

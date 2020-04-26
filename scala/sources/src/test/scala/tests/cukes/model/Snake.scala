@@ -1,4 +1,4 @@
-package tests.model
+package tests.cukes.model
 
 /**
  * Test model "Snake" to exercise the custom mapper functionality
