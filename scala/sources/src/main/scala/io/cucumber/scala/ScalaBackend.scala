@@ -11,14 +11,15 @@ import io.cucumber.core.resource.{ClasspathScanner, ClasspathSupport}
 import scala.collection.JavaConverters._
 import scala.util.Try
 
-class ScalaBackend(classLoaderProvider: Supplier[ClassLoader]) extends Backend {
+class ScalaBackend(lookup: Lookup, container: Container, classLoaderProvider: Supplier[ClassLoader]) extends Backend {
 
   private val classFinder = new ClasspathScanner(classLoaderProvider)
 
-  private[scala] var scalaGlueInstances: Seq[ScalaDsl] = Nil
+  private var glueAdaptor: GlueAdaptor = _
+  private[scala] var scalaGlueClasses: Seq[Class[_ <: ScalaDsl]] = Nil
 
   override def disposeWorld(): Unit = {
-    scalaGlueInstances = Nil
+    // Nothing to do
   }
 
   override def getSnippet(): Snippet = {
@@ -26,38 +27,42 @@ class ScalaBackend(classLoaderProvider: Supplier[ClassLoader]) extends Backend {
   }
 
   override def buildWorld(): Unit = {
-    // Nothing to do
+    // Instantiate all the glue classes and load the glue code from them
+    scalaGlueClasses.foreach { glueClass =>
+      val glueInstance = lookup.getInstance(glueClass)
+      glueAdaptor.loadRegistry(glueInstance.registry, scenarioScoped = true)
+    }
   }
 
   override def loadGlue(glue: Glue, gluePaths: JList[URI]): Unit = {
+
+    glueAdaptor = new GlueAdaptor(glue)
 
     val dslClasses = gluePaths.asScala
       .filter(gluePath => ClasspathSupport.CLASSPATH_SCHEME.equals(gluePath.getScheme))
       .map(ClasspathSupport.packageName)
       .flatMap(basePackageName => classFinder.scanForSubClassesInPackage(basePackageName, classOf[ScalaDsl]).asScala)
       .filter(glueClass => !glueClass.isInterface)
-      .filter(glueClass => glueClass.getConstructors.length > 0)
 
     val (clsClasses, objClasses) = dslClasses.partition(isRegularClass)
 
+    // Retrieve Scala objects (singletons)
     val objInstances = objClasses.map { cls =>
       val instField = cls.getDeclaredField("MODULE$")
       instField.setAccessible(true)
       instField.get(null).asInstanceOf[ScalaDsl]
     }
-    val clsInstances = clsClasses.map {
-      _.newInstance()
+
+    // Regular Scala classes are added to the container, they will be instantiated by the container depending on its logic
+    // Object are not because by definition they are singletons
+    clsClasses.foreach { glueClass =>
+      container.addClass(glueClass)
+      scalaGlueClasses = scalaGlueClasses :+ glueClass
     }
 
-    // FIXME we should not create instances above but fill the container like Cucumber Java does
-    // https://github.com/cucumber/cucumber-jvm-scala/issues/1
-    //clsClasses.foreach(container.addClass(_))
-    scalaGlueInstances = objInstances.toSeq ++ clsInstances
-
-    val glueAdaptor = new GlueAdaptor(glue)
-
-    scalaGlueInstances.foreach { glueInstance =>
-      glueAdaptor.addDefinition(glueInstance.registry)
+    // For object, we add the definitions here, once for all
+    objInstances.foreach { glueInstance =>
+      glueAdaptor.loadRegistry(glueInstance.registry, scenarioScoped = false)
     }
 
     ()
