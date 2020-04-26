@@ -5,6 +5,8 @@ If you are using Cucumber Scala 4.7.x and want to upgrade to 5.x, please note th
 Starting from version 5.x, Cucumber Scala will try to be as close as possible to the Cucumber Java implementation while remaining Scala oriented.
 This means that package names, parameters order, internal code... will be more consistent with the Java implementation.
 
+See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CHANGELOG.md) from Cucumber Core.
+
 ## Packages
 
 All Cucumber Scala classes are now under `io.cucumber.scala` package instead of `cucumber.api.scala`.
