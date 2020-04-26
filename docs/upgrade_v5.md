@@ -14,7 +14,7 @@ All Cucumber Scala classes are now under `io.cucumber.scala` package instead of 
 The `Before`, `BeforeStep`, `After` and `AfterStep` definitions have slightly changed:
 - to apply only to scenarios with some tags, the `String*` parameter is replaced by a single tag expression of type `String`.
 This changes comes from Cucumber itself.
-- if providing both an order and a tag expression, the order is now the second parameter instead of the first.
+- if providing both an _order_ and a _tag expression_, the _order_ is now the second parameter instead of the first.
 This is more consistent with the Java implementation.
 
 For instance, the following code:
@@ -30,6 +30,21 @@ Is replaced by:
 ```scala
 Before("@tag1 or @tag2", 1) { _ =>
   // Do Something    
+}
+```
+
+### Other changes
+
+As a side effect the following usage no longer compiles:
+```scala
+Before() { _ =>
+  // Do something
+}
+```
+It can be replaced with:
+```scala
+Before { _ =>
+  // Do something
 }
 ```
 
