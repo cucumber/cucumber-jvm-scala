@@ -11,8 +11,9 @@ See: https://cucumber.io/support
 
 ## Compatibility matrix
 
-The Cucumber Scala version matches the Cucumber version except for the bugfix number
-which can be different.
+The Cucumber Scala major version matches the Cucumber major version.
+
+The minor version might differ because Cucumber Scala may add Scala-related features without waiting for a Cucumber minor version.
 
 | Cucumber Scala version | Cucumber version | Scala versions   |
 |------------------------|------------------|------------------|
@@ -30,7 +31,7 @@ which can be different.
   - [Hooks](docs/hooks.md)
 - [Example project](examples/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
-- [Changelog](https://github.com/cucumber/cucumber-jvm-scala/releases)
+- [Changelog](CHANGELOG.md)
 
 ## Contributing
 
