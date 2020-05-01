@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-<% gherkin.GherkinDialectProvider.DIALECTS.keySet().findAll { !unsupported.contains(it) }.each { language -> %>
+<% dialectProvider.getLanguages().findAll { !unsupported.contains(it) }.each { language -> %>
 trait ${language.replaceAll("[\\s-]", "_").toUpperCase()} {
   this: ScalaDsl =>
 <% dialectProvider.getDialect(language, null).stepKeywords.findAll { !it.contains('*') && !it.matches("^\\d.*") }.sort().unique().each { kw -> %>

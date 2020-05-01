@@ -31,7 +31,7 @@
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
         <cucumber.version>5.6.0</cucumber.version>
-        <gherkin.version>5.1.0</gherkin.version>
+        <gherkin.version>9.2.0</gherkin.version>
         <groovy.version>2.4.19</groovy.version>
         <jackson-databind.version>2.10.3</jackson-databind.version>
         <junit.version>4.12</junit.version>
@@ -143,6 +143,10 @@
                             <artifactId>groovy-all</artifactId>
                             <version>${groovy.version}</version>
                         </dependency>
+                        <!--
+                        Gherkin is used during build time to generate code. We add it to the plugin classpath to prevent polluting
+                        the compile/test classpaths.
+                        -->
                         <dependency>
                             <groupId>io.cucumber</groupId>
                             <artifactId>gherkin</artifactId>

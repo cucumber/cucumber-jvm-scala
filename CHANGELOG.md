@@ -21,6 +21,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
   - Hooks definition changed
   - See [Upgrade Guide](docs/upgrade_v5.md)
 - [Build] Update Scala versions to 2.12.11 and 2.13.1 ([#23](https://github.com/cucumber/cucumber-jvm-scala/issues/23) Gaël Jourdan-Weil)
+- [Gherkin] Update Gherkin version to 9.2.0 
+  - New `MR` and `ME` traits available
 
 ### Deprecated
 
