@@ -2,10 +2,9 @@ package io.cucumber.scala
 
 import java.lang.reflect.{ParameterizedType, Type}
 
-import io.cucumber.core.backend.{HookDefinition, StepDefinition}
-import io.cucumber.scala.Aliases.HookBody
+import io.cucumber.scala.Aliases.{DocStringDefinitionBody, HookBody}
 
-import scala.collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /**
  * Base trait for a scala step definition implementation.
@@ -13,6 +12,7 @@ import scala.collection.mutable.ArrayBuffer
 trait ScalaDsl {
   self =>
 
+  val NO_REPLACEMENT = Seq[String]()
   val EMPTY_TAG_EXPRESSION = ""
   val DEFAULT_BEFORE_ORDER = 1000
   val DEFAULT_AFTER_ORDER = 1000
@@ -85,6 +85,36 @@ trait ScalaDsl {
 
   def AfterStep(tagExpression: String, order: Int)(body: HookBody): Unit = {
     registry.afterStepHooks += ScalaHookDetails(tagExpression, order, body)
+  }
+
+  def DocStringType[T](contentType: String)(body: DocStringDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+    registry.docStringTypes += ScalaDocStringTypeDetails[T](contentType, body, ev)
+  }
+
+  def DataTableType: DataTableTypeBody = DataTableType(NO_REPLACEMENT)
+
+  def DataTableType(replaceWithEmptyString: String): DataTableTypeBody = DataTableType(Seq(replaceWithEmptyString))
+
+  private def DataTableType(replaceWithEmptyString: Seq[String]) = new DataTableTypeBody(replaceWithEmptyString)
+
+  final class DataTableTypeBody(replaceWithEmptyString: Seq[String]) {
+
+    def apply[T](body: DataTableEntryDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableEntryTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+    def apply[T](body: DataTableRowDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableRowTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+    def apply[T](body: DataTableCellDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableCellTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+    def apply[T](body: DataTableDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableTableTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
   }
 
 

@@ -2,12 +2,37 @@ package io.cucumber.scala
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-import io.cucumber.core.backend.{CucumberInvocationTargetException, HookDefinition, StepDefinition, TestCaseState}
+import io.cucumber.core.backend._
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.ScalaDslTest.{Author, Cell, GroupOfAuthor}
 import org.junit.Assert.{assertEquals, assertTrue}
 import org.junit.{Before, Test}
 import org.mockito.Mockito.mock
 
+import scala.collection.JavaConverters._
 import scala.util.Try
+
+object ScalaDslTest {
+
+  private case class GroupOfAuthor(authors: Seq[Author])
+
+  private case class Author(name: String, surname: String, famousBook: String)
+
+  private case class Cell(cell: String)
+
+  val DATATABLE: Seq[Seq[String]] = Seq(
+    Seq("name", "surname", "famousBook"),
+    Seq("Alan", "Alou", "The Lion King"),
+    Seq("Robert", "Bob", "Le Petit Prince")
+  )
+
+  val DATATABLE_WITH_EMPTY: Seq[Seq[String]] = Seq(
+    Seq("name", "surname", "famousBook"),
+    Seq("Alan", "Alou", "The Lion King"),
+    Seq("Robert", "[empty]", "Le Petit Prince")
+  )
+
+}
 
 class ScalaDslTest {
 
@@ -264,7 +289,7 @@ class ScalaDslTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:261", Array(), invoked)
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:286", Array(), invoked)
   }
 
   @Test
@@ -280,7 +305,7 @@ class ScalaDslTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:276", Array(), invoked)
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:301", Array(), invoked)
   }
 
   @Test
@@ -298,7 +323,7 @@ class ScalaDslTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:293", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:318", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
   }
 
   @Test
@@ -313,7 +338,173 @@ class ScalaDslTest {
 
     val glue = new GlueWithException()
 
-    assertClassStepDefinitionThrow(glue.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 310, Array())
+    assertClassStepDefinitionThrow(glue.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 335, Array())
+  }
+
+  @Test
+  def testDocStringType(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DocStringType("doc") { docString =>
+        new StringBuilder(docString)
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassDocStringType(glue.registry.docStringTypes.head)
+  }
+
+  @Test
+  def testDataTableEntryType(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType { entry: Map[String, String] =>
+        Author(entry("name"), entry("surname"), entry("famousBook"))
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "Bob", "Le Petit Prince")
+    ).asJava
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE, expected)
+  }
+
+  @Test
+  def testDataTableEntryTypeWithReplacement(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (entry: Map[String, String]) =>
+        Author(entry("name"), entry("surname"), entry("famousBook"))
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "", "Le Petit Prince")
+    ).asJava
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY, expected)
+  }
+
+  @Test
+  def testDataTableRowType(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType { row: Seq[String] =>
+        Author(row(0), row(1), row(2))
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "Bob", "Le Petit Prince")
+    ).asJava
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE.drop(1), expected)
+  }
+
+  @Test
+  def testDataTableRowTypeWithReplacement(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (row: Seq[String]) =>
+        Author(row(0), row(1), row(2))
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "", "Le Petit Prince")
+    ).asJava
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY.drop(1), expected)
+  }
+
+  @Test
+  def testDataTableCellType(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType { cell: String =>
+        Cell(cell)
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = Seq(
+      Seq(Cell("Alan"), Cell("Alou"), Cell("The Lion King")).asJava,
+      Seq(Cell("Robert"), Cell("Bob"), Cell("Le Petit Prince")).asJava
+    ).asJava
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE.drop(1), expected)
+  }
+
+  @Test
+  def testDataTableCellTypeWithReplacement(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (cell: String) =>
+        Cell(cell)
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = Seq(
+      Seq(Cell("Alan"), Cell("Alou"), Cell("The Lion King")).asJava,
+      Seq(Cell("Robert"), Cell(""), Cell("Le Petit Prince")).asJava
+    ).asJava
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY.drop(1), expected)
+  }
+
+  @Test
+  def testClassDataTableTableType(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType { table: DataTable =>
+        val authors = table.asMaps().asScala
+          .map(_.asScala)
+          .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
+          .toSeq
+        GroupOfAuthor(authors)
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = GroupOfAuthor(Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "Bob", "Le Petit Prince")
+    ))
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE, expected)
+  }
+
+  @Test
+  def testClassDataTableTableTypeWithReplacement(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (table: DataTable) =>
+        val authors = table.asMaps().asScala
+          .map(_.asScala)
+          .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
+          .toSeq
+        GroupOfAuthor(authors)
+      }
+    }
+
+    val glue = new Glue()
+
+    val expected = GroupOfAuthor(Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "", "Le Petit Prince")
+    ))
+    assertClassDataTableType(glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY, expected)
   }
 
   // -------------------- Test on object --------------------
@@ -524,7 +715,7 @@ class ScalaDslTest {
       //@formatter:on
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:523", Array(), invoked)
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:714", Array(), invoked)
   }
 
   @Test
@@ -538,7 +729,7 @@ class ScalaDslTest {
       }
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:536", Array(), invoked)
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:727", Array(), invoked)
   }
 
   @Test
@@ -554,7 +745,7 @@ class ScalaDslTest {
       }
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:551", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:742", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
   }
 
   @Test
@@ -567,8 +758,157 @@ class ScalaDslTest {
       }
     }
 
-    assertObjectStepDefinitionThrow(GlueWithException.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 566, Array())
+    assertObjectStepDefinitionThrow(GlueWithException.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 757, Array())
   }
+
+  @Test
+  def testObjectDocStringType(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DocStringType("doc") { docString =>
+        new StringBuilder(docString)
+      }
+    }
+
+    assertObjectDocStringType(Glue.registry.docStringTypes.head)
+  }
+
+  @Test
+  def testObjectDataTableEntryType(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType { entry: Map[String, String] =>
+        Author(entry("name"), entry("surname"), entry("famousBook"))
+      }
+    }
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "Bob", "Le Petit Prince")
+    ).asJava
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE, expected)
+  }
+
+  @Test
+  def testObjectDataTableEntryTypeWithReplacement(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (entry: Map[String, String]) =>
+        Author(entry("name"), entry("surname"), entry("famousBook"))
+      }
+    }
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "", "Le Petit Prince")
+    ).asJava
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY, expected)
+  }
+
+  @Test
+  def testObjectDataTableRowType(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType { row: Seq[String] =>
+        Author(row(0), row(1), row(2))
+      }
+    }
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "Bob", "Le Petit Prince")
+    ).asJava
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE.drop(1), expected)
+  }
+
+  @Test
+  def testObjectDataTableRowTypeWithReplacement(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (row: Seq[String]) =>
+        Author(row(0), row(1), row(2))
+      }
+    }
+
+    val expected = Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "", "Le Petit Prince")
+    ).asJava
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY.drop(1), expected)
+  }
+
+  @Test
+  def testObjectDataTableCellType(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType { cell: String =>
+        Cell(cell)
+      }
+    }
+
+    val expected = Seq(
+      Seq(Cell("Alan"), Cell("Alou"), Cell("The Lion King")).asJava,
+      Seq(Cell("Robert"), Cell("Bob"), Cell("Le Petit Prince")).asJava
+    ).asJava
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE.drop(1), expected)
+  }
+
+  @Test
+  def testObjectDataTableCellTypeWithReplacement(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (cell: String) =>
+        Cell(cell)
+      }
+    }
+
+    val expected = Seq(
+      Seq(Cell("Alan"), Cell("Alou"), Cell("The Lion King")).asJava,
+      Seq(Cell("Robert"), Cell(""), Cell("Le Petit Prince")).asJava
+    ).asJava
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY.drop(1), expected)
+  }
+
+  @Test
+  def testObjectDataTableTableType(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType { table: DataTable =>
+        val authors = table.asMaps().asScala
+          .map(_.asScala)
+          .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
+          .toSeq
+        GroupOfAuthor(authors)
+      }
+    }
+
+    val expected = GroupOfAuthor(Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "Bob", "Le Petit Prince")
+    ))
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq(), ScalaDslTest.DATATABLE, expected)
+  }
+
+  @Test
+  def testObjectDataTableTableTypeWithReplacement(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      DataTableType("[empty]") { (table: DataTable) =>
+        val authors = table.asMaps().asScala
+          .map(_.asScala)
+          .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
+          .toSeq
+        GroupOfAuthor(authors)
+      }
+    }
+
+    val expected = GroupOfAuthor(Seq(
+      Author("Alan", "Alou", "The Lion King"),
+      Author("Robert", "", "Le Petit Prince")
+    ))
+    assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY, expected)
+  }
+
 
   private def assertClassHook(hookDetails: ScalaHookDetails, tagExpression: String, order: Int): Unit = {
     assertHook(ScalaHookDefinition(hookDetails, true), tagExpression, order)
@@ -627,6 +967,34 @@ class ScalaDslTest {
     assertTrue(matched.getClassName.contains(exceptionClassName))
     assertEquals(exceptionFile, matched.getFileName)
     assertEquals(exceptionLine, matched.getLineNumber)
+  }
+
+  private def assertClassDocStringType(details: ScalaDocStringTypeDetails[_]): Unit = {
+    assertDocStringType(ScalaDocStringTypeDefinition(details, true))
+  }
+
+  private def assertObjectDocStringType(details: ScalaDocStringTypeDetails[_]): Unit = {
+    assertDocStringType(ScalaDocStringTypeDefinition(details, false))
+  }
+
+  private def assertDocStringType(docStringType: DocStringTypeDefinition): Unit = {
+    // Cannot assert much because everything is strangely private in DocStringTypeDefinition
+    // Real feature tests will do the job
+  }
+
+  private def assertClassDataTableType(details: ScalaDataTableTypeDetails[_], emptyPatterns: Seq[String], dataTable: Seq[Seq[String]], expectedObj: Any): Unit = {
+    assertDataTableType(ScalaDataTableTypeDefinition(details, true), emptyPatterns, dataTable, expectedObj)
+  }
+
+  private def assertObjectDataTableType(details: ScalaDataTableTypeDetails[_], emptyPatterns: Seq[String], dataTable: Seq[Seq[String]], expectedObj: Any): Unit = {
+    assertDataTableType(ScalaDataTableTypeDefinition(details, false), emptyPatterns, dataTable, expectedObj)
+  }
+
+  private def assertDataTableType(dataTableType: ScalaDataTableTypeDefinition, emptyPatterns: Seq[String], dataTable: Seq[Seq[String]], expectedObj: Any): Unit = {
+    assertEquals(emptyPatterns, dataTableType.emptyPatterns)
+
+    val obj = dataTableType.dataTableType.transform(dataTable.map(_.asJava).asJava)
+    assertEquals(expectedObj, obj)
   }
 
 }

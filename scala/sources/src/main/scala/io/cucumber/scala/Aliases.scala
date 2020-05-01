@@ -9,4 +9,6 @@ object Aliases {
 
   type StepDefinitionBody = () => Unit
 
+  type DocStringDefinitionBody[T] = String => T
+
 }

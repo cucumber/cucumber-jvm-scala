@@ -14,5 +14,9 @@ class ScalaDslRegistry {
 
   val afterStepHooks = new ArrayBuffer[ScalaHookDetails]
 
+  val docStringTypes = new ArrayBuffer[ScalaDocStringTypeDetails[_]]
+
+  val dataTableTypes = new ArrayBuffer[ScalaDataTableTypeDetails[_]]
+
 }
 
