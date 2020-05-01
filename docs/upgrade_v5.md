@@ -51,3 +51,17 @@ Before { _ =>
 ```
 
 See also the [Hooks documentation](hooks.md).
+
+## Under the hood
+
+### Instantiate glue classes per scenario
+
+Before Cucumber Scala 5.x, glue classes (classes extending `ScalaDsl`) were instantiated only once for a test suite.
+
+This means that if you wanted to keep state between steps of your scenarios, you had to make sure the state was not shared to other scenarios by using hooks or manual checks.
+
+Starting from Cucumber Scala 5.x, **each scenario creates new glue class instances**.
+
+You should not notice any change unless you rely on state kept between scenarios in your glue classes.
+Please note that this is not the proper way to keep a state.
+You might want to use an `object` for this purpose.  

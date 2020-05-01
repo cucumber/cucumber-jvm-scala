@@ -7,7 +7,7 @@ import io.cucumber.core.backend.{Backend, BackendProviderService, Container, Loo
 class ScalaBackendProviderService extends BackendProviderService {
 
   override def create(lookup: Lookup, container: Container, classLoaderSupplier: Supplier[ClassLoader]): Backend = {
-    new ScalaBackend(classLoaderSupplier)
+    new ScalaBackend(lookup, container, classLoaderSupplier)
   }
 
 }

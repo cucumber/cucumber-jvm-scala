@@ -1,4 +1,4 @@
-package tests.model
+package tests.cukes.model
 
 /**
  * Test model for a "Person"
