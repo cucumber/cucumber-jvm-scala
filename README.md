@@ -29,6 +29,7 @@ The minor version might differ because Cucumber Scala may add Scala-related feat
   - [Basic usage](docs/usage.md)
   - [Step Definitions](docs/step_definitions.md)
   - [Hooks](docs/hooks.md)
+  - [Transformers](docs/transformers.md)
 - [Example project](examples/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)
