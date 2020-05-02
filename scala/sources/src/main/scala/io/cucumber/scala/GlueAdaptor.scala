@@ -18,6 +18,7 @@ class GlueAdaptor(glue: Glue) {
     registry.beforeStepHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addBeforeStepHook)
     registry.docStringTypes.map(ScalaDocStringTypeDefinition(_, scenarioScoped)).foreach(glue.addDocStringType)
     registry.dataTableTypes.map(ScalaDataTableTypeDefinition(_, scenarioScoped)).foreach(glue.addDataTableType)
+    registry.parameterTypes.map(ScalaParameterTypeDefinition(_, scenarioScoped)).foreach(glue.addParameterType)
   }
 
 }

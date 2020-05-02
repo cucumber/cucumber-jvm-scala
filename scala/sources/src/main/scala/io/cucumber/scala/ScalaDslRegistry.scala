@@ -18,5 +18,7 @@ class ScalaDslRegistry {
 
   val dataTableTypes = new ArrayBuffer[ScalaDataTableTypeDetails[_]]
 
+  val parameterTypes = new ArrayBuffer[ScalaParameterTypeDetails[_]]
+
 }
 

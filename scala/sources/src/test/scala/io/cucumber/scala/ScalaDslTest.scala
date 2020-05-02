@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 import io.cucumber.core.backend._
 import io.cucumber.datatable.DataTable
-import io.cucumber.scala.ScalaDslTest.{Author, Cell, GroupOfAuthor}
+import io.cucumber.scala.ScalaDslTest.{Author, Cell, GroupOfAuthor, Point}
 import org.junit.Assert.{assertEquals, assertTrue}
 import org.junit.{Before, Test}
 import org.mockito.Mockito.mock
@@ -31,6 +31,8 @@ object ScalaDslTest {
     Seq("Alan", "Alou", "The Lion King"),
     Seq("Robert", "[empty]", "Le Petit Prince")
   )
+
+  private case class Point(x: Int, y: Int)
 
 }
 
@@ -289,7 +291,7 @@ class ScalaDslTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:286", Array(), invoked)
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:288", Array(), invoked)
   }
 
   @Test
@@ -305,7 +307,7 @@ class ScalaDslTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:301", Array(), invoked)
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:303", Array(), invoked)
   }
 
   @Test
@@ -323,7 +325,7 @@ class ScalaDslTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:318", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:320", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
   }
 
   @Test
@@ -338,7 +340,7 @@ class ScalaDslTest {
 
     val glue = new GlueWithException()
 
-    assertClassStepDefinitionThrow(glue.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 335, Array())
+    assertClassStepDefinitionThrow(glue.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 337, Array())
   }
 
   @Test
@@ -505,6 +507,48 @@ class ScalaDslTest {
       Author("Robert", "", "Le Petit Prince")
     ))
     assertClassDataTableType(glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY, expected)
+  }
+
+  @Test
+  def testClassParameterType1(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      ParameterType("string-builder", ".*") { str =>
+        new StringBuilder(str)
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassParameterType(glue.registry.parameterTypes.head, "string-builder", Seq(".*"), classOf[StringBuilder])
+  }
+
+  @Test
+  def testClassParameterType2(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      ParameterType("coordinates", "(.+),(.+)") { (x, y) =>
+        Point(x.toInt, y.toInt)
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassParameterType(glue.registry.parameterTypes.head, "coordinates", Seq("(.+),(.+)"), classOf[Point])
+  }
+
+  @Test
+  def testClassParameterType3(): Unit = {
+
+    class Glue extends ScalaDsl with EN {
+      ParameterType("ingredients", "(.+), (.+) and (.+)") { (x, y, z) =>
+        s"$x-$y-$z"
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassParameterType(glue.registry.parameterTypes.head, "ingredients", Seq("(.+), (.+) and (.+)"), classOf[String])
   }
 
   // -------------------- Test on object --------------------
@@ -715,7 +759,7 @@ class ScalaDslTest {
       //@formatter:on
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:714", Array(), invoked)
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:758", Array(), invoked)
   }
 
   @Test
@@ -729,7 +773,7 @@ class ScalaDslTest {
       }
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:727", Array(), invoked)
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslTest.scala:771", Array(), invoked)
   }
 
   @Test
@@ -745,7 +789,7 @@ class ScalaDslTest {
       }
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:742", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslTest.scala:786", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
   }
 
   @Test
@@ -758,7 +802,7 @@ class ScalaDslTest {
       }
     }
 
-    assertObjectStepDefinitionThrow(GlueWithException.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 757, Array())
+    assertObjectStepDefinitionThrow(GlueWithException.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslTest$GlueWithException", "ScalaDslTest.scala", 801, Array())
   }
 
   @Test
@@ -909,6 +953,42 @@ class ScalaDslTest {
     assertObjectDataTableType(Glue.registry.dataTableTypes.head, Seq("[empty]"), ScalaDslTest.DATATABLE_WITH_EMPTY, expected)
   }
 
+  @Test
+  def testObjectParameterType1(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      ParameterType("string-builder", ".*") { str =>
+        new StringBuilder(str)
+      }
+    }
+
+    assertObjectParameterType(Glue.registry.parameterTypes.head, "string-builder", Seq(".*"), classOf[StringBuilder])
+  }
+
+  @Test
+  def testObjectParameterType2(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      ParameterType("coordinates", "(.+),(.+)") { (x, y) =>
+        Point(x.toInt, y.toInt)
+      }
+    }
+
+    assertObjectParameterType(Glue.registry.parameterTypes.head, "coordinates", Seq("(.+),(.+)"), classOf[Point])
+  }
+
+  @Test
+  def testObjectParameterType3(): Unit = {
+
+    object Glue extends ScalaDsl with EN {
+      ParameterType("ingredients", "(.+), (.+) and (.+)") { (x, y, z) =>
+        s"$x-$y-$z"
+      }
+    }
+
+    assertObjectParameterType(Glue.registry.parameterTypes.head, "ingredients", Seq("(.+), (.+) and (.+)"), classOf[String])
+  }
+
 
   private def assertClassHook(hookDetails: ScalaHookDetails, tagExpression: String, order: Int): Unit = {
     assertHook(ScalaHookDefinition(hookDetails, true), tagExpression, order)
@@ -997,5 +1077,22 @@ class ScalaDslTest {
     assertEquals(expectedObj, obj)
   }
 
-}
+  private def assertClassParameterType(details: ScalaParameterTypeDetails[_], name: String, regexps: Seq[String], expectedType: Class[_]): Unit = {
+    assertParameterType(ScalaParameterTypeDefinition(details, true), name, regexps, expectedType)
+  }
 
+  private def assertObjectParameterType(details: ScalaParameterTypeDetails[_], name: String, regexps: Seq[String], expectedType: Class[_]): Unit = {
+    assertParameterType(ScalaParameterTypeDefinition(details, false), name, regexps, expectedType)
+  }
+
+  private def assertParameterType(parameterTypeDef: ParameterTypeDefinition, name: String, regexps: Seq[String], expectedType: Class[_]): Unit = {
+    val parameterType = parameterTypeDef.parameterType()
+
+    assertEquals(name, parameterType.getName)
+    assertEquals(regexps, parameterType.getRegexps.asScala)
+    assertEquals(expectedType, parameterType.getType)
+
+    // Cannot assert more because transform method is private
+  }
+
+}
