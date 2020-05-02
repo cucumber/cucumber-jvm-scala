@@ -6,11 +6,7 @@ import io.cucumber.scala.Aliases.{DocStringDefinitionBody, HookBody}
 
 import scala.reflect.ClassTag
 
-/**
- * Base trait for a scala step definition implementation.
- */
-trait ScalaDsl {
-  self =>
+private[scala] trait BaseScalaDsl {
 
   val NO_REPLACEMENT = Seq[String]()
   val EMPTY_TAG_EXPRESSION = ""
@@ -20,6 +16,17 @@ trait ScalaDsl {
   import scala.language.implicitConversions
 
   private[scala] val registry: ScalaDslRegistry = new ScalaDslRegistry()
+
+}
+
+/**
+ * Base trait for a scala step definition implementation.
+ */
+trait ScalaDsl extends BaseScalaDsl with StepDsl with HookDsl with DataTableTypeDsl with DocStringTypeDsl {
+
+}
+
+private[scala] trait HookDsl extends BaseScalaDsl {
 
   // TODO support Before/After with no parameter
 
@@ -87,9 +94,17 @@ trait ScalaDsl {
     registry.afterStepHooks += ScalaHookDetails(tagExpression, order, body)
   }
 
+}
+
+private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
+
   def DocStringType[T](contentType: String)(body: DocStringDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
     registry.docStringTypes += ScalaDocStringTypeDetails[T](contentType, body, ev)
   }
+
+}
+
+private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
 
   def DataTableType: DataTableTypeBody = DataTableType(NO_REPLACEMENT)
 
@@ -117,6 +132,10 @@ trait ScalaDsl {
 
   }
 
+}
+
+private[scala] trait StepDsl extends BaseScalaDsl {
+  self =>
 
   final class Step(name: String) {
     def apply(regex: String): StepBody = new StepBody(name, regex)
@@ -572,3 +591,4 @@ trait ScalaDsl {
   }
 
 }
+
