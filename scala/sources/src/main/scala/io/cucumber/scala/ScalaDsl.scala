@@ -2,7 +2,7 @@ package io.cucumber.scala
 
 import java.lang.reflect.{ParameterizedType, Type}
 
-import io.cucumber.scala.Aliases.{DocStringDefinitionBody, HookBody}
+import io.cucumber.scala.Aliases.{DefaultDataTableCellTransformerBody, DefaultDataTableEntryTransformerBody, DefaultParameterTransformerBody, DocStringDefinitionBody, HookBody}
 
 import scala.reflect.ClassTag
 
@@ -22,7 +22,7 @@ private[scala] trait BaseScalaDsl {
 /**
  * Base trait for a scala step definition implementation.
  */
-trait ScalaDsl extends BaseScalaDsl with StepDsl with HookDsl with DataTableTypeDsl with DocStringTypeDsl with ParameterTypeDsl {
+trait ScalaDsl extends BaseScalaDsl with StepDsl with HookDsl with DataTableTypeDsl with DocStringTypeDsl with ParameterTypeDsl with DefaultTransformerDsl {
 
 }
 
@@ -300,6 +300,38 @@ private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
       registry.parameterTypes += ScalaParameterTypeDetails[R](name, regex, pf, tag)
     }
 
+  }
+
+}
+
+private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
+
+  def DefaultParameterTransformer(body: DefaultParameterTransformerBody): Unit = {
+    registry.defaultParameterTransformers += ScalaDefaultParameterTransformerDetails(body)
+  }
+
+  def DefaultDataTableCellTransformer(body: DefaultDataTableCellTransformerBody): Unit = {
+    DefaultDataTableCellTransformer(NO_REPLACEMENT)(body)
+  }
+
+  def DefaultDataTableCellTransformer(replaceWithEmptyString: String)(body: DefaultDataTableCellTransformerBody): Unit = {
+    DefaultDataTableCellTransformer(Seq(replaceWithEmptyString))(body)
+  }
+
+  private def DefaultDataTableCellTransformer(replaceWithEmptyString: Seq[String])(body: DefaultDataTableCellTransformerBody): Unit = {
+    registry.defaultDataTableCellTransformers += ScalaDefaultDataTableCellTransformerDetails(replaceWithEmptyString, body)
+  }
+
+  def DefaultDataTableEntryTransformer(body: DefaultDataTableEntryTransformerBody): Unit = {
+    DefaultDataTableEntryTransformer(NO_REPLACEMENT)(body)
+  }
+
+  def DefaultDataTableEntryTransformer(replaceWithEmptyString: String)(body: DefaultDataTableEntryTransformerBody): Unit = {
+    DefaultDataTableEntryTransformer(Seq(replaceWithEmptyString))(body)
+  }
+
+  private def DefaultDataTableEntryTransformer(replaceWithEmptyString: Seq[String])(body: DefaultDataTableEntryTransformerBody): Unit = {
+    registry.defaultDataTableEntryTransformers += ScalaDefaultDataTableEntryTransformerDetails(replaceWithEmptyString, body)
   }
 
 }

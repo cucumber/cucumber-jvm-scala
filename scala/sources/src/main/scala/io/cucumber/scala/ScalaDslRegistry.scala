@@ -20,5 +20,11 @@ class ScalaDslRegistry {
 
   val parameterTypes = new ArrayBuffer[ScalaParameterTypeDetails[_]]
 
+  val defaultParameterTransformers = new ArrayBuffer[ScalaDefaultParameterTransformerDetails]
+
+  val defaultDataTableCellTransformers = new ArrayBuffer[ScalaDefaultDataTableCellTransformerDetails]
+
+  val defaultDataTableEntryTransformers = new ArrayBuffer[ScalaDefaultDataTableEntryTransformerDetails]
+
 }
 
