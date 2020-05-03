@@ -5,6 +5,9 @@ cache:
   directories:
   - "$HOME/.m2"
 
+install:
+  - mvn install -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true -B -V --toolchains .m2/travis-ci-toolchains.xml
+
 jobs:
   include:
   - stage: test
