@@ -14,19 +14,8 @@
     <modules>
         <module>scala_2.11</module>
 	    <module>scala_2.12</module>
+        <module>scala_2.13</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>java8</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <modules>
-                <module>scala_2.13</module>
-            </modules>
-        </profile>
-    </profiles>
 
     <dependencies>
         <dependency>

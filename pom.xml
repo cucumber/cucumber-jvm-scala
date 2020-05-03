@@ -1,6 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.cucumber</groupId>
     <artifactId>cucumber-jvm-scala</artifactId>
     <version>5.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -11,22 +11,13 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-parent</artifactId>
-        <version>1.0.2</version>
+        <version>2.1.0</version>
     </parent>
-
-    <developers>
-        <developer>
-            <id>glib-briia</id>
-            <name>Glib Briia</name>
-            <email>glib.briia@gmail.com</email>
-            <organization>AssertThat</organization>
-            <organizationUrl>https://www.assertthat.com</organizationUrl>
-        </developer>
-    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.Automatic-Module-Name>io.cucumber.scala</project.Automatic-Module-Name>
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
@@ -34,11 +25,13 @@
         <gherkin.version>9.2.0</gherkin.version>
         <groovy.version>2.4.19</groovy.version>
         <jackson-databind.version>2.10.3</jackson-databind.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13</junit.version>
         <scala.2.11.version>2.11.12</scala.2.11.version>
         <scala.2.12.version>2.12.11</scala.2.12.version>
-	    <scala.2.13.version>2.13.1</scala.2.13.version>
+        <scala.2.13.version>2.13.1</scala.2.13.version>
         <mockito-scala.version>1.13.9</mockito-scala.version>
+        <toolchain.vendor>openjdk</toolchain.vendor>
+        <toolchain.java.version>8</toolchain.java.version>
     </properties>
 
     <scm>
@@ -91,12 +84,6 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson-databind.version}</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -133,7 +120,7 @@
                                 <instrumentation>
                                     <ignoreTrivial>true</ignoreTrivial>
                                 </instrumentation>
-                                <check />
+                                <check/>
                             </configuration>
                         </plugin>
                         <plugin>
@@ -142,9 +129,12 @@
                             <version>4.3.0</version>
                             <configuration>
                                 <sourceDirectories>
-                                    <sourceDirectory>${basedir}/scala/scala_2.11/target/generated-sources/i18n</sourceDirectory>
-                                    <sourceDirectory>${basedir}/scala/scala_2.12/target/generated-sources/i18n</sourceDirectory>
-				    <sourceDirectory>${basedir}/scala/scala_2.13/target/generated-sources/i18n</sourceDirectory>
+                                    <sourceDirectory>${basedir}/scala/scala_2.11/target/generated-sources/i18n
+                                    </sourceDirectory>
+                                    <sourceDirectory>${basedir}/scala/scala_2.12/target/generated-sources/i18n
+                                    </sourceDirectory>
+                                    <sourceDirectory>${basedir}/scala/scala_2.13/target/generated-sources/i18n
+                                    </sourceDirectory>
                                 </sourceDirectories>
                             </configuration>
                         </plugin>
@@ -155,6 +145,29 @@
     </profiles>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-toolchains-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>toolchain</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <toolchains>
+                        <jdk>
+                            <version>${toolchain.java.version}</version>
+                            <vendor>${toolchain.vendor}</vendor>
+                        </jdk>
+                    </toolchains>
+                </configuration>
+            </plugin>
+        </plugins>
+
         <pluginManagement>
             <plugins>
                 <plugin>
