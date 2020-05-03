@@ -52,6 +52,12 @@ Before { _ =>
 
 See also the [Hooks documentation](hooks.md).
 
+## Transformers
+
+If you are using transformers defined with `TypeRegistryConfigurer`, please note that this is now deprecated in Cucumber Core.
+
+The recommended way to define transformers is to define them in glue code. See [Transformers](./transformers.md).
+
 ## Under the hood
 
 ### Instantiate glue classes per scenario

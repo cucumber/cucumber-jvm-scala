@@ -16,6 +16,12 @@ class GlueAdaptor(glue: Glue) {
     registry.afterHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addAfterHook)
     registry.afterStepHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addAfterStepHook)
     registry.beforeStepHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addBeforeStepHook)
+    registry.docStringTypes.map(ScalaDocStringTypeDefinition(_, scenarioScoped)).foreach(glue.addDocStringType)
+    registry.dataTableTypes.map(ScalaDataTableTypeDefinition(_, scenarioScoped)).foreach(glue.addDataTableType)
+    registry.parameterTypes.map(ScalaParameterTypeDefinition(_, scenarioScoped)).foreach(glue.addParameterType)
+    registry.defaultParameterTransformers.map(ScalaDefaultParameterTransformerDefinition(_, scenarioScoped)).foreach(glue.addDefaultParameterTransformer)
+    registry.defaultDataTableCellTransformers.map(ScalaDefaultDataTableCellTransformerDefinition(_, scenarioScoped)).foreach(glue.addDefaultDataTableCellTransformer)
+    registry.defaultDataTableEntryTransformers.map(ScalaDefaultDataTableEntryTransformerDefinition(_, scenarioScoped)).foreach(glue.addDefaultDataTableEntryTransformer)
   }
 
 }

@@ -9,4 +9,12 @@ object Aliases {
 
   type StepDefinitionBody = () => Unit
 
+  type DocStringDefinitionBody[T] = String => T
+
+  type DefaultParameterTransformerBody = (String, java.lang.reflect.Type) => AnyRef
+
+  type DefaultDataTableCellTransformerBody = (String, java.lang.reflect.Type) => AnyRef
+
+  type DefaultDataTableEntryTransformerBody = (Map[String, String], java.lang.reflect.Type) => AnyRef
+
 }

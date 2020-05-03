@@ -2,17 +2,13 @@ package io.cucumber.scala
 
 import java.lang.reflect.{ParameterizedType, Type}
 
-import io.cucumber.core.backend.{HookDefinition, StepDefinition}
-import io.cucumber.scala.Aliases.HookBody
+import io.cucumber.scala.Aliases.{DefaultDataTableCellTransformerBody, DefaultDataTableEntryTransformerBody, DefaultParameterTransformerBody, DocStringDefinitionBody, HookBody}
 
-import scala.collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
-/**
- * Base trait for a scala step definition implementation.
- */
-trait ScalaDsl {
-  self =>
+private[scala] trait BaseScalaDsl {
 
+  val NO_REPLACEMENT = Seq[String]()
   val EMPTY_TAG_EXPRESSION = ""
   val DEFAULT_BEFORE_ORDER = 1000
   val DEFAULT_AFTER_ORDER = 1000
@@ -20,6 +16,17 @@ trait ScalaDsl {
   import scala.language.implicitConversions
 
   private[scala] val registry: ScalaDslRegistry = new ScalaDslRegistry()
+
+}
+
+/**
+ * Base trait for a scala step definition implementation.
+ */
+trait ScalaDsl extends BaseScalaDsl with StepDsl with HookDsl with DataTableTypeDsl with DocStringTypeDsl with ParameterTypeDsl with DefaultTransformerDsl {
+
+}
+
+private[scala] trait HookDsl extends BaseScalaDsl {
 
   // TODO support Before/After with no parameter
 
@@ -87,6 +94,250 @@ trait ScalaDsl {
     registry.afterStepHooks += ScalaHookDetails(tagExpression, order, body)
   }
 
+}
+
+private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
+
+  def DocStringType[T](contentType: String)(body: DocStringDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+    registry.docStringTypes += ScalaDocStringTypeDetails[T](contentType, body, ev)
+  }
+
+}
+
+private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
+
+  def DataTableType: DataTableTypeBody = DataTableType(NO_REPLACEMENT)
+
+  def DataTableType(replaceWithEmptyString: String): DataTableTypeBody = DataTableType(Seq(replaceWithEmptyString))
+
+  private def DataTableType(replaceWithEmptyString: Seq[String]) = new DataTableTypeBody(replaceWithEmptyString)
+
+  final class DataTableTypeBody(replaceWithEmptyString: Seq[String]) {
+
+    def apply[T](body: DataTableEntryDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableEntryTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+    def apply[T](body: DataTableRowDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableRowTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+    def apply[T](body: DataTableCellDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableCellTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+    def apply[T](body: DataTableDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.dataTableTypes += ScalaDataTableTableTypeDetails[T](replaceWithEmptyString, body, ev)
+    }
+
+  }
+
+}
+
+private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
+
+  def ParameterType(name: String, regex: String) = new ParameterTypeBody(name, regex)
+
+  final class ParameterTypeBody(name: String, regex: String) {
+
+    // Important: use the piece of code in the file gen.scala to generate these methods easily
+
+    def apply[R](f: (String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1) =>
+          f(p1)
+      }
+    }
+
+    def apply[R](f: (String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2) =>
+          f(p1, p2)
+      }
+    }
+
+    def apply[R](f: (String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3) =>
+          f(p1, p2, p3)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4) =>
+          f(p1, p2, p3, p4)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5) =>
+          f(p1, p2, p3, p4, p5)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6) =>
+          f(p1, p2, p3, p4, p5, p6)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7) =>
+          f(p1, p2, p3, p4, p5, p6, p7)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21)
+      }
+    }
+
+    def apply[R](f: (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String) => R)(implicit tag: ClassTag[R]): Unit = {
+      register {
+        case List(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22) =>
+          f(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22)
+      }
+    }
+
+    private def register[R](pf: PartialFunction[List[String], R])(implicit tag: ClassTag[R]): Unit = {
+      registry.parameterTypes += ScalaParameterTypeDetails[R](name, regex, pf, tag)
+    }
+
+  }
+
+}
+
+private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
+
+  def DefaultParameterTransformer(body: DefaultParameterTransformerBody): Unit = {
+    registry.defaultParameterTransformers += ScalaDefaultParameterTransformerDetails(body)
+  }
+
+  def DefaultDataTableCellTransformer(body: DefaultDataTableCellTransformerBody): Unit = {
+    DefaultDataTableCellTransformer(NO_REPLACEMENT)(body)
+  }
+
+  def DefaultDataTableCellTransformer(replaceWithEmptyString: String)(body: DefaultDataTableCellTransformerBody): Unit = {
+    DefaultDataTableCellTransformer(Seq(replaceWithEmptyString))(body)
+  }
+
+  private def DefaultDataTableCellTransformer(replaceWithEmptyString: Seq[String])(body: DefaultDataTableCellTransformerBody): Unit = {
+    registry.defaultDataTableCellTransformers += ScalaDefaultDataTableCellTransformerDetails(replaceWithEmptyString, body)
+  }
+
+  def DefaultDataTableEntryTransformer(body: DefaultDataTableEntryTransformerBody): Unit = {
+    DefaultDataTableEntryTransformer(NO_REPLACEMENT)(body)
+  }
+
+  def DefaultDataTableEntryTransformer(replaceWithEmptyString: String)(body: DefaultDataTableEntryTransformerBody): Unit = {
+    DefaultDataTableEntryTransformer(Seq(replaceWithEmptyString))(body)
+  }
+
+  private def DefaultDataTableEntryTransformer(replaceWithEmptyString: Seq[String])(body: DefaultDataTableEntryTransformerBody): Unit = {
+    registry.defaultDataTableEntryTransformers += ScalaDefaultDataTableEntryTransformerDetails(replaceWithEmptyString, body)
+  }
+
+}
+
+private[scala] trait StepDsl extends BaseScalaDsl {
+  self =>
 
   final class Step(name: String) {
     def apply(regex: String): StepBody = new StepBody(name, regex)
@@ -542,3 +793,4 @@ trait ScalaDsl {
   }
 
 }
+
