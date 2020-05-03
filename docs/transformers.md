@@ -265,6 +265,8 @@ Default transformers are used when there is no specific transformer.
 
 They can be used with object mappers like Jackson to easily convert from well known strings to objects.
 
+See also [Default Jackson DataTable Transformer](default_jackson_datatable_transformer.md).
+
 ### String
 
 For instance, the following definition:
@@ -303,6 +305,8 @@ Given("A step with a datatable") { (dataTable: DataTable) =>
   val table = dataTable.asList[SomeType](classOf[SomeType])
 }
 ```
+
+This is what to `DefaultJacksonDataTableTransformer` uses.
 
 #### Cells
 

@@ -19,6 +19,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Users have to provide it (for JacksonDefaultDataTableTransformer) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-scala_2.12</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
