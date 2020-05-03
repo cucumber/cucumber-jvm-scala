@@ -30,6 +30,7 @@ The minor version might differ because Cucumber Scala may add Scala-related feat
   - [Step Definitions](docs/step_definitions.md)
   - [Hooks](docs/hooks.md)
   - [Transformers](docs/transformers.md)
+    - [Default Jackson DataTable Transformer](docs/default_jackson_datatable_transformer.md)
 - [Example project](examples/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)
