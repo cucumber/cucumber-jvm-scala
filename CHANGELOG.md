@@ -7,8 +7,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CHANGELOG.md) from Cucumber Core.
 
 ----
-
 ## [Unreleased] (In Git)
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+
+## [5.6.0] (2020-05-03)
 
 ### Added
 
@@ -29,15 +41,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Gherkin] Update Gherkin version to 9.2.0 
   - New `MR` and `ME` traits available
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 - [Core] Instantiate glue classes per scenario ([#1](https://github.com/cucumber/cucumber-jvm-scala/issues/1) Gaël Jourdan-Weil)
-
-### Security
 
 ## [4.7.1] (2019-08-01)
 
@@ -107,7 +113,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.1...master
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.6.0...master
+[5.6.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.1...v5.6.0
 [4.7.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.0...v4.7.1
 [4.7.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.6.0...v4.7.0
 [4.6.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.5.4...v4.6.0

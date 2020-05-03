@@ -14,17 +14,9 @@ clean:
 
 version:
 	@echo ""
-	@echo "The next version of Cucumber-JVM will be $(NEW_VERSION) and released from '$(CURRENT_BRANCH)'"
+	@echo "The next version of Cucumber-Scala will be $(NEW_VERSION) and released from '$(CURRENT_BRANCH)'"
 	@echo ""
 .PHONY: version
-
-update-compatibility:
-	MSG_VERSION=$$(mvn help:evaluate -Dexpression=messages.version -q -DforceStdout 2> /dev/null) && \
-	git clone --branch messages/v$$MSG_VERSION git@github.com:cucumber/cucumber.git target/cucumber
-	rm -rf compatibility/src/test/resources/*
-	cp -r target/cucumber/compatibility-kit/javascript/features compatibility/src/test/resources
-	rm -rf target/cucumber
-.PHONY: update-cck
 
 update-dependency-versions:
 	mvn versions:force-releases
