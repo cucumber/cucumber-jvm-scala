@@ -106,7 +106,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Core] Update `cucumber-core` dependency to 4.1.0 (Glib Briia)
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
-<!-- References -->
+<!-- Releases -->
 [Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.1...master
 [4.7.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.0...v4.7.1
 [4.7.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.6.0...v4.7.0
