@@ -4,19 +4,19 @@ import io.cucumber.scala.{EN, ScalaDsl}
 
 object StepsInObject extends ScalaDsl with EN {
 
-  Before { _ =>
+  Before {
     // Nothing
   }
 
-  BeforeStep { _ =>
+  BeforeStep {
     // Nothing
   }
 
-  After { _ =>
+  After {
     // Nothing
   }
 
-  AfterStep { _ =>
+  AfterStep {
     // Nothing
   }
 

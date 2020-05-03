@@ -5,7 +5,7 @@ package io.cucumber.scala
  */
 object Aliases {
 
-  type HookBody = Scenario => Unit
+  type HookDefinitionBody = Scenario => Unit
 
   type StepDefinitionBody = () => Unit
 

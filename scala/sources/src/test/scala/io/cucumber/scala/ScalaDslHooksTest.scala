@@ -27,7 +27,7 @@ class ScalaDslHooksTest {
   def testBeforeHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      Before { _ =>
+      Before { _: Scenario =>
         invoke()
       }
     }
@@ -65,6 +65,7 @@ class ScalaDslHooksTest {
     assertClassHook(glue.registry.beforeHooks.head, "", 42)
   }
 
+
   @Test
   def testBeforeHookWithTagAndOrder(): Unit = {
 
@@ -79,11 +80,68 @@ class ScalaDslHooksTest {
     assertClassHook(glue.registry.beforeHooks.head, "tagExpression", 42)
   }
 
+
+  @Test
+  def testBeforeHookNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeHooks.head, "", 1000)
+  }
+
+  @Test
+  def testBeforeHookWithTagNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before("tagExpression") {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testBeforeHookWithOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before(42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeHooks.head, "", 42)
+  }
+
+  @Test
+  def testBeforeHookWithTagAndOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before("tagExpression", 42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeHooks.head, "tagExpression", 42)
+  }
+
   @Test
   def testBeforeStepHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      BeforeStep { _ =>
+      BeforeStep { _: Scenario =>
         invoke()
       }
     }
@@ -135,12 +193,67 @@ class ScalaDslHooksTest {
     assertClassHook(glue.registry.beforeStepHooks.head, "tagExpression", 42)
   }
 
+  @Test
+  def testBeforeStepHookNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      BeforeStep {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeStepHooks.head, "", 1000)
+  }
+
+  @Test
+  def testBeforeStepHookWithTagNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      BeforeStep("tagExpression") {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeStepHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testBeforeStepHookWithOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      BeforeStep(42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeStepHooks.head, "", 42)
+  }
+
+  @Test
+  def testBeforeStepHookWithTagAndOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      BeforeStep("tagExpression", 42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.beforeStepHooks.head, "tagExpression", 42)
+  }
 
   @Test
   def testAfterHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      After { _ =>
+      After { _: Scenario =>
         invoke()
       }
     }
@@ -193,10 +306,66 @@ class ScalaDslHooksTest {
   }
 
   @Test
+  def testAfterHookNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      After {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterHooks.head, "", 1000)
+  }
+
+  @Test
+  def testAfterHookWithTagNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      After("tagExpression") {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testAfterHookWithOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      After(42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterHooks.head, "", 42)
+  }
+
+  @Test
+  def testAfterHookWithTagAndOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      After("tagExpression", 42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterHooks.head, "tagExpression", 42)
+  }
+
+  @Test
   def testAfterStepHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      AfterStep { _ =>
+      AfterStep { _: Scenario =>
         invoke()
       }
     }
@@ -239,6 +408,62 @@ class ScalaDslHooksTest {
 
     class Glue extends ScalaDsl {
       AfterStep("tagExpression", 42) { _ =>
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterStepHooks.head, "tagExpression", 42)
+  }
+
+  @Test
+  def testAfterStepHookNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      AfterStep {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterStepHooks.head, "", 1000)
+  }
+
+  @Test
+  def testAfterStepHookWithTagNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      AfterStep("tagExpression") {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterStepHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testAfterStepHookWithOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      AfterStep(42) {
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+
+    assertClassHook(glue.registry.afterStepHooks.head, "", 42)
+  }
+
+  @Test
+  def testAfterStepHookWithTagAndOrderNoArg(): Unit = {
+
+    class Glue extends ScalaDsl {
+      AfterStep("tagExpression", 42) {
         invoke()
       }
     }
@@ -300,10 +525,58 @@ class ScalaDslHooksTest {
   }
 
   @Test
+  def testObjectBeforeHookNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      Before {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeHooks.head, "", 1000)
+  }
+
+  @Test
+  def testObjectBeforeHookWithTagNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      Before("tagExpression") {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testObjectBeforeHookWithOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      Before(42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeHooks.head, "", 42)
+  }
+
+  @Test
+  def testObjectBeforeHookWithTagAndOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      Before("tagExpression", 42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeHooks.head, "tagExpression", 42)
+  }
+
+  @Test
   def testObjectBeforeStepHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      BeforeStep { _ =>
+      BeforeStep { _: Scenario =>
         invoke()
       }
     }
@@ -347,12 +620,60 @@ class ScalaDslHooksTest {
     assertObjectHook(Glue.registry.beforeStepHooks.head, "tagExpression", 42)
   }
 
+  @Test
+  def testObjectBeforeStepHookNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      BeforeStep {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeStepHooks.head, "", 1000)
+  }
+
+  @Test
+  def testObjectBeforeStepHookWithTagNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      BeforeStep("tagExpression") {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeStepHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testObjectBeforeStepHookWithOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      BeforeStep(42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeStepHooks.head, "", 42)
+  }
+
+  @Test
+  def testObjectBeforeStepHookWithTagAndOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      BeforeStep("tagExpression", 42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.beforeStepHooks.head, "tagExpression", 42)
+  }
+
 
   @Test
   def testObjectAfterHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      After { _ =>
+      After { _: Scenario =>
         invoke()
       }
     }
@@ -397,10 +718,58 @@ class ScalaDslHooksTest {
   }
 
   @Test
+  def testObjectAfterHookNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      After {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterHooks.head, "", 1000)
+  }
+
+  @Test
+  def testObjectAfterHookWithTagNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      After("tagExpression") {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testObjectAfterHookWithOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      After(42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterHooks.head, "", 42)
+  }
+
+  @Test
+  def testObjectAfterHookWithTagAndOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      After("tagExpression", 42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterHooks.head, "tagExpression", 42)
+  }
+
+  @Test
   def testObjectAfterStepHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      AfterStep { _ =>
+      AfterStep { _: Scenario =>
         invoke()
       }
     }
@@ -437,6 +806,54 @@ class ScalaDslHooksTest {
 
     object Glue extends ScalaDsl {
       AfterStep("tagExpression", 42) { _ =>
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterStepHooks.head, "tagExpression", 42)
+  }
+
+  @Test
+  def testObjectAfterStepHookNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      AfterStep {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterStepHooks.head, "", 1000)
+  }
+
+  @Test
+  def testObjectAfterStepHookWithTagNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      AfterStep("tagExpression") {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterStepHooks.head, "tagExpression", 1000)
+  }
+
+  @Test
+  def testObjectAfterStepHookWithOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      AfterStep(42) {
+        invoke()
+      }
+    }
+
+    assertObjectHook(Glue.registry.afterStepHooks.head, "", 42)
+  }
+
+  @Test
+  def testObjectAfterStepHookWithTagAndOrderNoArg(): Unit = {
+
+    object Glue extends ScalaDsl {
+      AfterStep("tagExpression", 42) {
         invoke()
       }
     }

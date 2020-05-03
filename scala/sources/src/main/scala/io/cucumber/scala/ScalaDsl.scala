@@ -2,7 +2,7 @@ package io.cucumber.scala
 
 import java.lang.reflect.{ParameterizedType, Type}
 
-import io.cucumber.scala.Aliases.{DefaultDataTableCellTransformerBody, DefaultDataTableEntryTransformerBody, DefaultParameterTransformerBody, DocStringDefinitionBody, HookBody}
+import io.cucumber.scala.Aliases._
 
 import scala.reflect.ClassTag
 
@@ -28,70 +28,72 @@ trait ScalaDsl extends BaseScalaDsl with StepDsl with HookDsl with DataTableType
 
 private[scala] trait HookDsl extends BaseScalaDsl {
 
-  // TODO support Before/After with no parameter
+  private sealed trait HookType
 
-  def Before(body: HookBody): Unit = {
-    Before(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)(body)
+  private object HookType {
+
+    case object BEFORE extends HookType
+
+    case object BEFORE_STEP extends HookType
+
+    case object AFTER extends HookType
+
+    case object AFTER_STEP extends HookType
+
   }
 
-  def Before(tagExpression: String)(body: HookBody): Unit = {
-    Before(tagExpression, DEFAULT_BEFORE_ORDER)(body)
-  }
+  def Before: HookBody = Before(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)
 
-  def Before(order: Int)(body: HookBody): Unit = {
-    Before(EMPTY_TAG_EXPRESSION, order)(body)
-  }
+  def Before(tagExpression: String): HookBody = Before(tagExpression, DEFAULT_BEFORE_ORDER)
 
-  def Before(tagExpression: String, order: Int)(body: HookBody): Unit = {
-    registry.beforeHooks += ScalaHookDetails(tagExpression, order, body)
-  }
+  def Before(order: Int): HookBody = Before(EMPTY_TAG_EXPRESSION, order)
 
-  def BeforeStep(body: HookBody): Unit = {
-    BeforeStep(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)(body)
-  }
+  def Before(tagExpression: String, order: Int): HookBody = new HookBody(HookType.BEFORE, tagExpression, order)
 
-  def BeforeStep(tagExpression: String)(body: HookBody): Unit = {
-    BeforeStep(tagExpression, DEFAULT_BEFORE_ORDER)(body)
-  }
+  def BeforeStep: HookBody = BeforeStep(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)
 
-  def BeforeStep(order: Int)(body: HookBody): Unit = {
-    BeforeStep(EMPTY_TAG_EXPRESSION, order)(body)
-  }
+  def BeforeStep(tagExpression: String): HookBody = BeforeStep(tagExpression, DEFAULT_BEFORE_ORDER)
 
-  def BeforeStep(tagExpression: String, order: Int)(body: HookBody): Unit = {
-    registry.beforeStepHooks += ScalaHookDetails(tagExpression, order, body)
-  }
+  def BeforeStep(order: Int): HookBody = BeforeStep(EMPTY_TAG_EXPRESSION, order)
 
-  def After(body: HookBody): Unit = {
-    After(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)(body)
-  }
+  def BeforeStep(tagExpression: String, order: Int): HookBody = new HookBody(HookType.BEFORE_STEP, tagExpression, order)
 
-  def After(tagExpression: String)(body: HookBody): Unit = {
-    After(tagExpression, DEFAULT_AFTER_ORDER)(body)
-  }
+  def After: HookBody = After(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)
 
-  def After(order: Int)(body: HookBody): Unit = {
-    After(EMPTY_TAG_EXPRESSION, order)(body)
-  }
+  def After(tagExpression: String): HookBody = After(tagExpression, DEFAULT_AFTER_ORDER)
 
-  def After(tagExpression: String, order: Int)(body: HookBody): Unit = {
-    registry.afterHooks += ScalaHookDetails(tagExpression, order, body)
-  }
+  def After(order: Int): HookBody = After(EMPTY_TAG_EXPRESSION, order)
 
-  def AfterStep(body: HookBody): Unit = {
-    AfterStep(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)(body)
-  }
+  def After(tagExpression: String, order: Int): HookBody = new HookBody(HookType.AFTER, tagExpression, order)
 
-  def AfterStep(tagExpression: String)(body: HookBody): Unit = {
-    AfterStep(tagExpression, DEFAULT_AFTER_ORDER)(body)
-  }
+  def AfterStep: HookBody = AfterStep(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)
 
-  def AfterStep(order: Int)(body: HookBody): Unit = {
-    AfterStep(EMPTY_TAG_EXPRESSION, order)(body)
-  }
+  def AfterStep(tagExpression: String): HookBody = AfterStep(tagExpression, DEFAULT_AFTER_ORDER)
 
-  def AfterStep(tagExpression: String, order: Int)(body: HookBody): Unit = {
-    registry.afterStepHooks += ScalaHookDetails(tagExpression, order, body)
+  def AfterStep(order: Int): HookBody = AfterStep(EMPTY_TAG_EXPRESSION, order)
+
+  def AfterStep(tagExpression: String, order: Int): HookBody = new HookBody(HookType.AFTER_STEP, tagExpression, order)
+
+  final class HookBody(hookType: HookType, tagExpression: String, order: Int) {
+
+    def apply(body: => Unit): Unit = {
+      apply(_ => body)
+    }
+
+    def apply(body: Scenario => Unit): Unit = {
+      val details = ScalaHookDetails(tagExpression, order, body)
+      hookType match {
+        case HookType.BEFORE =>
+          registry.beforeHooks += details
+        case HookType.BEFORE_STEP =>
+          registry.beforeStepHooks += details
+        case HookType.AFTER =>
+          registry.afterHooks += details
+        case HookType.AFTER_STEP =>
+          registry.afterStepHooks += details
+      }
+    }
+
   }
 
 }
