@@ -15,10 +15,8 @@ trait ScalaDataTableRowDefinition[T] extends ScalaDataTableTypeDefinition {
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  private val transformer: TableRowTransformer[T] = new TableRowTransformer[T] {
-    override def transform(row: JavaList[String]): T = {
-      details.body.transform(replaceEmptyPatternsWithEmptyString(row.asScala.toSeq))
-    }
+  private val transformer: TableRowTransformer[T] = (row: JavaList[String]) => {
+    details.body.transform(replaceEmptyPatternsWithEmptyString(row.asScala.toSeq))
   }
 
   override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)

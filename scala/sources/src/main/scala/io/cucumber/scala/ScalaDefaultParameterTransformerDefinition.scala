@@ -11,10 +11,8 @@ trait ScalaDefaultParameterTransformerDefinition extends DefaultParameterTransfo
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  override val parameterByTypeTransformer: ParameterByTypeTransformer = new ParameterByTypeTransformer {
-    override def transform(fromValue: String, toValue: Type): AnyRef = {
-      details.body.apply(fromValue, toValue)
-    }
+  override val parameterByTypeTransformer: ParameterByTypeTransformer = (fromValue: String, toValue: Type) => {
+    details.body.apply(fromValue, toValue)
   }
 
 }
