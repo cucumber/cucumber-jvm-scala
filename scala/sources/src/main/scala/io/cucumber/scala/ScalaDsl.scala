@@ -13,8 +13,6 @@ private[scala] trait BaseScalaDsl {
   val DEFAULT_BEFORE_ORDER = 1000
   val DEFAULT_AFTER_ORDER = 1000
 
-  import scala.language.implicitConversions
-
   private[scala] val registry: ScalaDslRegistry = new ScalaDslRegistry()
 
 }
@@ -348,7 +346,11 @@ private[scala] trait StepDsl extends BaseScalaDsl {
   final class Fun0(val f: Function0[Any])
 
   object Fun0 {
+
+    import scala.language.implicitConversions
+
     implicit def function0AsFun0(f: Function0[Any]): Fun0 = new Fun0(f)
+
   }
 
   final class StepBody(name: String, regex: String) {
