@@ -11,9 +11,15 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Scala] `Scenario.log(String)` & `Scenario.attach(byte[], String, String)` ([#42](https://github.com/cucumber/cucumber-jvm-scala/pull/42) LINK Gaël Jourdan-Weil)
+
 ### Changed
 
+- [Core] Update `cucumber-core` dependency to 5.7.0 ([#42](https://github.com/cucumber/cucumber-jvm-scala/pull/42) LINK Gaël Jourdan-Weil)
+
 ### Deprecated
+
+- [Scala] `Scenario.write(String)` & `Scenario.embed(byte[], String, String)` ([#42](https://github.com/cucumber/cucumber-jvm-scala/pull/42) LINK Gaël Jourdan-Weil)
 
 ### Removed
 
