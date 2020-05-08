@@ -4,7 +4,7 @@ import io.cucumber.core.backend._
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 
 class ScalaDslDefaultDataTableEntryTransformerTest {

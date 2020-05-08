@@ -5,7 +5,7 @@ import java.util.{List => JList, Map => JMap}
 
 import io.cucumber.datatable.DataTable
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 
 class DatatablesSteps extends ScalaDsl with EN {

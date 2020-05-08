@@ -5,7 +5,7 @@ import java.util.{List => JavaList}
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableRowTransformer}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaDataTableRowDefinition[T] extends ScalaDataTableTypeDefinition {
 

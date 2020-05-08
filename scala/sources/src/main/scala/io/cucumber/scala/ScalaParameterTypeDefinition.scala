@@ -3,7 +3,7 @@ package io.cucumber.scala
 import io.cucumber.core.backend.{ParameterTypeDefinition, ScenarioScoped}
 import io.cucumber.cucumberexpressions.{CaptureGroupTransformer, ParameterType}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaParameterTypeDefinition[R] extends ParameterTypeDefinition with AbstractGlueDefinition {
 

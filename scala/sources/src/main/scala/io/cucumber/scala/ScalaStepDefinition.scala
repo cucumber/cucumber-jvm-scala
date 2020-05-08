@@ -5,7 +5,7 @@ import java.util.{List => JList}
 
 import io.cucumber.core.backend.{ParameterInfo, ScenarioScoped, StepDefinition}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 
 trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {

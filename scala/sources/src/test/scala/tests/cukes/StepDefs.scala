@@ -7,7 +7,7 @@ import io.cucumber.scala.{EN, ScalaDsl}
 import junit.framework.Assert._
 import tests.cukes.model.{Cukes, Person, Snake}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 /**
  * Test step definitions to exercise Scala cucumber

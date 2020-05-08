@@ -11,7 +11,7 @@ import org.junit.{Before, Test}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class ScalaBackendTest {
 

@@ -6,7 +6,7 @@ import java.util.{Map => JavaMap}
 import io.cucumber.core.backend.{DefaultDataTableEntryTransformerDefinition, ScenarioScoped}
 import io.cucumber.datatable.{TableCellByTypeTransformer, TableEntryByTypeTransformer}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEntryTransformerDefinition with AbstractDatatableElementTransformerDefinition {
 

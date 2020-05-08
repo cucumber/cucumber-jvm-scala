@@ -7,7 +7,7 @@ import java.util.{Map => JMap}
 import io.cucumber.core.backend.Snippet
 import io.cucumber.datatable.DataTable
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object ScalaSnippet {
 

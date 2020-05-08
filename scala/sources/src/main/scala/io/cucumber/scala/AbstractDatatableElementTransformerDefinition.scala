@@ -3,7 +3,7 @@ package io.cucumber.scala
 import io.cucumber.datatable.DataTable
 
 import scala.util.{Failure, Success, Try}
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait AbstractDatatableElementTransformerDefinition extends AbstractGlueDefinition {
 

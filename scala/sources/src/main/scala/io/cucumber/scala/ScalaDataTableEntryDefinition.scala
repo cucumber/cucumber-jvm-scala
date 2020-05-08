@@ -5,7 +5,7 @@ import java.util.{Map => JavaMap}
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableEntryTransformer}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaDataTableEntryDefinition[T] extends ScalaDataTableTypeDefinition {
 
