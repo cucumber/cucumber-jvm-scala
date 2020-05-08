@@ -32,7 +32,7 @@ class Scenario(val delegate: TestCaseState) {
    */
   def isFailed: Boolean = delegate.isFailed
 
-  @deprecated(message = "Use attach instead")
+  @deprecated(message = "Use attach instead", since = "5.x")
   def embed(data: Array[Byte], mediaType: String): Unit = {
     delegate.embed(data, mediaType)
   }
