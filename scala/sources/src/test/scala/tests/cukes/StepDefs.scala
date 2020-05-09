@@ -7,11 +7,13 @@ import io.cucumber.scala.{EN, ScalaDsl}
 import org.junit.Assert.assertEquals
 import tests.cukes.model.{Cukes, Person, Snake}
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
 /**
  * Test step definitions to exercise Scala cucumber
  */
+@nowarn
 class CukesStepDefinitions extends ScalaDsl with EN {
 
   Given("""I have {} {string} in my belly""") { (howMany: Int, what: String) =>
@@ -183,6 +185,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
   }
 }
 
+@nowarn
 class ThenDefs extends ScalaDsl with EN {
   Then("""^I am "([^"]*)"$""") { (arg0: String) =>
   }

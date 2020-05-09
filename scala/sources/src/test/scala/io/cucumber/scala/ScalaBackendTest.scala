@@ -11,8 +11,10 @@ import org.junit.{Before, Test}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
+@nowarn
 class ScalaBackendTest {
 
   private val fakeGlue: Glue = mock(classOf[Glue])

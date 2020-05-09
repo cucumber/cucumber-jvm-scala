@@ -3,6 +3,9 @@ package tests.`object`
 import io.cucumber.scala.{EN, ScalaDsl}
 import org.junit.Assert.assertEquals
 
+import scala.annotation.nowarn
+
+@nowarn
 object ObjectSteps extends ScalaDsl with EN {
 
   private var calculator: Calculator = _

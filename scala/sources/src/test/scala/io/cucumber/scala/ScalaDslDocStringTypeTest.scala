@@ -3,7 +3,9 @@ package io.cucumber.scala
 import io.cucumber.core.backend._
 import org.junit.Test
 
+import scala.annotation.nowarn
 
+@nowarn
 class ScalaDslDocStringTypeTest {
 
   @Test

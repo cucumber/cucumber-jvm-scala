@@ -46,15 +46,6 @@
                     <groupId>net.alchim31.maven</groupId>
                     <artifactId>scala-maven-plugin</artifactId>
                     <version>${scala-maven-plugin.version}</version>
-                    <configuration>
-                        <args>
-                            <arg>-feature</arg>
-                            <arg>-deprecation</arg>
-                        </args>
-                        <excludes>
-                            <exclude>**/*.java</exclude>
-                        </excludes>
-                    </configuration>
                     <executions>
                         <execution>
                             <id>regular-source-compilation</id>

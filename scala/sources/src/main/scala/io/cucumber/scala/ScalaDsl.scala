@@ -486,8 +486,6 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
   object Fun0 {
 
-    import scala.language.implicitConversions
-
     implicit def function0AsFun0(f: Function0[Any]): Fun0 = new Fun0(f)
 
   }
