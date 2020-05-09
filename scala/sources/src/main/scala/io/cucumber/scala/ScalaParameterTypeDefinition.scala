@@ -3,7 +3,7 @@ package io.cucumber.scala
 import io.cucumber.core.backend.{ParameterTypeDefinition, ScenarioScoped}
 import io.cucumber.cucumberexpressions.{CaptureGroupTransformer, ParameterType}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaParameterTypeDefinition[R] extends ParameterTypeDefinition with AbstractGlueDefinition {
 
@@ -11,10 +11,8 @@ trait ScalaParameterTypeDefinition[R] extends ParameterTypeDefinition with Abstr
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  private val transformer: CaptureGroupTransformer[R] = new CaptureGroupTransformer[R] {
-    override def transform(parameterContent: Array[String]): R = {
-      details.body.apply(parameterContent.toList)
-    }
+  private val transformer: CaptureGroupTransformer[R] = (parameterContent: Array[String]) => {
+    details.body.apply(parameterContent.toList)
   }
 
   override val parameterType: ParameterType[R] = new ParameterType[R](details.name, Seq(details.regex).asJava, details.tag.runtimeClass.asInstanceOf[Class[R]], transformer)

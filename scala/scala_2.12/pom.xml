@@ -18,6 +18,11 @@
             <version>${scala.2.12.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-collection-compat_2.12</artifactId>
+            <version>2.1.6</version>
+        </dependency>
 
         <!-- Users have to provide it (for JacksonDefaultDataTableTransformer) -->
         <dependency>

@@ -2,7 +2,7 @@ package tests.jackson
 
 import io.cucumber.scala.{EN, JacksonDefaultDataTableEntryTransformer, ScalaDsl}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 case class MyCaseClass(field1: Double, field2: Boolean, field3: String)
 

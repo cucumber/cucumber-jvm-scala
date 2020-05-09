@@ -24,8 +24,8 @@ class TypeRegistryConfiguration extends TypeRegistryConfigurer {
     def transform(s: String) = {
       val size = s.size
       val direction = s.toList match {
-        case '<' :: _ => 'west
-        case l if l.last == '>' => 'east
+        case '<' :: _ => Symbol("west")
+        case l if l.last == '>' => Symbol("east")
       }
       Snake(size, direction)
     }

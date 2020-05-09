@@ -18,6 +18,11 @@
             <version>${scala.2.11.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-collection-compat_2.11</artifactId>
+            <version>2.1.6</version>
+        </dependency>
 
         <!-- Users have to provide it (for JacksonDefaultDataTableTransformer) -->
         <dependency>
@@ -55,6 +60,24 @@
             </testResource>
         </testResources>
         <plugins>
+            <!-- Extra Sources for Scala 2.11 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/scala</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>

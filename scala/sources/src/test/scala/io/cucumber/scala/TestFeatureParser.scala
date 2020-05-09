@@ -21,10 +21,8 @@ object TestFeatureParser {
   }
 
   def parse(uri: URI, source: String): Feature = {
-    // Keep unnecessary code for compat with Scala 2.11
-    val supplier = new Supplier[UUID] {
-      override def get(): UUID = UUID.randomUUID
-    }
+    val supplier: Supplier[UUID] = () => UUID.randomUUID()
+
     new FeatureParser(supplier).parseResource(new Resource {
       override def getUri: URI = uri
 

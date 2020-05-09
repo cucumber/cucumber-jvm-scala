@@ -16,10 +16,8 @@ trait ScalaDocStringTypeDefinition[T]
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  private val transformer: Transformer[T] = new Transformer[T] {
-    override def transform(s: String): T = {
-      details.body.apply(s)
-    }
+  private val transformer: Transformer[T] = (s: String) => {
+    details.body.apply(s)
   }
 
   override val docStringType: DocStringType = new DocStringType(ev.runtimeClass, details.contentType, transformer)

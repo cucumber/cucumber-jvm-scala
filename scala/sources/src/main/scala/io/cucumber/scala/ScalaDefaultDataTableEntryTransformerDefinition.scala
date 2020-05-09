@@ -6,7 +6,7 @@ import java.util.{Map => JavaMap}
 import io.cucumber.core.backend.{DefaultDataTableEntryTransformerDefinition, ScenarioScoped}
 import io.cucumber.datatable.{TableCellByTypeTransformer, TableEntryByTypeTransformer}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEntryTransformerDefinition with AbstractDatatableElementTransformerDefinition {
 
@@ -16,12 +16,10 @@ trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEn
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  override val tableEntryByTypeTransformer: TableEntryByTypeTransformer = new TableEntryByTypeTransformer {
-    override def transform(fromValue: JavaMap[String, String], toValueType: Type, tableCellByTypeTransformer: TableCellByTypeTransformer): AnyRef = {
-      replaceEmptyPatternsWithEmptyString(fromValue.asScala.toMap)
-        .map(details.body.apply(_, toValueType))
-        .get
-    }
+  override val tableEntryByTypeTransformer: TableEntryByTypeTransformer = (fromValue: JavaMap[String, String], toValueType: Type, tableCellByTypeTransformer: TableCellByTypeTransformer) => {
+    replaceEmptyPatternsWithEmptyString(fromValue.asScala.toMap)
+      .map(details.body.apply(_, toValueType))
+      .get
   }
 
   override val headersToProperties: Boolean = true

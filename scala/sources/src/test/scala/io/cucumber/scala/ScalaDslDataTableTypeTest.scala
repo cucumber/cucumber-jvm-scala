@@ -5,7 +5,7 @@ import io.cucumber.scala.ScalaDslDataTableTypeTest.{Author, Cell, GroupOfAuthor}
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 object ScalaDslDataTableTypeTest {
 

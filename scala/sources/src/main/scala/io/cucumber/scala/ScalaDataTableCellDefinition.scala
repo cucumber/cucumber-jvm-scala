@@ -11,10 +11,8 @@ trait ScalaDataTableCellDefinition[T] extends ScalaDataTableTypeDefinition {
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  private val transformer: TableCellTransformer[T] = new TableCellTransformer[T] {
-    override def transform(cell: String): T = {
-      details.body.transform(replaceEmptyPatternsWithEmptyString(cell))
-    }
+  private val transformer: TableCellTransformer[T] = (cell: String) => {
+    details.body.transform(replaceEmptyPatternsWithEmptyString(cell))
   }
 
   override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)

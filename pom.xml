@@ -20,6 +20,7 @@
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>3.4.6</scala-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <cucumber.version>5.7.0</cucumber.version>
         <gherkin.version>9.2.0</gherkin.version>
         <groovy.version>2.4.19</groovy.version>
@@ -233,6 +234,12 @@
                             </configuration>
                         </execution>
                     </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin.version}</version>
                 </plugin>
 
                 <!-- Non-standard plugins -->

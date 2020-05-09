@@ -5,7 +5,7 @@ import java.util.{List => JavaList}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 case class Point(x: Int, y: Int)
 

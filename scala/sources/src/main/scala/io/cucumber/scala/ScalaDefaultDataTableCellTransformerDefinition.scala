@@ -13,10 +13,8 @@ trait ScalaDefaultDataTableCellTransformerDefinition extends DefaultDataTableCel
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  override val tableCellByTypeTransformer: TableCellByTypeTransformer = new TableCellByTypeTransformer {
-    override def transform(fromValue: String, toTypeValue: Type): AnyRef = {
-      details.body.apply(replaceEmptyPatternsWithEmptyString(fromValue), toTypeValue)
-    }
+  override val tableCellByTypeTransformer: TableCellByTypeTransformer = (fromValue: String, toTypeValue: Type) => {
+    details.body.apply(replaceEmptyPatternsWithEmptyString(fromValue), toTypeValue)
   }
 
 }

@@ -3,7 +3,7 @@ package tests.isolated
 import java.util.{List => JList}
 import io.cucumber.scala.{EN, ScalaDsl}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class IsolatedSteps extends ScalaDsl with EN {
 

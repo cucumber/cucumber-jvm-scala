@@ -5,7 +5,7 @@ import java.util.{Map => JavaMap}
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableEntryTransformer}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 trait ScalaDataTableEntryDefinition[T] extends ScalaDataTableTypeDefinition {
 
@@ -15,12 +15,10 @@ trait ScalaDataTableEntryDefinition[T] extends ScalaDataTableTypeDefinition {
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  private val transformer: TableEntryTransformer[T] = new TableEntryTransformer[T] {
-    override def transform(entry: JavaMap[String, String]): T = {
-      replaceEmptyPatternsWithEmptyString(entry.asScala.toMap)
-        .map(details.body.transform)
-        .get
-    }
+  private val transformer: TableEntryTransformer[T] = (entry: JavaMap[String, String]) => {
+    replaceEmptyPatternsWithEmptyString(entry.asScala.toMap)
+      .map(details.body.transform)
+      .get
   }
 
   override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)

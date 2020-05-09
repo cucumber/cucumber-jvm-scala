@@ -11,7 +11,7 @@ import org.junit.{Before, Test}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class ScalaBackendTest {
 
@@ -20,9 +20,7 @@ class ScalaBackendTest {
   private val fakeContainer: Container = mock(classOf[Container])
 
   // Note: keep unnecessary "new" for Scala 2.11 compat
-  private val classLoaderSupplier: Supplier[ClassLoader] = new Supplier[ClassLoader] {
-    override def get(): ClassLoader = Thread.currentThread().getContextClassLoader
-  }
+  private val classLoaderSupplier: Supplier[ClassLoader] = () => Thread.currentThread().getContextClassLoader
 
   private var backend: ScalaBackend = _
 

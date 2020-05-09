@@ -8,7 +8,7 @@ import java.util.{List => JList}
 import io.cucumber.core.backend._
 import io.cucumber.core.resource.{ClasspathScanner, ClasspathSupport}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 class ScalaBackend(lookup: Lookup, container: Container, classLoaderProvider: Supplier[ClassLoader]) extends Backend {
