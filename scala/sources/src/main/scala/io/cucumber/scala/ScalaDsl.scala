@@ -40,37 +40,113 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
   }
 
+  /**
+   * Defines an before hook.
+   */
   def Before: HookBody = Before(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)
 
+  /**
+   * Defines an before hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   */
   def Before(tagExpression: String): HookBody = Before(tagExpression, DEFAULT_BEFORE_ORDER)
 
+  /**
+   * Defines an before hook.
+   *
+   * @param order the order in which this hook should run. Higher numbers are run first
+   */
   def Before(order: Int): HookBody = Before(EMPTY_TAG_EXPRESSION, order)
 
-  def Before(tagExpression: String, order: Int): HookBody = new HookBody(HookType.BEFORE, tagExpression, order)
+  /**
+   * Defines an before hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   * @param order         the order in which this hook should run. Higher numbers are run first
+   */
+  def Before(tagExpression: String, order: Int) = new HookBody(HookType.BEFORE, tagExpression, order)
 
+  /**
+   * Defines an before step hook.
+   */
   def BeforeStep: HookBody = BeforeStep(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)
 
+  /**
+   * Defines an before step hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   */
   def BeforeStep(tagExpression: String): HookBody = BeforeStep(tagExpression, DEFAULT_BEFORE_ORDER)
 
+  /**
+   * Defines an before step hook.
+   *
+   * @param order the order in which this hook should run. Higher numbers are run first
+   */
   def BeforeStep(order: Int): HookBody = BeforeStep(EMPTY_TAG_EXPRESSION, order)
 
-  def BeforeStep(tagExpression: String, order: Int): HookBody = new HookBody(HookType.BEFORE_STEP, tagExpression, order)
+  /**
+   * Defines an before step hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   * @param order         the order in which this hook should run. Higher numbers are run first
+   */
+  def BeforeStep(tagExpression: String, order: Int) = new HookBody(HookType.BEFORE_STEP, tagExpression, order)
 
+  /**
+   * Defines and after hook.
+   */
   def After: HookBody = After(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)
 
+  /**
+   * Defines and after hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   */
   def After(tagExpression: String): HookBody = After(tagExpression, DEFAULT_AFTER_ORDER)
 
+  /**
+   * Defines and after hook.
+   *
+   * @param order the order in which this hook should run. Higher numbers are run first
+   */
   def After(order: Int): HookBody = After(EMPTY_TAG_EXPRESSION, order)
 
-  def After(tagExpression: String, order: Int): HookBody = new HookBody(HookType.AFTER, tagExpression, order)
+  /**
+   * Defines and after hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   * @param order         the order in which this hook should run. Higher numbers are run first
+   */
+  def After(tagExpression: String, order: Int) = new HookBody(HookType.AFTER, tagExpression, order)
 
+  /**
+   * Defines and after step hook.
+   */
   def AfterStep: HookBody = AfterStep(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)
 
+  /**
+   * Defines and after step hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   */
   def AfterStep(tagExpression: String): HookBody = AfterStep(tagExpression, DEFAULT_AFTER_ORDER)
 
+  /**
+   * Defines and after step hook.
+   *
+   * @param order the order in which this hook should run. Higher numbers are run first
+   */
   def AfterStep(order: Int): HookBody = AfterStep(EMPTY_TAG_EXPRESSION, order)
 
-  def AfterStep(tagExpression: String, order: Int): HookBody = new HookBody(HookType.AFTER_STEP, tagExpression, order)
+  /**
+   * Defines and after step hook.
+   *
+   * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+   * @param order         the order in which this hook should run. Higher numbers are run first
+   */
+  def AfterStep(tagExpression: String, order: Int) = new HookBody(HookType.AFTER_STEP, tagExpression, order)
 
   final class HookBody(hookType: HookType, tagExpression: String, order: Int) {
 
@@ -98,6 +174,14 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
 private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
 
+  /**
+   * Register doc string type.
+   *
+   * @param contentType Name of the content type.
+   * @param body        a function that creates an instance of <code>T</code>
+   *                    from the doc string
+   * @tparam T type to convert to
+   */
   def DocStringType[T](contentType: String)(body: DocStringDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
     registry.docStringTypes += ScalaDocStringTypeDetails[T](contentType, body, ev)
   }
@@ -106,8 +190,20 @@ private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
 
 private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
 
+  /**
+   * Register a data table type.
+   */
   def DataTableType: DataTableTypeBody = DataTableType(NO_REPLACEMENT)
 
+  /**
+   * Register a data table type with a replacement.
+   * <p>
+   * A data table can only represent absent and non-empty strings. By replacing
+   * a known value (for example [empty]) a data table can also represent
+   * empty strings.
+   *
+   * @param replaceWithEmptyString a string that will be replaced with an empty string.
+   */
   def DataTableType(replaceWithEmptyString: String): DataTableTypeBody = DataTableType(Seq(replaceWithEmptyString))
 
   private def DataTableType(replaceWithEmptyString: Seq[String]) = new DataTableTypeBody(replaceWithEmptyString)
@@ -136,6 +232,13 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
 
 private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
 
+  /**
+   * Register parameter type.
+   *
+   * @param name  used as the type name in typed expressions
+   * @param regex expression to match
+   * @see https://cucumber.io/docs/cucumber/cucumber-expressions
+   */
   def ParameterType(name: String, regex: String) = new ParameterTypeBody(name, regex)
 
   final class ParameterTypeBody(name: String, regex: String) {
@@ -306,14 +409,35 @@ private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
 
 private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
 
+  /**
+   * Register default parameter type transformer.
+   *
+   * @param body converts `String` argument to an instance of the `Type` argument
+   */
   def DefaultParameterTransformer(body: DefaultParameterTransformerBody): Unit = {
     registry.defaultParameterTransformers += ScalaDefaultParameterTransformerDetails(body)
   }
 
+  /**
+   * Register default data table cell transformer.
+   *
+   * @param body converts `String` argument to an instance of the `Type` argument
+   */
   def DefaultDataTableCellTransformer(body: DefaultDataTableCellTransformerBody): Unit = {
     DefaultDataTableCellTransformer(NO_REPLACEMENT)(body)
   }
 
+  /**
+   * Register default data table cell transformer with a replacement.
+   * <p>
+   * A data table can only represent absent and non-empty strings. By replacing
+   * a known value (for example [empty]) a data table can also represent
+   * empty strings.
+   * *
+   *
+   * @param replaceWithEmptyString a string that will be replaced with an empty string.
+   * @param body                   converts `String` argument to an instance of the `Type` argument
+   */
   def DefaultDataTableCellTransformer(replaceWithEmptyString: String)(body: DefaultDataTableCellTransformerBody): Unit = {
     DefaultDataTableCellTransformer(Seq(replaceWithEmptyString))(body)
   }
@@ -322,10 +446,25 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
     registry.defaultDataTableCellTransformers += ScalaDefaultDataTableCellTransformerDetails(replaceWithEmptyString, body)
   }
 
+  /**
+   * Register default data table entry transformer.
+   *
+   * @param body converts `Map[String,String]` argument to an instance of the `Type` argument
+   */
   def DefaultDataTableEntryTransformer(body: DefaultDataTableEntryTransformerBody): Unit = {
     DefaultDataTableEntryTransformer(NO_REPLACEMENT)(body)
   }
 
+  /**
+   * Register default data table cell transformer with a replacement.
+   * <p>
+   * A data table can only represent absent and non-empty strings. By replacing
+   * a known value (for example [empty]) a data table can also represent
+   * empty strings.
+   *
+   * @param replaceWithEmptyString a string that will be replaced with an empty string.
+   * @param body                   converts `Map[String,String]` argument to an instance of the `Type` argument
+   */
   def DefaultDataTableEntryTransformer(replaceWithEmptyString: String)(body: DefaultDataTableEntryTransformerBody): Unit = {
     DefaultDataTableEntryTransformer(Seq(replaceWithEmptyString))(body)
   }
