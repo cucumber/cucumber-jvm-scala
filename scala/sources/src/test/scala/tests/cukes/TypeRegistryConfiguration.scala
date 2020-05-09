@@ -10,6 +10,9 @@ import io.cucumber.cucumberexpressions.{ParameterByTypeTransformer, ParameterTyp
 import io.cucumber.datatable.{DataTableType, TableCellByTypeTransformer, TableEntryByTypeTransformer, TableEntryTransformer}
 import tests.cukes.model.{Cukes, Person, Snake}
 
+import scala.annotation.nowarn
+
+@nowarn
 class TypeRegistryConfiguration extends TypeRegistryConfigurer {
 
   /**

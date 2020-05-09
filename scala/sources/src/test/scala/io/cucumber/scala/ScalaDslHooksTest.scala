@@ -7,6 +7,9 @@ import org.junit.Assert.{assertEquals, assertTrue}
 import org.junit.{Before, Test}
 import org.mockito.Mockito.mock
 
+import scala.annotation.nowarn
+
+@nowarn
 class ScalaDslHooksTest {
 
   private val fakeState = mock(classOf[TestCaseState])

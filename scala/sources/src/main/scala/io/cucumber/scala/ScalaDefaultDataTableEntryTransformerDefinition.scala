@@ -16,7 +16,7 @@ trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEn
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  override val tableEntryByTypeTransformer: TableEntryByTypeTransformer = (fromValue: JavaMap[String, String], toValueType: Type, tableCellByTypeTransformer: TableCellByTypeTransformer) => {
+  override val tableEntryByTypeTransformer: TableEntryByTypeTransformer = (fromValue: JavaMap[String, String], toValueType: Type, _: TableCellByTypeTransformer) => {
     replaceEmptyPatternsWithEmptyString(fromValue.asScala.toMap)
       .map(details.body.apply(_, toValueType))
       .get

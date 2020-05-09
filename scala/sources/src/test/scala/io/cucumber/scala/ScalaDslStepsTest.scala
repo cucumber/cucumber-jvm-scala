@@ -4,8 +4,10 @@ import io.cucumber.core.backend._
 import org.junit.Assert.{assertEquals, assertTrue}
 import org.junit.Test
 
+import scala.annotation.nowarn
 import scala.util.Try
 
+@nowarn
 class ScalaDslStepsTest {
 
   @Test
@@ -22,7 +24,7 @@ class ScalaDslStepsTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:19", Array(), invoked)
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:21", Array(), invoked)
   }
 
   @Test
@@ -38,7 +40,7 @@ class ScalaDslStepsTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:34", Array(), invoked)
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:36", Array(), invoked)
   }
 
   @Test
@@ -56,7 +58,7 @@ class ScalaDslStepsTest {
 
     val glue = new Glue()
 
-    assertClassStepDefinition(glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslStepsTest.scala:51", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
+    assertClassStepDefinition(glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslStepsTest.scala:53", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
   }
 
   @Test
@@ -71,7 +73,7 @@ class ScalaDslStepsTest {
 
     val glue = new GlueWithException()
 
-    assertClassStepDefinitionThrow(glue.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslStepsTest$GlueWithException", "ScalaDslStepsTest.scala", 68, Array())
+    assertClassStepDefinitionThrow(glue.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslStepsTest$GlueWithException", "ScalaDslStepsTest.scala", 70, Array())
   }
 
   // -------------------- Test on object --------------------
@@ -89,7 +91,7 @@ class ScalaDslStepsTest {
       //@formatter:on
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:88", Array(), invoked)
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:90", Array(), invoked)
   }
 
   @Test
@@ -103,7 +105,7 @@ class ScalaDslStepsTest {
       }
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:101", Array(), invoked)
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, "Something", "ScalaDslStepsTest.scala:103", Array(), invoked)
   }
 
   @Test
@@ -119,7 +121,7 @@ class ScalaDslStepsTest {
       }
     }
 
-    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslStepsTest.scala:116", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
+    assertObjectStepDefinition(Glue.registry.stepDefinitions.head, """Oh boy, (\d+) (\s+) cukes""", "ScalaDslStepsTest.scala:118", Array(new java.lang.Integer(5), "green"), thenumber == 5 && thecolour == "green")
   }
 
   @Test
@@ -132,7 +134,7 @@ class ScalaDslStepsTest {
       }
     }
 
-    assertObjectStepDefinitionThrow(GlueWithException.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslStepsTest$GlueWithException", "ScalaDslStepsTest.scala", 131, Array())
+    assertObjectStepDefinitionThrow(GlueWithException.registry.stepDefinitions.head, "io.cucumber.scala.ScalaDslStepsTest$GlueWithException", "ScalaDslStepsTest.scala", 133, Array())
   }
 
   private def assertClassStepDefinition(stepDetails: ScalaStepDetails, pattern: String, location: String, args: Array[AnyRef], check: => Boolean): Unit = {

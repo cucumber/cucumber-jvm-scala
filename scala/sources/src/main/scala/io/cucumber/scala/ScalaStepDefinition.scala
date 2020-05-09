@@ -26,7 +26,10 @@ trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
   }
 
   override def execute(args: Array[AnyRef]): Unit = {
-    executeAsCucumber(stepDetails.body(args.toList))
+    executeAsCucumber {
+      stepDetails.body(args.toList)
+      ()
+    }
   }
 
   override def getPattern: String = stepDetails.pattern
