@@ -4,7 +4,7 @@ import java.util.{List => JList, Map => JMap}
 
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
-import junit.framework.Assert._
+import org.junit.Assert.assertEquals
 import tests.cukes.model.{Cukes, Person, Snake}
 
 import scala.jdk.CollectionConverters._
@@ -25,7 +25,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     calorieCount = maps.asScala.map(_.get("CALORIES")).map(_.toDouble).fold(0.0)(_ + _)
   }
   And("""have eaten {double} calories today""") { (calories: Double) =>
-    assertEquals(calories, calorieCount)
+    assertEquals(calories, calorieCount, 0.0)
   }
 
   var intBelly: Int = 0
@@ -61,7 +61,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     doubleBelly = arg0
   }
   Then("""^I should have one and a half doubles in my belly$""") { () =>
-    assertEquals(1.5, doubleBelly)
+    assertEquals(1.5, doubleBelly, 0.0)
   }
 
   var floatBelly: Float = 0.0f
@@ -70,7 +70,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     floatBelly = arg0
   }
   Then("""^I should have one and a half floats in my belly$""") { () =>
-    assertEquals(1.5f, floatBelly)
+    assertEquals(1.5f, floatBelly, 0.0)
   }
 
   var shortBelly: Short = 0.toShort
