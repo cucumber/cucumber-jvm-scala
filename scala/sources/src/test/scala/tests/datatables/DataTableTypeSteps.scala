@@ -8,7 +8,7 @@ import io.cucumber.datatable.DataTable
 import scala.jdk.CollectionConverters._
 
 
-class DatatablesSteps extends ScalaDsl with EN {
+class DataTableTypeSteps extends ScalaDsl with EN {
 
   case class GroupOfAuthor(authors: Seq[Author])
 

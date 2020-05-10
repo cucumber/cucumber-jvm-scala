@@ -1,6 +1,5 @@
 package io.cucumber.scala
 
-import java.lang.reflect.Type
 import java.util.{List => JList}
 
 import io.cucumber.core.backend.{ParameterInfo, ScenarioScoped, StepDefinition}
@@ -14,10 +13,11 @@ trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
 
   override val location: StackTraceElement = stepDetails.frame
 
-  val parametersInfo: JList[ParameterInfo] = fromTypes(stepDetails.types)
+  override val parameterInfos: JList[ParameterInfo] = fromTypes(stepDetails.types)
 
-  private def fromTypes(types: Array[Type]): JList[ParameterInfo] = {
+  private def fromTypes(types: Seq[Manifest[_]]): JList[ParameterInfo] = {
     types
+      .map(ScalaTypeHelper.asJavaType)
       .map(new ScalaTypeResolver(_))
       .map(new ScalaParameterInfo(_))
       .toList
@@ -33,8 +33,6 @@ trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
   }
 
   override def getPattern: String = stepDetails.pattern
-
-  override def parameterInfos(): JList[ParameterInfo] = parametersInfo
 
   // Easier to just print out fileName and lineNumber
   override def getLocation(): String = stepDetails.frame.getFileName + ":" + stepDetails.frame.getLineNumber

@@ -29,6 +29,7 @@ The minor version might differ because Cucumber Scala may add Scala-related feat
 - Documentation
   - [Basic usage](docs/usage.md)
   - [Step Definitions](docs/step_definitions.md)
+    - [DataTables](docs/datatables.md)
   - [Hooks](docs/hooks.md)
   - [Transformers](docs/transformers.md)
     - [Default Jackson DataTable Transformer](docs/default_jackson_datatable_transformer.md)
