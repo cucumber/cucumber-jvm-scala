@@ -11,6 +11,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [5.7.0] (2020-05-10)
+
+### Added
+
 - [Scala] `Scenario.log(String)` & `Scenario.attach(byte[], String, String)` ([#42](https://github.com/cucumber/cucumber-jvm-scala/pull/42) Gaël Jourdan-Weil)
 - [Doc] Added Javadoc on `ScalaDsl` methods ([#53](https://github.com/cucumber/cucumber-jvm-scala/issues/53) Gaël Jourdan-Weil)
 
@@ -22,8 +34,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Deprecated
 
 - [Scala] `Scenario.write(String)` & `Scenario.embed(byte[], String, String)` ([#42](https://github.com/cucumber/cucumber-jvm-scala/pull/42) Gaël Jourdan-Weil)
-
-### Removed
 
 ### Fixed
 
@@ -122,7 +132,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.6.0...master
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.7.0...master
+[5.7.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v5.6.0...v5.7.0
 [5.6.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.1...v5.6.0
 [4.7.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.0...v4.7.1
 [4.7.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.6.0...v4.7.0
