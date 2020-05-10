@@ -1,7 +1,5 @@
 package io.cucumber.scala
 
-import java.lang.reflect.Type
-
 /**
  * Implementation of step definition for scala.
  *
@@ -15,5 +13,5 @@ import java.lang.reflect.Type
 case class ScalaStepDetails(frame: StackTraceElement,
                             name: String,
                             pattern: String,
-                            types: Array[Type],
+                            types: Seq[Manifest[_]],
                             body: List[Any] => Any)

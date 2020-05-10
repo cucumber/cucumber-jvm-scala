@@ -1,7 +1,5 @@
 package io.cucumber.scala
 
-import java.lang.reflect.{ParameterizedType, Type}
-
 import io.cucumber.scala.Aliases._
 
 import scala.reflect.ClassTag
@@ -912,25 +910,10 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    private def register(ms: Manifest[_ <: Any]*)(pf: PartialFunction[List[Any], Any]): Unit = {
-      val types = ms.map(m => toJavaType(m)).toArray
-      registry.stepDefinitions += ScalaStepDetails(Utils.frame(self), name, regex, types, pf)
+    private def register(manifests: Manifest[_ <: Any]*)(pf: PartialFunction[List[Any], Any]): Unit = {
+      registry.stepDefinitions += ScalaStepDetails(Utils.frame(self), name, regex, manifests, pf)
     }
 
-    private def toJavaType(m: Manifest[_]): Type = {
-      val typeArgs = m.typeArguments
-      if (typeArgs.isEmpty) {
-        m.runtimeClass
-      } else {
-        new ParameterizedType {
-          override def getActualTypeArguments: Array[Type] = typeArgs.map(toJavaType).toArray
-
-          override def getRawType: Type = m.runtimeClass
-
-          override def getOwnerType: Type = ???
-        }
-      }
-    }
   }
 
 }
