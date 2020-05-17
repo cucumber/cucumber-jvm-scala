@@ -28,6 +28,11 @@ update-major-dependency-versions:
 	mvn versions:update-properties -DallowMajorUpdates=true -Dmaven.version.rules="file://`pwd`/.m2/maven-version-rules.xml"
 .PHONY: update-major-dependency-versions
 
+update-installdoc:
+	cat docs/install.md | ./scripts/update-install-doc.sh $(NEW_VERSION) > docs/install.md.tmp
+	mv docs/install.md.tmp docs/install.md
+.PHONY: update-installdoc
+
 update-changelog:
 	cat CHANGELOG.md | ./scripts/update-changelog.sh $(NEW_VERSION) > CHANGELOG.md.tmp
 	mv CHANGELOG.md.tmp CHANGELOG.md
