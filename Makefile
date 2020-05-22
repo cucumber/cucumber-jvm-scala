@@ -38,12 +38,12 @@ update-changelog:
 	mv CHANGELOG.md.tmp CHANGELOG.md
 .PHONY: update-changelog
 
-.commit-and-push-changelog:
-	git commit -am "Update CHANGELOG for v$(NEW_VERSION)"
+.commit-and-push-changelog-and-docs:
+	git commit -am "Update CHANGELOG and docs for v$(NEW_VERSION)"
 	git push
 .PHONY: .commit-and-push-changelog
 
-release: default update-changelog .commit-and-push-changelog
+release: default update-changelog update-installdoc .commit-and-push-changelog-and-docs
 	mvn --batch-mode release:clean release:prepare -DautoVersionSubmodules=true -Darguments="-DskipTests=true -DskipITs=true -Darchetype.test.skip=true"
 	git checkout "v$(NEW_VERSION)"
 	mvn deploy -P-examples -P-compatibility -Psign-source-javadoc -DskipTests=true -DskipITs=true -Darchetype.test.skip=true
