@@ -19,6 +19,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
+- [Scala DSL] Raise an exception at runtime if hooks are not correctly defined ([#60](https://github.com/cucumber/cucumber-jvm-scala/issues/60) Gaël Jourdan-Weil)
+
 ## [5.7.0] (2020-05-10)
 
 ### Added
