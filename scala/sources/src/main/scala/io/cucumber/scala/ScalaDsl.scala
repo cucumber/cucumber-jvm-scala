@@ -22,21 +22,22 @@ trait ScalaDsl extends BaseScalaDsl with StepDsl with HookDsl with DataTableType
 
 }
 
+sealed trait HookType
+
+object HookType {
+
+  case object BEFORE extends HookType
+
+  case object BEFORE_STEP extends HookType
+
+  case object AFTER extends HookType
+
+  case object AFTER_STEP extends HookType
+
+}
+
 private[scala] trait HookDsl extends BaseScalaDsl {
-
-  private sealed trait HookType
-
-  private object HookType {
-
-    case object BEFORE extends HookType
-
-    case object BEFORE_STEP extends HookType
-
-    case object AFTER extends HookType
-
-    case object AFTER_STEP extends HookType
-
-  }
+  self =>
 
   /**
    * Defines an before hook.
@@ -63,7 +64,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
    * @param order         the order in which this hook should run. Higher numbers are run first
    */
-  def Before(tagExpression: String, order: Int) = new HookBody(HookType.BEFORE, tagExpression, order)
+  def Before(tagExpression: String, order: Int) = new HookBody(HookType.BEFORE, tagExpression, order, Utils.frame(self))
 
   /**
    * Defines an before step hook.
@@ -90,7 +91,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
    * @param order         the order in which this hook should run. Higher numbers are run first
    */
-  def BeforeStep(tagExpression: String, order: Int) = new HookBody(HookType.BEFORE_STEP, tagExpression, order)
+  def BeforeStep(tagExpression: String, order: Int) = new HookBody(HookType.BEFORE_STEP, tagExpression, order, Utils.frame(self))
 
   /**
    * Defines and after hook.
@@ -117,7 +118,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
    * @param order         the order in which this hook should run. Higher numbers are run first
    */
-  def After(tagExpression: String, order: Int) = new HookBody(HookType.AFTER, tagExpression, order)
+  def After(tagExpression: String, order: Int) = new HookBody(HookType.AFTER, tagExpression, order, Utils.frame(self))
 
   /**
    * Defines and after step hook.
@@ -144,9 +145,13 @@ private[scala] trait HookDsl extends BaseScalaDsl {
    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
    * @param order         the order in which this hook should run. Higher numbers are run first
    */
-  def AfterStep(tagExpression: String, order: Int) = new HookBody(HookType.AFTER_STEP, tagExpression, order)
+  def AfterStep(tagExpression: String, order: Int) = new HookBody(HookType.AFTER_STEP, tagExpression, order, Utils.frame(self))
 
-  final class HookBody(hookType: HookType, tagExpression: String, order: Int) {
+  final class HookBody(hookType: HookType, tagExpression: String, order: Int, frame: StackTraceElement) {
+
+    // When a HookBody is created, we want to ensure that the apply method is called
+    // To be able to check this, we notice the registry to expect a hook
+    registry.expectHook(hookType, frame)
 
     def apply(body: => Unit): Unit = {
       apply(_ => body)
@@ -154,16 +159,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
     def apply(body: Scenario => Unit): Unit = {
       val details = ScalaHookDetails(tagExpression, order, body)
-      hookType match {
-        case HookType.BEFORE =>
-          registry.beforeHooks += details
-        case HookType.BEFORE_STEP =>
-          registry.beforeStepHooks += details
-        case HookType.AFTER =>
-          registry.afterHooks += details
-        case HookType.AFTER_STEP =>
-          registry.afterStepHooks += details
-      }
+      registry.registerHook(hookType, details, frame)
     }
 
   }
@@ -181,7 +177,7 @@ private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
    * @tparam T type to convert to
    */
   def DocStringType[T](contentType: String)(body: DocStringDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
-    registry.docStringTypes += ScalaDocStringTypeDetails[T](contentType, body, ev)
+    registry.registerDocStringType(ScalaDocStringTypeDetails[T](contentType, body, ev))
   }
 
 }
@@ -209,19 +205,19 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
   final class DataTableTypeBody(replaceWithEmptyString: Seq[String]) {
 
     def apply[T](body: DataTableEntryDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
-      registry.dataTableTypes += ScalaDataTableEntryTypeDetails[T](replaceWithEmptyString, body, ev)
+      registry.registerDataTableType(ScalaDataTableEntryTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
     def apply[T](body: DataTableRowDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
-      registry.dataTableTypes += ScalaDataTableRowTypeDetails[T](replaceWithEmptyString, body, ev)
+      registry.registerDataTableType(ScalaDataTableRowTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
     def apply[T](body: DataTableCellDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
-      registry.dataTableTypes += ScalaDataTableCellTypeDetails[T](replaceWithEmptyString, body, ev)
+      registry.registerDataTableType(ScalaDataTableCellTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
     def apply[T](body: DataTableDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
-      registry.dataTableTypes += ScalaDataTableTableTypeDetails[T](replaceWithEmptyString, body, ev)
+      registry.registerDataTableType(ScalaDataTableTableTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
   }
@@ -398,7 +394,7 @@ private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
     }
 
     private def register[R](pf: PartialFunction[List[String], R])(implicit tag: ClassTag[R]): Unit = {
-      registry.parameterTypes += ScalaParameterTypeDetails[R](name, regex, pf, tag)
+      registry.registerParameterType(ScalaParameterTypeDetails[R](name, regex, pf, tag))
     }
 
   }
@@ -413,7 +409,7 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
    * @param body converts `String` argument to an instance of the `Type` argument
    */
   def DefaultParameterTransformer(body: DefaultParameterTransformerBody): Unit = {
-    registry.defaultParameterTransformers += ScalaDefaultParameterTransformerDetails(body)
+    registry.registerDefaultParameterTransformer(ScalaDefaultParameterTransformerDetails(body))
   }
 
   /**
@@ -441,7 +437,7 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
   }
 
   private def DefaultDataTableCellTransformer(replaceWithEmptyString: Seq[String])(body: DefaultDataTableCellTransformerBody): Unit = {
-    registry.defaultDataTableCellTransformers += ScalaDefaultDataTableCellTransformerDetails(replaceWithEmptyString, body)
+    registry.registerDefaultDataTableCellTransformer(ScalaDefaultDataTableCellTransformerDetails(replaceWithEmptyString, body))
   }
 
   /**
@@ -468,7 +464,7 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
   }
 
   private def DefaultDataTableEntryTransformer(replaceWithEmptyString: Seq[String])(body: DefaultDataTableEntryTransformerBody): Unit = {
-    registry.defaultDataTableEntryTransformers += ScalaDefaultDataTableEntryTransformerDetails(replaceWithEmptyString, body)
+    registry.registerDefaultDataTableEntryTransformer(ScalaDefaultDataTableEntryTransformerDetails(replaceWithEmptyString, body))
   }
 
 }
@@ -911,7 +907,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     private def register(manifests: Manifest[_ <: Any]*)(pf: PartialFunction[List[Any], Any]): Unit = {
-      registry.stepDefinitions += ScalaStepDetails(Utils.frame(self), name, regex, manifests, pf)
+      registry.registerStep(ScalaStepDetails(Utils.frame(self), name, regex, manifests, pf))
     }
 
   }

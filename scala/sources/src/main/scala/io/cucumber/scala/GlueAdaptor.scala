@@ -11,11 +11,17 @@ class GlueAdaptor(glue: Glue) {
    * @param scenarioScoped true for class instances, false for object singletons
    */
   def loadRegistry(registry: ScalaDslRegistry, scenarioScoped: Boolean): Unit = {
+
+    // If the registry is not consistent, this indicates a mistake in the users definition and we want to let him know.
+    registry.checkConsistency().left.foreach { ex: IncorrectHookDefinitionException =>
+      throw ex
+    }
+
     registry.stepDefinitions.map(ScalaStepDefinition(_, scenarioScoped)).foreach(glue.addStepDefinition)
     registry.beforeHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addBeforeHook)
     registry.afterHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addAfterHook)
-    registry.afterStepHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addAfterStepHook)
     registry.beforeStepHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addBeforeStepHook)
+    registry.afterStepHooks.map(ScalaHookDefinition(_, scenarioScoped)).foreach(glue.addAfterStepHook)
     registry.docStringTypes.map(ScalaDocStringTypeDefinition(_, scenarioScoped)).foreach(glue.addDocStringType)
     registry.dataTableTypes.map(ScalaDataTableTypeDefinition(_, scenarioScoped)).foreach(glue.addDataTableType)
     registry.parameterTypes.map(ScalaParameterTypeDefinition(_, scenarioScoped)).foreach(glue.addParameterType)

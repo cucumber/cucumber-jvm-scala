@@ -9,7 +9,8 @@ private[scala] object Utils {
   def frame(self: Any): StackTraceElement = {
     val frames = Thread.currentThread().getStackTrace
     val currentClass = self.getClass.getName
-    frames.find(_.getClassName == currentClass).get
+    // Note: the -1 check is here for Scala < 2.13 and objects
+    frames.reverse.find(f => f.getClassName == currentClass && f.getLineNumber != -1).get
   }
 
 }
