@@ -11,7 +11,7 @@ case class Point(x: Int, y: Int)
 
 class ParameterTypesSteps extends ScalaDsl with EN {
 
-  ParameterType("string-builder", ".*") { str =>
+  ParameterType("string-builder", "\"(.*)\"") { str =>
     new StringBuilder(str)
   }
 
@@ -21,6 +21,14 @@ class ParameterTypesSteps extends ScalaDsl with EN {
 
   ParameterType("ingredients", "(.+), (.+) and (.+)") { (x, y, z) =>
     s"-$x-$y-$z-"
+  }
+
+  ParameterType("optionalint", """\s?(\d*)\s?""") { str =>
+    Option(str).filter(_.nonEmpty).map(_.toInt)
+  }
+
+  ParameterType("optionalstring", "(.*)") { str =>
+    Option(str).filter(_.nonEmpty)
   }
 
   DefaultParameterTransformer { (fromValue, toValueType) =>
@@ -73,6 +81,22 @@ class ParameterTypesSteps extends ScalaDsl with EN {
     val table = rows.asScala
     assert(table(0).toString() == "Map(dinner -> Kebab)-class scala.collection.mutable.StringBuilder")
     assert(table(1).toString() == "Map(dinner -> )-class scala.collection.mutable.StringBuilder")
+  }
+
+  Given("""an optional string parameter value "{optionalstring}" undefined""") { value: Option[String] =>
+    assert(value.isEmpty)
+  }
+
+  Given("""an optional string parameter value "{optionalstring}" defined""") { value: Option[String] =>
+    assert(value.contains("toto"))
+  }
+
+  Given("""an optional int parameter value{optionalint}undefined""") { value: Option[Int] =>
+    assert(value.isEmpty)
+  }
+
+  Given("""an optional int parameter value{optionalint}defined""") { value: Option[Int] =>
+    assert(value.contains(5))
   }
 
 }
