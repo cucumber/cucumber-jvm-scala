@@ -515,16 +515,20 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply(fun: Fun0): Unit = {
       register() {
         case Nil => fun.f()
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
     /*
      * Generated apply1 to apply22 below
      */
-    def apply[T1](f: T1 => Any)(implicit m1: Manifest[T1]): Unit = {
+    def apply[T1](f: (T1) => Any)(implicit m1: Manifest[T1]): Unit = {
       register(m1) {
         case List(a1: AnyRef) =>
           f(a1.asInstanceOf[T1])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -533,6 +537,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
         case List(a1: AnyRef, a2: AnyRef) =>
           f(a1.asInstanceOf[T1],
             a2.asInstanceOf[T2])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -542,6 +548,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
           f(a1.asInstanceOf[T1],
             a2.asInstanceOf[T2],
             a3.asInstanceOf[T3])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -552,6 +560,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a2.asInstanceOf[T2],
             a3.asInstanceOf[T3],
             a4.asInstanceOf[T4])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -563,6 +573,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a3.asInstanceOf[T3],
             a4.asInstanceOf[T4],
             a5.asInstanceOf[T5])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -575,6 +587,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a4.asInstanceOf[T4],
             a5.asInstanceOf[T5],
             a6.asInstanceOf[T6])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -588,6 +602,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a5.asInstanceOf[T5],
             a6.asInstanceOf[T6],
             a7.asInstanceOf[T7])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -602,6 +618,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a6.asInstanceOf[T6],
             a7.asInstanceOf[T7],
             a8.asInstanceOf[T8])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -617,6 +635,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a7.asInstanceOf[T7],
             a8.asInstanceOf[T8],
             a9.asInstanceOf[T9])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -633,6 +653,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a8.asInstanceOf[T8],
             a9.asInstanceOf[T9],
             a10.asInstanceOf[T10])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -650,6 +672,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a9.asInstanceOf[T9],
             a10.asInstanceOf[T10],
             a11.asInstanceOf[T11])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -668,6 +692,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a10.asInstanceOf[T10],
             a11.asInstanceOf[T11],
             a12.asInstanceOf[T12])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -687,6 +713,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a11.asInstanceOf[T11],
             a12.asInstanceOf[T12],
             a13.asInstanceOf[T13])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -707,6 +735,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a12.asInstanceOf[T12],
             a13.asInstanceOf[T13],
             a14.asInstanceOf[T14])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -728,6 +758,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a13.asInstanceOf[T13],
             a14.asInstanceOf[T14],
             a15.asInstanceOf[T15])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -750,6 +782,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a14.asInstanceOf[T14],
             a15.asInstanceOf[T15],
             a16.asInstanceOf[T16])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -773,6 +807,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a15.asInstanceOf[T15],
             a16.asInstanceOf[T16],
             a17.asInstanceOf[T17])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -797,6 +833,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a16.asInstanceOf[T16],
             a17.asInstanceOf[T17],
             a18.asInstanceOf[T18])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -822,6 +860,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a17.asInstanceOf[T17],
             a18.asInstanceOf[T18],
             a19.asInstanceOf[T19])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -848,6 +888,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a18.asInstanceOf[T18],
             a19.asInstanceOf[T19],
             a20.asInstanceOf[T20])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -875,6 +917,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a19.asInstanceOf[T19],
             a20.asInstanceOf[T20],
             a21.asInstanceOf[T21])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
@@ -903,6 +947,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             a20.asInstanceOf[T20],
             a21.asInstanceOf[T21],
             a22.asInstanceOf[T22])
+        case _ =>
+          throw new IncorrectStepDefinitionException()
       }
     }
 
