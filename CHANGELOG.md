@@ -12,12 +12,17 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Added
 
 - [Scala] Conversion methods from `DataTable` to scala types ([#56](https://github.com/cucumber/cucumber-jvm-scala/issues/56) Gaël Jourdan-Weil)
+- [Scala] Add `attach(String, String, String)` in `Scenario` (Gaël Jourdan-Weil)
 
 ### Changed
+
+- [Core] Update `cucumber-core` dependency to 6.0.0 (Gaël Jourdan-Weil)
 
 ### Deprecated
 
 ### Removed
+
+- [Scala] Remove deprecated methods in `Scenario` (Gaël Jourdan-Weil)
 
 ### Fixed
 
