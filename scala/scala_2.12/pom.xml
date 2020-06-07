@@ -78,6 +78,8 @@
                         <arg>-deprecation</arg>
                         <!-- Emit warning and location for usages of features that should be imported explicitly. -->
                         <arg>-feature</arg>
+                        <!-- Allow definition of implicit functions called views -->
+                        <arg>-language:implicitConversions</arg>
                     </args>
                     <excludes>
                         <exclude>**/*.java</exclude>

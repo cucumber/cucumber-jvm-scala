@@ -85,6 +85,8 @@
                     <args>
                         <arg>-deprecation</arg>
                         <arg>-feature</arg>
+                        <!-- Allow definition of implicit functions called views -->
+                        <arg>-language:implicitConversions</arg>
                     </args>
                     <excludes>
                         <exclude>**/*.java</exclude>
