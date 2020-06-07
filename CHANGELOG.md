@@ -11,6 +11,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [6.0.0] (2020-06-07)
+
+### Added
+
 - [Scala] Conversion methods from `DataTable` to scala types ([#56](https://github.com/cucumber/cucumber-jvm-scala/issues/56) Gaël Jourdan-Weil)
 - [Scala] Add `attach(String, String, String)` in `Scenario` (Gaël Jourdan-Weil)
 
@@ -141,7 +153,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v5.7.0...master
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.0.0...master
+[6.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v5.7.0...v6.0.0
 [5.7.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v5.6.0...v5.7.0
 [5.6.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.1...v5.6.0
 [4.7.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v4.7.0...v4.7.1
