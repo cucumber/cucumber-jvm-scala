@@ -26,7 +26,7 @@
         <groovy.version>2.4.19</groovy.version>
         <jackson-databind.version>2.11.0</jackson-databind.version>
         <junit.version>4.13</junit.version>
-        <scala.2.11.version>2.11.12</scala.2.11.version>
+        <scala.2.11.version>2.13.2</scala.2.11.version>
         <scala.2.12.version>2.12.11</scala.2.12.version>
         <scala.2.13.version>2.13.2</scala.2.13.version>
         <mockito-scala.version>1.13.9</mockito-scala.version>
