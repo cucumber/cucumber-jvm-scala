@@ -23,7 +23,7 @@
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <cucumber.version>6.0.0</cucumber.version>
         <gherkin.version>9.2.0</gherkin.version>
-        <groovy.version>2.4.19</groovy.version>
+        <groovy.version>2.5.12</groovy.version>
         <jackson-databind.version>2.11.0</jackson-databind.version>
         <junit.version>4.13</junit.version>
         <scala.2.11.version>2.11.12</scala.2.11.version>
