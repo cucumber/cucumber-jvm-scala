@@ -29,7 +29,7 @@
         <scala.2.11.version>2.11.12</scala.2.11.version>
         <scala.2.12.version>2.12.11</scala.2.12.version>
         <scala.2.13.version>2.13.2</scala.2.13.version>
-        <mockito-scala.version>1.13.9</mockito-scala.version>
+        <mockito-scala.version>1.14.4</mockito-scala.version>
         <toolchain.vendor>openjdk</toolchain.vendor>
         <toolchain.java.version>8</toolchain.java.version>
     </properties>
