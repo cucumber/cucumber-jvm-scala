@@ -42,3 +42,13 @@ The minor version might differ because Cucumber Scala may add Scala-related feat
 ## Contributing
 
 See [here](CONTRIBUTING.md) for internal documentation and information about contributing.
+
+## Backers & Sponsors
+
+Support us with a monthly donation and help us continue our activities. [Become a backer](https://opencollective.com/cucumber#backer) or [a sponsor](https://opencollective.com/cucumber#sponsor)!
+
+## They are using it
+
+You are using Cucumber Scala? We would love to know about you! Please open a PR to add your project or company to the list below.
+
+<img src="https://4fle1816f3va1wuk891mb5nk-wpengine.netdna-ssl.com/wp-content/uploads/2019/11/logo-1024x189-1.jpg" height="40" /> <img src="https://engineering.teads.com/wp-content/uploads/2019/07/Teads_logo_Black.svg" height="40" /> <img src="https://raw.githubusercontent.com/KelkooGroup/theGardener/master/public/images/logo.png" height="40" />
