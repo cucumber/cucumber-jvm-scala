@@ -146,4 +146,47 @@ class DatatableAsScalaSteps extends ScalaDsl with EN {
     assert(data == expected)
   }
 
+  case class CustomType(key1: String, key2: Option[String], key3: String)
+
+  DataTableType { map: Map[String, String] =>
+    CustomType(map("key1"), Option(map("key2")), map("key3"))
+  }
+
+  Given("the following table as Scala List of custom type") { (table: DataTable) =>
+    val data: Seq[CustomType] = table.asScalaRawList[CustomType]
+    val expected = Seq(
+      CustomType("val11", Some("val12"), "val13"),
+      CustomType("val21", None, "val23"),
+      CustomType("val31", Some("val32"), "val33")
+    )
+    assert(data == expected)
+  }
+
+  case class RichCell(content: Option[String])
+
+  DataTableType { cell: String =>
+    RichCell(Option(cell))
+  }
+
+  Given("the following table as Scala List of List of custom type") { (table: DataTable) =>
+    val data: Seq[Seq[RichCell]] = table.asScalaRawLists[RichCell]
+    val expected = Seq(
+      Seq(RichCell(Some("val11")), RichCell(Some("val12")), RichCell(Some("val13"))),
+      Seq(RichCell(Some("val21")), RichCell(None), RichCell(Some("val23"))),
+      Seq(RichCell(Some("val31")), RichCell(Some("val32")), RichCell(Some("val33")))
+    )
+    assert(data == expected)
+  }
+
+  Given("the following table as Scala List of Map of custom type") { (table: DataTable) =>
+    val data: Seq[Map[String, RichCell]] = table.asScalaRawMaps[String, RichCell]
+    val expected = Seq(
+      Map("key1" -> RichCell(Some("val11")), "key2" -> RichCell(Some("val12")), "key3" -> RichCell(Some("val13"))),
+      Map("key1" -> RichCell(Some("val21")), "key2" -> RichCell(None), "key3" -> RichCell(Some("val23"))),
+      Map("key1" -> RichCell(Some("val31")), "key2" -> RichCell(Some("val32")), "key3" -> RichCell(Some("val33")))
+    )
+    assert(data == expected)
+
+  }
+
 }

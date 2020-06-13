@@ -23,6 +23,8 @@ object Implicits {
      * Provides a view of the DataTable as a sequence of rows, each row being a key-value map where key is the column name.
      * Equivalent of `.asMaps[K,V](classOf[K], classOf[V])` but returned as Scala collection types without `null` values.
      *
+     * See also `asScalaRawMaps[T]` if you don't need `Option`s (for instance if you are using a DataTableType).
+     *
      * @tparam K key type
      * @tparam V value type
      * @return sequence of rows
@@ -43,6 +45,23 @@ object Implicits {
     def asScalaMaps: Seq[Map[String, Option[String]]] = asScalaMaps[String, String]
 
     /**
+     * Provides a view of the DataTable as a sequence of rows, each row being a key-value map where key is the column name.
+     * Equivalent of `.asMaps[K,V](classOf[K], classOf[V])` but returned as Scala collection types.
+     *
+     * See also `asScalaMaps[T]`.
+     *
+     * @tparam K key type
+     * @tparam V value type
+     * @return sequence of rows
+     */
+    def asScalaRawMaps[K, V](implicit evK: ClassTag[K], evV: ClassTag[V]): Seq[Map[K, V]] = {
+      table.asMaps[K, V](evK.runtimeClass, evV.runtimeClass)
+        .asScala
+        .map(_.asScala.toMap)
+        .toSeq
+    }
+
+    /**
      * Provides a view of the DataTable as a key-value map where key are the first column values.
      * Equivalent of `.asMap[K,V](classOf[K],classOf[V])` but returned as Scala collection types without `null` values.
      *
@@ -60,6 +79,8 @@ object Implicits {
     /**
      * Provides a view of the DataTable as a matrix.
      * Equivalent of `.asLists[T](classOf[T])` but returned as Scala collection types without `null` values.
+     *
+     * See also `asScalaRawLists[T]` if you don't need `Option`s (for instance if you are using a DataTableType).
      *
      * @tparam T cell type
      * @return matrix
@@ -80,8 +101,26 @@ object Implicits {
     def asScalaLists: Seq[Seq[Option[String]]] = asScalaLists[String]
 
     /**
+     * Provides a view of the DataTable as a matrix.
+     * Equivalent of `.asLists[T](classOf[T])` but returned as Scala collection types.
+     *
+     * See also `asScalaLists[T]`
+     *
+     * @tparam T cell type
+     * @return matrix
+     */
+    def asScalaRawLists[T](implicit ev: ClassTag[T]): Seq[Seq[T]] = {
+      table.asLists[T](ev.runtimeClass)
+        .asScala
+        .map(_.asScala.toSeq)
+        .toSeq
+    }
+
+    /**
      * Provides a view of the DataTable as a simple list of values.
      * Equivalent of `.asList[T](classOf[T])` but returned as Scala collection types without `null` values.
+     *
+     * See also `asScalaRawList[T]` if you don't need `Option`s (for instance if you are using a DataTableType).
      *
      * @tparam T cell type
      * @return list of values
@@ -100,6 +139,21 @@ object Implicits {
      * @return list of values
      */
     def asScalaList: Seq[Option[String]] = asScalaList[String]
+
+    /**
+     * Provides a view of the DataTable as a simple list of values.
+     * Equivalent of `.asList[T](classOf[T])` but returned as Scala collection types.
+     *
+     * See also `asScalaList[T]`.
+     *
+     * @tparam T cell/row type
+     * @return list of values
+     */
+    def asScalaRawList[T](implicit ev: ClassTag[T]): Seq[T] = {
+      table.asList[T](ev.runtimeClass)
+        .asScala
+        .toSeq
+    }
 
     /**
      * Provides a view of the DataTable as a full table: a key-value map of row where keys are the first column values

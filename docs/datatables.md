@@ -8,6 +8,8 @@ Cucumber Scala support DataTables with either:
 
 See below the exhaustive list of possible mappings.
 
+_Note: you can use [transformers](transformers.md) to map DataTables to custom types._ 
+
 ## As Map of Map
 
 ```gherkin
