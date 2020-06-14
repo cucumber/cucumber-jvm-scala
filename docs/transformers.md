@@ -87,7 +87,7 @@ This can be achieved in different ways:
 - transform cells content to any type
 
 Note that DataTables in Gherkin can not represent `null` or the empty string unambiguously.
-Cucumber will interpret empty cells as `null`.
+Cucumber will interpret empty cells as `None` or `null`.
 But you can use a replacement to represent empty strings.
 See below.
 
@@ -99,8 +99,8 @@ For instance, the following transformer can be defined:
 ```scala
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType { entry: Map[String, String] =>
-  Author(entry("name"), entry("surname"), entry("famousBook"))
+DataTableType { entry: Map[String, Option[String]] => // Or Map[String, String]
+  Author(entry("name").getOrElse("NoValue"), entry("surname").getOrElse("NoValue"), entry("famousBook").getOrElse("NoValue"))
 }
 ```
 
@@ -131,8 +131,8 @@ For instance, the following transformer can be defined:
 ```scala
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType { row: Seq[String] =>
-  Author(row(0), row(1), row(2))
+DataTableType { row: Seq[Option[String]] => // Or Seq[String]
+  Author(row(0).getOrElse("NoValue"), row(1).getOrElse("NoValue"), row(2).getOrElse("NoValue"))
 }
 ```
 
@@ -166,8 +166,10 @@ case class Author(name: String, surname: String, famousBook: String)
 case class GroupOfAuthor(authors: Seq[Author])
 
 DataTableType { table: DataTable =>
-  val authors = table.asScalaMaps
-      .map(entry => Author(entry("name").getOrElse(""), entry("surname").getOrElse(""), entry("famousBook").getOrElse("")))
+  val authors = table.asMaps().asScala
+      .map(_.asScala)
+      .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
+      .toSeq
   GroupOfAuthor(authors)
 }
 ```
@@ -195,8 +197,8 @@ For instance, the following transformer can be defined:
 ```scala
 case class RichCell(content: String)
 
-DataTableType { cell: String =>
-  RichCell(cell)
+DataTableType { cell: Option[String] => // Or String
+  RichCell(cell.getOrElse("NoValue"))
 }
 ```
 
@@ -243,7 +245,7 @@ Given("the following authors") { (authors: java.util.List[java.util.Map[String, 
 
 ### Empty values
 
-By default empty values in DataTable are treated as `null` by Cucumber.
+By default empty values in DataTable are treated as `None` or `null` by Cucumber.
 If you need to have empty values, you can define a replacement like `[empty]` that will be automatically replaced to empty when parsing DataTable.
 
 To do so, you can add a parameter to a `DataTableType` definition.
@@ -252,7 +254,7 @@ For instance, with the following definition:
 ```scala
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType("[empty]") { (entry: Map[String, String]) =>
+DataTableType("[empty]") { (entry: Map[String, String]) => // Or Map[String, Option[String]]
   Author(entry("name"), entry("surname"), entry("famousBook"))
 }
 ```
