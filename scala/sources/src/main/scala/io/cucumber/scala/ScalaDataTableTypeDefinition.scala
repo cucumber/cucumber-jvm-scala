@@ -18,17 +18,35 @@ object ScalaDataTableTypeDefinition {
         } else {
           new ScalaGlobalDataTableEntryDefinition[T](entryDetails)
         }
+      case entryDetails@ScalaDataTableOptionalEntryTypeDetails(_, _, _) =>
+        if (scenarioScoped) {
+          new ScalaScenarioScopedDataTableOptionalEntryDefinition[T](entryDetails)
+        } else {
+          new ScalaGlobalDataTableOptionalEntryDefinition[T](entryDetails)
+        }
       case rowDetails@ScalaDataTableRowTypeDetails(_, _, _) =>
         if (scenarioScoped) {
           new ScalaScenarioScopedDataTableRowDefinition[T](rowDetails)
         } else {
           new ScalaGlobalDataTableRowDefinition[T](rowDetails)
         }
-      case rowDetails@ScalaDataTableCellTypeDetails(_, _, _) =>
+      case rowDetails@ScalaDataTableOptionalRowTypeDetails(_, _, _) =>
         if (scenarioScoped) {
-          new ScalaScenarioScopedDataTableCellDefinition[T](rowDetails)
+          new ScalaScenarioScopedDataTableOptionalRowDefinition[T](rowDetails)
         } else {
-          new ScalaGlobalDataTableCellDefinition[T](rowDetails)
+          new ScalaGlobalDataTableOptionalRowDefinition[T](rowDetails)
+        }
+      case cellDetails@ScalaDataTableCellTypeDetails(_, _, _) =>
+        if (scenarioScoped) {
+          new ScalaScenarioScopedDataTableCellDefinition[T](cellDetails)
+        } else {
+          new ScalaGlobalDataTableCellDefinition[T](cellDetails)
+        }
+      case cellDetails@ScalaDataTableOptionalCellTypeDetails(_, _, _) =>
+        if (scenarioScoped) {
+          new ScalaScenarioScopedDataTableOptionalCellDefinition[T](cellDetails)
+        } else {
+          new ScalaGlobalDataTableOptionalCellDefinition[T](cellDetails)
         }
       case rowDetails@ScalaDataTableTableTypeDetails(_, _, _) =>
         if (scenarioScoped) {

@@ -208,12 +208,24 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
       registry.registerDataTableType(ScalaDataTableEntryTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
+    def apply[T](body: DataTableOptionalEntryDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.registerDataTableType(ScalaDataTableOptionalEntryTypeDetails[T](replaceWithEmptyString, body, ev))
+    }
+
     def apply[T](body: DataTableRowDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
       registry.registerDataTableType(ScalaDataTableRowTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
+    def apply[T](body: DataTableOptionalRowDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.registerDataTableType(ScalaDataTableOptionalRowTypeDetails[T](replaceWithEmptyString, body, ev))
+    }
+
     def apply[T](body: DataTableCellDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
       registry.registerDataTableType(ScalaDataTableCellTypeDetails[T](replaceWithEmptyString, body, ev))
+    }
+
+    def apply[T](body: DataTableOptionalCellDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+      registry.registerDataTableType(ScalaDataTableOptionalCellTypeDetails[T](replaceWithEmptyString, body, ev))
     }
 
     def apply[T](body: DataTableDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {

@@ -24,6 +24,14 @@ Feature: As Cucumber Scala, I want to parse properly Datatables and use types an
     When I concat their names
     Then I get "Alan,"
 
+  Scenario: Using a DataTableType for Entry with Option values - DataTable
+    Given the following authors as entries with null, as table
+      | name    | surname | famousBook      |
+      | [empty] | Alou    | The Lion King   |
+      |         | Bob     | Le Petit Prince |
+    When I concat their names
+    Then I get ",NoName"
+
   Scenario: Using a DataTableType for Row - Jlist
     Given the following authors as rows
       | Alan   | Alou | The Lion King   |
@@ -44,6 +52,13 @@ Feature: As Cucumber Scala, I want to parse properly Datatables and use types an
       | [empty] | Bob  | Le Petit Prince |
     When I concat their names
     Then I get "Alan,"
+
+  Scenario: Using a DataTableType for Row, with Option values - DataTable
+    Given the following authors as rows with null, as table
+      |         | Alou | The Lion King   |
+      | [empty] | Bob  | Le Petit Prince |
+    When I concat their names
+    Then I get "NoName,"
 
   Scenario: Using a DataTableType for Cell - Jlist[Jlist]
     Given the following authors as cells
@@ -75,12 +90,27 @@ Feature: As Cucumber Scala, I want to parse properly Datatables and use types an
     When I concat their names
     Then I get "Alan,"
 
-  Scenario: Using a DataTableType for Cell, with empty values - DataTable -> asLists
-    Given the following authors as cells with empty, as table as list
-      | Alan    | Alou    | The Lion King   |
+  Scenario: Using a DataTableType for Cell, with Option values - DataTable -> asMaps
+    Given the following authors as cells with null, as table as map
+      | name    | surname | famousBook      |
+      |         | Alou    | The Lion King   |
       | [empty] | Bob     | Le Petit Prince |
     When I concat their names
+    Then I get "NoName,"
+
+  Scenario: Using a DataTableType for Cell, with empty values - DataTable -> asLists
+    Given the following authors as cells with empty, as table as list
+      | Alan    | Alou | The Lion King   |
+      | [empty] | Bob  | Le Petit Prince |
+    When I concat their names
     Then I get "Alan,"
+
+  Scenario: Using a DataTableType for Cell, with Option values - DataTable -> asLists
+    Given the following authors as cells with null, as table as list
+      |         | Alou | The Lion King   |
+      | [empty] | Bob  | Le Petit Prince |
+    When I concat their names
+    Then I get "NoName,"
 
   Scenario: Using a DataTableType for DataTable - DataTable
     Given the following authors as table
