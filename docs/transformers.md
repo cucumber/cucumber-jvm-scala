@@ -113,13 +113,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawList[Author]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asList[Author](classOf[Author])
+// Or using Java type
+Given("the following authors") { (authors: java.util.List[Author]) =>
+  // Do something
 }
 ```
 
@@ -142,13 +144,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawList[Author]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asList[Author](classOf[Author])
+// Or using Java types
+Given("the following authors") { (authors: java.util.List[Author]) =>
+  // Do something
 }
 ```
 
@@ -156,14 +160,14 @@ Given("the following authors") { (table: DataTable) =>
 
 For instance, the following transformer can be defined:
 ```scala
+import io.cucumber.scala.Implicits._
+
 case class Author(name: String, surname: String, famousBook: String)
 case class GroupOfAuthor(authors: Seq[Author])
 
 DataTableType { table: DataTable =>
-  val authors = table.asMaps().asScala
-      .map(_.asScala)
-      .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
-      .toSeq
+  val authors = table.asScalaMaps
+      .map(entry => Author(entry("name").getOrElse(""), entry("surname").getOrElse(""), entry("famousBook").getOrElse("")))
   GroupOfAuthor(authors)
 }
 ```
@@ -204,13 +208,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawLists[RichCell]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asLists[RichCell](classOf[RichCell]))
+// Or using Java types
+Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
+  // Do something
 }
 ```
 
@@ -223,13 +229,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawMaps[String, RichCell]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asMaps[String, RichCell](classOf[String], classOf[RichCell])
+// Or with Java Types
+Given("the following authors") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
+  // Do something
 }
 ```
 
@@ -296,13 +304,15 @@ DefaultDataTableEntryTransformer("[empty]") { (fromValue: Map[String, String], t
 
 Will be used to convert with such step definitions:
 ```scala
-Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("A step with a datatable") { (dataTable: DataTable) =>
+  val table = dataTable.asScalaRawList[SomeType]
 }
 
-// Or DataTable
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asList[SomeType](classOf[SomeType])
+// Or with Java types
+Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
+  // Do something
 }
 ```
 
@@ -319,12 +329,14 @@ DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: ja
 
 Will be used to convert with such step definitions:
 ```scala
-Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("A step with a datatable") { (dataTable: DataTable) =>
+  val table = dataTable.asScalaRawLists[SomeType]
 }
 
-// Or DataTable
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asLists[SomeType](classOf[SomeType])
+// Or with Java Types
+Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
+  // Do something
 }
 ```

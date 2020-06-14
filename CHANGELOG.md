@@ -11,6 +11,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- Add `asScalaRawList[T]`, `asScalaRawMaps[T]` and `asScalaRawLists[T]` on `DataTable` (through `io.cucumber.scala.Implicits`) ([#83](https://github.com/cucumber/cucumber-jvm-scala/issues/83) Gaël Jourdan-Weil)
+
 ### Changed
 
 ### Deprecated

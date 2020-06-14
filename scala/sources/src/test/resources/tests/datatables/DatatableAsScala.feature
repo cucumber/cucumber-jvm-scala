@@ -93,3 +93,26 @@ Feature: As Cucumber Scala, I want to parse DataTables to Scala types properly
       | 11 |
       |    |
       | 31 |
+
+    # With custom types using DatatableType
+
+  Scenario: As List of custom type
+    Given the following table as Scala List of custom type
+      | key1  | key2  | key3  |
+      | val11 | val12 | val13 |
+      | val21 |       | val23 |
+      | val31 | val32 | val33 |
+
+  Scenario: As List of List of custom type
+    Given the following table as Scala List of List of custom type
+      | val11 | val12 | val13 |
+      | val21 |       | val23 |
+      | val31 | val32 | val33 |
+
+  Scenario: As List of Map of custom type
+    Given the following table as Scala List of Map of custom type
+      | key1  | key2  | key3  |
+      | val11 | val12 | val13 |
+      | val21 |       | val23 |
+      | val31 | val32 | val33 |
+
