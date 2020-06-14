@@ -3,6 +3,7 @@ package tests.datatables
 import io.cucumber.scala.{EN, ScalaDsl}
 import java.util.{List => JList, Map => JMap}
 
+import io.cucumber.scala.Implicits._
 import io.cucumber.datatable.DataTable
 
 import scala.jdk.CollectionConverters._
@@ -90,9 +91,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   Given("the following authors as entries with empty, as table") { (authors: DataTable) =>
     _authors = authors
-      .asList[AuthorWithEmpty](classOf[AuthorWithEmpty])
-      .asScala
-      .toSeq
+      .asScalaRawList[AuthorWithEmpty]
       .map(_.toAuthor)
   }
 
@@ -112,9 +111,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   Given("the following authors as rows with empty, as table") { (authors: DataTable) =>
     _authors = authors
-      .asList[AuthorRowWithEmpty](classOf[AuthorRowWithEmpty])
-      .asScala
-      .toSeq
+      .asScalaRawList[AuthorRowWithEmpty]
       .map(_.toAuthor)
   }
 
@@ -144,19 +141,13 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   Given("the following authors as cells with empty, as table as map") { (authors: DataTable) =>
     _authors = authors
-      .asMaps[String, AuthorCellWithEmpty](classOf[String], classOf[AuthorCellWithEmpty])
-      .asScala
-      .toSeq
-      .map(_.asScala)
+      .asScalaRawMaps[String, AuthorCellWithEmpty]
       .map(line => Author(line("name").cell, line("surname").cell, line("famousBook").cell))
   }
 
   Given("the following authors as cells with empty, as table as list") { (authors: DataTable) =>
     _authors = authors
-      .asLists[AuthorCellWithEmpty](classOf[AuthorCellWithEmpty])
-      .asScala
-      .toSeq
-      .map(_.asScala)
+      .asScalaRawLists[AuthorCellWithEmpty]
       .map(line => Author(line(0).cell, line(1).cell, line(2).cell))
   }
 
