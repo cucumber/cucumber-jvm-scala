@@ -20,7 +20,6 @@
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
-        <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
         <cucumber.version>6.1.1</cucumber.version>
         <gherkin.version>13.0.0</gherkin.version>
         <groovy.version>2.5.12</groovy.version>
@@ -149,7 +148,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-toolchains-plugin</artifactId>
-                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -173,7 +171,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>3.0.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.codehaus.groovy</groupId>
@@ -200,7 +197,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.2.0</version>
                     <configuration>
                         <use>false</use>
                         <excludePackageNames>cucumber.runtime,cucumber.runtime.*</excludePackageNames>
@@ -227,7 +223,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.2.4</version>
                     <executions>
                         <execution>
                             <phase>package</phase>
@@ -244,7 +239,6 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>${build-helper-maven-plugin.version}</version>
                 </plugin>
 
                 <!-- Non-standard plugins -->
