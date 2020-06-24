@@ -7,13 +7,13 @@ This means that package names, parameters order, internal code... will be more c
 
 ## Cucumber Core changes
 
-Please read the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CHANGELOG.md) from Cucumber Core.
+Please read the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md) from Cucumber Core.
 
 ### Empty values in Datatables
 
 Starting with Cucumber 5.x, empty values in Datatables are now represented as `null` instead of an empty string previously.
 
-Check out the [Empty values section in Transformers documentation](https://github.com/cucumber/cucumber-jvm-scala/blob/master/docs/transformers.md#empty-values) to learn how to have empty values in your Datatables.
+Check out the [Empty values section in Transformers documentation](https://github.com/cucumber/cucumber-jvm-scala/blob/main/docs/transformers.md#empty-values) to learn how to have empty values in your Datatables.
 
 You can also consider [upgrading to Cucumber Scala 6.x](upgrade_v6.md) straight away as Cucumber Scala 6.x provides a way to map Datatables as collections of `Option`s so that you don't have to deal with `null` anyway. 
 

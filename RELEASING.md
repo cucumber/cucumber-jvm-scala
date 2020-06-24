@@ -5,7 +5,7 @@ The process of deploying to maven central has been automated based on
 the [Complete guide to continuous deployment to maven central from Travis CI](http://www.debonair.io/post/maven-cd/)
 and will be executed whenever a non-snapshot version is committed.
 
-## Check [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-scala.svg?branch=master)](https://travis-ci.org/cucumber/cucumber-jvm-scala) ##
+## Check [![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-scala.svg?branch=main)](https://travis-ci.org/cucumber/cucumber-jvm-scala) ##
 
 Is the build passing?
 

@@ -6,8 +6,8 @@ Some features will log a deprecation warning.
 
 See also:
 - [Cucumber Scala CHANGELOG](../CHANGELOG.md)
-- [Cucumber JVM CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CHANGELOG.md)
-- [Cucumber JVM v6 Release Notes](https://github.com/cucumber/cucumber-jvm/blob/master/release-notes/v6.0.0.md)
+- [Cucumber JVM CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Cucumber JVM v6 Release Notes](https://github.com/cucumber/cucumber-jvm/blob/main/release-notes/v6.0.0.md)
 
 ## Map DataTables to Scala types
 
