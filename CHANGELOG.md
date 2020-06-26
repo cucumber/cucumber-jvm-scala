@@ -14,6 +14,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Core] Update `cucumber-core` dependency to 6.1.2
+- [Build] Update Scala versions to 2.13.3
 
 ### Deprecated
 
