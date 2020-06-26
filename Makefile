@@ -18,6 +18,14 @@ version:
 	@echo ""
 .PHONY: version
 
+update-compatibility:
+	MSG_VERSION=$$(mvn help:evaluate -Dexpression=messages.version -q -DforceStdout 2> /dev/null) && \
+	git clone --branch messages/v$$MSG_VERSION git@github.com:cucumber/cucumber.git target/cucumber
+	rm -rf compatibility/src/test/resources/*
+	cp -r target/cucumber/compatibility-kit/javascript/features compatibility/src/test/resources
+	rm -rf target/cucumber
+.PHONY: update-compatibility
+
 update-dependency-versions:
 	mvn versions:force-releases
 	mvn versions:update-properties -DallowMajorUpdates=false -Dmaven.version.rules="file://`pwd`/.m2/maven-version-rules.xml"
@@ -48,5 +56,6 @@ release: default update-changelog update-installdoc .commit-and-push-changelog-a
 	git checkout "v$(NEW_VERSION)"
 	mvn deploy -P-examples -P-compatibility -Psign-source-javadoc -DskipTests=true -DskipITs=true -Darchetype.test.skip=true
 	git checkout $(CURRENT_BRANCH)
+	git fetch
 .PHONY: release
 
