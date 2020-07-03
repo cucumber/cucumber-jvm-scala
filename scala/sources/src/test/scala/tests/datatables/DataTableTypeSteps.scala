@@ -3,6 +3,7 @@ package tests.datatables
 import io.cucumber.scala.{EN, ScalaDsl}
 import java.util.{List => JList, Map => JMap}
 
+import io.cucumber.scala.Implicits._
 import io.cucumber.datatable.DataTable
 
 import scala.jdk.CollectionConverters._
@@ -20,6 +21,10 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     def toAuthor: Author = Author(name, surname, famousBook)
   }
 
+  case class AuthorWithNone(name: Option[String], surname: String, famousBook: String) {
+    def toAuthor: Author = Author(name.getOrElse("NoName"), surname, famousBook)
+  }
+
   case class AuthorRow(name: String, surname: String, famousBook: String) {
     def toAuthor: Author = Author(name, surname, famousBook)
   }
@@ -28,9 +33,15 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     def toAuthor: Author = Author(name, surname, famousBook)
   }
 
+  case class AuthorRowWithNone(name: Option[String], surname: String, famousBook: String) {
+    def toAuthor: Author = Author(name.getOrElse("NoName"), surname, famousBook)
+  }
+
   case class AuthorCell(cell: String)
 
   case class AuthorCellWithEmpty(cell: String)
+
+  case class AuthorCellWithNone(cell: Option[String])
 
   var _authors: Seq[Author] = _
   var _names: String = _
@@ -43,6 +54,10 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     AuthorWithEmpty(entry("name"), entry("surname"), entry("famousBook"))
   }
 
+  DataTableType("[empty]") { (entry: Map[String, Option[String]]) =>
+    AuthorWithNone(entry("name"), entry("surname").getOrElse("NoSurname"), entry("famousBook").getOrElse("NoFamousBook"))
+  }
+
   DataTableType { row: Seq[String] =>
     AuthorRow(row(0), row(1), row(2))
   }
@@ -51,12 +66,20 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     AuthorRowWithEmpty(row(0), row(1), row(2))
   }
 
+  DataTableType("[empty]") { (row: Seq[Option[String]]) =>
+    AuthorRowWithNone(row(0), row(1).getOrElse("NoSurname"), row(2).getOrElse("NoBook"))
+  }
+
   DataTableType { cell: String =>
     AuthorCell(cell)
   }
 
   DataTableType("[empty]") { (cell: String) =>
     AuthorCellWithEmpty(cell)
+  }
+
+  DataTableType("[empty]") { (cell: Option[String]) =>
+    AuthorCellWithNone(cell)
   }
 
   DataTableType { table: DataTable =>
@@ -90,9 +113,13 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   Given("the following authors as entries with empty, as table") { (authors: DataTable) =>
     _authors = authors
-      .asList[AuthorWithEmpty](classOf[AuthorWithEmpty])
-      .asScala
-      .toSeq
+      .asScalaRawList[AuthorWithEmpty]
+      .map(_.toAuthor)
+  }
+
+  Given("the following authors as entries with null, as table") { (authors: DataTable) =>
+    _authors = authors
+      .asScalaRawList[AuthorWithNone]
       .map(_.toAuthor)
   }
 
@@ -112,9 +139,13 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   Given("the following authors as rows with empty, as table") { (authors: DataTable) =>
     _authors = authors
-      .asList[AuthorRowWithEmpty](classOf[AuthorRowWithEmpty])
-      .asScala
-      .toSeq
+      .asScalaRawList[AuthorRowWithEmpty]
+      .map(_.toAuthor)
+  }
+
+  Given("the following authors as rows with null, as table") { (authors: DataTable) =>
+    _authors = authors
+      .asScalaRawList[AuthorRowWithNone]
       .map(_.toAuthor)
   }
 
@@ -144,20 +175,26 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   Given("the following authors as cells with empty, as table as map") { (authors: DataTable) =>
     _authors = authors
-      .asMaps[String, AuthorCellWithEmpty](classOf[String], classOf[AuthorCellWithEmpty])
-      .asScala
-      .toSeq
-      .map(_.asScala)
+      .asScalaRawMaps[String, AuthorCellWithEmpty]
       .map(line => Author(line("name").cell, line("surname").cell, line("famousBook").cell))
+  }
+
+  Given("the following authors as cells with null, as table as map") { (authors: DataTable) =>
+    _authors = authors
+      .asScalaRawMaps[String, AuthorCellWithNone]
+      .map(line => Author(line("name").cell.getOrElse("NoName"), line("surname").cell.getOrElse("NoSurname"), line("famousBook").cell.getOrElse("NoBook")))
   }
 
   Given("the following authors as cells with empty, as table as list") { (authors: DataTable) =>
     _authors = authors
-      .asLists[AuthorCellWithEmpty](classOf[AuthorCellWithEmpty])
-      .asScala
-      .toSeq
-      .map(_.asScala)
+      .asScalaRawLists[AuthorCellWithEmpty]
       .map(line => Author(line(0).cell, line(1).cell, line(2).cell))
+  }
+
+  Given("the following authors as cells with null, as table as list") { (authors: DataTable) =>
+    _authors = authors
+      .asScalaRawLists[AuthorCellWithNone]
+      .map(line => Author(line(0).cell.getOrElse("NoName"), line(1).cell.getOrElse("NoSurname"), line(2).cell.getOrElse("NoBook")))
   }
 
   Given("the following authors as table") { (authors: DataTable) =>
@@ -173,7 +210,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
   }
 
   Then("""I get {string}""") { expected: String =>
-    assert(_names == expected)
+    assert(_names == expected, s"${_names} was not equal to $expected")
   }
 
 }

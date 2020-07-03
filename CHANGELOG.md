@@ -11,6 +11,12 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- Add `asScalaRawList[T]`, `asScalaRawMaps[T]` and `asScalaRawLists[T]` on `DataTable` (through `io.cucumber.scala.Implicits`) ([#83](https://github.com/cucumber/cucumber-jvm-scala/issues/83) Gaël Jourdan-Weil)
+- Add new `DataTableType` definitions with optional input values ([#84](https://github.com/cucumber/cucumber-jvm-scala/issues/84) Gaël Jourdan-Weil)
+  - `DataTableType { (entry: Map[String, Option[String]]) => ... }`
+  - `DataTableType { (row: Seq[Option[String]]) => ... }`
+  - `DataTableType { (cell: Option[String]) => ... }`
+
 ### Changed
 
 - [Core] Update `cucumber-core` dependency to [6.2.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)

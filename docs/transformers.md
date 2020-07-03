@@ -87,7 +87,7 @@ This can be achieved in different ways:
 - transform cells content to any type
 
 Note that DataTables in Gherkin can not represent `null` or the empty string unambiguously.
-Cucumber will interpret empty cells as `null`.
+Cucumber will interpret empty cells as `None` or `null`.
 But you can use a replacement to represent empty strings.
 See below.
 
@@ -99,8 +99,8 @@ For instance, the following transformer can be defined:
 ```scala
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType { entry: Map[String, String] =>
-  Author(entry("name"), entry("surname"), entry("famousBook"))
+DataTableType { entry: Map[String, Option[String]] => // Or Map[String, String]
+  Author(entry("name").getOrElse("NoValue"), entry("surname").getOrElse("NoValue"), entry("famousBook").getOrElse("NoValue"))
 }
 ```
 
@@ -113,13 +113,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawList[Author]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asList[Author](classOf[Author])
+// Or using Java type
+Given("the following authors") { (authors: java.util.List[Author]) =>
+  // Do something
 }
 ```
 
@@ -129,8 +131,8 @@ For instance, the following transformer can be defined:
 ```scala
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType { row: Seq[String] =>
-  Author(row(0), row(1), row(2))
+DataTableType { row: Seq[Option[String]] => // Or Seq[String]
+  Author(row(0).getOrElse("NoValue"), row(1).getOrElse("NoValue"), row(2).getOrElse("NoValue"))
 }
 ```
 
@@ -142,13 +144,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawList[Author]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asList[Author](classOf[Author])
+// Or using Java types
+Given("the following authors") { (authors: java.util.List[Author]) =>
+  // Do something
 }
 ```
 
@@ -156,6 +160,8 @@ Given("the following authors") { (table: DataTable) =>
 
 For instance, the following transformer can be defined:
 ```scala
+import io.cucumber.scala.Implicits._
+
 case class Author(name: String, surname: String, famousBook: String)
 case class GroupOfAuthor(authors: Seq[Author])
 
@@ -191,8 +197,8 @@ For instance, the following transformer can be defined:
 ```scala
 case class RichCell(content: String)
 
-DataTableType { cell: String =>
-  RichCell(cell)
+DataTableType { cell: Option[String] => // Or String
+  RichCell(cell.getOrElse("NoValue"))
 }
 ```
 
@@ -204,13 +210,15 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawLists[RichCell]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asLists[RichCell](classOf[RichCell]))
+// Or using Java types
+Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
+  // Do something
 }
 ```
 
@@ -223,19 +231,21 @@ Given the following authors
 ```
 
 ```scala
-Given("the following authors") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("the following authors") { (table: DataTable) =>
+  val authors = table.asScalaRawMaps[String, RichCell]
 }
 
-// Or using DataTable
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asMaps[String, RichCell](classOf[String], classOf[RichCell])
+// Or with Java Types
+Given("the following authors") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
+  // Do something
 }
 ```
 
 ### Empty values
 
-By default empty values in DataTable are treated as `null` by Cucumber.
+By default empty values in DataTable are treated as `None` or `null` by Cucumber.
 If you need to have empty values, you can define a replacement like `[empty]` that will be automatically replaced to empty when parsing DataTable.
 
 To do so, you can add a parameter to a `DataTableType` definition.
@@ -244,7 +254,7 @@ For instance, with the following definition:
 ```scala
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType("[empty]") { (entry: Map[String, String]) =>
+DataTableType("[empty]") { (entry: Map[String, String]) => // Or Map[String, Option[String]]
   Author(entry("name"), entry("surname"), entry("famousBook"))
 }
 ```
@@ -296,13 +306,15 @@ DefaultDataTableEntryTransformer("[empty]") { (fromValue: Map[String, String], t
 
 Will be used to convert with such step definitions:
 ```scala
-Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("A step with a datatable") { (dataTable: DataTable) =>
+  val table = dataTable.asScalaRawList[SomeType]
 }
 
-// Or DataTable
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asList[SomeType](classOf[SomeType])
+// Or with Java types
+Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
+  // Do something
 }
 ```
 
@@ -319,12 +331,14 @@ DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: ja
 
 Will be used to convert with such step definitions:
 ```scala
-Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
-  // Do something
+import io.cucumber.scala.Implicits._
+
+Given("A step with a datatable") { (dataTable: DataTable) =>
+  val table = dataTable.asScalaRawLists[SomeType]
 }
 
-// Or DataTable
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asLists[SomeType](classOf[SomeType])
+// Or with Java Types
+Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
+  // Do something
 }
 ```
