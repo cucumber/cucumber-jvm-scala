@@ -30,7 +30,7 @@
         <scala.2.13.version>2.13.3</scala.2.13.version>
         <mockito-scala.version>1.14.8</mockito-scala.version>
         <toolchain.vendor>openjdk</toolchain.vendor>
-        <toolchain.java.version>11</toolchain.java.version>
+        <toolchain.java.version>8</toolchain.java.version>
     </properties>
 
     <scm>
