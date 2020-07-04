@@ -11,6 +11,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [6.2.0] (2020-07-04)
+
+### Added
+
 - Add `asScalaRawList[T]`, `asScalaRawMaps[T]` and `asScalaRawLists[T]` on `DataTable` (through `io.cucumber.scala.Implicits`) ([#83](https://github.com/cucumber/cucumber-jvm-scala/issues/83) Gaël Jourdan-Weil)
 - Add new `DataTableType` definitions with optional input values ([#84](https://github.com/cucumber/cucumber-jvm-scala/issues/84) Gaël Jourdan-Weil)
   - `DataTableType { (entry: Map[String, Option[String]]) => ... }`
@@ -181,7 +193,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.1.2...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.2.0...main
+[6.2.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.1.2...v6.2.0
 [6.1.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.1.1...v6.1.2
 [6.1.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.0.0...v6.1.1
 [6.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v5.7.0...v6.0.0
