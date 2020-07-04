@@ -1,5 +1,5 @@
-language: scala
-os: linux
+language: java
+sudo: false
 
 cache:
   directories:
@@ -12,18 +12,15 @@ install:
 jobs:
   include:
   - stage: test
-    scala:
-    - 2.11.12
+    env: SCALA=2.11.12
     script: mvn test -pl scala/scala_2.11 -B --toolchains .m2/travis-ci-toolchains.xml
     jdk: openjdk11
   - stage: test
-    scala:
-    - 2.12.11
+    env: SCALA=2.12.11
     script: mvn test -pl scala/scala_2.12,examples -B --toolchains .m2/travis-ci-toolchains.xml
     jdk: openjdk11
   - stage: test
-    scala:
-    - 2.13.2
+    env: SCALA=2.13.2
     script: mvn test -pl scala/scala_2.13,examples -B --toolchains .m2/travis-ci-toolchains.xml
     jdk: openjdk11
 
