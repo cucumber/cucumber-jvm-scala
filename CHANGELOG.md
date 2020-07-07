@@ -13,6 +13,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [6.2.1] (2020-07-07)
+
+### Added
+
+### Changed
+
 - [Core] Update `cucumber-core` dependency to [6.2.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
@@ -195,7 +207,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.2.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.2.1...main
+[6.2.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.2.0...v6.2.1
 [6.2.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.1.2...v6.2.0
 [6.1.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.1.1...v6.1.2
 [6.1.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.0.0...v6.1.1
