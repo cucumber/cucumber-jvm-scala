@@ -13,11 +13,16 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Update `cucumber-core` dependency to [6.2.2](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- [JUnit] [sbt] Fix failed scenarios not failing the test suite if using duplicated names or `Scenario Outline` ([#22](https://github.com/cucumber/cucumber-jvm-scala/issues/102) [#102](https://github.com/cucumber/cucumber-jvm-scala/issues/102) M.P. Korstanje)
+  - The fix is actually part of `cucumber-junit` 6.2.2 (https://github.com/cucumber/cucumber-jvm/pull/2045) but is mainly done for Cucumber Scala and Sbt usage
 
 ## [6.2.1] (2020-07-07)
 
