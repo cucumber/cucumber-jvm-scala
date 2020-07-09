@@ -17,11 +17,8 @@ The minor version might differ because Cucumber Scala may add Scala-related feat
 
 | Cucumber Scala version | Cucumber version | Scala versions   |
 |------------------------|------------------|------------------|
-| 6.2.1                  | 6.2.1            | 2.11, 2.12, 2.13 |
-| 6.1.2                  | 6.1.2            | 2.11, 2.12, 2.13 |
-| 6.0.0                  | 6.0.0            | 2.11, 2.12, 2.13 |
+| 6.2.2                  | 6.2.2            | 2.11, 2.12, 2.13 |
 | 5.7.0                  | 5.7.0            | 2.11, 2.12, 2.13 |
-| 5.6.0                  | 5.6.0            | 2.11, 2.12, 2.13 |
 | 4.7.1                  | 4.7.1            | 2.11, 2.12, 2.13 |
 
 ## Getting started
