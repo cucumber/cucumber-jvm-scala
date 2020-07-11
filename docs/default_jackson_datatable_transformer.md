@@ -19,7 +19,7 @@ To use this optional transformer, you need to have Jackson Scala in your depende
 
 Or:
 ```sbt
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.10.3" % Test
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.11.0" % Test
 ```
 
 
@@ -35,6 +35,8 @@ class MySteps extends ScalaDsl with EN with JacksonDefaultDataTableEntryTransfor
   // Your usual glue code
 }
 ```
+
+Note that it should be included only once in your glue code. If you use multiple glue classes, either add it to only one of them or add it to a separate `object`.
 
 ### Empty string replacement
 
