@@ -6,6 +6,8 @@ Cucumber Scala support DataTables with either:
 
 **The benefit of using Scala types** if that you will be handling `Option`s instead of potentially `null` values in the Java collections.
 
+If you are sure to never have `null`/`None` values, you can use the `.asScalaRawXXX` convenient methods with remove the `Option` wrapper but still provide Scala collection types.
+
 See below the exhaustive list of possible mappings.
 
 _Note: you can use [transformers](transformers.md) to map DataTables to custom types._ 
