@@ -21,7 +21,7 @@
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
         <cucumber.version>6.3.0</cucumber.version>
-        <gherkin.version>14.1.0</gherkin.version>
+        <gherkin.version>14.2.0</gherkin.version>
         <groovy.version>2.5.13</groovy.version>
         <jackson-databind.version>2.11.1</jackson-databind.version>
         <junit.version>4.13</junit.version>
