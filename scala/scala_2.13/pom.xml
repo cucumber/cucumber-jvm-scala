@@ -70,6 +70,7 @@
                 <configuration>
                     <!-- https://nathankleyn.com/2019/05/13/recommended-scalac-flags-for-2-13/ -->
                     <args>
+                        <arg>-target:jvm-1.8</arg>
                         <!-- Emit warning and location for usages of deprecated APIs. -->
                         <arg>-deprecation</arg>
                         <!-- Explain type errors in more detail. -->

@@ -73,6 +73,7 @@
                 <artifactId>scala-maven-plugin</artifactId>
                 <configuration>
                     <args>
+                        <arg>-target:jvm-1.8</arg>
                         <!-- Emit warning and location for usages of deprecated APIs. -->
                         <arg>-deprecation</arg>
                         <!-- Emit warning and location for usages of features that should be imported explicitly. -->
