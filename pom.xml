@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cucumber-jvm-scala</artifactId>
-    <version>6.5.1-SNAPSHOT</version>
+    <version>6.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Cucumber-JVM: Scala</name>
     <description>Cucumber for Scala</description>
@@ -20,7 +20,7 @@
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
-        <cucumber.version>6.5.1</cucumber.version>
+        <cucumber.version>6.6.0</cucumber.version>
         <gherkin.version>15.0.2</gherkin.version>
         <groovy.version>2.5.13</groovy.version>
         <jackson-databind.version>2.11.2</jackson-databind.version>
