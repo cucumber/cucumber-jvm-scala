@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
             <artifactId>scala-collection-compat_2.12</artifactId>
-            <version>2.1.6</version>
+            <version>2.2.0</version>
         </dependency>
 
         <!-- Users have to provide it (for JacksonDefaultDataTableTransformer) -->
