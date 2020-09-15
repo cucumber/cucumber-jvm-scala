@@ -13,7 +13,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Update `cucumber-core` dependency to [6.6.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Core] Update `cucumber-core` dependency to [6.7.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
 
