@@ -66,19 +66,3 @@ make release
 ``` 
 
 All done! Hurray!
-
-## Troubleshooting
-
-### Error from Docker
-
-If you encounter the following error:
-```
-Unable to find image 'cucumber/cucumber-build:latest' locally
-docker: Error response from daemon: Get https://registry-1.docker.io/v2/: dial tcp: lookup registry-1.docker.io on [::1]:53: read udp [::1]:38683->[::1]:53: read: connection refused.
-See 'docker run --help'.
-```
-
-You might want to try to download the Docker image by yourself using:
-```sh
-docker pull cucumber/cucumber-build:latest
-```
