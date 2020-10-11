@@ -24,7 +24,7 @@
         <gherkin.version>15.0.2</gherkin.version>
         <groovy.version>2.5.13</groovy.version>
         <jackson-databind.version>2.11.3</jackson-databind.version>
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
         <scala.2.11.version>2.11.12</scala.2.11.version>
         <scala.2.12.version>2.12.12</scala.2.12.version>
         <scala.2.13.version>2.13.3</scala.2.13.version>
