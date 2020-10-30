@@ -20,7 +20,7 @@
         <minimum.maven.version>3.3</minimum.maven.version>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
-        <cucumber.version>6.8.1</cucumber.version>
+        <cucumber.version>6.8.2</cucumber.version>
         <gherkin.version>15.0.2</gherkin.version>
         <groovy.version>2.5.13</groovy.version>
         <jackson-databind.version>2.11.3</jackson-databind.version>
