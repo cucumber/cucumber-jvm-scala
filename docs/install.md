@@ -7,7 +7,7 @@
 To use Cucumber Scala in your project, add the following line to your `build.sbt`:
 
 ```scala
-libraryDependencies += "io.cucumber" %% "cucumber-scala" % "6.8.1" % Test
+libraryDependencies += "io.cucumber" %% "cucumber-scala" % "6.8.2" % Test
 ```
 
 ### Maven
@@ -18,7 +18,7 @@ To use Cucumber Scala in your project, add the following dependency to your `pom
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-scala_2.12</artifactId>
-    <version>6.8.1</version>
+    <version>6.8.2</version>
     <scope>test</scope>
 </dependency>
 ```
