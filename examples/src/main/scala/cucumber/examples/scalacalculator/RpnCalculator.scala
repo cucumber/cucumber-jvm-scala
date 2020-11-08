@@ -19,15 +19,17 @@ class RpnCalculator {
   private def op(f: (Double, Double) => Double) =
     stack += f(stack.dequeue(), stack.dequeue())
 
-  def push(arg: Arg) {
+  def push(arg: Arg): Unit = {
     arg match {
       case Op("+") => op(_ + _)
       case Op("-") => op(_ - _)
       case Op("*") => op(_ * _)
       case Op("/") => op(_ / _)
       case Val(value) => stack += value
+      case _ => ()
     }
+    ()
   }
 
-  def value = stack.head
+  def value: Double = stack.head
 }

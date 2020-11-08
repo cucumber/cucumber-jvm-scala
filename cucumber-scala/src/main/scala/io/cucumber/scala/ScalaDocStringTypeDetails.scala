@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import io.cucumber.scala.Aliases.DocStringDefinitionBody
+import Aliases.DocStringDefinitionBody
 
 import scala.reflect.ClassTag
 

@@ -10,13 +10,11 @@ Is the build passing?
 
 ```
 git checkout main
+sbt clean +test
 ```
 
 Also check if you can upgrade any dependencies:
-
-```
-make update-dependency-versions
-```
+- check RenovateBot open Merge Requests on Github
 
 ## Decide what the next version should be ##
 
@@ -37,10 +35,10 @@ Display future version by running:
 make version
 ```
 
-Check if branch name and version are as expected. To change version run:
+Check if branch name and version are as expected. To change version, update the _version.sbt_ file:
 
 ```
-mvn versions:set -DnewVersion=X.Y.Z-SNAPSHOT
+version in ThisBuild := "6.8.3-SNAPSHOT"
 ```
 
 ## Secrets ##

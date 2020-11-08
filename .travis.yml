@@ -1,31 +1,16 @@
 language: scala
 os: linux
+jdk:
+  - openjdk8
 
 cache:
   directories:
-  - "$HOME/.m2"
+    - $HOME/.sbt/
+    - $HOME/.ivy2/cache
+    - $HOME/.cache/coursier
 
-install:
-  - which java
-  - mvn install -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true -B -V --toolchains .m2/travis-ci-toolchains.xml
-
-jobs:
-  include:
-  - stage: test
-    scala:
-    - 2.11.12
-    script: mvn test -pl scala/scala_2.11 -B --toolchains .m2/travis-ci-toolchains.xml
-    jdk: openjdk8
-  - stage: test
-    scala:
-    - 2.12.11
-    script: mvn test -pl scala/scala_2.12,examples -B --toolchains .m2/travis-ci-toolchains.xml
-    jdk: openjdk8
-  - stage: test
-    scala:
-    - 2.13.2
-    script: mvn test -pl scala/scala_2.13,examples -B --toolchains .m2/travis-ci-toolchains.xml
-    jdk: openjdk8
+script:
+  - sbt +compile +test
 
 branches:
   only:

@@ -1,5 +1,5 @@
 package io.cucumber.scala
 
-import io.cucumber.scala.Aliases.HookDefinitionBody
+import Aliases.HookDefinitionBody
 
 case class ScalaHookDetails(tagExpression: String, order: Int, body: HookDefinitionBody)
