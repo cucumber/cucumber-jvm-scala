@@ -118,8 +118,8 @@ Global / publishTo := sonatypePublishToBundle.value
 Global / PgpKeys.gpgCommand := (baseDirectory.value / "gpg.sh").getAbsolutePath
 
 // https://github.com/xerial/sbt-sonatype#using-with-sbt-release-plugin
-ThisBuild / releaseCrossBuild := true
-ThisBuild / releaseProcess := Seq[ReleaseStep](
+releaseCrossBuild := true
+releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
   inquireVersions,
   runClean,
