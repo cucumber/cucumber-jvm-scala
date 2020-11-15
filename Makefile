@@ -35,7 +35,7 @@ update-changelog:
 
 .release-in-docker: default update-changelog update-installdoc .commit-and-push-changelog-and-docs
 	[ -f '/home/cukebot/import-gpg-key.sh' ] && /home/cukebot/import-gpg-key.sh
-	sbt release cross with-defaults
+	sbt "release cross with-defaults"
 .PHONY: release-in-docker
 
 release:
