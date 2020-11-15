@@ -18,6 +18,6 @@ class RpnCalculatorStepDefinitions extends ScalaDsl with EN {
   }
 
   Before("not @foo"){ scenario : Scenario =>
-    println("Runs before scenarios *not* tagged with @foo")
+    println(s"Runs before scenarios *not* tagged with @foo (${scenario.getId})")
   }
 }

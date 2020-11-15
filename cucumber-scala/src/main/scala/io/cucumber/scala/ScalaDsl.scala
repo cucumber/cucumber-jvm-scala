@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import io.cucumber.scala.Aliases._
+import Aliases._
 
 import scala.reflect.ClassTag
 

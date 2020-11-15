@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import io.cucumber.scala.Aliases.{DefaultDataTableCellTransformerBody, DefaultDataTableEntryTransformerBody, DefaultParameterTransformerBody}
+import Aliases.{DefaultDataTableCellTransformerBody, DefaultDataTableEntryTransformerBody, DefaultParameterTransformerBody}
 
 case class ScalaDefaultParameterTransformerDetails(body: DefaultParameterTransformerBody)
 
