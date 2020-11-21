@@ -1155,7 +1155,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
      *
       **/
     def apply(f: => Unit): Unit = {
-      apply(() => f)
+      val fun0 = () => f
+      apply(fun0)
     }
 
     def apply(fun: Fun0): Unit = {

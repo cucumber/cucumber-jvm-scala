@@ -33,6 +33,7 @@ ThisBuild / homepage := Some(
 val scala211 = "2.11.12"
 val scala212 = "2.12.12"
 val scala213 = "2.13.3"
+val scala3 = "3.0.0-M1"
 
 scalaVersion := scala213
 
@@ -52,9 +53,11 @@ lazy val commonSettings = Seq(
       case Some((2, 11)) => ScalacOptions.scalacOptions211
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
+      case Some((3, 0)) => ScalacOptions.scalacOptions3
       case _             => Seq()
     }
-  }
+  },
+  scalacOptions ++= { if (isDotty.value) Seq("-source:3.0") else Nil }
 )
 
 lazy val root = (project in file("."))
@@ -76,10 +79,11 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion % Provided,
-      "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
+      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided).withDottyCompat(scalaVersion.value),
+
       "junit" % "junit" % junitVersion % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
-      "org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test
+      ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test).withDottyCompat(scalaVersion.value)
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
@@ -103,7 +107,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       Seq(file)
     }.taskValue
   )
-  .jvmPlatform(scalaVersions = Seq(scala213, scala212, scala211))
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212, scala211))
 
 // Examples project
 lazy val examples = (projectMatrix in file("examples"))
@@ -117,7 +121,7 @@ lazy val examples = (projectMatrix in file("examples"))
     publishArtifact := false
   )
   .dependsOn(cucumberScala % Test)
-  .jvmPlatform(scalaVersions = Seq(scala213, scala212))
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Release & Publish
 

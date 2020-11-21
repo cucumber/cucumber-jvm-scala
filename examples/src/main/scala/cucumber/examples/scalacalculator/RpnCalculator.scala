@@ -5,8 +5,8 @@ import scala.collection.mutable.Queue
 sealed trait Arg
 
 object Arg {
-  implicit def op(s: String) = Op(s)
-  implicit def value(v: Double) = Val(v)
+  implicit def op(s:String): Op = Op(s)
+  implicit def value(v:Double): Val = Val(v)
 }
 
 case class Op(value: String) extends Arg
