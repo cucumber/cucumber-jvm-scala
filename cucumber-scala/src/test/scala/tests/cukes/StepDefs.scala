@@ -10,21 +10,21 @@ import tests.cukes.model.{Cukes, Person, Snake}
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
-/**
- * Test step definitions to exercise Scala cucumber
- */
+/** Test step definitions to exercise Scala cucumber
+  */
 @nowarn
 class CukesStepDefinitions extends ScalaDsl with EN {
 
   Given("""I have {} {string} in my belly""") { (howMany: Int, what: String) =>
-
   }
 
   var calorieCount = 0.0
 
   Given("""^I have the following foods :$""") { (table: DataTable) =>
-    val maps: JList[JMap[String, String]] = table.asMaps(classOf[String], classOf[String])
-    calorieCount = maps.asScala.map(_.get("CALORIES")).map(_.toDouble).fold(0.0)(_ + _)
+    val maps: JList[JMap[String, String]] =
+      table.asMaps(classOf[String], classOf[String])
+    calorieCount =
+      maps.asScala.map(_.get("CALORIES")).map(_.toDouble).fold(0.0)(_ + _)
   }
   And("""have eaten {double} calories today""") { (calories: Double) =>
     assertEquals(calories, calorieCount, 0.0)
@@ -95,8 +95,9 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var bigDecimalBelly: BigDecimal = BigDecimal(0)
 
-  Given("""I have eaten {bigdecimal} big decimals""") { (arg0: java.math.BigDecimal) =>
-    bigDecimalBelly = arg0
+  Given("""I have eaten {bigdecimal} big decimals""") {
+    (arg0: java.math.BigDecimal) =>
+      bigDecimalBelly = arg0
   }
   Then("""^I should have one and a half big decimals in my belly$""") { () =>
     assertEquals(BigDecimal(1.5), bigDecimalBelly)
@@ -104,8 +105,9 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
   var bigIntBelly: BigInt = BigInt(0)
 
-  Given("""I have eaten {biginteger} big int""") { (arg0: java.math.BigInteger) =>
-    bigIntBelly = arg0.intValue()
+  Given("""I have eaten {biginteger} big int""") {
+    (arg0: java.math.BigInteger) =>
+      bigIntBelly = arg0.intValue()
   }
   Then("""^I should have a ten big int in my belly$""") { () =>
     assertEquals(BigInt(10), bigIntBelly)
@@ -129,8 +131,17 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     assertEquals(true, boolBelly)
   }
 
-  Given("""I have a table the sum of all rows should be {int} :""") { (value: Int, table: DataTable) =>
-    assertEquals(value, table.asList(classOf[String]).asScala.drop(1).map(String.valueOf(_: String).toInt).foldLeft(0)(_ + _))
+  Given("""I have a table the sum of all rows should be {int} :""") {
+    (value: Int, table: DataTable) =>
+      assertEquals(
+        value,
+        table
+          .asList(classOf[String])
+          .asScala
+          .drop(1)
+          .map(String.valueOf(_: String).toInt)
+          .foldLeft(0)(_ + _)
+      )
   }
 
   var snake: Snake = null
@@ -138,9 +149,10 @@ class CukesStepDefinitions extends ScalaDsl with EN {
   Given("""I see in the distance ... {snake}""") { (s: Snake) =>
     snake = s
   }
-  Then("""^I have a snake of length (\d+) moving (.*)$""") { (size: Int, dir: String) =>
-    assertEquals(size, snake.length)
-    assertEquals(Symbol(dir), snake.direction)
+  Then("""^I have a snake of length (\d+) moving (.*)$""") {
+    (size: Int, dir: String) =>
+      assertEquals(size, snake.length)
+      assertEquals(Symbol(dir), snake.direction)
   }
 
   var person: Person = null
@@ -187,6 +199,5 @@ class CukesStepDefinitions extends ScalaDsl with EN {
 
 @nowarn
 class ThenDefs extends ScalaDsl with EN {
-  Then("""^I am "([^"]*)"$""") { (arg0: String) =>
-  }
+  Then("""^I am "([^"]*)"$""") { (arg0: String) => }
 }

@@ -4,7 +4,8 @@ import java.lang.reflect.Type
 
 import io.cucumber.core.backend.{ParameterInfo, TypeResolver}
 
-class ScalaParameterInfo(typeResolver: ScalaTypeResolver) extends ParameterInfo {
+class ScalaParameterInfo(typeResolver: ScalaTypeResolver)
+    extends ParameterInfo {
 
   override def getType: Type = typeResolver.`type`
 

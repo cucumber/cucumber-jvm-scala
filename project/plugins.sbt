@@ -1,6 +1,9 @@
 // Cross compilation matrix
 addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.6.0")
 
+// Scalafmt (formatter)
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")
+
 // Release
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
 

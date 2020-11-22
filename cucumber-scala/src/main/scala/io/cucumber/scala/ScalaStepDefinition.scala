@@ -6,14 +6,15 @@ import io.cucumber.core.backend.{ParameterInfo, ScenarioScoped, StepDefinition}
 
 import scala.jdk.CollectionConverters._
 
-
 trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
 
   val stepDetails: ScalaStepDetails
 
   override val location: StackTraceElement = stepDetails.frame
 
-  override val parameterInfos: JList[ParameterInfo] = fromTypes(stepDetails.types)
+  override val parameterInfos: JList[ParameterInfo] = fromTypes(
+    stepDetails.types
+  )
 
   private def fromTypes(types: Seq[Manifest[_]]): JList[ParameterInfo] = {
     types
@@ -35,13 +36,17 @@ trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
   override def getPattern: String = stepDetails.pattern
 
   // Easier to just print out fileName and lineNumber
-  override def getLocation(): String = stepDetails.frame.getFileName + ":" + stepDetails.frame.getLineNumber
+  override def getLocation(): String =
+    stepDetails.frame.getFileName + ":" + stepDetails.frame.getLineNumber
 
 }
 
 object ScalaStepDefinition {
 
-  def apply(stepDetails: ScalaStepDetails, scenarioScoped: Boolean): ScalaStepDefinition = {
+  def apply(
+      stepDetails: ScalaStepDetails,
+      scenarioScoped: Boolean
+  ): ScalaStepDefinition = {
     if (scenarioScoped) {
       new ScalaScenarioScopedStepDefinition(stepDetails)
     } else {
@@ -51,8 +56,10 @@ object ScalaStepDefinition {
 
 }
 
-class ScalaScenarioScopedStepDefinition(override val stepDetails: ScalaStepDetails) extends ScalaStepDefinition with ScenarioScoped {
-}
+class ScalaScenarioScopedStepDefinition(
+    override val stepDetails: ScalaStepDetails
+) extends ScalaStepDefinition
+    with ScenarioScoped {}
 
-class ScalaGlobalStepDefinition(override val stepDetails: ScalaStepDetails) extends ScalaStepDefinition {
-}
+class ScalaGlobalStepDefinition(override val stepDetails: ScalaStepDetails)
+    extends ScalaStepDefinition {}

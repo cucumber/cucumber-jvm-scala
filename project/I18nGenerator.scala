@@ -5,18 +5,25 @@ object I18nGenerator {
 
   private val dialectProvider = new GherkinDialectProvider()
 
-  private val unsupported = Seq("em") // The generated files for Emoji do not compile.
-  private val allLanguages = dialectProvider.getLanguages().asScala.filterNot(l => unsupported.contains(l))
+  private val unsupported = Seq(
+    "em"
+  ) // The generated files for Emoji do not compile.
+  private val allLanguages = dialectProvider
+    .getLanguages()
+    .asScala
+    .filterNot(l => unsupported.contains(l))
 
   private def keywordVal(kw: String): String = {
-    val keyworkValName = java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)
+    val keyworkValName = java.text.Normalizer
+      .normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)
     s"""val $keyworkValName = new Step("$keyworkValName")"""
   }
 
   private def traitCode(language: String): String = {
     val traitName = language.replaceAll("[\\s-]", "_").toUpperCase()
     val keywords = dialectProvider
-      .getDialect(language, null).getStepKeywords()
+      .getDialect(language, null)
+      .getStepKeywords()
       .asScala
       .filter(kw => !kw.contains('*') && !kw.matches("^\\d.*"))
       .sorted

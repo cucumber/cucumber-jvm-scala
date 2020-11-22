@@ -2,7 +2,6 @@ package tests.docstring
 
 import io.cucumber.scala.{EN, ScalaDsl}
 
-
 class DocStringSteps extends ScalaDsl with EN {
 
   case class JsonText(json: String)

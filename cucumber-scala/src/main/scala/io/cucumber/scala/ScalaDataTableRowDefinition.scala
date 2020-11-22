@@ -16,15 +16,21 @@ trait ScalaDataTableRowDefinition[T] extends ScalaDataTableTypeDefinition {
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
   private val transformer: TableRowTransformer[T] = (row: JavaList[String]) => {
-    details.body.transform(replaceEmptyPatternsWithEmptyString(row.asScala.toSeq))
+    details.body.transform(
+      replaceEmptyPatternsWithEmptyString(row.asScala.toSeq)
+    )
   }
 
-  override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)
+  override val dataTableType =
+    new DataTableType(details.tag.runtimeClass, transformer)
 
 }
 
-class ScalaScenarioScopedDataTableRowDefinition[T](override val details: ScalaDataTableRowTypeDetails[T]) extends ScalaDataTableRowDefinition[T] with ScenarioScoped {
-}
+class ScalaScenarioScopedDataTableRowDefinition[T](
+    override val details: ScalaDataTableRowTypeDetails[T]
+) extends ScalaDataTableRowDefinition[T]
+    with ScenarioScoped {}
 
-class ScalaGlobalDataTableRowDefinition[T](override val details: ScalaDataTableRowTypeDetails[T]) extends ScalaDataTableRowDefinition[T] {
-}
+class ScalaGlobalDataTableRowDefinition[T](
+    override val details: ScalaDataTableRowTypeDetails[T]
+) extends ScalaDataTableRowDefinition[T] {}

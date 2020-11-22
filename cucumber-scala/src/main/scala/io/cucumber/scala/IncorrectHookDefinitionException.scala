@@ -31,8 +31,12 @@ object IncorrectHookDefinitionException {
 
 }
 
-class IncorrectHookDefinitionException(val undefinedHooks: Seq[UndefinedHook]) extends CucumberBackendException(IncorrectHookDefinitionException.errorMessage(undefinedHooks)) {
+class IncorrectHookDefinitionException(val undefinedHooks: Seq[UndefinedHook])
+    extends CucumberBackendException(
+      IncorrectHookDefinitionException.errorMessage(undefinedHooks)
+    ) {}
 
-}
-
-case class UndefinedHook(hookType: HookType, stackTraceElement: StackTraceElement)
+case class UndefinedHook(
+    hookType: HookType,
+    stackTraceElement: StackTraceElement
+)

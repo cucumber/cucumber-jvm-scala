@@ -5,7 +5,12 @@ import java.util.Locale
 
 import io.cucumber.core.gherkin.Step
 import io.cucumber.core.snippets.{SnippetGenerator, SnippetType}
-import io.cucumber.cucumberexpressions.{CaptureGroupTransformer, ParameterType, ParameterTypeRegistry, TypeReference}
+import io.cucumber.cucumberexpressions.{
+  CaptureGroupTransformer,
+  ParameterType,
+  ParameterTypeRegistry,
+  TypeReference
+}
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -44,7 +49,10 @@ class ScalaSnippetTest {
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
 
-    assertEquals(expected, snippetFor("I have 4.2 cukes in my large belly", customParameterType))
+    assertEquals(
+      expected,
+      snippetFor("I have 4.2 cukes in my large belly", customParameterType)
+    )
   }
 
   @Test
@@ -66,7 +74,10 @@ class ScalaSnippetTest {
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
 
-    assertEquals(expected, snippetFor("I have large and small bellies", customParameterType))
+    assertEquals(
+      expected,
+      snippetFor("I have large and small bellies", customParameterType)
+    )
   }
 
   @Test
@@ -86,7 +97,10 @@ class ScalaSnippetTest {
          |  // Write code here that turns the phrase above into concrete actions
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
-    assertEquals(expected, snippetFor("I have 4 cukes in: my \"big\" red-belly!"))
+    assertEquals(
+      expected,
+      snippetFor("I have 4 cukes in: my \"big\" red-belly!")
+    )
   }
 
   @Test
@@ -96,7 +110,12 @@ class ScalaSnippetTest {
          |  // Write code here that turns the phrase above into concrete actions
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
-    assertEquals(expected, snippetFor("the DI system receives a message saying \"{ dataIngestion: { feeds: [ feed: { merchantId: 666, feedId: 1, feedFileLocation: feed.csv } ] }\""))
+    assertEquals(
+      expected,
+      snippetFor(
+        "the DI system receives a message saying \"{ dataIngestion: { feeds: [ feed: { merchantId: 666, feedId: 1, feedFileLocation: feed.csv } ] }\""
+      )
+    )
   }
 
   @Test
@@ -171,7 +190,14 @@ class ScalaSnippetTest {
          |  // Write code here that turns the phrase above into concrete actions
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
-    assertEquals(expected, snippetForDocString("I have a \"Documentation String\":", "hello", customParameterType))
+    assertEquals(
+      expected,
+      snippetForDocString(
+        "I have a \"Documentation String\":",
+        "hello",
+        customParameterType
+      )
+    )
   }
 
   @Test
@@ -206,7 +232,10 @@ class ScalaSnippetTest {
          |  // Write code here that turns the phrase above into concrete actions
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
-    assertEquals(expected, snippetForDataTable("I have in table \"M6\":", customParameterType))
+    assertEquals(
+      expected,
+      snippetForDataTable("I have in table \"M6\":", customParameterType)
+    )
   }
 
   @Test
@@ -226,7 +255,10 @@ class ScalaSnippetTest {
          |  // Write code here that turns the phrase above into concrete actions
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
-    assertEquals(expected, snippetForWhenAnd("I have 4 cukes in my \"big\" belly"))
+    assertEquals(
+      expected,
+      snippetForWhenAnd("I have 4 cukes in my \"big\" belly")
+    )
   }
 
   @Test
@@ -236,15 +268,23 @@ class ScalaSnippetTest {
          |  // Write code here that turns the phrase above into concrete actions
          |  throw new io.cucumber.scala.PendingException()
          |}""".stripMargin
-    assertEquals(expected, snippetForWildCard("I have 4 cukes in my \"big\" belly"))
+    assertEquals(
+      expected,
+      snippetForWildCard("I have 4 cukes in my \"big\" belly")
+    )
   }
 
-  private def getSnippet(step: Step, parameterType: Option[ParameterType[_]] = None): String = {
+  private def getSnippet(
+      step: Step,
+      parameterType: Option[ParameterType[_]] = None
+  ): String = {
     val parameterTypeRegistry = new ParameterTypeRegistry(Locale.ENGLISH)
     parameterType.foreach { pt =>
       parameterTypeRegistry.defineParameterType(pt)
     }
-    val snippet = new SnippetGenerator(new ScalaSnippet, parameterTypeRegistry).getSnippet(step, snippetType).asScala
+    val snippet = new SnippetGenerator(new ScalaSnippet, parameterTypeRegistry)
+      .getSnippet(step, snippetType)
+      .asScala
     snippet.mkString("\n")
   }
 
@@ -253,17 +293,27 @@ class ScalaSnippetTest {
     getSnippet(step)
   }
 
-  private def snippetFor(stepText: String, parameterType: ParameterType[_]): String = {
+  private def snippetFor(
+      stepText: String,
+      parameterType: ParameterType[_]
+  ): String = {
     val step = createStep(stepText)
     getSnippet(step, Some(parameterType))
   }
 
-  private def snippetForDocString(stepText: String, docString: String): String = {
+  private def snippetForDocString(
+      stepText: String,
+      docString: String
+  ): String = {
     val step = createStepWithDocString(stepText, docString)
     getSnippet(step)
   }
 
-  private def snippetForDocString(stepText: String, docString: String, parameterType: ParameterType[_]): String = {
+  private def snippetForDocString(
+      stepText: String,
+      docString: String,
+      parameterType: ParameterType[_]
+  ): String = {
     val step = createStepWithDocString(stepText, docString)
     getSnippet(step, Some(parameterType))
   }
@@ -273,7 +323,10 @@ class ScalaSnippetTest {
     getSnippet(step)
   }
 
-  private def snippetForDataTable(stepText: String, parameterType: ParameterType[_]): String = {
+  private def snippetForDataTable(
+      stepText: String,
+      parameterType: ParameterType[_]
+  ): String = {
     val step = createStepWithDataTable(stepText)
     getSnippet(step, Some(parameterType))
   }
@@ -316,7 +369,10 @@ class ScalaSnippetTest {
     feature.getPickles.asScala.head.getSteps.asScala.head
   }
 
-  private def createStepWithDocString(stepText: String, docString: String): Step = {
+  private def createStepWithDocString(
+      stepText: String,
+      docString: String
+  ): Step = {
     val source =
       s"""Feature: Test feature
          |  Scenario: Test Scenario

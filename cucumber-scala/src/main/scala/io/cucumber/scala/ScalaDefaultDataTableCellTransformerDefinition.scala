@@ -2,10 +2,15 @@ package io.cucumber.scala
 
 import java.lang.reflect.Type
 
-import io.cucumber.core.backend.{DefaultDataTableCellTransformerDefinition, ScenarioScoped}
+import io.cucumber.core.backend.{
+  DefaultDataTableCellTransformerDefinition,
+  ScenarioScoped
+}
 import io.cucumber.datatable.TableCellByTypeTransformer
 
-trait ScalaDefaultDataTableCellTransformerDefinition extends DefaultDataTableCellTransformerDefinition with AbstractDatatableElementTransformerDefinition {
+trait ScalaDefaultDataTableCellTransformerDefinition
+    extends DefaultDataTableCellTransformerDefinition
+    with AbstractDatatableElementTransformerDefinition {
 
   val details: ScalaDefaultDataTableCellTransformerDetails
 
@@ -13,15 +18,22 @@ trait ScalaDefaultDataTableCellTransformerDefinition extends DefaultDataTableCel
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  override val tableCellByTypeTransformer: TableCellByTypeTransformer = (fromValue: String, toTypeValue: Type) => {
-    details.body.apply(replaceEmptyPatternsWithEmptyString(fromValue), toTypeValue)
-  }
+  override val tableCellByTypeTransformer: TableCellByTypeTransformer =
+    (fromValue: String, toTypeValue: Type) => {
+      details.body.apply(
+        replaceEmptyPatternsWithEmptyString(fromValue),
+        toTypeValue
+      )
+    }
 
 }
 
 object ScalaDefaultDataTableCellTransformerDefinition {
 
-  def apply(details: ScalaDefaultDataTableCellTransformerDetails, scenarioScoped: Boolean): ScalaDefaultDataTableCellTransformerDefinition = {
+  def apply(
+      details: ScalaDefaultDataTableCellTransformerDetails,
+      scenarioScoped: Boolean
+  ): ScalaDefaultDataTableCellTransformerDefinition = {
     if (scenarioScoped) {
       new ScalaScenarioScopedDataTableCellTransformerDefinition(details)
     } else {
@@ -31,8 +43,11 @@ object ScalaDefaultDataTableCellTransformerDefinition {
 
 }
 
-class ScalaScenarioScopedDataTableCellTransformerDefinition(override val details: ScalaDefaultDataTableCellTransformerDetails) extends ScalaDefaultDataTableCellTransformerDefinition with ScenarioScoped {
-}
+class ScalaScenarioScopedDataTableCellTransformerDefinition(
+    override val details: ScalaDefaultDataTableCellTransformerDetails
+) extends ScalaDefaultDataTableCellTransformerDefinition
+    with ScenarioScoped {}
 
-class ScalaGlobalDataTableCellTransformerDefinition(override val details: ScalaDefaultDataTableCellTransformerDetails) extends ScalaDefaultDataTableCellTransformerDefinition {
-}
+class ScalaGlobalDataTableCellTransformerDefinition(
+    override val details: ScalaDefaultDataTableCellTransformerDetails
+) extends ScalaDefaultDataTableCellTransformerDefinition {}

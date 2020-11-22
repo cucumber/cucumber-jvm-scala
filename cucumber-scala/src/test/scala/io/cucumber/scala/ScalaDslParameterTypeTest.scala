@@ -13,7 +13,6 @@ object ScalaDslParameterTypeTest {
 
 }
 
-
 class ScalaDslParameterTypeTest {
 
   @Test
@@ -27,7 +26,12 @@ class ScalaDslParameterTypeTest {
 
     val glue = new Glue()
 
-    assertClassParameterType(glue.registry.parameterTypes.head, "string-builder", Seq(".*"), classOf[StringBuilder])
+    assertClassParameterType(
+      glue.registry.parameterTypes.head,
+      "string-builder",
+      Seq(".*"),
+      classOf[StringBuilder]
+    )
   }
 
   @Test
@@ -41,7 +45,12 @@ class ScalaDslParameterTypeTest {
 
     val glue = new Glue()
 
-    assertClassParameterType(glue.registry.parameterTypes.head, "coordinates", Seq("(.+),(.+)"), classOf[Point])
+    assertClassParameterType(
+      glue.registry.parameterTypes.head,
+      "coordinates",
+      Seq("(.+),(.+)"),
+      classOf[Point]
+    )
   }
 
   @Test
@@ -55,7 +64,12 @@ class ScalaDslParameterTypeTest {
 
     val glue = new Glue()
 
-    assertClassParameterType(glue.registry.parameterTypes.head, "ingredients", Seq("(.+), (.+) and (.+)"), classOf[String])
+    assertClassParameterType(
+      glue.registry.parameterTypes.head,
+      "ingredients",
+      Seq("(.+), (.+) and (.+)"),
+      classOf[String]
+    )
   }
 
   // -------------------- Test on object --------------------
@@ -70,7 +84,12 @@ class ScalaDslParameterTypeTest {
       }
     }
 
-    assertObjectParameterType(Glue.registry.parameterTypes.head, "string-builder", Seq(".*"), classOf[StringBuilder])
+    assertObjectParameterType(
+      Glue.registry.parameterTypes.head,
+      "string-builder",
+      Seq(".*"),
+      classOf[StringBuilder]
+    )
   }
 
   @Test
@@ -82,7 +101,12 @@ class ScalaDslParameterTypeTest {
       }
     }
 
-    assertObjectParameterType(Glue.registry.parameterTypes.head, "coordinates", Seq("(.+),(.+)"), classOf[Point])
+    assertObjectParameterType(
+      Glue.registry.parameterTypes.head,
+      "coordinates",
+      Seq("(.+),(.+)"),
+      classOf[Point]
+    )
   }
 
   @Test
@@ -94,18 +118,48 @@ class ScalaDslParameterTypeTest {
       }
     }
 
-    assertObjectParameterType(Glue.registry.parameterTypes.head, "ingredients", Seq("(.+), (.+) and (.+)"), classOf[String])
+    assertObjectParameterType(
+      Glue.registry.parameterTypes.head,
+      "ingredients",
+      Seq("(.+), (.+) and (.+)"),
+      classOf[String]
+    )
   }
 
-  private def assertClassParameterType(details: ScalaParameterTypeDetails[_], name: String, regexps: Seq[String], expectedType: Class[_]): Unit = {
-    assertParameterType(ScalaParameterTypeDefinition(details, true), name, regexps, expectedType)
+  private def assertClassParameterType(
+      details: ScalaParameterTypeDetails[_],
+      name: String,
+      regexps: Seq[String],
+      expectedType: Class[_]
+  ): Unit = {
+    assertParameterType(
+      ScalaParameterTypeDefinition(details, true),
+      name,
+      regexps,
+      expectedType
+    )
   }
 
-  private def assertObjectParameterType(details: ScalaParameterTypeDetails[_], name: String, regexps: Seq[String], expectedType: Class[_]): Unit = {
-    assertParameterType(ScalaParameterTypeDefinition(details, false), name, regexps, expectedType)
+  private def assertObjectParameterType(
+      details: ScalaParameterTypeDetails[_],
+      name: String,
+      regexps: Seq[String],
+      expectedType: Class[_]
+  ): Unit = {
+    assertParameterType(
+      ScalaParameterTypeDefinition(details, false),
+      name,
+      regexps,
+      expectedType
+    )
   }
 
-  private def assertParameterType(parameterTypeDef: ParameterTypeDefinition, name: String, regexps: Seq[String], expectedType: Class[_]): Unit = {
+  private def assertParameterType(
+      parameterTypeDef: ParameterTypeDefinition,
+      name: String,
+      regexps: Seq[String],
+      expectedType: Class[_]
+  ): Unit = {
     val parameterType = parameterTypeDef.parameterType()
 
     assertEquals(name, parameterType.getName)

@@ -11,6 +11,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Build] Setup formatting using `scalafmt`
+
 ### Changed
 
 ### Deprecated

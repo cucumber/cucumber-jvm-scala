@@ -26,6 +26,4 @@ trait TraitWithSteps extends ScalaDsl with EN {
 
 }
 
-class StepsInTrait extends TraitWithSteps {
-
-}
+class StepsInTrait extends TraitWithSteps {}

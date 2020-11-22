@@ -68,7 +68,6 @@ class ScalaDslHooksTest {
     assertClassHook(glue.registry.beforeHooks.head, "", 42)
   }
 
-
   @Test
   def testBeforeHookWithTagAndOrder(): Unit = {
 
@@ -82,7 +81,6 @@ class ScalaDslHooksTest {
 
     assertClassHook(glue.registry.beforeHooks.head, "tagExpression", 42)
   }
-
 
   @Test
   def testBeforeHookNoArg(): Unit = {
@@ -671,7 +669,6 @@ class ScalaDslHooksTest {
     assertObjectHook(Glue.registry.beforeStepHooks.head, "tagExpression", 42)
   }
 
-
   @Test
   def testObjectAfterHook(): Unit = {
 
@@ -864,15 +861,27 @@ class ScalaDslHooksTest {
     assertObjectHook(Glue.registry.afterStepHooks.head, "tagExpression", 42)
   }
 
-  private def assertClassHook(hookDetails: ScalaHookDetails, tagExpression: String, order: Int): Unit = {
+  private def assertClassHook(
+      hookDetails: ScalaHookDetails,
+      tagExpression: String,
+      order: Int
+  ): Unit = {
     assertHook(ScalaHookDefinition(hookDetails, true), tagExpression, order)
   }
 
-  private def assertObjectHook(hookDetails: ScalaHookDetails, tagExpression: String, order: Int): Unit = {
+  private def assertObjectHook(
+      hookDetails: ScalaHookDetails,
+      tagExpression: String,
+      order: Int
+  ): Unit = {
     assertHook(ScalaHookDefinition(hookDetails, false), tagExpression, order)
   }
 
-  private def assertHook(hook: HookDefinition, tagExpression: String, order: Int): Unit = {
+  private def assertHook(
+      hook: HookDefinition,
+      tagExpression: String,
+      order: Int
+  ): Unit = {
     assertEquals(tagExpression, hook.getTagExpression)
     assertEquals(order, hook.getOrder)
     hook.execute(fakeState)
