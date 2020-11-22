@@ -26,7 +26,8 @@ class OptionalCaptureGroupsSteps extends ScalaDsl with EN {
 
 object OptionalCaptureGroupsSteps {
 
-  implicit class RichOptional[A](private val o: java.util.Optional[A]) extends AnyVal {
+  implicit class RichOptional[A](private val o: java.util.Optional[A])
+      extends AnyVal {
 
     def toScala: Option[A] = if (o.isPresent) Some(o.get) else None
 

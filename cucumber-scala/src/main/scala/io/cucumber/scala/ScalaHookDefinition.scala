@@ -20,7 +20,10 @@ trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
 
 object ScalaHookDefinition {
 
-  def apply(scalaHookDetails: ScalaHookDetails, scenarioScoped: Boolean): ScalaHookDefinition = {
+  def apply(
+      scalaHookDetails: ScalaHookDetails,
+      scenarioScoped: Boolean
+  ): ScalaHookDefinition = {
     if (scenarioScoped) {
       new ScalaScenarioScopedHookDefinition(scalaHookDetails)
     } else {
@@ -30,8 +33,10 @@ object ScalaHookDefinition {
 
 }
 
-class ScalaScenarioScopedHookDefinition(override val hookDetails: ScalaHookDetails) extends ScalaHookDefinition with ScenarioScoped {
-}
+class ScalaScenarioScopedHookDefinition(
+    override val hookDetails: ScalaHookDetails
+) extends ScalaHookDefinition
+    with ScenarioScoped {}
 
-class ScalaGlobalHookDefinition(override val hookDetails: ScalaHookDetails) extends ScalaHookDefinition {
-}
+class ScalaGlobalHookDefinition(override val hookDetails: ScalaHookDetails)
+    extends ScalaHookDefinition {}

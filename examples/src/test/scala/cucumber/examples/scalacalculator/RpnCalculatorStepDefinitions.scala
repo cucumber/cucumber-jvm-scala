@@ -7,7 +7,7 @@ class RpnCalculatorStepDefinitions extends ScalaDsl with EN {
 
   val calc = new RpnCalculator
 
-  When("""I add {double} and {double}"""){ (arg1: Double, arg2: Double) =>
+  When("""I add {double} and {double}""") { (arg1: Double, arg2: Double) =>
     calc push arg1
     calc push arg2
     calc push "+"
@@ -17,7 +17,7 @@ class RpnCalculatorStepDefinitions extends ScalaDsl with EN {
     assertEquals(expected, calc.value, 0.001)
   }
 
-  Before("not @foo"){ scenario : Scenario =>
+  Before("not @foo") { scenario: Scenario =>
     println(s"Runs before scenarios *not* tagged with @foo (${scenario.getId})")
   }
 }

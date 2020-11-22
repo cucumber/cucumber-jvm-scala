@@ -15,12 +15,16 @@ trait ScalaDataTableDefinition[T] extends ScalaDataTableTypeDefinition {
     details.body.transform(replaceEmptyPatternsWithEmptyString(table))
   }
 
-  override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)
+  override val dataTableType =
+    new DataTableType(details.tag.runtimeClass, transformer)
 
 }
 
-class ScalaScenarioScopedDataTableDefinition[T](override val details: ScalaDataTableTableTypeDetails[T]) extends ScalaDataTableDefinition[T] with ScenarioScoped {
-}
+class ScalaScenarioScopedDataTableDefinition[T](
+    override val details: ScalaDataTableTableTypeDetails[T]
+) extends ScalaDataTableDefinition[T]
+    with ScenarioScoped {}
 
-class ScalaGlobalDataTableDefinition[T](override val details: ScalaDataTableTableTypeDetails[T]) extends ScalaDataTableDefinition[T] {
-}
+class ScalaGlobalDataTableDefinition[T](
+    override val details: ScalaDataTableTableTypeDetails[T]
+) extends ScalaDataTableDefinition[T] {}

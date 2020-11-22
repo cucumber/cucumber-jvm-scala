@@ -16,7 +16,8 @@ object ScalaTypeHelper {
 
 class ScalaParameterizedType(manifest: Manifest[_]) extends ParameterizedType {
 
-  override def getActualTypeArguments: Array[Type] = manifest.typeArguments.map(ScalaTypeHelper.asJavaType).toArray
+  override def getActualTypeArguments: Array[Type] =
+    manifest.typeArguments.map(ScalaTypeHelper.asJavaType).toArray
 
   override def getRawType: Type = manifest.runtimeClass
 

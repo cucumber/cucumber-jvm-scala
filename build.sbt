@@ -1,4 +1,3 @@
-
 import ReleaseTransformations._
 import xerial.sbt.Sonatype.sonatypeSettings
 
@@ -7,15 +6,27 @@ import xerial.sbt.Sonatype.sonatypeSettings
 ThisBuild / organization := "io.cucumber"
 ThisBuild / organizationName := "Cucumber"
 ThisBuild / organizationHomepage := Some(url("https://github.com/cucumber"))
-ThisBuild / scmInfo := Some(ScmInfo(url("https://github.com/cucumber/cucumber-jvm-scala"), "scm:git@github.com:cucumber/cucumber-jvm-scala.git"))
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/cucumber/cucumber-jvm-scala"),
+    "scm:git@github.com:cucumber/cucumber-jvm-scala.git"
+  )
+)
 ThisBuild / developers := List(
-  Developer("cucumber", "Cucumber Developers", "devs@cucumber.io", url("https://github.com/cucumber"))
+  Developer(
+    "cucumber",
+    "Cucumber Developers",
+    "devs@cucumber.io",
+    url("https://github.com/cucumber")
+  )
 )
 ThisBuild / licenses := Seq(
   "MIT License" -> url("http://www.opensource.org/licenses/mit-license")
 )
 ThisBuild / description := "Cucumber for Scala"
-ThisBuild / homepage := Some(url("https://github.com/cucumber/cucumber-jvm-scala"))
+ThisBuild / homepage := Some(
+  url("https://github.com/cucumber/cucumber-jvm-scala")
+)
 
 // Scala versions
 
@@ -42,9 +53,9 @@ lazy val commonSettings = Seq(
       case Some((2, 11)) => ScalacOptions.scalacOptions211
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
-      case _ => Seq()
+      case _             => Seq()
     }
-  },
+  }
 )
 
 lazy val root = (project in file("."))
@@ -64,18 +75,17 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     name := "cucumber-scala",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-core" % cucumberVersion,
-
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion % Provided,
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
-
       "junit" % "junit" % junitVersion % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
       "org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n <= 12 => List("org.scala-lang.modules" %% "scala-collection-compat" % "2.3.0")
+        case Some((2, n)) if n <= 12 =>
+          List("org.scala-lang.modules" %% "scala-collection-compat" % "2.3.0")
         case _ => Nil
       }
     },
@@ -83,12 +93,13 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       val sourceDir = (sourceDirectory in Compile).value
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n <= 11 => Seq(sourceDir / "scala-2.11")
-        case _ => Seq()
+        case _                       => Seq()
       }
     },
     // Generate I18n traits
     Compile / sourceGenerators += Def.task {
-      val file = (Compile / sourceManaged).value / "io/cucumber/scala" / "I18n.scala"
+      val file =
+        (Compile / sourceManaged).value / "io/cucumber/scala" / "I18n.scala"
       IO.write(file, I18nGenerator.i18n)
       Seq(file)
     }.taskValue

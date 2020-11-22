@@ -22,11 +22,14 @@ class ScalaDslRegistry {
 
   private var _parameterTypes: Seq[ScalaParameterTypeDetails[_]] = Seq()
 
-  private var _defaultParameterTransformers: Seq[ScalaDefaultParameterTransformerDetails] = Seq()
+  private var _defaultParameterTransformers
+      : Seq[ScalaDefaultParameterTransformerDetails] = Seq()
 
-  private var _defaultDataTableCellTransformers: Seq[ScalaDefaultDataTableCellTransformerDetails] = Seq()
+  private var _defaultDataTableCellTransformers
+      : Seq[ScalaDefaultDataTableCellTransformerDetails] = Seq()
 
-  private var _defaultDataTableEntryTransformers: Seq[ScalaDefaultDataTableEntryTransformerDetails] = Seq()
+  private var _defaultDataTableEntryTransformers
+      : Seq[ScalaDefaultDataTableEntryTransformerDetails] = Seq()
 
   def stepDefinitions: Seq[ScalaStepDetails] = _stepDefinitions
 
@@ -44,39 +47,62 @@ class ScalaDslRegistry {
 
   def parameterTypes: Seq[ScalaParameterTypeDetails[_]] = _parameterTypes
 
-  def defaultParameterTransformers: Seq[ScalaDefaultParameterTransformerDetails] = _defaultParameterTransformers
+  def defaultParameterTransformers
+      : Seq[ScalaDefaultParameterTransformerDetails] =
+    _defaultParameterTransformers
 
-  def defaultDataTableCellTransformers: Seq[ScalaDefaultDataTableCellTransformerDetails] = _defaultDataTableCellTransformers
+  def defaultDataTableCellTransformers
+      : Seq[ScalaDefaultDataTableCellTransformerDetails] =
+    _defaultDataTableCellTransformers
 
-  def defaultDataTableEntryTransformers: Seq[ScalaDefaultDataTableEntryTransformerDetails] = _defaultDataTableEntryTransformers
+  def defaultDataTableEntryTransformers
+      : Seq[ScalaDefaultDataTableEntryTransformerDetails] =
+    _defaultDataTableEntryTransformers
 
-  def expectHook(hookType: HookType, stackTraceElement: StackTraceElement): Unit = {
+  def expectHook(
+      hookType: HookType,
+      stackTraceElement: StackTraceElement
+  ): Unit = {
     hookType match {
       case BEFORE =>
-        _undefinedBeforeHooks = _undefinedBeforeHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedBeforeHooks =
+          _undefinedBeforeHooks :+ UndefinedHook(hookType, stackTraceElement)
       case BEFORE_STEP =>
-        _undefinedBeforeStepHooks = _undefinedBeforeStepHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedBeforeStepHooks = _undefinedBeforeStepHooks :+ UndefinedHook(
+          hookType,
+          stackTraceElement
+        )
       case AFTER =>
-        _undefinedAfterHooks = _undefinedAfterHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedAfterHooks =
+          _undefinedAfterHooks :+ UndefinedHook(hookType, stackTraceElement)
       case AFTER_STEP =>
-        _undefinedAfterStepHooks = _undefinedAfterStepHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedAfterStepHooks =
+          _undefinedAfterStepHooks :+ UndefinedHook(hookType, stackTraceElement)
     }
   }
 
-  def registerHook(hookType: HookType, details: ScalaHookDetails, frame: StackTraceElement): Unit = {
+  def registerHook(
+      hookType: HookType,
+      details: ScalaHookDetails,
+      frame: StackTraceElement
+  ): Unit = {
     hookType match {
       case HookType.BEFORE =>
         _beforeHooks = _beforeHooks :+ details
-        _undefinedBeforeHooks = _undefinedBeforeHooks.filterNot(_.stackTraceElement == frame)
+        _undefinedBeforeHooks =
+          _undefinedBeforeHooks.filterNot(_.stackTraceElement == frame)
       case HookType.BEFORE_STEP =>
         _beforeStepHooks = _beforeStepHooks :+ details
-        _undefinedBeforeStepHooks = _undefinedBeforeStepHooks.filterNot(_.stackTraceElement == frame)
+        _undefinedBeforeStepHooks =
+          _undefinedBeforeStepHooks.filterNot(_.stackTraceElement == frame)
       case HookType.AFTER =>
         _afterHooks = _afterHooks :+ details
-        _undefinedAfterHooks = _undefinedAfterHooks.filterNot(_.stackTraceElement == frame)
+        _undefinedAfterHooks =
+          _undefinedAfterHooks.filterNot(_.stackTraceElement == frame)
       case HookType.AFTER_STEP =>
         _afterStepHooks = _afterStepHooks :+ details
-        _undefinedAfterStepHooks = _undefinedAfterStepHooks.filterNot(_.stackTraceElement == frame)
+        _undefinedAfterStepHooks =
+          _undefinedAfterStepHooks.filterNot(_.stackTraceElement == frame)
     }
   }
 
@@ -96,20 +122,29 @@ class ScalaDslRegistry {
     _parameterTypes = _parameterTypes :+ details
   }
 
-  def registerDefaultDataTableCellTransformer(details: ScalaDefaultDataTableCellTransformerDetails): Unit = {
-    _defaultDataTableCellTransformers = _defaultDataTableCellTransformers :+ details
+  def registerDefaultDataTableCellTransformer(
+      details: ScalaDefaultDataTableCellTransformerDetails
+  ): Unit = {
+    _defaultDataTableCellTransformers =
+      _defaultDataTableCellTransformers :+ details
   }
 
-  def registerDefaultDataTableEntryTransformer(details: ScalaDefaultDataTableEntryTransformerDetails): Unit = {
-    _defaultDataTableEntryTransformers = _defaultDataTableEntryTransformers :+ details
+  def registerDefaultDataTableEntryTransformer(
+      details: ScalaDefaultDataTableEntryTransformerDetails
+  ): Unit = {
+    _defaultDataTableEntryTransformers =
+      _defaultDataTableEntryTransformers :+ details
   }
 
-  def registerDefaultParameterTransformer(details: ScalaDefaultParameterTransformerDetails): Unit = {
+  def registerDefaultParameterTransformer(
+      details: ScalaDefaultParameterTransformerDetails
+  ): Unit = {
     _defaultParameterTransformers = _defaultParameterTransformers :+ details
   }
 
   def checkConsistency(): Either[IncorrectHookDefinitionException, Unit] = {
-    val undefinedHooks = _undefinedBeforeHooks ++ _undefinedBeforeStepHooks ++ _undefinedAfterHooks ++ _undefinedAfterStepHooks
+    val undefinedHooks =
+      _undefinedBeforeHooks ++ _undefinedBeforeStepHooks ++ _undefinedAfterHooks ++ _undefinedAfterStepHooks
     if (undefinedHooks.nonEmpty) {
       Left(new IncorrectHookDefinitionException(undefinedHooks))
     } else {
@@ -118,4 +153,3 @@ class ScalaDslRegistry {
   }
 
 }
-

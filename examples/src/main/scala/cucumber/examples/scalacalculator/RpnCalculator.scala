@@ -2,12 +2,11 @@ package cucumber.examples.scalacalculator
 
 import scala.collection.mutable.Queue
 
-
 sealed trait Arg
 
-object Arg{
-  implicit def op(s:String) = Op(s)
-  implicit def value(v:Double) = Val(v)
+object Arg {
+  implicit def op(s: String) = Op(s)
+  implicit def value(v: Double) = Val(v)
 }
 
 case class Op(value: String) extends Arg
@@ -21,12 +20,12 @@ class RpnCalculator {
 
   def push(arg: Arg): Unit = {
     arg match {
-      case Op("+") => op(_ + _)
-      case Op("-") => op(_ - _)
-      case Op("*") => op(_ * _)
-      case Op("/") => op(_ / _)
+      case Op("+")    => op(_ + _)
+      case Op("-")    => op(_ - _)
+      case Op("*")    => op(_ * _)
+      case Op("/")    => op(_ / _)
       case Val(value) => stack += value
-      case _ => ()
+      case _          => ()
     }
     ()
   }

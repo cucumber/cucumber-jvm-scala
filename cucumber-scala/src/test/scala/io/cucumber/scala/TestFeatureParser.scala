@@ -23,11 +23,14 @@ object TestFeatureParser {
   def parse(uri: URI, source: String): Feature = {
     val supplier: Supplier[UUID] = () => UUID.randomUUID()
 
-    new FeatureParser(supplier).parseResource(new Resource {
-      override def getUri: URI = uri
+    new FeatureParser(supplier)
+      .parseResource(new Resource {
+        override def getUri: URI = uri
 
-      override def getInputStream: InputStream = new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8))
-    }).orElse(null)
+        override def getInputStream: InputStream =
+          new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8))
+      })
+      .orElse(null)
   }
 
 }

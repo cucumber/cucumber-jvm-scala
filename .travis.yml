@@ -10,6 +10,7 @@ cache:
     - $HOME/.cache/coursier
 
 script:
+  - sbt scalafmtCheckAll
   - sbt +compile +test
 
 branches:

@@ -7,7 +7,8 @@ import io.cucumber.datatable.{DataTableType, TableRowTransformer}
 
 import scala.jdk.CollectionConverters._
 
-trait ScalaDataTableOptionalRowDefinition[T] extends ScalaDataTableTypeDefinition {
+trait ScalaDataTableOptionalRowDefinition[T]
+    extends ScalaDataTableTypeDefinition {
 
   val details: ScalaDataTableOptionalRowTypeDetails[T]
 
@@ -16,15 +17,24 @@ trait ScalaDataTableOptionalRowDefinition[T] extends ScalaDataTableTypeDefinitio
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
   private val transformer: TableRowTransformer[T] = (row: JavaList[String]) => {
-    details.body.transform(row.asScala.map(replaceEmptyPatternsWithEmptyString).map(Option.apply).toSeq)
+    details.body.transform(
+      row.asScala
+        .map(replaceEmptyPatternsWithEmptyString)
+        .map(Option.apply)
+        .toSeq
+    )
   }
 
-  override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)
+  override val dataTableType =
+    new DataTableType(details.tag.runtimeClass, transformer)
 
 }
 
-class ScalaScenarioScopedDataTableOptionalRowDefinition[T](override val details: ScalaDataTableOptionalRowTypeDetails[T]) extends ScalaDataTableOptionalRowDefinition[T] with ScenarioScoped {
-}
+class ScalaScenarioScopedDataTableOptionalRowDefinition[T](
+    override val details: ScalaDataTableOptionalRowTypeDetails[T]
+) extends ScalaDataTableOptionalRowDefinition[T]
+    with ScenarioScoped {}
 
-class ScalaGlobalDataTableOptionalRowDefinition[T](override val details: ScalaDataTableOptionalRowTypeDetails[T]) extends ScalaDataTableOptionalRowDefinition[T] {
-}
+class ScalaGlobalDataTableOptionalRowDefinition[T](
+    override val details: ScalaDataTableOptionalRowTypeDetails[T]
+) extends ScalaDataTableOptionalRowDefinition[T] {}

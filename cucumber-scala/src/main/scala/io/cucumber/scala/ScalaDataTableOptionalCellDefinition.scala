@@ -3,7 +3,8 @@ package io.cucumber.scala
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableCellTransformer}
 
-trait ScalaDataTableOptionalCellDefinition[T] extends ScalaDataTableTypeDefinition {
+trait ScalaDataTableOptionalCellDefinition[T]
+    extends ScalaDataTableTypeDefinition {
 
   val details: ScalaDataTableOptionalCellTypeDetails[T]
 
@@ -15,12 +16,16 @@ trait ScalaDataTableOptionalCellDefinition[T] extends ScalaDataTableTypeDefiniti
     details.body.transform(Option(replaceEmptyPatternsWithEmptyString(cell)))
   }
 
-  override val dataTableType = new DataTableType(details.tag.runtimeClass, transformer)
+  override val dataTableType =
+    new DataTableType(details.tag.runtimeClass, transformer)
 
 }
 
-class ScalaScenarioScopedDataTableOptionalCellDefinition[T](override val details: ScalaDataTableOptionalCellTypeDetails[T]) extends ScalaDataTableOptionalCellDefinition[T] with ScenarioScoped {
-}
+class ScalaScenarioScopedDataTableOptionalCellDefinition[T](
+    override val details: ScalaDataTableOptionalCellTypeDetails[T]
+) extends ScalaDataTableOptionalCellDefinition[T]
+    with ScenarioScoped {}
 
-class ScalaGlobalDataTableOptionalCellDefinition[T](override val details: ScalaDataTableOptionalCellTypeDetails[T]) extends ScalaDataTableOptionalCellDefinition[T] {
-}
+class ScalaGlobalDataTableOptionalCellDefinition[T](
+    override val details: ScalaDataTableOptionalCellTypeDetails[T]
+) extends ScalaDataTableOptionalCellDefinition[T] {}

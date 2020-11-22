@@ -37,15 +37,21 @@ class ScalaDslDocStringTypeTest {
     assertObjectDocStringType(Glue.registry.docStringTypes.head)
   }
 
-  private def assertClassDocStringType(details: ScalaDocStringTypeDetails[_]): Unit = {
+  private def assertClassDocStringType(
+      details: ScalaDocStringTypeDetails[_]
+  ): Unit = {
     assertDocStringType(ScalaDocStringTypeDefinition(details, true))
   }
 
-  private def assertObjectDocStringType(details: ScalaDocStringTypeDetails[_]): Unit = {
+  private def assertObjectDocStringType(
+      details: ScalaDocStringTypeDetails[_]
+  ): Unit = {
     assertDocStringType(ScalaDocStringTypeDefinition(details, false))
   }
 
-  private def assertDocStringType(docStringType: DocStringTypeDefinition): Unit = {
+  private def assertDocStringType(
+      docStringType: DocStringTypeDefinition
+  ): Unit = {
     // Cannot assert much because everything is strangely private in DocStringTypeDefinition
     // Real feature tests will do the job
   }

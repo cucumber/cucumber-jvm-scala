@@ -25,7 +25,8 @@ class ScalaSnippet extends Snippet {
       s"""{0}(${tripleDoubleQuotes}{1}${tripleDoubleQuotes}) '{' ({3}) =>
          |  // {4}
          |  throw new ${classOf[PendingException].getName}()
-         |'}'""".stripMargin)
+         |'}'""".stripMargin
+    )
   }
 
   override def tableHint(): String = {
@@ -50,13 +51,13 @@ class ScalaSnippet extends Snippet {
       // Scala classes
       // TODO is there a native Scala way of doing so?
       case cType: Class[_] if cType == classOf[java.lang.Integer] => "Int"
-      case cType: Class[_] if cType == classOf[java.lang.Long] => "Long"
-      case cType: Class[_] if cType == classOf[java.lang.Float] => "Float"
-      case cType: Class[_] if cType == classOf[java.lang.Double] => "Double"
+      case cType: Class[_] if cType == classOf[java.lang.Long]    => "Long"
+      case cType: Class[_] if cType == classOf[java.lang.Float]   => "Float"
+      case cType: Class[_] if cType == classOf[java.lang.Double]  => "Double"
       // Java behavior
       case cType: Class[_] if cType == classOf[DataTable] => cType.getName
-      case cType: Class[_] => cType.getSimpleName
-      case _ => argType.toString
+      case cType: Class[_]                                => cType.getSimpleName
+      case _                                              => argType.toString
     }
   }
 

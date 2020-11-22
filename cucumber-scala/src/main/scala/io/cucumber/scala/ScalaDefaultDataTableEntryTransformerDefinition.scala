@@ -3,12 +3,20 @@ package io.cucumber.scala
 import java.lang.reflect.Type
 import java.util.{Map => JavaMap}
 
-import io.cucumber.core.backend.{DefaultDataTableEntryTransformerDefinition, ScenarioScoped}
-import io.cucumber.datatable.{TableCellByTypeTransformer, TableEntryByTypeTransformer}
+import io.cucumber.core.backend.{
+  DefaultDataTableEntryTransformerDefinition,
+  ScenarioScoped
+}
+import io.cucumber.datatable.{
+  TableCellByTypeTransformer,
+  TableEntryByTypeTransformer
+}
 
 import scala.jdk.CollectionConverters._
 
-trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEntryTransformerDefinition with AbstractDatatableElementTransformerDefinition {
+trait ScalaDefaultDataTableEntryTransformerDefinition
+    extends DefaultDataTableEntryTransformerDefinition
+    with AbstractDatatableElementTransformerDefinition {
 
   val details: ScalaDefaultDataTableEntryTransformerDetails
 
@@ -16,7 +24,11 @@ trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEn
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
-  override val tableEntryByTypeTransformer: TableEntryByTypeTransformer = (fromValue: JavaMap[String, String], toValueType: Type, _: TableCellByTypeTransformer) => {
+  override val tableEntryByTypeTransformer: TableEntryByTypeTransformer = (
+      fromValue: JavaMap[String, String],
+      toValueType: Type,
+      _: TableCellByTypeTransformer
+  ) => {
     replaceEmptyPatternsWithEmptyString(fromValue.asScala.toMap)
       .map(details.body.apply(_, toValueType))
       .get
@@ -28,7 +40,10 @@ trait ScalaDefaultDataTableEntryTransformerDefinition extends DefaultDataTableEn
 
 object ScalaDefaultDataTableEntryTransformerDefinition {
 
-  def apply(details: ScalaDefaultDataTableEntryTransformerDetails, scenarioScoped: Boolean): ScalaDefaultDataTableEntryTransformerDefinition = {
+  def apply(
+      details: ScalaDefaultDataTableEntryTransformerDetails,
+      scenarioScoped: Boolean
+  ): ScalaDefaultDataTableEntryTransformerDefinition = {
     if (scenarioScoped) {
       new ScalaScenarioScopedDataTableEntryTransformerDefinition(details)
     } else {
@@ -38,8 +53,11 @@ object ScalaDefaultDataTableEntryTransformerDefinition {
 
 }
 
-class ScalaScenarioScopedDataTableEntryTransformerDefinition(override val details: ScalaDefaultDataTableEntryTransformerDetails) extends ScalaDefaultDataTableEntryTransformerDefinition with ScenarioScoped {
-}
+class ScalaScenarioScopedDataTableEntryTransformerDefinition(
+    override val details: ScalaDefaultDataTableEntryTransformerDetails
+) extends ScalaDefaultDataTableEntryTransformerDefinition
+    with ScenarioScoped {}
 
-class ScalaGlobalDataTableEntryTransformerDefinition(override val details: ScalaDefaultDataTableEntryTransformerDetails) extends ScalaDefaultDataTableEntryTransformerDefinition {
-}
+class ScalaGlobalDataTableEntryTransformerDefinition(
+    override val details: ScalaDefaultDataTableEntryTransformerDetails
+) extends ScalaDefaultDataTableEntryTransformerDefinition {}

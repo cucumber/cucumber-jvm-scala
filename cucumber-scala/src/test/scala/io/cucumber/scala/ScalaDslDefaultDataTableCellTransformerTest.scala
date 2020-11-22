@@ -10,29 +10,46 @@ class ScalaDslDefaultDataTableCellTransformerTest {
   def testClassDefaultDataTableCellTransformer(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      DefaultDataTableCellTransformer { (fromValue: String, toValueType: java.lang.reflect.Type) =>
-        new StringBuilder().append(fromValue).append("-").append(toValueType)
+      DefaultDataTableCellTransformer {
+        (fromValue: String, toValueType: java.lang.reflect.Type) =>
+          new StringBuilder().append(fromValue).append("-").append(toValueType)
       }
     }
 
     val glue = new Glue()
 
-    assertClassDefaultDataTableCellTransformer(glue.registry.defaultDataTableCellTransformers.head, "meat", classOf[StringBuilder], "meat-class scala.collection.mutable.StringBuilder")
+    assertClassDefaultDataTableCellTransformer(
+      glue.registry.defaultDataTableCellTransformers.head,
+      "meat",
+      classOf[StringBuilder],
+      "meat-class scala.collection.mutable.StringBuilder"
+    )
   }
 
   @Test
   def testClassDefaultDataTableCellTransformerWithEmpty(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: java.lang.reflect.Type) =>
-        new StringBuilder().append(fromValue).append("-").append(toValueType)
+      DefaultDataTableCellTransformer("[empty]") {
+        (fromValue: String, toValueType: java.lang.reflect.Type) =>
+          new StringBuilder().append(fromValue).append("-").append(toValueType)
       }
     }
 
     val glue = new Glue()
 
-    assertClassDefaultDataTableCellTransformer(glue.registry.defaultDataTableCellTransformers.head, "meat", classOf[StringBuilder], "meat-class scala.collection.mutable.StringBuilder")
-    assertClassDefaultDataTableCellTransformer(glue.registry.defaultDataTableCellTransformers.head, "[empty]", classOf[StringBuilder], "-class scala.collection.mutable.StringBuilder")
+    assertClassDefaultDataTableCellTransformer(
+      glue.registry.defaultDataTableCellTransformers.head,
+      "meat",
+      classOf[StringBuilder],
+      "meat-class scala.collection.mutable.StringBuilder"
+    )
+    assertClassDefaultDataTableCellTransformer(
+      glue.registry.defaultDataTableCellTransformers.head,
+      "[empty]",
+      classOf[StringBuilder],
+      "-class scala.collection.mutable.StringBuilder"
+    )
   }
 
   // -------------------- Test on object --------------------
@@ -42,39 +59,86 @@ class ScalaDslDefaultDataTableCellTransformerTest {
   def testObjectDefaultDataTableCellTransformer(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      DefaultDataTableCellTransformer { (fromValue: String, toValueType: java.lang.reflect.Type) =>
-        new StringBuilder().append(fromValue).append("-").append(toValueType)
+      DefaultDataTableCellTransformer {
+        (fromValue: String, toValueType: java.lang.reflect.Type) =>
+          new StringBuilder().append(fromValue).append("-").append(toValueType)
       }
     }
 
-    assertObjectDefaultDataTableCellTransformer(Glue.registry.defaultDataTableCellTransformers.head, "meat", classOf[StringBuilder], "meat-class scala.collection.mutable.StringBuilder")
+    assertObjectDefaultDataTableCellTransformer(
+      Glue.registry.defaultDataTableCellTransformers.head,
+      "meat",
+      classOf[StringBuilder],
+      "meat-class scala.collection.mutable.StringBuilder"
+    )
   }
 
   @Test
   def testObjectDefaultDataTableCellTransformerWithEmpty(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: java.lang.reflect.Type) =>
-        new StringBuilder().append(fromValue).append("-").append(toValueType)
+      DefaultDataTableCellTransformer("[empty]") {
+        (fromValue: String, toValueType: java.lang.reflect.Type) =>
+          new StringBuilder().append(fromValue).append("-").append(toValueType)
       }
     }
 
-    assertObjectDefaultDataTableCellTransformer(Glue.registry.defaultDataTableCellTransformers.head, "meat", classOf[StringBuilder], "meat-class scala.collection.mutable.StringBuilder")
-    assertObjectDefaultDataTableCellTransformer(Glue.registry.defaultDataTableCellTransformers.head, "[empty]", classOf[StringBuilder], "-class scala.collection.mutable.StringBuilder")
+    assertObjectDefaultDataTableCellTransformer(
+      Glue.registry.defaultDataTableCellTransformers.head,
+      "meat",
+      classOf[StringBuilder],
+      "meat-class scala.collection.mutable.StringBuilder"
+    )
+    assertObjectDefaultDataTableCellTransformer(
+      Glue.registry.defaultDataTableCellTransformers.head,
+      "[empty]",
+      classOf[StringBuilder],
+      "-class scala.collection.mutable.StringBuilder"
+    )
   }
 
-
-  private def assertClassDefaultDataTableCellTransformer(details: ScalaDefaultDataTableCellTransformerDetails, input: String, toType: java.lang.reflect.Type, expectedOutput: AnyRef): Unit = {
-    assertDefaultDataTableCellTransformer(ScalaDefaultDataTableCellTransformerDefinition(details, true), input, toType, expectedOutput)
+  private def assertClassDefaultDataTableCellTransformer(
+      details: ScalaDefaultDataTableCellTransformerDetails,
+      input: String,
+      toType: java.lang.reflect.Type,
+      expectedOutput: AnyRef
+  ): Unit = {
+    assertDefaultDataTableCellTransformer(
+      ScalaDefaultDataTableCellTransformerDefinition(details, true),
+      input,
+      toType,
+      expectedOutput
+    )
   }
 
-  private def assertObjectDefaultDataTableCellTransformer(details: ScalaDefaultDataTableCellTransformerDetails, input: String, toType: java.lang.reflect.Type, expectedOutput: AnyRef): Unit = {
-    assertDefaultDataTableCellTransformer(ScalaDefaultDataTableCellTransformerDefinition(details, false), input, toType, expectedOutput)
+  private def assertObjectDefaultDataTableCellTransformer(
+      details: ScalaDefaultDataTableCellTransformerDetails,
+      input: String,
+      toType: java.lang.reflect.Type,
+      expectedOutput: AnyRef
+  ): Unit = {
+    assertDefaultDataTableCellTransformer(
+      ScalaDefaultDataTableCellTransformerDefinition(details, false),
+      input,
+      toType,
+      expectedOutput
+    )
   }
 
-  private def assertDefaultDataTableCellTransformer(typeDef: DefaultDataTableCellTransformerDefinition, input: String, toType: java.lang.reflect.Type, expectedOutput: AnyRef): Unit = {
-    assertEquals(toType, typeDef.tableCellByTypeTransformer().transform(input, toType).getClass)
-    assertEquals(expectedOutput.toString, typeDef.tableCellByTypeTransformer().transform(input, toType).toString)
+  private def assertDefaultDataTableCellTransformer(
+      typeDef: DefaultDataTableCellTransformerDefinition,
+      input: String,
+      toType: java.lang.reflect.Type,
+      expectedOutput: AnyRef
+  ): Unit = {
+    assertEquals(
+      toType,
+      typeDef.tableCellByTypeTransformer().transform(input, toType).getClass
+    )
+    assertEquals(
+      expectedOutput.toString,
+      typeDef.tableCellByTypeTransformer().transform(input, toType).toString
+    )
   }
 
 }

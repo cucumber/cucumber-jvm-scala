@@ -11,7 +11,11 @@ import io.cucumber.core.resource.{ClasspathScanner, ClasspathSupport}
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 
-class ScalaBackend(lookup: Lookup, container: Container, classLoaderProvider: Supplier[ClassLoader]) extends Backend {
+class ScalaBackend(
+    lookup: Lookup,
+    container: Container,
+    classLoaderProvider: Supplier[ClassLoader]
+) extends Backend {
 
   private val classFinder = new ClasspathScanner(classLoaderProvider)
 
@@ -39,9 +43,15 @@ class ScalaBackend(lookup: Lookup, container: Container, classLoaderProvider: Su
     glueAdaptor = new GlueAdaptor(glue)
 
     val dslClasses = gluePaths.asScala
-      .filter(gluePath => ClasspathSupport.CLASSPATH_SCHEME.equals(gluePath.getScheme))
+      .filter(gluePath =>
+        ClasspathSupport.CLASSPATH_SCHEME.equals(gluePath.getScheme)
+      )
       .map(ClasspathSupport.packageName)
-      .flatMap(basePackageName => classFinder.scanForSubClassesInPackage(basePackageName, classOf[ScalaDsl]).asScala)
+      .flatMap(basePackageName =>
+        classFinder
+          .scanForSubClassesInPackage(basePackageName, classOf[ScalaDsl])
+          .asScala
+      )
       .filter(glueClass => !glueClass.isInterface)
 
     val (clsClasses, objClasses) = dslClasses.partition(isRegularClass)

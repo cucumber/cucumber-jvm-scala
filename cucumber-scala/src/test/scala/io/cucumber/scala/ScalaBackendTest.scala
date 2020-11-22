@@ -24,7 +24,8 @@ class ScalaBackendTest {
   private val fakeContainer: Container = mock(classOf[Container])
 
   // Note: keep unnecessary "new" for Scala 2.11 compat
-  private val classLoaderSupplier: Supplier[ClassLoader] = () => Thread.currentThread().getContextClassLoader
+  private val classLoaderSupplier: Supplier[ClassLoader] = () =>
+    Thread.currentThread().getContextClassLoader
 
   private var backend: ScalaBackend = _
 
@@ -37,8 +38,10 @@ class ScalaBackendTest {
     when(fakeLookup.getInstance(classOf[StepsA])).thenReturn(new StepsA())
     when(fakeLookup.getInstance(classOf[StepsB])).thenReturn(new StepsB())
     when(fakeLookup.getInstance(classOf[StepsC])).thenReturn(new StepsC())
-    when(fakeLookup.getInstance(classOf[StepsInTrait])).thenReturn(new StepsInTrait())
-    when(fakeLookup.getInstance(classOf[IncorrectClassHooksDefinition])).thenReturn(new IncorrectClassHooksDefinition())
+    when(fakeLookup.getInstance(classOf[StepsInTrait]))
+      .thenReturn(new StepsInTrait())
+    when(fakeLookup.getInstance(classOf[IncorrectClassHooksDefinition]))
+      .thenReturn(new IncorrectClassHooksDefinition())
 
     // Create the instances
     backend = new ScalaBackend(fakeLookup, fakeContainer, classLoaderSupplier)
@@ -47,10 +50,19 @@ class ScalaBackendTest {
   @Test
   def loadGlueAndBuildWorld_classes(): Unit = {
     // Load glue
-    backend.loadGlue(fakeGlue, List(URI.create("classpath:io/cucumber/scala/steps/classes")).asJava)
+    backend.loadGlue(
+      fakeGlue,
+      List(URI.create("classpath:io/cucumber/scala/steps/classes")).asJava
+    )
 
     assertEquals(3, backend.scalaGlueClasses.size)
-    assertTrue(backend.scalaGlueClasses.toSet == Set(classOf[StepsA], classOf[StepsB], classOf[StepsC]))
+    assertTrue(
+      backend.scalaGlueClasses.toSet == Set(
+        classOf[StepsA],
+        classOf[StepsB],
+        classOf[StepsC]
+      )
+    )
 
     verify(fakeContainer, times(3)).addClass(any())
     verify(fakeContainer, times(1)).addClass(classOf[StepsA])
@@ -96,7 +108,10 @@ class ScalaBackendTest {
   @Test
   def loadGlueAndBuildWorld_trait(): Unit = {
     // Load glue
-    backend.loadGlue(fakeGlue, List(URI.create("classpath:io/cucumber/scala/steps/traits")).asJava)
+    backend.loadGlue(
+      fakeGlue,
+      List(URI.create("classpath:io/cucumber/scala/steps/traits")).asJava
+    )
 
     assertEquals(1, backend.scalaGlueClasses.size)
     assertTrue(backend.scalaGlueClasses.toSet == Set(classOf[StepsInTrait]))
@@ -139,7 +154,10 @@ class ScalaBackendTest {
   @Test
   def loadGlueAndBuildWorld_object(): Unit = {
     // Load glue
-    backend.loadGlue(fakeGlue, List(URI.create("classpath:io/cucumber/scala/steps/objects")).asJava)
+    backend.loadGlue(
+      fakeGlue,
+      List(URI.create("classpath:io/cucumber/scala/steps/objects")).asJava
+    )
 
     assertEquals(0, backend.scalaGlueClasses.size)
     assertTrue(backend.scalaGlueClasses.toSet == Set())
@@ -162,7 +180,14 @@ class ScalaBackendTest {
   def loadGlueAndBuildWorld_class_incorrect_hooks_definitions(): Unit = {
     val result = Try {
       // Load glue
-      backend.loadGlue(fakeGlue, List(URI.create("classpath:io/cucumber/scala/steps/errors/incorrectclasshooks")).asJava)
+      backend.loadGlue(
+        fakeGlue,
+        List(
+          URI.create(
+            "classpath:io/cucumber/scala/steps/errors/incorrectclasshooks"
+          )
+        ).asJava
+      )
 
       // Build world
       backend.buildWorld()
@@ -170,7 +195,8 @@ class ScalaBackendTest {
 
     result match {
       case Failure(ex) if ex.isInstanceOf[IncorrectHookDefinitionException] =>
-        val incorrectHookDefException = ex.asInstanceOf[IncorrectHookDefinitionException]
+        val incorrectHookDefException =
+          ex.asInstanceOf[IncorrectHookDefinitionException]
         assertEquals(4, incorrectHookDefException.undefinedHooks.size)
         val expectedMsg = """Some hooks are not defined properly:
                             | - IncorrectClassHooksDefinition.scala:11 (BEFORE)
@@ -205,12 +231,20 @@ class ScalaBackendTest {
   def loadGlueAndBuildWorld_object_incorrect_hooks_definitions(): Unit = {
     val result = Try {
       // Load glue
-      backend.loadGlue(fakeGlue, List(URI.create("classpath:io/cucumber/scala/steps/errors/incorrectobjecthooks")).asJava)
+      backend.loadGlue(
+        fakeGlue,
+        List(
+          URI.create(
+            "classpath:io/cucumber/scala/steps/errors/incorrectobjecthooks"
+          )
+        ).asJava
+      )
     }
 
     result match {
       case Failure(ex) if ex.isInstanceOf[IncorrectHookDefinitionException] =>
-        val incorrectHookDefException = ex.asInstanceOf[IncorrectHookDefinitionException]
+        val incorrectHookDefException =
+          ex.asInstanceOf[IncorrectHookDefinitionException]
         assertEquals(4, incorrectHookDefException.undefinedHooks.size)
         val expectedMsg = """Some hooks are not defined properly:
                             | - IncorrectObjectHooksDefinition.scala:11 (BEFORE)

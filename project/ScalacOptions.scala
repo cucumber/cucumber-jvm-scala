@@ -37,21 +37,24 @@ object ScalacOptions {
     "-Ywarn-unused:patvars", // Warn if a variable bound in a pattern is unused.
     "-Ywarn-unused:privates", // Warn if a private member is unused.
     "-Ywarn-value-discard", // Warn when non-Unit expression results are unused.
-    "-Ybackend-parallelism", "8", // Enable paralellisation — change to desired number!
+    "-Ybackend-parallelism",
+    "8", // Enable paralellisation — change to desired number!
     "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
-    "-Ycache-macro-class-loader:last-modified", // and macro definitions. This can lead to performance improvements.
+    "-Ycache-macro-class-loader:last-modified" // and macro definitions. This can lead to performance improvements.
   )
 
   val scalacOptions212 = Seq(
     "-deprecation", // Emit warning and location for usages of deprecated APIs.
-    "-encoding", "utf-8", // Specify character encoding used by source files.
+    "-encoding",
+    "utf-8", // Specify character encoding used by source files.
     "-feature", // Emit warning and location for usages of features that should be imported explicitly.
     "-language:implicitConversions" // Allow definition of implicit functions called views
   )
 
   val scalacOptions211 = Seq(
     "-deprecation",
-    "-encoding", "UTF-8", // yes, this is 2 args
+    "-encoding",
+    "UTF-8", // yes, this is 2 args
     "-feature",
     "-language:implicitConversions"
   )

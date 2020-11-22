@@ -22,6 +22,5 @@ object IncorrectStepDefinitionException {
 
 }
 
-class IncorrectStepDefinitionException extends CucumberException(IncorrectStepDefinitionException.errorMessage) {
-
-}
+class IncorrectStepDefinitionException
+    extends CucumberException(IncorrectStepDefinitionException.errorMessage) {}
