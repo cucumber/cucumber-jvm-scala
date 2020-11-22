@@ -47,7 +47,6 @@ val junitVersion = "4.13.1"
 
 lazy val commonSettings = Seq(
   libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test,
-  scalacOptions += "-target:jvm-1.8",
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 11)) => ScalacOptions.scalacOptions211

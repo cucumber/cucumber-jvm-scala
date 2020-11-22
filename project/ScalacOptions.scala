@@ -56,7 +56,8 @@ object ScalacOptions {
     "-encoding",
     "UTF-8", // yes, this is 2 args
     "-feature",
-    "-language:implicitConversions"
+    "-language:implicitConversions",
+    "-target:jvm-1.8"
   )
 
 }

@@ -74,7 +74,7 @@ class ScalaDslStepsTest {
       glue.registry.stepDefinitions.head,
       """Oh boy, (\d+) (\s+) cukes""",
       "ScalaDslStepsTest.scala:65",
-      Array(new java.lang.Integer(5), "green"),
+      Array(java.lang.Integer.valueOf(5), "green"),
       thenumber == 5 && thecolour == "green"
     )
   }
@@ -185,7 +185,7 @@ class ScalaDslStepsTest {
       Glue.registry.stepDefinitions.head,
       """Oh boy, (\d+) (\s+) cukes""",
       "ScalaDslStepsTest.scala:178",
-      Array(new java.lang.Integer(5), "green"),
+      Array(java.lang.Integer.valueOf(5), "green"),
       thenumber == 5 && thecolour == "green"
     )
   }

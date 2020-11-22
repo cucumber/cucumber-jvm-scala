@@ -1,6 +1,7 @@
 language: scala
 os: linux
 jdk:
+  - openjdk11
   - openjdk8
 
 cache:

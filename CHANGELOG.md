@@ -12,6 +12,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Added
 
 - [Build] Setup formatting using `scalafmt`
+- [CI] Build & test on both JDK 8 and 11 
 
 ### Changed
 
