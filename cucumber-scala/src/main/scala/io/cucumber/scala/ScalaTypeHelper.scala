@@ -1,26 +1,51 @@
 package io.cucumber.scala
 
-import java.lang.reflect.{ParameterizedType, Type}
+import java.lang.reflect.{
+  ParameterizedType => JavaParameterizedType,
+  Type => JavaType
+}
+
+import io.cucumber.core.exception.CucumberException
+
+import scala.reflect.runtime.universe.{Mirror, Type, TypeTag}
+import scala.util.{Failure, Success, Try}
 
 object ScalaTypeHelper {
 
-  def asJavaType(m: Manifest[_]): Type = {
-    if (m.typeArguments.isEmpty) {
-      m.runtimeClass
-    } else {
-      new ScalaParameterizedType(m)
+  def asJavaType(m: TypeTag[_]): JavaType = {
+    val mirror: Mirror = m.mirror
+
+    def _asJavaTypeRec(t: Type): JavaType = {
+      val clazz: Class[_] = mirror.runtimeClass(t.typeSymbol.asClass)
+      t.typeArgs match {
+        case Nil =>
+          clazz
+        case args =>
+          val typeArgs = args.map(_asJavaTypeRec)
+          new ScalaParameterizedType(clazz, typeArgs)
+      }
+    }
+
+    Try(_asJavaTypeRec(m.tpe)) match {
+      case Success(javaType) =>
+        javaType
+      case Failure(ex) =>
+        throw new CucumberException(
+          "Internal error in Cucumber Scala, please open an issue at https://github.com/cucumber/cucumber-jvm-scala",
+          ex
+        )
     }
   }
 
 }
 
-class ScalaParameterizedType(manifest: Manifest[_]) extends ParameterizedType {
+class ScalaParameterizedType(rawType: JavaType, typeArgs: List[JavaType])
+    extends JavaParameterizedType {
 
-  override def getActualTypeArguments: Array[Type] =
-    manifest.typeArguments.map(ScalaTypeHelper.asJavaType).toArray
+  override def getActualTypeArguments: Array[JavaType] = typeArgs.toArray
 
-  override def getRawType: Type = manifest.runtimeClass
+  override def getRawType: JavaType = rawType
 
-  override def getOwnerType: Type = null
+  override def getOwnerType: JavaType = null
 
 }

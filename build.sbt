@@ -73,6 +73,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
   .settings(
     name := "cucumber-scala",
     libraryDependencies ++= Seq(
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion % Provided,

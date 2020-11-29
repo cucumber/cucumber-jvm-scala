@@ -1,5 +1,6 @@
 package io.cucumber.scala
 
+import java.lang.reflect.{Type => JavaType}
 import java.util.{List => JList}
 
 import io.cucumber.core.backend.{ParameterInfo, ScenarioScoped, StepDefinition}
@@ -16,9 +17,8 @@ trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
     stepDetails.types
   )
 
-  private def fromTypes(types: Seq[Manifest[_]]): JList[ParameterInfo] = {
+  private def fromTypes(types: Seq[JavaType]): JList[ParameterInfo] = {
     types
-      .map(ScalaTypeHelper.asJavaType)
       .map(new ScalaTypeResolver(_))
       .map(new ScalaParameterInfo(_))
       .toList

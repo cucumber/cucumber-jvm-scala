@@ -16,6 +16,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Internal] Usage of `Manifest`s removed in favor of `TypeTag`s
+  - **Important**: if you use libraries that depends on Cucumber Scala, they need to be updated as well
+
 ### Deprecated
 
 ### Removed

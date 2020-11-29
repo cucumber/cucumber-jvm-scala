@@ -1,8 +1,9 @@
 package io.cucumber.scala
 
-import Aliases._
+import io.cucumber.scala.Aliases._
 
 import scala.reflect.ClassTag
+import scala.reflect.runtime.universe.TypeTag
 
 private[scala] trait BaseScalaDsl {
 
@@ -1169,7 +1170,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     /*
      * Generated apply1 to apply22 below
      */
-    def apply[T1](f: (T1) => Any)(implicit m1: Manifest[T1]): Unit = {
+    def apply[T1](f: (T1) => Any)(implicit m1: TypeTag[T1]): Unit = {
       register(m1) {
         case List(a1: AnyRef) =>
           f(a1.asInstanceOf[T1])
@@ -1180,7 +1181,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2](
         f: (T1, T2) => Any
-    )(implicit m1: Manifest[T1], m2: Manifest[T2]): Unit = {
+    )(implicit m1: TypeTag[T1], m2: TypeTag[T2]): Unit = {
       register(m1, m2) {
         case List(a1: AnyRef, a2: AnyRef) =>
           f(a1.asInstanceOf[T1], a2.asInstanceOf[T2])
@@ -1191,7 +1192,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3](
         f: (T1, T2, T3) => Any
-    )(implicit m1: Manifest[T1], m2: Manifest[T2], m3: Manifest[T3]): Unit = {
+    )(implicit m1: TypeTag[T1], m2: TypeTag[T2], m3: TypeTag[T3]): Unit = {
       register(m1, m2, m3) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef) =>
           f(a1.asInstanceOf[T1], a2.asInstanceOf[T2], a3.asInstanceOf[T3])
@@ -1201,10 +1202,10 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any)(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4]
     ): Unit = {
       register(m1, m2, m3, m4) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef, a4: AnyRef) =>
@@ -1220,11 +1221,11 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     def apply[T1, T2, T3, T4, T5](f: (T1, T2, T3, T4, T5) => Any)(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5]
     ): Unit = {
       register(m1, m2, m3, m4, m5) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef, a4: AnyRef, a5: AnyRef) =>
@@ -1243,12 +1244,12 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6](
         f: (T1, T2, T3, T4, T5, T6) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6) {
         case List(
@@ -1275,13 +1276,13 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7](
         f: (T1, T2, T3, T4, T5, T6, T7) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7) {
         case List(
@@ -1310,14 +1311,14 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8](
         f: (T1, T2, T3, T4, T5, T6, T7, T8) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8) {
         case List(
@@ -1348,15 +1349,15 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8, m9) {
         case List(
@@ -1389,16 +1390,16 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10) {
         case List(
@@ -1433,17 +1434,17 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11) {
         case List(
@@ -1480,18 +1481,18 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12) {
         case List(
@@ -1530,19 +1531,19 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13) {
         case List(
@@ -1583,20 +1584,20 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14]
     ): Unit = {
       register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14) {
         case List(
@@ -1655,21 +1656,21 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T15
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15]
     ): Unit = {
       register(
         m1,
@@ -1764,22 +1765,22 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T16
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16]
     ): Unit = {
       register(
         m1,
@@ -1879,23 +1880,23 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T17
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16],
+        m17: TypeTag[T17]
     ): Unit = {
       register(
         m1,
@@ -2000,24 +2001,24 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T18
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16],
+        m17: TypeTag[T17],
+        m18: TypeTag[T18]
     ): Unit = {
       register(
         m1,
@@ -2127,25 +2128,25 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T19
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16],
+        m17: TypeTag[T17],
+        m18: TypeTag[T18],
+        m19: TypeTag[T19]
     ): Unit = {
       register(
         m1,
@@ -2260,26 +2261,26 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T20
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19],
-        m20: Manifest[T20]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16],
+        m17: TypeTag[T17],
+        m18: TypeTag[T18],
+        m19: TypeTag[T19],
+        m20: TypeTag[T20]
     ): Unit = {
       register(
         m1,
@@ -2399,27 +2400,27 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T21
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19],
-        m20: Manifest[T20],
-        m21: Manifest[T21]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16],
+        m17: TypeTag[T17],
+        m18: TypeTag[T18],
+        m19: TypeTag[T19],
+        m20: TypeTag[T20],
+        m21: TypeTag[T21]
     ): Unit = {
       register(
         m1,
@@ -2544,28 +2545,28 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T22
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19],
-        m20: Manifest[T20],
-        m21: Manifest[T21],
-        m22: Manifest[T22]
+        m1: TypeTag[T1],
+        m2: TypeTag[T2],
+        m3: TypeTag[T3],
+        m4: TypeTag[T4],
+        m5: TypeTag[T5],
+        m6: TypeTag[T6],
+        m7: TypeTag[T7],
+        m8: TypeTag[T8],
+        m9: TypeTag[T9],
+        m10: TypeTag[T10],
+        m11: TypeTag[T11],
+        m12: TypeTag[T12],
+        m13: TypeTag[T13],
+        m14: TypeTag[T14],
+        m15: TypeTag[T15],
+        m16: TypeTag[T16],
+        m17: TypeTag[T17],
+        m18: TypeTag[T18],
+        m19: TypeTag[T19],
+        m20: TypeTag[T20],
+        m21: TypeTag[T21],
+        m22: TypeTag[T22]
     ): Unit = {
       register(
         m1,
@@ -2645,10 +2646,11 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     private def register(
-        manifests: Manifest[_ <: Any]*
+        typeTags: TypeTag[_ <: Any]*
     )(pf: PartialFunction[List[Any], Any]): Unit = {
+      val javaTypes = typeTags.map(ScalaTypeHelper.asJavaType)
       registry.registerStep(
-        ScalaStepDetails(Utils.frame(self), name, regex, manifests, pf)
+        ScalaStepDetails(Utils.frame(self), name, regex, javaTypes, pf)
       )
     }
 
