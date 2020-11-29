@@ -13,9 +13,10 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 - [Build] Setup formatting using `scalafmt`
 - [CI] Build & test on both JDK 8 and 11
-- [Build] Tested Jackson version is now 2.12.0 
 
 ### Changed
+
+- [Build] Tested Jackson version is now 2.12.0 
 
 ### Deprecated
 
