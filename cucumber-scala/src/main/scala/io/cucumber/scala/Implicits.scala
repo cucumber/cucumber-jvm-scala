@@ -33,7 +33,7 @@ object Implicits {
       table
         .asMaps[K, V](evK.runtimeClass, evV.runtimeClass)
         .asScala
-        .map(_.asScala.map(nullToNone(_)).toMap)
+        .map(_.asScala.map(nullToNone).toMap)
         .toSeq
     }
 
@@ -79,7 +79,7 @@ object Implicits {
       table
         .asMap[K, V](evK.runtimeClass, evV.runtimeClass)
         .asScala
-        .map(nullToNone(_))
+        .map(nullToNone)
         .toMap
     }
 
@@ -172,7 +172,7 @@ object Implicits {
           classOf[java.util.Map[String, String]]
         )
         .asScala
-        .map { case (k, v) => (k, v.asScala.map(nullToNone(_)).toMap) }
+        .map { case (k, v) => (k, v.asScala.map(nullToNone).toMap) }
         .toMap
     }
 

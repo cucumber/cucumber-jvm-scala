@@ -33,7 +33,7 @@ ThisBuild / homepage := Some(
 val scala211 = "2.11.12"
 val scala212 = "2.12.12"
 val scala213 = "2.13.3"
-val scala3 = "3.0.0-M1"
+val scala3 = "3.0.0-M2"
 
 scalaVersion := scala213
 
@@ -56,8 +56,7 @@ lazy val commonSettings = Seq(
       case Some((3, 0)) => ScalacOptions.scalacOptions3
       case _             => Seq()
     }
-  },
-  scalacOptions ++= { if (isDotty.value) Seq("-source:3.0") else Nil }
+  }
 )
 
 lazy val root = (project in file("."))
