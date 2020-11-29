@@ -39,9 +39,9 @@ class ScalaDslStepsTest {
     var invoked = false
 
     class Glue extends ScalaDsl with EN {
-      Given("Something") { () =>
+      Given("Something") ((() => {
         invoked = true
-      }
+      }))
     }
 
     val glue = new Glue()
@@ -62,10 +62,10 @@ class ScalaDslStepsTest {
     var thecolour = ""
 
     class Glue extends ScalaDsl with EN {
-      Given("""Oh boy, (\d+) (\s+) cukes""") { (num: Int, colour: String) =>
+      Given("""Oh boy, (\d+) (\s+) cukes""") (((num: Int, colour: String) => {
         thenumber = num
         thecolour = colour
-      }
+      }))
     }
 
     val glue = new Glue()
@@ -83,10 +83,10 @@ class ScalaDslStepsTest {
   def testDefThrowException(): Unit = {
 
     class GlueWithException extends ScalaDsl with EN {
-      Given("Something") { () =>
+      Given("Something") ((() => {
         val x = 1 + 2 // A not useful line
         throw new PendingException()
-      }
+      }))
     }
 
     val glue = new GlueWithException()
@@ -106,10 +106,10 @@ class ScalaDslStepsTest {
   def testDefNullParameters(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      Given("Something {}") { (str: String) =>
+      Given("Something {}") (((str: String) => {
         // Nothing
         println(str)
-      }
+      }))
     }
 
     val glue = new Glue()
@@ -154,9 +154,9 @@ class ScalaDslStepsTest {
     var invoked = false
 
     object Glue extends ScalaDsl with EN {
-      Given("Something") { () =>
+      Given("Something") ((() => {
         invoked = true
-      }
+      }))
     }
 
     assertObjectStepDefinition(
@@ -175,10 +175,10 @@ class ScalaDslStepsTest {
     var thecolour = ""
 
     object Glue extends ScalaDsl with EN {
-      Given("""Oh boy, (\d+) (\s+) cukes""") { (num: Int, colour: String) =>
+      Given("""Oh boy, (\d+) (\s+) cukes""") (((num: Int, colour: String) => {
         thenumber = num
         thecolour = colour
-      }
+      }))
     }
 
     assertObjectStepDefinition(
@@ -194,10 +194,10 @@ class ScalaDslStepsTest {
   def testObjectDefThrowException(): Unit = {
 
     object GlueWithException extends ScalaDsl with EN {
-      Given("Something") { () =>
+      Given("Something") ((() => {
         val x = 1 + 2 // A not useful line
         throw new PendingException()
-      }
+      }))
     }
 
     assertObjectStepDefinitionThrow(
@@ -215,10 +215,10 @@ class ScalaDslStepsTest {
   def testObjectDefNullParameters(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      Given("Something {}") { (str: String) =>
+      Given("Something {}") (((str: String) => {
         // Nothing
         println(str)
-      }
+      }))
     }
 
     assertClassStepDefinitionThrow(

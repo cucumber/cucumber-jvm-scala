@@ -20,9 +20,9 @@ trait TraitWithSteps extends ScalaDsl with EN {
     // Nothing
   }
 
-  Given("""Given step""") { () =>
+  Given("""Given step""") ((() => {
     // Nothing
-  }
+  }))
 
 }
 

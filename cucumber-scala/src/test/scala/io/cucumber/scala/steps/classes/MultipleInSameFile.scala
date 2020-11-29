@@ -20,16 +20,16 @@ class StepsA extends ScalaDsl with EN {
     // Nothing
   }
 
-  Given("""stepA""") { () =>
+  Given("""stepA""") ((() => {
     // Nothing
-  }
+  }))
 
 }
 
 class StepsB extends ScalaDsl with EN {
 
-  When("""stepsB""") { () =>
+  When("""stepsB""") ((() => {
     // Nothing
-  }
+  }))
 
 }
