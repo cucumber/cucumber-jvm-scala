@@ -11,6 +11,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [6.9.1] (2020-12-15)
+
+### Added
+
 - [Build] Setup formatting using `scalafmt`
 - [CI] Build & test on both JDK 8 and 11
 
@@ -18,12 +30,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 - [Build] Tested Jackson version is now 2.12.0 
 - [Core] Updated `cucumber-core` dependency to [6.9.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [6.9.0] (2020-11-15)
 
@@ -250,7 +256,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.1...main
+[6.9.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.0...v6.9.1
 [6.9.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.8.2...v6.9.0
 [6.8.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.8.1...v6.8.2
 [6.8.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.8.0...v6.8.1
