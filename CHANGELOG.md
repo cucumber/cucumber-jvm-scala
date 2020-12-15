@@ -17,6 +17,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Build] Tested Jackson version is now 2.12.0 
+- [Core] Updated `cucumber-core` dependency to [6.9.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
 
