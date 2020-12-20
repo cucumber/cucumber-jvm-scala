@@ -13,7 +13,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 - [Build] Setup formatting using `scalafmt`
 - [CI] Build & test on both JDK 8 and 11
-- [Build] Cross compilation with Scala 3.0.0-M2
+- [Build] Cross compilation with Scala 3.0.0-M3
 
 ### Changed
 

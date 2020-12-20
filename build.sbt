@@ -33,7 +33,7 @@ ThisBuild / homepage := Some(
 val scala211 = "2.11.12"
 val scala212 = "2.12.12"
 val scala213 = "2.13.3"
-val scala3 = "3.0.0-M2"
+val scala3 = "3.0.0-M3"
 
 scalaVersion := scala213
 
@@ -53,7 +53,7 @@ lazy val commonSettings = Seq(
       case Some((2, 11)) => ScalacOptions.scalacOptions211
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
-      case Some((3, 0)) => ScalacOptions.scalacOptions3
+      case Some((3, 0))  => ScalacOptions.scalacOptions3
       case _             => Seq()
     }
   }
@@ -77,11 +77,12 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
-      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided).withDottyCompat(scalaVersion.value),
-
+      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided)
+        .withDottyCompat(scalaVersion.value),
       "junit" % "junit" % junitVersion % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
-      ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test).withDottyCompat(scalaVersion.value)
+      ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
+        .withDottyCompat(scalaVersion.value)
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
