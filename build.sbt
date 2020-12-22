@@ -94,8 +94,14 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     unmanagedSourceDirectories in Compile ++= {
       val sourceDir = (sourceDirectory in Compile).value
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n <= 11 => Seq(sourceDir / "scala-2.11")
-        case _                       => Seq()
+        case Some((2, n)) if n > 11 =>
+          Seq(sourceDir / "scala-2")
+        case Some((2, n)) if n <= 11 =>
+          Seq(sourceDir / "scala-2", sourceDir / "scala-2.11")
+        case Some((3, 0)) =>
+          Seq(sourceDir / "scala-3.0")
+        case _ =>
+          Seq()
       }
     },
     // Generate I18n traits
