@@ -100,7 +100,9 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
         (Compile / sourceManaged).value / "io/cucumber/scala" / "I18n.scala"
       IO.write(file, I18nGenerator.i18n)
       Seq(file)
-    }.taskValue
+    }.taskValue,
+    // MiMa
+    mimaPreviousArtifacts := Set("io.cucumber" %% "cucumber-scala" % "6.9.0")
   )
   .jvmPlatform(scalaVersions = Seq(scala213, scala212, scala211))
 
@@ -117,6 +119,9 @@ lazy val examples = (projectMatrix in file("examples"))
   )
   .dependsOn(cucumberScala % Test)
   .jvmPlatform(scalaVersions = Seq(scala213, scala212))
+
+// MiMa
+ThisBuild / mimaReportSignatureProblems := true
 
 // Release & Publish
 
