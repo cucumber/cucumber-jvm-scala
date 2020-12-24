@@ -35,7 +35,7 @@ class ScalaDslDataTableTypeTest {
   def testDataTableEntryType(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      DataTableType { entry: Map[String, String] =>
+      DataTableType { (entry: Map[String, String]) =>
         Author(entry("name"), entry("surname"), entry("famousBook"))
       }
     }
@@ -81,7 +81,7 @@ class ScalaDslDataTableTypeTest {
   def testDataTableRowType(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      DataTableType { row: Seq[String] =>
+      DataTableType { (row: Seq[String]) =>
         Author(row(0), row(1), row(2))
       }
     }
@@ -127,7 +127,7 @@ class ScalaDslDataTableTypeTest {
   def testDataTableCellType(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      DataTableType { cell: String =>
+      DataTableType { (cell: String) =>
         Cell(cell)
       }
     }
@@ -173,7 +173,7 @@ class ScalaDslDataTableTypeTest {
   def testClassDataTableTableType(): Unit = {
 
     class Glue extends ScalaDsl with EN {
-      DataTableType { table: DataTable =>
+      DataTableType { (table: DataTable) =>
         val authors = table
           .asMaps()
           .asScala
@@ -242,7 +242,7 @@ class ScalaDslDataTableTypeTest {
   def testObjectDataTableEntryType(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      DataTableType { entry: Map[String, String] =>
+      DataTableType { (entry: Map[String, String]) =>
         Author(entry("name"), entry("surname"), entry("famousBook"))
       }
     }
@@ -284,7 +284,7 @@ class ScalaDslDataTableTypeTest {
   def testObjectDataTableRowType(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      DataTableType { row: Seq[String] =>
+      DataTableType { (row: Seq[String]) =>
         Author(row(0), row(1), row(2))
       }
     }
@@ -326,7 +326,7 @@ class ScalaDslDataTableTypeTest {
   def testObjectDataTableCellType(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      DataTableType { cell: String =>
+      DataTableType { (cell: String) =>
         Cell(cell)
       }
     }
@@ -368,7 +368,7 @@ class ScalaDslDataTableTypeTest {
   def testObjectDataTableTableType(): Unit = {
 
     object Glue extends ScalaDsl with EN {
-      DataTableType { table: DataTable =>
+      DataTableType { (table: DataTable) =>
         val authors = table
           .asMaps()
           .asScala

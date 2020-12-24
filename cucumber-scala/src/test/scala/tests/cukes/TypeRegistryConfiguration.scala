@@ -33,7 +33,7 @@ class TypeRegistryConfiguration extends ScalaDsl {
     s.charAt(0)
   }
 
-  DataTableType { map: Map[String, String] =>
+  DataTableType { (map: Map[String, String]) =>
     Cukes(map("Number").toInt, map("Color"))
   }
 
