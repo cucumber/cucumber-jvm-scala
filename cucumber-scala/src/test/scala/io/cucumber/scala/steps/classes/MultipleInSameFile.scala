@@ -6,21 +6,25 @@ class StepsA extends ScalaDsl with EN {
 
   Before {
     // Nothing
+    ()
   }
 
   BeforeStep {
     // Nothing
+    ()
   }
 
   After {
     // Nothing
+    ()
   }
 
   AfterStep {
     // Nothing
+    ()
   }
 
-  Given("""stepA""") ((() => {
+  Given("""stepA""")((() => {
     // Nothing
   }))
 
@@ -28,7 +32,7 @@ class StepsA extends ScalaDsl with EN {
 
 class StepsB extends ScalaDsl with EN {
 
-  When("""stepsB""") ((() => {
+  When("""stepsB""")((() => {
     // Nothing
   }))
 

@@ -17,6 +17,7 @@ class TypeRegistryConfiguration extends ScalaDsl {
     val direction = s.toList match {
       case '<' :: _           => Symbol("west")
       case l if l.last == '>' => Symbol("east")
+      case _                  => Symbol("unknown")
     }
     Snake(size, direction)
   }
