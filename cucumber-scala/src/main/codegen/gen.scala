@@ -26,7 +26,7 @@ for (i <- 1 to 22) {
   val template =
     s"""
       |inline def apply[$ts](f: ($ts) => Any): Unit = {
-      |  val types = parameterTypes(f)
+      |  val types = parameterTypes[$ts]()
       |  register(types) {
       |    $pf
       |    case _ =>
@@ -70,7 +70,7 @@ for (i <- 1 to 22) {
 
   val template =
     s"""
-      |inline def parameterTypes[$ts](fn: ($ts) => Any): Seq[String] = {
+      |inline def parameterTypes[$ts](): Seq[MyType] = {
       |  $${ getTypes[$ts]() }
       |}
       |""".stripMargin
@@ -89,7 +89,7 @@ for (i <- 1 to 22) {
 
   val template =
     s"""
-      |private def getTypes[$ts]()(using $usings, Quotes): Expr[Seq[String]] = {
+      |private def getTypes[$ts]()(using $usings, Quotes): Expr[Seq[MyType]] = {
       |  import quotes.reflect._
       |  getTypesFromRepr(Seq($reprs))
       |}

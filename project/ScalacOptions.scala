@@ -1,8 +1,7 @@
 object ScalacOptions {
 
   val scalacOptions3 = Seq(
-    "-rewrite",
-    "-source:3.0-migration",
+    "-source:3.0",
     "-deprecation", // Emit warning and location for usages of deprecated APIs.
     "-explain", // Explain type errors in more detail.
 //    "-explaintypes", // Explain type errors in more detail.

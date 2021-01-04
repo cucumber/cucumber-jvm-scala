@@ -4,9 +4,9 @@ import java.lang.reflect.{ParameterizedType, Type}
 
 object ScalaTypeHelper {
 
-  def asJavaType(m: Manifest[_]): Type = {
-    if (m.typeArguments.isEmpty) {
-      m.runtimeClass
+  def asJavaType(m: MyType): Type = {
+    if (m.args.isEmpty) {
+      Class.forName(m.me)
     } else {
       new ScalaParameterizedType(m)
     }
@@ -14,11 +14,10 @@ object ScalaTypeHelper {
 
 }
 
-class ScalaParameterizedType(manifest: Manifest[_]) extends ParameterizedType {
+class ScalaParameterizedType(myType: MyType) extends ParameterizedType {
 
-  private val typeArgs =
-    manifest.typeArguments.map(ScalaTypeHelper.asJavaType).toArray
-  private val rawType = manifest.runtimeClass
+  private val typeArgs = myType.args.map(ScalaTypeHelper.asJavaType).toArray
+  private val rawType = Class.forName(myType.me)
 
   override def getActualTypeArguments: Array[Type] = typeArgs
 

@@ -12,6 +12,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Added
 
 - [Build] Cross compilation with Scala 3.0.0-M3
+  - TODO DOCUMENT BREAKING CHANGES
 
 ### Changed
 
