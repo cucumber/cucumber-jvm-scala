@@ -21,12 +21,13 @@ for (i <- 1 to 22) {
  */
 for (i <- 1 to 22) {
   val ts = (1 to i).map(n => s"T$n").mkString(", ")
+  val ltt = (1 to i).map(n => s"LTT[T$n]").mkString(", ")
   val pf = "    case List(" + (1 to i).map("a" + _ + ":AnyRef").mkString(", ") + ") => \n      f(" + (1 to i).map(n => "a" + n + ".asInstanceOf[T" + n + "]").mkString(",\n        ") + ")\n"
 
   val template =
     s"""
       |inline def apply[$ts](f: ($ts) => Any): Unit = {
-      |  val types = parameterTypes[$ts]()
+      |  val types = Seq($ltt)
       |  register(types) {
       |    $pf
       |    case _ =>

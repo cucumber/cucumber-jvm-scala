@@ -1,6 +1,8 @@
 package io.cucumber.scala
 
-import io.cucumber.scala.Macros.parameterTypes
+// import io.cucumber.scala.Macros.parameterTypes
+
+import izumi.reflect.macrortti._
 
 private[scala] trait StepDsl extends BaseScalaDsl {
   self =>
@@ -58,7 +60,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
      * Generated apply1 to apply22 below
      */
     inline def apply[T1](f: (T1) => Any): Unit = {
-      val types = parameterTypes[T1]()
+      val types = Seq(LTT[T1])
       register(types) {
         case List(a1:AnyRef) =>
           f(a1.asInstanceOf[T1])
@@ -70,7 +72,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2](f: (T1, T2) => Any): Unit = {
-      val types = parameterTypes[T1, T2]()
+      val types = Seq(LTT[T1], LTT[T2])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -83,7 +85,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3](f: (T1, T2, T3) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -97,7 +99,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -112,7 +114,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5](f: (T1, T2, T3, T4, T5) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -128,7 +130,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6](f: (T1, T2, T3, T4, T5, T6) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -145,7 +147,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7](f: (T1, T2, T3, T4, T5, T6, T7) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -163,7 +165,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8](f: (T1, T2, T3, T4, T5, T6, T7, T8) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -182,7 +184,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -202,7 +204,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -223,7 +225,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -245,7 +247,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -268,7 +270,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -292,7 +294,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -317,7 +319,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -343,7 +345,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -370,7 +372,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16], LTT[T17])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef, a17:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -398,7 +400,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16], LTT[T17], LTT[T18])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef, a17:AnyRef, a18:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -427,7 +429,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16], LTT[T17], LTT[T18], LTT[T19])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef, a17:AnyRef, a18:AnyRef, a19:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -457,7 +459,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16], LTT[T17], LTT[T18], LTT[T19], LTT[T20])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef, a17:AnyRef, a18:AnyRef, a19:AnyRef, a20:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -488,7 +490,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16], LTT[T17], LTT[T18], LTT[T19], LTT[T20], LTT[T21])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef, a17:AnyRef, a18:AnyRef, a19:AnyRef, a20:AnyRef, a21:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -520,7 +522,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
 
     inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22](f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22) => Any): Unit = {
-      val types = parameterTypes[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]()
+      val types = Seq(LTT[T1], LTT[T2], LTT[T3], LTT[T4], LTT[T5], LTT[T6], LTT[T7], LTT[T8], LTT[T9], LTT[T10], LTT[T11], LTT[T12], LTT[T13], LTT[T14], LTT[T15], LTT[T16], LTT[T17], LTT[T18], LTT[T19], LTT[T20], LTT[T21], LTT[T22])
       register(types) {
         case List(a1:AnyRef, a2:AnyRef, a3:AnyRef, a4:AnyRef, a5:AnyRef, a6:AnyRef, a7:AnyRef, a8:AnyRef, a9:AnyRef, a10:AnyRef, a11:AnyRef, a12:AnyRef, a13:AnyRef, a14:AnyRef, a15:AnyRef, a16:AnyRef, a17:AnyRef, a18:AnyRef, a19:AnyRef, a20:AnyRef, a21:AnyRef, a22:AnyRef) =>
           f(a1.asInstanceOf[T1],
@@ -552,7 +554,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     private def register(
-        types: Seq[MyType]
+        types: Seq[LightTypeTag]
     )(pf: PartialFunction[List[Any], Any]): Unit = {
 
       val actualTypes = types.map(mt => ScalaTypeHelper.asJavaType(mt))
