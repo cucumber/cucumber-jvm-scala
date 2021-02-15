@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [6.10.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Core] Deprecated `io.cucumber.scala.TL` in favour of `io.cucumber.scala.TE` 
 - [Build] Upgrade to sbt 1.4.5
 
 ### Deprecated
