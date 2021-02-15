@@ -13,15 +13,19 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Updated `cucumber-core` dependency to [6.10.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Core] Deprecated `io.cucumber.scala.TL` in favour of `io.cucumber.scala.TE` 
-- [Build] Upgrade to sbt 1.4.5
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [6.10.0] (2021-02-15)
+
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [6.10.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Core] Deprecated `io.cucumber.scala.TL` in favour of `io.cucumber.scala.TE` 
+- [Build] Upgrade to sbt 1.4.5
 
 ## [6.9.1] (2020-12-15)
 
@@ -260,7 +264,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.1...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.0...main
+[6.10.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.1...v6.10.0
 [6.9.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.0...v6.9.1
 [6.9.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.8.2...v6.9.0
 [6.8.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.8.1...v6.8.2
