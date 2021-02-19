@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] Use Github Actions instead of Travis CI
+
 ### Deprecated
 
 ### Removed
