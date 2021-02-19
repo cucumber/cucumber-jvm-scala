@@ -1,7 +1,7 @@
 # Cucumber Scala
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.cucumber/cucumber-scala_2.13.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.cucumber%22%20AND%20a:%22cucumber-scala_2.13%22)
-[![Build Status](https://travis-ci.org/cucumber/cucumber-jvm-scala.svg?branch=main)](https://travis-ci.org/cucumber/cucumber-jvm-scala)
+![Build Status](https://github.com/cucumber/cucumber-jvm-scala/workflows/Cucumber%20Scala%20CI/badge.svg)
 
 Cucumber Scala is the Scala implementation of [Cucumber](https://cucumber.io/).
 
