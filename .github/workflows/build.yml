@@ -1,0 +1,41 @@
+name: Cucumber Scala CI
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+    name: Build and test
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        java:
+          - 1.8
+          - 11
+    runs-on: ${{ matrix.os }}
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Cache sbt
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.sbt
+          ~/.ivy2/cache
+          ~/.cache/coursier
+        key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
+
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+
+    - name: Formatting check
+      run: sbt scalafmtCheckAll
+
+    - name: Run tests
+      run: sbt +compile +test
