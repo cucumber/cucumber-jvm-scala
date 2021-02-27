@@ -14,6 +14,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Build] Use Github Actions instead of Travis CI
+- [Build] Upgrade Scala to 2.12.13 and 2.13.5
 
 ### Deprecated
 
