@@ -35,6 +35,8 @@ update-changelog:
 
 .configure-cukebot-in-docker:
 	[ -f '/home/cukebot/configure' ] && /home/cukebot/configure
+	# Cucumber team provides the passphrase in this variable
+	export PGP_PASSPHRASE="$GPG_SIGNING_KEY_PASSPHRASE"
 .PHONY: .configure-cukebot-in-docker
 
 .release-in-docker: .configure-cukebot-in-docker default update-changelog update-installdoc .commit-and-push-changelog-and-docs
