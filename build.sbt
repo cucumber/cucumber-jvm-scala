@@ -120,6 +120,7 @@ lazy val examples = (projectMatrix in file("examples"))
 
 // Version policy check
 
+ThisBuild / versionScheme := Some("early-semver")
 ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 
 // Release & Publish
