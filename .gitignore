@@ -1,6 +1,7 @@
 .idea
 **/*.iml
 **/target/
+.bsp/
 release.properties
 pom.xml.releaseBackup
 pom.xml.versionsBackup
