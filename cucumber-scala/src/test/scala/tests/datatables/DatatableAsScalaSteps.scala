@@ -197,7 +197,7 @@ class DatatableAsScalaSteps extends ScalaDsl with EN {
 
   case class CustomType(key1: String, key2: Option[String], key3: String)
 
-  DataTableType { map: Map[String, String] =>
+  DataTableType { (map: Map[String, String]) =>
     CustomType(map("key1"), Option(map("key2")), map("key3"))
   }
 
@@ -214,7 +214,7 @@ class DatatableAsScalaSteps extends ScalaDsl with EN {
 
   case class RichCell(content: Option[String])
 
-  DataTableType { cell: String =>
+  DataTableType { (cell: String) =>
     RichCell(Option(cell))
   }
 

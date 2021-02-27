@@ -61,7 +61,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
   var _authors: Seq[Author] = _
   var _names: String = _
 
-  DataTableType { entry: Map[String, String] =>
+  DataTableType { (entry: Map[String, String]) =>
     Author(entry("name"), entry("surname"), entry("famousBook"))
   }
 
@@ -77,7 +77,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     )
   }
 
-  DataTableType { row: Seq[String] =>
+  DataTableType { (row: Seq[String]) =>
     AuthorRow(row(0), row(1), row(2))
   }
 
@@ -93,7 +93,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     )
   }
 
-  DataTableType { cell: String =>
+  DataTableType { (cell: String) =>
     AuthorCell(cell)
   }
 
@@ -105,7 +105,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     AuthorCellWithNone(cell)
   }
 
-  DataTableType { table: DataTable =>
+  DataTableType { (table: DataTable) =>
     val authors = table
       .asMaps()
       .asScala
@@ -268,7 +268,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
     _names = _authors.map(_.name).mkString(",")
   }
 
-  Then("""I get {string}""") { expected: String =>
+  Then("""I get {string}""") { (expected: String) =>
     assert(_names == expected, s"${_names} was not equal to $expected")
   }
 

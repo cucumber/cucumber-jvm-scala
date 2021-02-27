@@ -161,21 +161,21 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     person = p
   }
 
-  Then("""^he should say \"(.*)\"""") { s: String =>
+  Then("""^he should say \"(.*)\"""") { (s: String) =>
     assertEquals(person.hello, s)
   }
 
   var cukes: JList[Cukes] = null
 
-  Given("^I have eaten the following cukes$") { cs: JList[Cukes] =>
+  Given("^I have eaten the following cukes$") { (cs: JList[Cukes]) =>
     cukes = cs
   }
 
-  Then("""I should have eaten {int} cukes""") { total: Int =>
+  Then("""I should have eaten {int} cukes""") { (total: Int) =>
     assertEquals(total, cukes.asScala.map(_.number).sum)
   }
 
-  And("^they should have been (.*)$") { colors: String =>
+  And("^they should have been (.*)$") { (colors: String) =>
     assertEquals(colors, cukes.asScala.map(_.color).mkString(", "))
   }
 

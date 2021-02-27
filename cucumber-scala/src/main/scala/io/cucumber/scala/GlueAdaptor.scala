@@ -16,7 +16,7 @@ class GlueAdaptor(glue: Glue) {
 
     // If the registry is not consistent, this indicates a mistake in the users definition and we want to let him know.
     registry.checkConsistency().left.foreach {
-      ex: IncorrectHookDefinitionException =>
+      (ex: IncorrectHookDefinitionException) =>
         throw ex
     }
 
