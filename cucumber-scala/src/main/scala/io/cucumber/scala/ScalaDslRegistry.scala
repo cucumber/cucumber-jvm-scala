@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import HookType.{AFTER, AFTER_STEP, BEFORE, BEFORE_STEP}
+import io.cucumber.scala.HookType.{AFTER, AFTER_STEP, BEFORE, BEFORE_STEP}
 
 class ScalaDslRegistry {
 
