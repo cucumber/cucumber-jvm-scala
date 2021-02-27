@@ -1,6 +1,6 @@
 
 /*
- * Generates the evil looking apply methods in ScalaDsl#StepBody for Function1 to Function22
+ * Generates the evil looking apply methods in StepDsl#StepBody for Function1 to Function22
  */
 for (i <- 1 to 22) {
   val ts = (1 to i).map("T".+).mkString(", ")
@@ -13,6 +13,29 @@ for (i <- 1 to 22) {
   val closeRegister = "  }\n}"
 
   println(p1 + p2 + ": Unit = { " + register + pf + otherwise + closeRegister + "\n")
+}
+
+/*
+ * Generates the evil looking apply methods in StepDsl#StepBody for Function1 to Function22
+ * Scala 3
+ */
+for (i <- 1 to 22) {
+  val ts = (1 to i).map("T".+).mkString(", ")
+  val tagsDef = (1 to i).map(n => s"val t$n: TypeTreeTag = typeTreeTag[T$n]").mkString("\n")
+  val tagsParam = (1 to i).map(n => s"t$n").mkString(", ")
+  val listParams = (1 to i).map("a" + _ + ":AnyRef").mkString(", ")
+  val pf =  (1 to i).map(n => "a" + n + ".asInstanceOf[T" + n + "]").mkString(",\n        ")
+
+  println(s"""
+    |inline def apply[$ts](f: ($ts) => Any): Unit = {
+    |  $tagsDef
+    |  register($tagsParam) {
+    |    case List($listParams) =>
+    |      f($pf)
+    |    case _ =>
+    |      throw new IncorrectStepDefinitionException()
+    |  }
+    |}""".stripMargin)
 }
 
 /*
