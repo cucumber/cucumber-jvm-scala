@@ -2,7 +2,7 @@ package io.cucumber.scala
 
 import io.cucumber.scala.HookType.{AFTER, AFTER_STEP, BEFORE, BEFORE_STEP}
 
-class ScalaDslRegistry {
+final class ScalaDslRegistry {
 
   private var _stepDefinitions: Seq[ScalaStepDetails] = Seq()
 

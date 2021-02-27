@@ -11,7 +11,7 @@ import java.lang.reflect.{Type => JType}
   * @param types   Parameters types of body step definition
   * @param body    Function body of a step definition. This is what actually runs the code within the step def.
   */
-case class ScalaStepDetails(
+private[scala] case class ScalaStepDetails(
     frame: StackTraceElement,
     name: String,
     pattern: String,
