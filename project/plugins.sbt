@@ -1,6 +1,9 @@
 // Cross compilation matrix
 addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.7.0")
 
+// Scala 3 (Dotty)
+addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.3")
+
 // Scalafmt (formatter)
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
 
