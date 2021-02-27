@@ -118,6 +118,10 @@ lazy val examples = (projectMatrix in file("examples"))
   .dependsOn(cucumberScala % Test)
   .jvmPlatform(scalaVersions = Seq(scala213, scala212))
 
+// Version policy check
+
+ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
+
 // Release & Publish
 
 Global / publishMavenStyle := true
