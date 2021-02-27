@@ -1532,8 +1532,9 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     private def register(
         manifests: Manifest[_ <: Any]*
     )(pf: PartialFunction[List[Any], Any]): Unit = {
+      val types = manifests.map(ScalaTypeHelper.asJavaType)
       registry.registerStep(
-        ScalaStepDetails(Utils.frame(self), name, regex, manifests, pf)
+        ScalaStepDetails(Utils.frame(self), name, regex, types, pf)
       )
     }
 

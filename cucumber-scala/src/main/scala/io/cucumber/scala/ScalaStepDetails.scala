@@ -1,5 +1,7 @@
 package io.cucumber.scala
 
+import java.lang.reflect.{Type => JType}
+
 /** Implementation of step definition for scala.
   *
   * @param frame   Representation of a stack frame containing information about the context in which a
@@ -13,6 +15,6 @@ case class ScalaStepDetails(
     frame: StackTraceElement,
     name: String,
     pattern: String,
-    types: Seq[Manifest[_]],
+    types: Seq[JType],
     body: List[Any] => Any
 )
