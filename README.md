@@ -25,6 +25,7 @@ The minor version might differ because Cucumber Scala may add Scala-related feat
 
 - [Installation](./docs/install.md)
 - Upgrade notes
+  - [Version 7.x](docs/upgrade_v7.md)
   - [Version 6.x](docs/upgrade_v6.md)
   - [Version 5.x](docs/upgrade_v5.md)
 - Documentation
