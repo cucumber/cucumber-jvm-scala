@@ -13,11 +13,11 @@ class RpnCalculatorStepDefinitions extends ScalaDsl with EN {
     calc push "+"
   }
 
-  Then("the result is {double}") { expected: Double =>
+  Then("the result is {double}") { (expected: Double) =>
     assertEquals(expected, calc.value, 0.001)
   }
 
-  Before("not @foo") { scenario: Scenario =>
+  Before("not @foo") { (scenario: Scenario) =>
     println(s"Runs before scenarios *not* tagged with @foo (${scenario.getId})")
   }
 }

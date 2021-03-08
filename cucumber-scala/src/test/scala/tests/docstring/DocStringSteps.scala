@@ -10,19 +10,19 @@ class DocStringSteps extends ScalaDsl with EN {
 
   var _text: Any = _
 
-  DocStringType("json") { text =>
+  DocStringType("json") { (text) =>
     JsonText(text)
   }
 
-  DocStringType("xml") { text =>
+  DocStringType("xml") { (text) =>
     XmlText(text)
   }
 
-  Given("the following json text") { json: JsonText =>
+  Given("the following json text") { (json: JsonText) =>
     _text = json
   }
 
-  Given("the following xml text") { xml: XmlText =>
+  Given("the following xml text") { (xml: XmlText) =>
     _text = xml
   }
 

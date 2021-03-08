@@ -1,5 +1,19 @@
 object ScalacOptions {
 
+  val scalacOptions3 = Seq(
+    "-source:3.0",
+    "-deprecation", // Emit warning and location for usages of deprecated APIs.
+    "-explain", // Explain type errors in more detail.
+//    "-explaintypes", // Explain type errors in more detail.
+    "-feature", // Emit warning and location for usages of features that should be imported explicitly.
+    "-language:existentials", // Existential types (besides wildcard types) can be written and inferred
+    "-language:experimental.macros", // Allow macro definition (besides implementation and application)
+    "-language:higherKinds", // Allow higher-kinded types
+    "-language:implicitConversions", // Allow definition of implicit functions called views
+    "-unchecked", // Enable additional warnings where generated code depends on assumptions.
+    "-Xfatal-warnings" // Fail the compilation if there are any warnings.
+  )
+
   // Source: https://nathankleyn.com/2019/05/13/recommended-scalac-flags-for-2-13/
   val scalacOptions213 = Seq(
     "-deprecation", // Emit warning and location for usages of deprecated APIs.

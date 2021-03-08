@@ -6,18 +6,22 @@ trait TraitWithSteps extends ScalaDsl with EN {
 
   Before {
     // Nothing
+    ()
   }
 
   BeforeStep {
     // Nothing
+    ()
   }
 
   After {
     // Nothing
+    ()
   }
 
   AfterStep {
     // Nothing
+    ()
   }
 
   Given("""Given step""") { () =>

@@ -33,6 +33,7 @@ ThisBuild / homepage := Some(
 val scala211 = "2.11.12"
 val scala212 = "2.12.13"
 val scala213 = "2.13.5"
+val scala3 = "3.0.0-RC1"
 
 scalaVersion := scala213
 
@@ -52,6 +53,7 @@ lazy val commonSettings = Seq(
       case Some((2, 11)) => ScalacOptions.scalacOptions211
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
+      case Some((3, 0))  => ScalacOptions.scalacOptions3
       case _             => Seq()
     }
   }
@@ -75,23 +77,44 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
-      "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
+      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided)
+        .withDottyCompat(scalaVersion.value),
       "junit" % "junit" % junitVersion % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
-      "org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test
+      ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
+        .withDottyCompat(scalaVersion.value)
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n <= 12 =>
           List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.2")
+        case Some((3, 0)) =>
+          List("io.github.gaeljw" %% "typetrees" % "0.2.0")
         case _ => Nil
       }
     },
     unmanagedSourceDirectories in Compile ++= {
       val sourceDir = (sourceDirectory in Compile).value
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n <= 11 => Seq(sourceDir / "scala-2.11")
-        case _                       => Seq()
+        case Some((2, n)) if n <= 11 =>
+          Seq(sourceDir / "scala-2", sourceDir / "scala-2.11")
+        case Some((2, n)) if n > 11 =>
+          Seq(sourceDir / "scala-2")
+        case Some((3, 0)) =>
+          Seq(sourceDir / "scala-3")
+        case _ =>
+          Seq()
+      }
+    },
+    unmanagedSourceDirectories in Test ++= {
+      val testSourceDir = (sourceDirectory in Test).value
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, _)) =>
+          Seq(testSourceDir / "scala-2")
+        case Some((3, 0)) =>
+          Seq(testSourceDir / "scala-3")
+        case _ =>
+          Seq()
       }
     },
     // Generate I18n traits
@@ -102,7 +125,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       Seq(file)
     }.taskValue
   )
-  .jvmPlatform(scalaVersions = Seq(scala213, scala212, scala211))
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212, scala211))
 
 // Examples project
 lazy val examples = (projectMatrix in file("examples"))
@@ -116,7 +139,7 @@ lazy val examples = (projectMatrix in file("examples"))
     publishArtifact := false
   )
   .dependsOn(cucumberScala % Test)
-  .jvmPlatform(scalaVersions = Seq(scala213, scala212))
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Version policy check
 

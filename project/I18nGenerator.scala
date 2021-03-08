@@ -16,7 +16,7 @@ object I18nGenerator {
   private def keywordVal(kw: String): String = {
     val keyworkValName = java.text.Normalizer
       .normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)
-    s"""val $keyworkValName = new Step("$keyworkValName")"""
+    s"""  val $keyworkValName = new Step("$keyworkValName")"""
   }
 
   private def traitCode(language: String): String = {

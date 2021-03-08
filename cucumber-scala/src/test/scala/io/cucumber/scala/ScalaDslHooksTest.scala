@@ -30,7 +30,7 @@ class ScalaDslHooksTest {
   def testBeforeHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      Before { _: Scenario =>
+      Before { (_: Scenario) =>
         invoke()
       }
     }
@@ -142,7 +142,7 @@ class ScalaDslHooksTest {
   def testBeforeStepHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      BeforeStep { _: Scenario =>
+      BeforeStep { (_: Scenario) =>
         invoke()
       }
     }
@@ -254,7 +254,7 @@ class ScalaDslHooksTest {
   def testAfterHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      After { _: Scenario =>
+      After { (_: Scenario) =>
         invoke()
       }
     }
@@ -366,7 +366,7 @@ class ScalaDslHooksTest {
   def testAfterStepHook(): Unit = {
 
     class Glue extends ScalaDsl {
-      AfterStep { _: Scenario =>
+      AfterStep { (_: Scenario) =>
         invoke()
       }
     }
@@ -481,7 +481,7 @@ class ScalaDslHooksTest {
   def testObjectBeforeHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      Before { _: Scenario =>
+      Before { (_: Scenario) =>
         invoke()
       }
     }
@@ -577,7 +577,7 @@ class ScalaDslHooksTest {
   def testObjectBeforeStepHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      BeforeStep { _: Scenario =>
+      BeforeStep { (_: Scenario) =>
         invoke()
       }
     }
@@ -673,7 +673,7 @@ class ScalaDslHooksTest {
   def testObjectAfterHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      After { _: Scenario =>
+      After { (_: Scenario) =>
         invoke()
       }
     }
@@ -769,7 +769,7 @@ class ScalaDslHooksTest {
   def testObjectAfterStepHook(): Unit = {
 
     object Glue extends ScalaDsl {
-      AfterStep { _: Scenario =>
+      AfterStep { (_: Scenario) =>
         invoke()
       }
     }

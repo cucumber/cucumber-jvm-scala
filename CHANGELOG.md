@@ -11,6 +11,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Scala] Support Scala 3 RC1
+  - Check out the [v7.x upgrade guide](./docs/upgrade_v7.md)
+
 ### Changed
 
 - [Build] Use Github Actions instead of Travis CI
