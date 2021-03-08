@@ -13,6 +13,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [6.10.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 - [Build] Use Github Actions instead of Travis CI
 - [Build] Upgrade Scala to 2.12.13 and 2.13.5
 
