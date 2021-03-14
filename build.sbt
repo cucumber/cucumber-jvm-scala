@@ -39,7 +39,7 @@ scalaVersion := scala213
 
 // Library versions
 
-val cucumberVersion = "6.10.0"
+val cucumberVersion = "6.10.1"
 val jacksonVersion = "2.12.2"
 val mockitoScalaVersion = "1.16.29"
 val junitVersion = "4.13.2"
@@ -150,6 +150,9 @@ ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 
 Global / publishMavenStyle := true
 Global / publishTo := sonatypePublishToBundle.value
+
+// https://github.com/sbt/sbt-pgp/issues/173
+Global / PgpKeys.gpgCommand := (baseDirectory.value / "gpg.sh").getAbsolutePath
 
 // https://github.com/xerial/sbt-sonatype#using-with-sbt-release-plugin
 releaseCrossBuild := true

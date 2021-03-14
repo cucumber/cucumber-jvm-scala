@@ -16,14 +16,19 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Build] Use Github Actions instead of Travis CI
-- [Build] Upgrade Scala to 2.12.13 and 2.13.5
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [6.10.1] (2021-03-09)
+
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [6.10.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Use Github Actions instead of Travis CI
+- [Build] Upgrade Scala to 2.12.13 and 2.13.5
 
 ## [6.10.0] (2021-02-15)
 
@@ -273,7 +278,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.1...main
+[6.10.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.0...v6.10.1
 [6.10.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.1...v6.10.0
 [6.9.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.9.0...v6.9.1
 [6.9.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.8.2...v6.9.0
