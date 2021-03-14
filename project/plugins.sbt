@@ -11,5 +11,5 @@ addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "1.0.0-RC5")
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
 
 // Publishing
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.6")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.7")
 addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.1.2")
