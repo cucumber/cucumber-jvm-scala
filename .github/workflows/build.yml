@@ -68,6 +68,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java }}
+          distribution: 'adopt'
 
       - name: Version check
         run: sbt "project cucumberScala" versionPolicyCheck
