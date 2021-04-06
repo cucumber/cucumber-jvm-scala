@@ -14,7 +14,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest ]
         java:
-          - 1.8
+          - 8.0
           - 11
     runs-on: ${{ matrix.os }}
     steps:
@@ -31,9 +31,10 @@ jobs:
         key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
     - name: Set up JDK
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
         java-version: ${{ matrix.java }}
+        distribution: 'adopt'
 
     - name: Formatting check
       run: sbt scalafmtCheckAll
@@ -64,9 +65,10 @@ jobs:
           key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java }}
+          distribution: 'adopt'
 
       - name: Version check
         run: sbt "project cucumberScala" versionPolicyCheck
