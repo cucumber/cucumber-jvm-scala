@@ -54,8 +54,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     /*
      * Generated apply1 to apply22 below
      */
-    def apply[T1](f: (T1) => Any)(implicit m1: Manifest[T1]): Unit = {
-      register(m1) {
+    def apply[T1](f: (T1) => Any)(implicit t1: Stepable[T1]): Unit = {
+      register(t1) {
         case List(a1: AnyRef) =>
           f(a1.asInstanceOf[T1])
         case _ =>
@@ -65,8 +65,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2](
         f: (T1, T2) => Any
-    )(implicit m1: Manifest[T1], m2: Manifest[T2]): Unit = {
-      register(m1, m2) {
+    )(implicit t1: Stepable[T1], t2: Stepable[T2]): Unit = {
+      register(t1, t2) {
         case List(a1: AnyRef, a2: AnyRef) =>
           f(a1.asInstanceOf[T1], a2.asInstanceOf[T2])
         case _ =>
@@ -76,8 +76,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3](
         f: (T1, T2, T3) => Any
-    )(implicit m1: Manifest[T1], m2: Manifest[T2], m3: Manifest[T3]): Unit = {
-      register(m1, m2, m3) {
+    )(implicit t1: Stepable[T1], t2: Stepable[T2], t3: Stepable[T3]): Unit = {
+      register(t1, t2, t3) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef) =>
           f(a1.asInstanceOf[T1], a2.asInstanceOf[T2], a3.asInstanceOf[T3])
         case _ =>
@@ -86,12 +86,12 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any)(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4]
     ): Unit = {
-      register(m1, m2, m3, m4) {
+      register(t1, t2, t3, t4) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef, a4: AnyRef) =>
           f(
             a1.asInstanceOf[T1],
@@ -105,13 +105,13 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     def apply[T1, T2, T3, T4, T5](f: (T1, T2, T3, T4, T5) => Any)(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5]
     ): Unit = {
-      register(m1, m2, m3, m4, m5) {
+      register(t1, t2, t3, t4, t5) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef, a4: AnyRef, a5: AnyRef) =>
           f(
             a1.asInstanceOf[T1],
@@ -128,14 +128,14 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6](
         f: (T1, T2, T3, T4, T5, T6) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6) {
+      register(t1, t2, t3, t4, t5, t6) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -160,15 +160,15 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7](
         f: (T1, T2, T3, T4, T5, T6, T7) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7) {
+      register(t1, t2, t3, t4, t5, t6, t7) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -195,16 +195,16 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8](
         f: (T1, T2, T3, T4, T5, T6, T7, T8) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -233,17 +233,17 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8, m9) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8, t9) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -274,18 +274,18 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -318,19 +318,19 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -365,20 +365,20 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -415,21 +415,21 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -468,22 +468,22 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14]
     ): Unit = {
-      register(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14) {
+      register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14) {
         case List(
               a1: AnyRef,
               a2: AnyRef,
@@ -540,38 +540,38 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T15
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15
       ) {
         case List(
               a1: AnyRef,
@@ -649,40 +649,40 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T16
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16
       ) {
         case List(
               a1: AnyRef,
@@ -764,42 +764,42 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T17
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16,
-        m17
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16,
+        t17
       ) {
         case List(
               a1: AnyRef,
@@ -885,44 +885,44 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T18
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16,
-        m17,
-        m18
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16,
+        t17,
+        t18
       ) {
         case List(
               a1: AnyRef,
@@ -1012,46 +1012,46 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T19
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16,
-        m17,
-        m18,
-        m19
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16,
+        t17,
+        t18,
+        t19
       ) {
         case List(
               a1: AnyRef,
@@ -1145,48 +1145,48 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T20
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19],
-        m20: Manifest[T20]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19],
+        t20: Stepable[T20]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16,
-        m17,
-        m18,
-        m19,
-        m20
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16,
+        t17,
+        t18,
+        t19,
+        t20
       ) {
         case List(
               a1: AnyRef,
@@ -1284,50 +1284,50 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T21
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19],
-        m20: Manifest[T20],
-        m21: Manifest[T21]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19],
+        t20: Stepable[T20],
+        t21: Stepable[T21]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16,
-        m17,
-        m18,
-        m19,
-        m20,
-        m21
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16,
+        t17,
+        t18,
+        t19,
+        t20,
+        t21
       ) {
         case List(
               a1: AnyRef,
@@ -1429,52 +1429,52 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T22
         ) => Any
     )(implicit
-        m1: Manifest[T1],
-        m2: Manifest[T2],
-        m3: Manifest[T3],
-        m4: Manifest[T4],
-        m5: Manifest[T5],
-        m6: Manifest[T6],
-        m7: Manifest[T7],
-        m8: Manifest[T8],
-        m9: Manifest[T9],
-        m10: Manifest[T10],
-        m11: Manifest[T11],
-        m12: Manifest[T12],
-        m13: Manifest[T13],
-        m14: Manifest[T14],
-        m15: Manifest[T15],
-        m16: Manifest[T16],
-        m17: Manifest[T17],
-        m18: Manifest[T18],
-        m19: Manifest[T19],
-        m20: Manifest[T20],
-        m21: Manifest[T21],
-        m22: Manifest[T22]
+        t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19],
+        t20: Stepable[T20],
+        t21: Stepable[T21],
+        t22: Stepable[T22]
     ): Unit = {
       register(
-        m1,
-        m2,
-        m3,
-        m4,
-        m5,
-        m6,
-        m7,
-        m8,
-        m9,
-        m10,
-        m11,
-        m12,
-        m13,
-        m14,
-        m15,
-        m16,
-        m17,
-        m18,
-        m19,
-        m20,
-        m21,
-        m22
+        t1,
+        t2,
+        t3,
+        t4,
+        t5,
+        t6,
+        t7,
+        t8,
+        t9,
+        t10,
+        t11,
+        t12,
+        t13,
+        t14,
+        t15,
+        t16,
+        t17,
+        t18,
+        t19,
+        t20,
+        t21,
+        t22
       ) {
         case List(
               a1: AnyRef,
@@ -1530,9 +1530,9 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     private def register(
-        manifests: Manifest[_ <: Any]*
+        tags: Stepable[_]*
     )(pf: PartialFunction[List[Any], Any]): Unit = {
-      val types = manifests.map(ScalaTypeHelper.asJavaType)
+      val types = tags.map(_.asJavaType)
       registry.registerStep(
         ScalaStepDetails(Utils.frame(self), name, regex, types, pf)
       )

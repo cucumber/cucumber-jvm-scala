@@ -88,8 +88,6 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n <= 12 =>
           List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.4")
-        case Some((3, 0)) =>
-          List("io.github.gaeljw" %% "typetrees" % "0.4.0")
         case _ => Nil
       }
     },

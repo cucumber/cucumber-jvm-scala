@@ -49,7 +49,7 @@ class ScalaDslStepsTest {
     assertClassStepDefinition(
       glue.registry.stepDefinitions.head,
       "Something",
-      "ScalaDslStepsTest.scala:44",
+      "ScalaDslStepsTest.scala:43",
       Array(),
       invoked
     )
@@ -119,7 +119,7 @@ class ScalaDslStepsTest {
       classOf[IncorrectStepDefinitionException],
       "io.cucumber.scala.ScalaDslStepsTest",
       "ScalaDslStepsTest.scala",
-      109,
+      323,
       Array(null)
     )
   }
@@ -162,7 +162,7 @@ class ScalaDslStepsTest {
     assertObjectStepDefinition(
       Glue.registry.stepDefinitions.head,
       "Something",
-      "ScalaDslStepsTest.scala:159",
+      "ScalaDslStepsTest.scala:158",
       Array(),
       invoked
     )
@@ -226,7 +226,7 @@ class ScalaDslStepsTest {
       classOf[IncorrectStepDefinitionException],
       "io.cucumber.scala.ScalaDslStepsTest",
       "ScalaDslStepsTest.scala",
-      218,
+      323,
       Array(null)
     )
   }

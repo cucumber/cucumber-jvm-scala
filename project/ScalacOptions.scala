@@ -62,7 +62,8 @@ object ScalacOptions {
     "-encoding",
     "utf-8", // Specify character encoding used by source files.
     "-feature", // Emit warning and location for usages of features that should be imported explicitly.
-    "-language:implicitConversions" // Allow definition of implicit functions called views
+    "-language:implicitConversions", // Allow definition of implicit functions called views
+    "-language:higherKinds" // Allow higher-kinded types
   )
 
   val scalacOptions211 = Seq(
@@ -71,6 +72,7 @@ object ScalacOptions {
     "UTF-8", // yes, this is 2 args
     "-feature",
     "-language:implicitConversions",
+    "-language:higherKinds", // Allow higher-kinded types
     "-target:jvm-1.8"
   )
 
