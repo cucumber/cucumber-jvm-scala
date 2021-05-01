@@ -78,11 +78,11 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided)
-        .withDottyCompat(scalaVersion.value),
+        .cross(CrossVersion.for3Use2_13),
       "junit" % "junit" % junitVersion % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
-        .withDottyCompat(scalaVersion.value)
+        .cross(CrossVersion.for3Use2_13)
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
@@ -93,8 +93,8 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
         case _ => Nil
       }
     },
-    unmanagedSourceDirectories in Compile ++= {
-      val sourceDir = (sourceDirectory in Compile).value
+    Compile / unmanagedSourceDirectories ++= {
+      val sourceDir = (Compile / sourceDirectory).value
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n <= 11 =>
           Seq(sourceDir / "scala-2", sourceDir / "scala-2.11")
@@ -106,8 +106,8 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
           Seq()
       }
     },
-    unmanagedSourceDirectories in Test ++= {
-      val testSourceDir = (sourceDirectory in Test).value
+    Test / unmanagedSourceDirectories ++= {
+      val testSourceDir = (Test / sourceDirectory).value
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, _)) =>
           Seq(testSourceDir / "scala-2")
