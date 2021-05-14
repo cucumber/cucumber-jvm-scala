@@ -13,6 +13,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [6.10.4](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Upgrade `scala-collection-compat` to 2.4.4
+- [Build] Upgrade `sbt-projectmatrix` to 0.8.0
+- [Build] Upgrade `sbt-version-policy` to 1.0.1
+
 ### Deprecated
 
 ### Removed
