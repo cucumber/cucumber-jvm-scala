@@ -83,7 +83,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n <= 12 =>
-          List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.2")
+          List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.4")
         case _ => Nil
       }
     },
