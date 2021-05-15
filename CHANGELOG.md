@@ -9,6 +9,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [7.0.0-M1] (2021-05-15)
+
 📢 This pre-release brings support for Scala 3 but no change in Cucumber core features.
 
 _Although there is no visible change from a user perspective,
@@ -28,12 +40,6 @@ of core Cucumber projects (like cucumber-junit).
 ### Changed
 
 - [Internal] Rewrite the way types of step arguments are inferred 
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [6.10.4] (2021-05-14)
 
@@ -312,7 +318,8 @@ of core Cucumber projects (like cucumber-junit).
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v7.0.0-M1...main
+[7.0.0-M1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...v7.0.0-M1
 [6.10.4]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.3...v6.10.4
 [6.10.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.2...v6.10.3
 [6.10.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.1...v6.10.2
