@@ -16,6 +16,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Internal] Rewrite the way types of step arguments are inferred 
+
 ### Deprecated
 
 ### Removed

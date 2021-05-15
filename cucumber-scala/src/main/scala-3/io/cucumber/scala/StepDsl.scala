@@ -1,8 +1,5 @@
 package io.cucumber.scala
 
-import io.github.gaeljw.typetrees.TypeTreeTag
-import io.github.gaeljw.typetrees.TypeTreeTagMacros.typeTreeTag
-
 import scala.annotation.targetName
 
 private[scala] trait StepDsl extends BaseScalaDsl {
@@ -14,7 +11,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
   final class StepBody(name: String, regex: String) {
 
-    inline def apply(f: => Any): Unit = {
+    def apply(f: => Any): Unit = {
       register() {
         case Nil => f
         case _ =>
@@ -23,7 +20,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     @targetName("apply_function0")
-    inline def apply(fun: () => Any): Unit = {
+    def apply(fun: () => Any): Unit = {
       register() {
         case Nil => fun.apply()
         case _ =>
@@ -34,8 +31,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     /*
      * Generated apply1 to apply22 below
      */
-    inline def apply[T1](f: (T1) => Any): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
+    def apply[T1](f: (T1) => Any)(using t1: Stepable[T1]): Unit = {
       register(t1) {
         case List(a1: AnyRef) =>
           f(a1.asInstanceOf[T1])
@@ -44,9 +40,9 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2](f: (T1, T2) => Any): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
+    def apply[T1, T2](
+        f: (T1, T2) => Any
+    )(using t1: Stepable[T1], t2: Stepable[T2]): Unit = {
       register(t1, t2) {
         case List(a1: AnyRef, a2: AnyRef) =>
           f(a1.asInstanceOf[T1], a2.asInstanceOf[T2])
@@ -55,10 +51,9 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3](f: (T1, T2, T3) => Any): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
+    def apply[T1, T2, T3](
+        f: (T1, T2, T3) => Any
+    )(using t1: Stepable[T1], t2: Stepable[T2], t3: Stepable[T3]): Unit = {
       register(t1, t2, t3) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef) =>
           f(a1.asInstanceOf[T1], a2.asInstanceOf[T2], a3.asInstanceOf[T3])
@@ -67,11 +62,12 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
+    def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any)(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4]
+    ): Unit = {
       register(t1, t2, t3, t4) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef, a4: AnyRef) =>
           f(
@@ -85,14 +81,13 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5](
-        f: (T1, T2, T3, T4, T5) => Any
+    def apply[T1, T2, T3, T4, T5](f: (T1, T2, T3, T4, T5) => Any)(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
       register(t1, t2, t3, t4, t5) {
         case List(a1: AnyRef, a2: AnyRef, a3: AnyRef, a4: AnyRef, a5: AnyRef) =>
           f(
@@ -107,15 +102,14 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6](
-        f: (T1, T2, T3, T4, T5, T6) => Any
+    def apply[T1, T2, T3, T4, T5, T6](f: (T1, T2, T3, T4, T5, T6) => Any)(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
       register(t1, t2, t3, t4, t5, t6) {
         case List(
               a1: AnyRef,
@@ -138,16 +132,17 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7](
+    def apply[T1, T2, T3, T4, T5, T6, T7](
         f: (T1, T2, T3, T4, T5, T6, T7) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
       register(t1, t2, t3, t4, t5, t6, t7) {
         case List(
               a1: AnyRef,
@@ -172,17 +167,18 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7, T8](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8](
         f: (T1, T2, T3, T4, T5, T6, T7, T8) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
       register(t1, t2, t3, t4, t5, t6, t7, t8) {
         case List(
               a1: AnyRef,
@@ -209,18 +205,19 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
       register(t1, t2, t3, t4, t5, t6, t7, t8, t9) {
         case List(
               a1: AnyRef,
@@ -249,19 +246,20 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
       register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10) {
         case List(
               a1: AnyRef,
@@ -292,20 +290,21 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
       register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11) {
         case List(
               a1: AnyRef,
@@ -338,21 +337,22 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
       register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12) {
         case List(
               a1: AnyRef,
@@ -387,22 +387,23 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
       register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13) {
         case List(
               a1: AnyRef,
@@ -439,38 +440,24 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
-        T1,
-        T2,
-        T3,
-        T4,
-        T5,
-        T6,
-        T7,
-        T8,
-        T9,
-        T10,
-        T11,
-        T12,
-        T13,
-        T14
-    ](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
       register(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14) {
         case List(
               a1: AnyRef,
@@ -509,23 +496,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
-        T1,
-        T2,
-        T3,
-        T4,
-        T5,
-        T6,
-        T7,
-        T8,
-        T9,
-        T10,
-        T11,
-        T12,
-        T13,
-        T14,
-        T15
-    ](
+    def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15](
         f: (
             T1,
             T2,
@@ -543,22 +514,23 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T14,
             T15
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
       register(
         t1,
         t2,
@@ -615,7 +587,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -651,23 +623,24 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T15,
             T16
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
       register(
         t1,
         t2,
@@ -727,7 +700,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -765,24 +738,25 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T16,
             T17
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
-      val t17: TypeTreeTag = typeTreeTag[T17]
       register(
         t1,
         t2,
@@ -845,7 +819,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -885,25 +859,26 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T17,
             T18
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
-      val t17: TypeTreeTag = typeTreeTag[T17]
-      val t18: TypeTreeTag = typeTreeTag[T18]
       register(
         t1,
         t2,
@@ -969,7 +944,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -1011,26 +986,27 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T18,
             T19
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
-      val t17: TypeTreeTag = typeTreeTag[T17]
-      val t18: TypeTreeTag = typeTreeTag[T18]
-      val t19: TypeTreeTag = typeTreeTag[T19]
       register(
         t1,
         t2,
@@ -1099,7 +1075,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -1143,27 +1119,28 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T19,
             T20
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19],
+        t20: Stepable[T20]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
-      val t17: TypeTreeTag = typeTreeTag[T17]
-      val t18: TypeTreeTag = typeTreeTag[T18]
-      val t19: TypeTreeTag = typeTreeTag[T19]
-      val t20: TypeTreeTag = typeTreeTag[T20]
       register(
         t1,
         t2,
@@ -1235,7 +1212,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -1281,28 +1258,29 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T20,
             T21
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19],
+        t20: Stepable[T20],
+        t21: Stepable[T21]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
-      val t17: TypeTreeTag = typeTreeTag[T17]
-      val t18: TypeTreeTag = typeTreeTag[T18]
-      val t19: TypeTreeTag = typeTreeTag[T19]
-      val t20: TypeTreeTag = typeTreeTag[T20]
-      val t21: TypeTreeTag = typeTreeTag[T21]
       register(
         t1,
         t2,
@@ -1377,7 +1355,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    inline def apply[
+    def apply[
         T1,
         T2,
         T3,
@@ -1425,29 +1403,30 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T21,
             T22
         ) => Any
+    )(
+        using t1: Stepable[T1],
+        t2: Stepable[T2],
+        t3: Stepable[T3],
+        t4: Stepable[T4],
+        t5: Stepable[T5],
+        t6: Stepable[T6],
+        t7: Stepable[T7],
+        t8: Stepable[T8],
+        t9: Stepable[T9],
+        t10: Stepable[T10],
+        t11: Stepable[T11],
+        t12: Stepable[T12],
+        t13: Stepable[T13],
+        t14: Stepable[T14],
+        t15: Stepable[T15],
+        t16: Stepable[T16],
+        t17: Stepable[T17],
+        t18: Stepable[T18],
+        t19: Stepable[T19],
+        t20: Stepable[T20],
+        t21: Stepable[T21],
+        t22: Stepable[T22]
     ): Unit = {
-      val t1: TypeTreeTag = typeTreeTag[T1]
-      val t2: TypeTreeTag = typeTreeTag[T2]
-      val t3: TypeTreeTag = typeTreeTag[T3]
-      val t4: TypeTreeTag = typeTreeTag[T4]
-      val t5: TypeTreeTag = typeTreeTag[T5]
-      val t6: TypeTreeTag = typeTreeTag[T6]
-      val t7: TypeTreeTag = typeTreeTag[T7]
-      val t8: TypeTreeTag = typeTreeTag[T8]
-      val t9: TypeTreeTag = typeTreeTag[T9]
-      val t10: TypeTreeTag = typeTreeTag[T10]
-      val t11: TypeTreeTag = typeTreeTag[T11]
-      val t12: TypeTreeTag = typeTreeTag[T12]
-      val t13: TypeTreeTag = typeTreeTag[T13]
-      val t14: TypeTreeTag = typeTreeTag[T14]
-      val t15: TypeTreeTag = typeTreeTag[T15]
-      val t16: TypeTreeTag = typeTreeTag[T16]
-      val t17: TypeTreeTag = typeTreeTag[T17]
-      val t18: TypeTreeTag = typeTreeTag[T18]
-      val t19: TypeTreeTag = typeTreeTag[T19]
-      val t20: TypeTreeTag = typeTreeTag[T20]
-      val t21: TypeTreeTag = typeTreeTag[T21]
-      val t22: TypeTreeTag = typeTreeTag[T22]
       register(
         t1,
         t2,
@@ -1526,9 +1505,9 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     }
 
     private def register(
-        tags: TypeTreeTag*
+        tags: Stepable[_]*
     )(pf: PartialFunction[List[Any], Any]): Unit = {
-      val types = tags.map(ScalaTypeHelper.asJavaType)
+      val types = tags.map(_.asJavaType)
       registry.registerStep(
         ScalaStepDetails(Utils.frame(self), name, regex, types, pf)
       )
