@@ -1,5 +1,5 @@
 // Cross compilation matrix
-addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.7.0")
+addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.8.0")
 
 // Scala 3 (Dotty)
 addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.3")
@@ -8,7 +8,7 @@ addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.3")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
 
 // Version policy check
-addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "1.0.0-RC5")
+addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "1.0.1")
 
 // Release
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")

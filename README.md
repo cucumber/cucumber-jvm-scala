@@ -11,15 +11,20 @@ See: https://cucumber.io/support
 
 ## Compatibility matrix
 
-The Cucumber Scala major version matches the Cucumber major version.
+Cucumber Scala has a different release cycle than other Cucumber projects that you might use
+(like _cucumber-junit_).
 
-The minor version might differ because Cucumber Scala may add Scala-related features without waiting for a Cucumber minor version.
+As a rule of thumb, you can assume that latest version of Cucumber Scala targets the latest version
+of Cucumber Core projects.
 
-| Cucumber Scala version | Cucumber version | Scala versions   |
-|------------------------|------------------|------------------|
-| 6.10.3                 | 6.10.3           | 2.11, 2.12, 2.13 |
-| 5.7.0                  | 5.7.0            | 2.11, 2.12, 2.13 |
-| 4.7.1                  | 4.7.1            | 2.11, 2.12, 2.13 |
+The table below shows the compatible versions:
+
+| Cucumber Scala version | Cucumber Core version | Scala versions        |
+|------------------------|-----------------------|-----------------------|
+| 7.x (_upcoming_)       | 6.x                   | 2.11, 2.12, 2.13, 3.0 |
+| 6.x                    | 6.x                   | 2.11, 2.12, 2.13      |
+| 5.x                    | 5.x                   | 2.11, 2.12, 2.13      |
+| 4.x                    | 4.x                   | 2.11, 2.12, 2.13      |
 
 ## Getting started
 

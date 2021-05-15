@@ -39,7 +39,7 @@ scalaVersion := scala213
 
 // Library versions
 
-val cucumberVersion = "6.10.3"
+val cucumberVersion = "6.10.4"
 val jacksonVersion = "2.12.3"
 val mockitoScalaVersion = "1.16.37"
 val junitVersion = "4.13.2"
@@ -87,7 +87,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n <= 12 =>
-          List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.2")
+          List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.4")
         case Some((3, 0)) =>
           List("io.github.gaeljw" %% "typetrees" % "0.4.0")
         case _ => Nil

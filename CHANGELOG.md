@@ -22,6 +22,15 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
+## [6.10.4] (2021-05-14)
+
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [6.10.4](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Upgrade `scala-collection-compat` to 2.4.4
+- [Build] Upgrade `sbt-projectmatrix` to 0.8.0
+- [Build] Upgrade `sbt-version-policy` to 1.0.1
+
 ## [6.10.3] (2021-04-15)
 
 ### Changed
@@ -290,7 +299,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.3...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...main
+[6.10.4]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.3...v6.10.4
 [6.10.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.2...v6.10.3
 [6.10.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.1...v6.10.2
 [6.10.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.0...v6.10.1

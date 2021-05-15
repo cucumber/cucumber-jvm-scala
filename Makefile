@@ -55,6 +55,7 @@ release:
 	  --volume "${shell pwd}/../secrets/.ssh":/home/cukebot/.ssh \
 	  --volume "${HOME}/.ivy2":/home/cukebot/.ivy2 \
 	  --volume "${HOME}/.cache/coursier":/home/cukebot/.cache/coursier \
+	  --volume "${HOME}/.cache/sbt":/home/cukebot/.cache/sbt \
 	  --env-file "${shell pwd}/../secrets/secrets.list" \
 	  --user 1000 \
 	  --rm \
