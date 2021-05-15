@@ -21,7 +21,7 @@ The table below shows the compatible versions:
 
 | Cucumber Scala version | Cucumber Core version | Scala versions        |
 |------------------------|-----------------------|-----------------------|
-| 7.x (_upcoming_)       | 6.x                   | 2.11, 2.12, 2.13, 3.0 |
+| 7.x                    | 6.x                   | 2.11, 2.12, 2.13, 3.0 |
 | 6.x                    | 6.x                   | 2.11, 2.12, 2.13      |
 | 5.x                    | 5.x                   | 2.11, 2.12, 2.13      |
 | 4.x                    | 4.x                   | 2.11, 2.12, 2.13      |

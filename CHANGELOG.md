@@ -19,18 +19,15 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
-## [7.0.0-M1] (2021-05-15)
+## [7.0.0] (2021-05-15)
 
-📢 This pre-release brings support for Scala 3 but no change in Cucumber core features.
+📢 This release brings support for Scala 3 but no change in Cucumber core features.
 
-_Although there is no visible change from a user perspective,
-there are significant changes under the hood (for all Scala versions) that are
-not binary compatible with Cucumber Scala v6.x (hence the major version change)._
+_Although there is no visible change from a user perspective, there are significant changes under the hood (for all Scala versions) that are not binary compatible with Cucumber Scala v6.x (hence the major version change)._
 
-👋 **You are encouraged to test this pre-release and report any issue**.
+👋 **You are encouraged to use this release even if not targeting Scala 3 yet and report any issue**.
 
-ℹ️ Starting from v7.x, the version of Cucumber Scala will not match anymore the version
-of core Cucumber projects (like cucumber-junit).
+ℹ️ Starting from v7.x, the version of Cucumber Scala will not match anymore the version of core Cucumber projects (like _cucumber-junit_). You should upgrade them independently.
 
 ### Added
 
@@ -318,8 +315,8 @@ of core Cucumber projects (like cucumber-junit).
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v7.0.0-M1...main
-[7.0.0-M1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...v7.0.0-M1
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v7.0.0...main
+[7.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...v7.0.0
 [6.10.4]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.3...v6.10.4
 [6.10.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.2...v6.10.3
 [6.10.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.1...v6.10.2
