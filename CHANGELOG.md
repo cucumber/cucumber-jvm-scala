@@ -9,9 +9,20 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+📢 This pre-release brings support for Scala 3 but no change in Cucumber core features.
+
+_Although there is no visible change from a user perspective,
+there are significant changes under the hood (for all Scala versions) that are
+not binary compatible with Cucumber Scala v6.x (hence the major version change)._
+
+👋 **You are encouraged to test this pre-release and report any issue**.
+
+ℹ️ Starting from v7.x, the version of Cucumber Scala will not match anymore the version
+of core Cucumber projects (like cucumber-junit).
+
 ### Added
 
-- [Scala] Support Scala 3 RC1
+- [Scala] Support Scala 3
   - Check out the [v7.x upgrade guide](./docs/upgrade_v7.md)
 
 ### Changed
