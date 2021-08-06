@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] Upgrade sbt to 1.5.5
+
 ### Deprecated
 
 ### Removed
