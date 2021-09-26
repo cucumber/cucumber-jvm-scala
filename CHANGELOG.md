@@ -23,6 +23,7 @@ Check out the [Upgrade Guide](docs/upgrade_v8.md).
 
 ### Removed
 
+- [Scala] Remove support for Scala 2.11
 - [Core] Remove deprecated `io.cucumber.scala.TL`
 
 ### Fixed

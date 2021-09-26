@@ -66,14 +66,4 @@ object ScalacOptions {
     "-language:higherKinds" // Allow higher-kinded types
   )
 
-  val scalacOptions211 = Seq(
-    "-deprecation",
-    "-encoding",
-    "UTF-8", // yes, this is 2 args
-    "-feature",
-    "-language:implicitConversions",
-    "-language:higherKinds", // Allow higher-kinded types
-    "-target:jvm-1.8"
-  )
-
 }
