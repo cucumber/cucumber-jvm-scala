@@ -1,5 +1,4 @@
-import ReleaseTransformations._
-import xerial.sbt.Sonatype.sonatypeSettings
+import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 // Metadata
 
@@ -42,12 +41,15 @@ scalaVersion := scala213
 val cucumberVersion = "7.0.0-RC1"
 val jacksonVersion = "2.12.5"
 val mockitoScalaVersion = "1.16.42"
-val junitVersion = "4.13.2"
+val junit4Version = "4.13.2"
+val junitJupiterVersion = "5.8.1"
+val junitPlatformVersion = "1.8.1"
 
 // Projects and settings
 
+ThisBuild / resolvers += Resolver.jcenterRepo
+
 lazy val commonSettings = Seq(
-  libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test,
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 11)) => ScalacOptions.scalacOptions211
@@ -65,8 +67,7 @@ lazy val root = (project in file("."))
     publishArtifact := false
   )
   .aggregate(
-    cucumberScala.projectRefs ++
-      examples.projectRefs: _*
+    cucumberScala.projectRefs ++ exampleJunit4.projectRefs ++ exampleJunit5.projectRefs: _*
   )
 
 // Main project
@@ -79,10 +80,11 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided)
         .cross(CrossVersion.for3Use2_13),
-      "junit" % "junit" % junitVersion % Test,
+      "junit" % "junit" % junit4Version % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
-        .cross(CrossVersion.for3Use2_13)
+        .cross(CrossVersion.for3Use2_13),
+      "com.github.sbt" % "junit-interface" % "0.13.2" % Test
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
@@ -126,13 +128,29 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212, scala211))
 
 // Examples project
-lazy val examples = (projectMatrix in file("examples"))
+lazy val exampleJunit4 = (projectMatrix in file("examples/junit4"))
   .settings(commonSettings)
   .settings(
     name := "scala-examples",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
-      "junit" % "junit" % junitVersion % Test
+      "junit" % "junit" % junit4Version % Test,
+      "com.github.sbt" % "junit-interface" % "0.13.2" % Test
+    ),
+    publishArtifact := false
+  )
+  .dependsOn(cucumberScala % Test)
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+lazy val exampleJunit5 = (projectMatrix in file("examples/junit5"))
+  .settings(commonSettings)
+  .settings(
+    name := "scala-examples",
+    libraryDependencies ++= Seq(
+      "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
+      "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
+      "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+      "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
     ),
     publishArtifact := false
   )

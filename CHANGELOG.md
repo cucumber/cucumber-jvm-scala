@@ -13,6 +13,8 @@ Check out the [Upgrade Guide](docs/upgrade_v8.md).
 
 ### Added
 
+- [Examples] Example project using Junit 5
+
 ### Changed
 
 - [Core] Updated `cucumber-core` dependency to [7.0.0-RC1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)

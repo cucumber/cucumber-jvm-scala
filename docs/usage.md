@@ -53,6 +53,27 @@ It's **not recommended** though, because by definition objects are singleton and
 
 See also the Running Cucumber for Java [documentation](https://docs.cucumber.io/docs/cucumber/api/#running-cucumber).
 
+### Junit 5
+
+Add the `cucumber-junit-platform-engine` dependency to your project.
+
+Then create a runner class like this:
+```scala
+import io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME
+import org.junit.platform.suite.api.{ConfigurationParameter, IncludeEngines, SelectClasspathResource, Suite}
+
+@Suite
+@IncludeEngines(Array("cucumber"))
+@SelectClasspathResource("cucumber/examples/scalacalculator") // Location of *.features files
+@ConfigurationParameter( // Location of glue code
+  key = GLUE_PROPERTY_NAME,
+  value = "cucumber.examples.scalacalculator"
+)
+class RunCukesTest
+```
+
+### Junit 4
+
 Add the `cucumber-junit` dependency to your project.
 
 Then create a runner class like this:
@@ -61,10 +82,13 @@ import io.cucumber.junit.{Cucumber, CucumberOptions}
 import org.junit.runner.RunWith
 
 @RunWith(classOf[Cucumber])
-@CucumberOptions()
+@CucumberOptions(
+  glue = Array("cucumber.examples.scalacalculator"),
+  features = Array("classpath:cucumber/examples/scalacalculator")
+)
 class RunCucumberTest
 ```
 
 You can define several options like:
 - the "glue path" (default to current package): packages in which to look for glue code
-- the "features path" (default to current folder): folder in which to look for features file
+- the "features path" (default to current package): packages in which to look for features file
