@@ -5,9 +5,12 @@ object I18nGenerator {
 
   private val dialectProvider = new GherkinDialectProvider()
 
+  // The generated files for these languages don't compile
   private val unsupported = Seq(
-    "em"
-  ) // The generated files for Emoji do not compile.
+    "em", // Emoji
+    "en-tx" // Texan
+  )
+
   private val allLanguages = dialectProvider
     .getLanguages()
     .asScala
