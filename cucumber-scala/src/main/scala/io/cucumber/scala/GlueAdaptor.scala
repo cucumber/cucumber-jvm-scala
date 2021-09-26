@@ -15,7 +15,7 @@ class GlueAdaptor(glue: Glue) {
   ): Unit = {
 
     // If the registry is not consistent, this indicates a mistake in the users definition and we want to let him know.
-    registry.checkConsistency().left.foreach {
+    registry.checkConsistency(scenarioScoped).left.foreach {
       (ex: IncorrectHookDefinitionException) =>
         throw ex
     }
@@ -23,6 +23,17 @@ class GlueAdaptor(glue: Glue) {
     registry.stepDefinitions
       .map(ScalaStepDefinition(_, scenarioScoped))
       .foreach(glue.addStepDefinition)
+
+    // The presence of beforeAll/afterAll hooks with scenarioScoped is checked by checkConsistency above
+    if (!scenarioScoped) {
+      registry.beforeAllHooks
+        .map(ScalaStaticHookDefinition(_))
+        .foreach(glue.addBeforeAllHook)
+      registry.afterAllHooks
+        .map(ScalaStaticHookDefinition(_))
+        .foreach(glue.addAfterAllHook)
+    }
+
     registry.beforeHooks
       .map(ScalaHookDefinition(_, scenarioScoped))
       .foreach(glue.addBeforeHook)
@@ -35,6 +46,7 @@ class GlueAdaptor(glue: Glue) {
     registry.afterStepHooks
       .map(ScalaHookDefinition(_, scenarioScoped))
       .foreach(glue.addAfterStepHook)
+
     registry.docStringTypes
       .map(ScalaDocStringTypeDefinition(_, scenarioScoped))
       .foreach(glue.addDocStringType)
@@ -44,6 +56,7 @@ class GlueAdaptor(glue: Glue) {
     registry.parameterTypes
       .map(ScalaParameterTypeDefinition(_, scenarioScoped))
       .foreach(glue.addParameterType)
+
     registry.defaultParameterTransformers
       .map(ScalaDefaultParameterTransformerDefinition(_, scenarioScoped))
       .foreach(glue.addDefaultParameterTransformer)

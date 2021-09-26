@@ -1,15 +1,22 @@
 package io.cucumber.scala
 
-import io.cucumber.scala.HookType.{AFTER, AFTER_STEP, BEFORE, BEFORE_STEP}
+import io.cucumber.scala.ScopedHookType._
+import io.cucumber.scala.StaticHookType.{AFTER_ALL, BEFORE_ALL}
 
 final class ScalaDslRegistry {
 
   private var _stepDefinitions: Seq[ScalaStepDetails] = Seq()
 
+  private var _beforeAllHooks: Seq[ScalaStaticHookDetails] = Seq()
+  private var _afterAllHooks: Seq[ScalaStaticHookDetails] = Seq()
+
   private var _beforeHooks: Seq[ScalaHookDetails] = Seq()
   private var _beforeStepHooks: Seq[ScalaHookDetails] = Seq()
   private var _afterHooks: Seq[ScalaHookDetails] = Seq()
   private var _afterStepHooks: Seq[ScalaHookDetails] = Seq()
+
+  private var _undefinedBeforeAllHooks: Seq[UndefinedHook] = Seq()
+  private var _undefinedAfterAllHooks: Seq[UndefinedHook] = Seq()
 
   private var _undefinedBeforeHooks: Seq[UndefinedHook] = Seq()
   private var _undefinedBeforeStepHooks: Seq[UndefinedHook] = Seq()
@@ -33,9 +40,13 @@ final class ScalaDslRegistry {
 
   def stepDefinitions: Seq[ScalaStepDetails] = _stepDefinitions
 
+  def beforeAllHooks: Seq[ScalaStaticHookDetails] = _beforeAllHooks
+
   def beforeHooks: Seq[ScalaHookDetails] = _beforeHooks
 
   def beforeStepHooks: Seq[ScalaHookDetails] = _beforeStepHooks
+
+  def afterAllHooks: Seq[ScalaStaticHookDetails] = _afterAllHooks
 
   def afterHooks: Seq[ScalaHookDetails] = _afterHooks
 
@@ -63,46 +74,66 @@ final class ScalaDslRegistry {
       hookType: HookType,
       stackTraceElement: StackTraceElement
   ): Unit = {
+    val undefinedHook = UndefinedHook(hookType, stackTraceElement)
     hookType match {
+      case BEFORE_ALL =>
+        _undefinedBeforeAllHooks = _undefinedBeforeAllHooks :+ undefinedHook
       case BEFORE =>
-        _undefinedBeforeHooks =
-          _undefinedBeforeHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedBeforeHooks = _undefinedBeforeHooks :+ undefinedHook
       case BEFORE_STEP =>
-        _undefinedBeforeStepHooks = _undefinedBeforeStepHooks :+ UndefinedHook(
-          hookType,
-          stackTraceElement
-        )
+        _undefinedBeforeStepHooks = _undefinedBeforeStepHooks :+ undefinedHook
+      case AFTER_ALL =>
+        _undefinedAfterAllHooks = _undefinedAfterAllHooks :+ undefinedHook
       case AFTER =>
-        _undefinedAfterHooks =
-          _undefinedAfterHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedAfterHooks = _undefinedAfterHooks :+ undefinedHook
       case AFTER_STEP =>
-        _undefinedAfterStepHooks =
-          _undefinedAfterStepHooks :+ UndefinedHook(hookType, stackTraceElement)
+        _undefinedAfterStepHooks = _undefinedAfterStepHooks :+ undefinedHook
     }
   }
 
-  def registerHook(
-      hookType: HookType,
-      details: ScalaHookDetails,
-      frame: StackTraceElement
+  def registerDynamicHook(
+      hookType: ScopedHookType,
+      details: ScalaHookDetails
   ): Unit = {
     hookType match {
-      case HookType.BEFORE =>
+      case BEFORE =>
         _beforeHooks = _beforeHooks :+ details
-        _undefinedBeforeHooks =
-          _undefinedBeforeHooks.filterNot(_.stackTraceElement == frame)
-      case HookType.BEFORE_STEP =>
+        _undefinedBeforeHooks = _undefinedBeforeHooks.filterNot(
+          _.stackTraceElement == details.stackTraceElement
+        )
+      case BEFORE_STEP =>
         _beforeStepHooks = _beforeStepHooks :+ details
-        _undefinedBeforeStepHooks =
-          _undefinedBeforeStepHooks.filterNot(_.stackTraceElement == frame)
-      case HookType.AFTER =>
+        _undefinedBeforeStepHooks = _undefinedBeforeStepHooks.filterNot(
+          _.stackTraceElement == details.stackTraceElement
+        )
+      case AFTER =>
         _afterHooks = _afterHooks :+ details
-        _undefinedAfterHooks =
-          _undefinedAfterHooks.filterNot(_.stackTraceElement == frame)
-      case HookType.AFTER_STEP =>
+        _undefinedAfterHooks = _undefinedAfterHooks.filterNot(
+          _.stackTraceElement == details.stackTraceElement
+        )
+      case AFTER_STEP =>
         _afterStepHooks = _afterStepHooks :+ details
-        _undefinedAfterStepHooks =
-          _undefinedAfterStepHooks.filterNot(_.stackTraceElement == frame)
+        _undefinedAfterStepHooks = _undefinedAfterStepHooks.filterNot(
+          _.stackTraceElement == details.stackTraceElement
+        )
+    }
+  }
+
+  def registerStaticHook(
+      hookType: StaticHookType,
+      details: ScalaStaticHookDetails
+  ): Unit = {
+    hookType match {
+      case BEFORE_ALL =>
+        _beforeAllHooks = _beforeAllHooks :+ details
+        _undefinedBeforeAllHooks = _undefinedBeforeAllHooks.filterNot(
+          _.stackTraceElement == details.stackTraceElement
+        )
+      case AFTER_ALL =>
+        _afterAllHooks = _afterAllHooks :+ details
+        _undefinedAfterAllHooks = _undefinedAfterAllHooks.filterNot(
+          _.stackTraceElement == details.stackTraceElement
+        )
     }
   }
 
@@ -142,11 +173,16 @@ final class ScalaDslRegistry {
     _defaultParameterTransformers = _defaultParameterTransformers :+ details
   }
 
-  def checkConsistency(): Either[IncorrectHookDefinitionException, Unit] = {
+  def checkConsistency(
+      scenarioScoped: Boolean
+  ): Either[IncorrectHookDefinitionException, Unit] = {
     val undefinedHooks =
-      _undefinedBeforeHooks ++ _undefinedBeforeStepHooks ++ _undefinedAfterHooks ++ _undefinedAfterStepHooks
-    if (undefinedHooks.nonEmpty) {
-      Left(new IncorrectHookDefinitionException(undefinedHooks))
+      _undefinedBeforeAllHooks ++ _undefinedBeforeHooks ++ _undefinedBeforeStepHooks ++ _undefinedAfterAllHooks ++ _undefinedAfterHooks ++ _undefinedAfterStepHooks
+    val staticHooks = _beforeAllHooks ++ _afterAllHooks
+    if (scenarioScoped && staticHooks.nonEmpty) {
+      Left(new ScenarioScopedStaticHookException(staticHooks))
+    } else if (undefinedHooks.nonEmpty) {
+      Left(new UndefinedHooksException(undefinedHooks))
     } else {
       Right(())
     }
