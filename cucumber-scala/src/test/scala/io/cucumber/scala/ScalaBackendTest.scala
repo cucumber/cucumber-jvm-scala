@@ -1,17 +1,17 @@
 package io.cucumber.scala
 
-import java.net.URI
-import java.util.function.Supplier
-
 import io.cucumber.core.backend._
 import io.cucumber.scala.steps.classes.{StepsA, StepsB, StepsC}
 import io.cucumber.scala.steps.errors.incorrectclasshooks.IncorrectClassHooksDefinition
+import io.cucumber.scala.steps.errors.staticclasshooks.StaticClassHooksDefinition
 import io.cucumber.scala.steps.traits.StepsInTrait
 import org.junit.Assert.{assertEquals, assertTrue, fail}
 import org.junit.{Before, Test}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 
+import java.net.URI
+import java.util.function.Supplier
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
@@ -42,6 +42,8 @@ class ScalaBackendTest {
       .thenReturn(new StepsInTrait())
     when(fakeLookup.getInstance(classOf[IncorrectClassHooksDefinition]))
       .thenReturn(new IncorrectClassHooksDefinition())
+    when(fakeLookup.getInstance(classOf[StaticClassHooksDefinition]))
+      .thenReturn(new StaticClassHooksDefinition())
 
     // Create the instances
     backend = new ScalaBackend(fakeLookup, fakeContainer, classLoaderSupplier)
@@ -194,15 +196,17 @@ class ScalaBackendTest {
     }
 
     result match {
-      case Failure(ex) if ex.isInstanceOf[IncorrectHookDefinitionException] =>
+      case Failure(ex) if ex.isInstanceOf[UndefinedHooksException] =>
         val incorrectHookDefException =
-          ex.asInstanceOf[IncorrectHookDefinitionException]
-        assertEquals(4, incorrectHookDefException.undefinedHooks.size)
+          ex.asInstanceOf[UndefinedHooksException]
+        assertEquals(6, incorrectHookDefException.undefinedHooks.size)
         val expectedMsg = """Some hooks are not defined properly:
-                            | - IncorrectClassHooksDefinition.scala:11 (BEFORE)
-                            | - IncorrectClassHooksDefinition.scala:14 (BEFORE_STEP)
-                            | - IncorrectClassHooksDefinition.scala:17 (AFTER)
-                            | - IncorrectClassHooksDefinition.scala:20 (AFTER_STEP)
+                            | - IncorrectClassHooksDefinition.scala:11 (BEFORE_ALL)
+                            | - IncorrectClassHooksDefinition.scala:14 (BEFORE)
+                            | - IncorrectClassHooksDefinition.scala:17 (BEFORE_STEP)
+                            | - IncorrectClassHooksDefinition.scala:20 (AFTER_ALL)
+                            | - IncorrectClassHooksDefinition.scala:23 (AFTER)
+                            | - IncorrectClassHooksDefinition.scala:26 (AFTER_STEP)
                             |
                             |This can be caused by defining hooks where the body returns a Int or String rather than Unit.
                             |
@@ -221,9 +225,9 @@ class ScalaBackendTest {
                             |""".stripMargin
         assertEquals(expectedMsg, incorrectHookDefException.getMessage)
       case Failure(ex) =>
-        fail(s"Expected IncorrectHookDefinitionException, got ${ex.getClass}")
+        fail(s"Expected UndefinedHooksException, got ${ex.getClass}")
       case Success(_) =>
-        fail("Expected IncorrectHookDefinitionException")
+        fail("Expected UndefinedHooksException")
     }
   }
 
@@ -242,15 +246,17 @@ class ScalaBackendTest {
     }
 
     result match {
-      case Failure(ex) if ex.isInstanceOf[IncorrectHookDefinitionException] =>
+      case Failure(ex) if ex.isInstanceOf[UndefinedHooksException] =>
         val incorrectHookDefException =
-          ex.asInstanceOf[IncorrectHookDefinitionException]
-        assertEquals(4, incorrectHookDefException.undefinedHooks.size)
+          ex.asInstanceOf[UndefinedHooksException]
+        assertEquals(6, incorrectHookDefException.undefinedHooks.size)
         val expectedMsg = """Some hooks are not defined properly:
-                            | - IncorrectObjectHooksDefinition.scala:11 (BEFORE)
-                            | - IncorrectObjectHooksDefinition.scala:14 (BEFORE_STEP)
-                            | - IncorrectObjectHooksDefinition.scala:17 (AFTER)
-                            | - IncorrectObjectHooksDefinition.scala:20 (AFTER_STEP)
+                            | - IncorrectObjectHooksDefinition.scala:11 (BEFORE_ALL)
+                            | - IncorrectObjectHooksDefinition.scala:14 (BEFORE)
+                            | - IncorrectObjectHooksDefinition.scala:17 (BEFORE_STEP)
+                            | - IncorrectObjectHooksDefinition.scala:20 (AFTER_ALL)
+                            | - IncorrectObjectHooksDefinition.scala:23 (AFTER)
+                            | - IncorrectObjectHooksDefinition.scala:26 (AFTER_STEP)
                             |
                             |This can be caused by defining hooks where the body returns a Int or String rather than Unit.
                             |
@@ -269,9 +275,46 @@ class ScalaBackendTest {
                             |""".stripMargin
         assertEquals(expectedMsg, incorrectHookDefException.getMessage)
       case Failure(ex) =>
-        fail(s"Expected IncorrectHookDefinitionException, got ${ex.getClass}")
+        fail(s"Expected UndefinedHooksException, got ${ex.getClass}")
       case Success(_) =>
-        fail("Expected IncorrectHookDefinitionException")
+        fail("Expected UndefinedHooksException")
+    }
+  }
+
+  @Test
+  def loadGlueAndBuildWorld_class_static_class_hooks_definitions(): Unit = {
+    val result = Try {
+      // Load glue
+      backend.loadGlue(
+        fakeGlue,
+        List(
+          URI.create(
+            "classpath:io/cucumber/scala/steps/errors/staticclasshooks"
+          )
+        ).asJava
+      )
+
+      // Build world
+      backend.buildWorld()
+    }
+
+    result match {
+      case Failure(ex) if ex.isInstanceOf[ScenarioScopedStaticHookException] =>
+        val incorrectHookDefException =
+          ex.asInstanceOf[ScenarioScopedStaticHookException]
+        assertEquals(2, incorrectHookDefException.staticHooks.size)
+        val expectedMsg = """Some hooks are not defined properly:
+                            | - StaticClassHooksDefinition.scala:11
+                            | - StaticClassHooksDefinition.scala:14
+                            |
+                            |This can be caused by defining static hooks (BeforeAll/AfterAll) in a class rather than in a object.
+                            |Such hooks can only be defined in a static context.
+                            |""".stripMargin
+        assertEquals(expectedMsg, incorrectHookDefException.getMessage)
+      case Failure(ex) =>
+        fail(s"Expected ScenarioScopedStaticHookException, got ${ex.getClass}")
+      case Success(_) =>
+        fail("Expected ScenarioScopedStaticHookException")
     }
   }
 

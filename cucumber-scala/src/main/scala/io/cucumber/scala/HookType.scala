@@ -2,14 +2,26 @@ package io.cucumber.scala
 
 sealed trait HookType
 
-object HookType {
+sealed trait ScopedHookType extends HookType
 
-  case object BEFORE extends HookType
+object ScopedHookType {
 
-  case object BEFORE_STEP extends HookType
+  case object BEFORE extends ScopedHookType
 
-  case object AFTER extends HookType
+  case object BEFORE_STEP extends ScopedHookType
 
-  case object AFTER_STEP extends HookType
+  case object AFTER extends ScopedHookType
+
+  case object AFTER_STEP extends ScopedHookType
+
+}
+
+sealed trait StaticHookType extends HookType
+
+object StaticHookType {
+
+  case object BEFORE_ALL extends StaticHookType
+
+  case object AFTER_ALL extends StaticHookType
 
 }
