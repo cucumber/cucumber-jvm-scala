@@ -23,7 +23,6 @@ class ScalaBackendTest {
   private val fakeLookup: Lookup = mock(classOf[Lookup])
   private val fakeContainer: Container = mock(classOf[Container])
 
-  // Note: keep unnecessary "new" for Scala 2.11 compat
   private val classLoaderSupplier: Supplier[ClassLoader] = () =>
     Thread.currentThread().getContextClassLoader
 
