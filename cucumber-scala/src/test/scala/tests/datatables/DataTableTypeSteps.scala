@@ -107,7 +107,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   DataTableType { (table: DataTable) =>
     val authors = table
-      .asMaps()
+      .entries()
       .asScala
       .map(_.asScala)
       .map(entry =>
@@ -119,7 +119,7 @@ class DataTableTypeSteps extends ScalaDsl with EN {
 
   DataTableType("[empty]") { (table: DataTable) =>
     val authors = table
-      .asMaps()
+      .entries()
       .asScala
       .map(_.asScala)
       .map(entry =>

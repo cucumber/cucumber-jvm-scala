@@ -166,7 +166,7 @@ case class Author(name: String, surname: String, famousBook: String)
 case class GroupOfAuthor(authors: Seq[Author])
 
 DataTableType { table: DataTable =>
-  val authors = table.asMaps().asScala
+  val authors = table.entries().asScala
       .map(_.asScala)
       .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
       .toSeq

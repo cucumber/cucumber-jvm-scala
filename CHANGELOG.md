@@ -9,15 +9,19 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+Check out the [Upgrade Guide](docs/upgrade_v8.md).
+
 ### Added
 
 ### Changed
 
-- [Build] Upgrade sbt to 1.5.5
+- [Core] Updated `cucumber-core` dependency to [7.0.0-RC1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
 
 ### Removed
+
+- [Core] Remove deprecated `io.cucumber.scala.TL`
 
 ### Fixed
 
