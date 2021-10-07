@@ -14,6 +14,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Build] Upgrade Scala to 2.12.14, 2.13.6 and 3.0.2
+- [Scala] Upgrade `jackson-module-scala` to 2.13.0
 
 ### Deprecated
 

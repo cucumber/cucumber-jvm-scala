@@ -39,7 +39,7 @@ scalaVersion := scala213
 // Library versions
 
 val cucumberVersion = "7.0.0"
-val jacksonVersion = "2.12.5"
+val jacksonVersion = "2.13.0"
 val mockitoScalaVersion = "1.16.42"
 val junitVersion = "4.13.2"
 
@@ -75,8 +75,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
-      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided)
-        .cross(CrossVersion.for3Use2_13),
+      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided),
       "junit" % "junit" % junitVersion % Test,
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
