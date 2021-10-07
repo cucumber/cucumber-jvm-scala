@@ -9,6 +9,8 @@ See the [reference documentation](https://docs.cucumber.io/docs/cucumber/api/#ho
 
 Static hooks run once before/after all scenarios.
 
+**Note:** static hooks can only be defined inside `object`s (not classes).
+
 ### BeforeAll
 
 `BeforeAll` hooks run once before all scenarios.

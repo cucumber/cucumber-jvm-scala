@@ -47,7 +47,8 @@ class MyStepDefinitions extends StepsForThis with StepsForThat {
 
 You can also define glue code in **objects**.
 
-It's **not recommended** though, because by definition objects are singleton and if your glue code is stateful you will probably have "state conflicts" between your scenarios.
+Be aware that by definition objects are singleton and if your glue code is stateful you will probably have "state conflicts"
+between your scenarios if you use shared variables from objects.
 
 ## Running Cucumber tests
 
