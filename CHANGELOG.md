@@ -9,6 +9,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [8.0.0] (2021-10-07)
+
 Check out the [Upgrade Guide](docs/upgrade_v8.md).
 
 ### Added
@@ -19,14 +31,10 @@ Check out the [Upgrade Guide](docs/upgrade_v8.md).
 
 - [Core] Updated `cucumber-core` dependency to [7.0.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
-### Deprecated
-
 ### Removed
 
 - [Scala] Remove support for Scala 2.11
 - [Core] Remove deprecated `io.cucumber.scala.TL`
-
-### Fixed
 
 ## [7.1.0] (2021-08-06)
 
@@ -333,7 +341,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v7.1.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.0.0...main
+[8.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v7.1.0...v8.0.0
 [7.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v7.0.0...v7.1.0
 [7.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...v7.0.0
 [6.10.4]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.3...v6.10.4
