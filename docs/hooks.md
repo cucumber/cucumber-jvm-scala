@@ -1,9 +1,35 @@
 # Hooks
 
 Hooks are blocks of code that can run at various points in the Cucumber execution cycle.
-They are typically used for setup and teardown of the environment before and after each scenario.
+They are typically used for setup and teardown of the environment before and after all/each scenario or step.
 
 See the [reference documentation](https://docs.cucumber.io/docs/cucumber/api/#hooks).
+
+## Static hooks
+
+Static hooks run once before/after all scenarios.
+
+### BeforeAll
+
+`BeforeAll` hooks run once before all scenarios.
+
+```scala
+BeforeAll {
+  // Do something before all scenarios
+  // Must return Unit
+}
+```
+
+### AfterAll
+
+`AfterAll` hooks run once after all scenarios.
+
+```scala
+AfterAll {
+  // Do something after each scenario
+  // Must return Unit
+}
+```
 
 ## Scenario hooks
 
@@ -88,6 +114,8 @@ Before("@browser and not @headless") {
 }
 ```
 
+Note: this cannot be applied to static hooks (`BeforeAll`/`AfterAll`).
+
 ## Order
 
 You can define an order between multiple hooks.
@@ -115,3 +143,5 @@ Before("@browser and not @headless", 10) {
   // Must return Unit
 }
 ```
+
+Note: this cannot be applied to static hooks (`BeforeAll`/`AfterAll`).

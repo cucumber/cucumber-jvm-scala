@@ -30,7 +30,6 @@ ThisBuild / homepage := Some(
 
 // Scala versions
 
-val scala211 = "2.11.12"
 val scala212 = "2.12.13"
 val scala213 = "2.13.5"
 val scala3 = "3.0.0"
@@ -39,7 +38,7 @@ scalaVersion := scala213
 
 // Library versions
 
-val cucumberVersion = "6.11.0"
+val cucumberVersion = "7.0.0"
 val jacksonVersion = "2.12.5"
 val mockitoScalaVersion = "1.16.42"
 val junitVersion = "4.13.2"
@@ -50,7 +49,6 @@ lazy val commonSettings = Seq(
   libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test,
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 11)) => ScalacOptions.scalacOptions211
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
       case Some((3, 0))  => ScalacOptions.scalacOptions3
@@ -86,7 +84,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     ),
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n <= 12 =>
+        case Some((2, n)) if n == 12 =>
           List("org.scala-lang.modules" %% "scala-collection-compat" % "2.4.4")
         case _ => Nil
       }
@@ -94,9 +92,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     Compile / unmanagedSourceDirectories ++= {
       val sourceDir = (Compile / sourceDirectory).value
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, n)) if n <= 11 =>
-          Seq(sourceDir / "scala-2", sourceDir / "scala-2.11")
-        case Some((2, n)) if n > 11 =>
+        case Some((2, n)) =>
           Seq(sourceDir / "scala-2")
         case Some((3, 0)) =>
           Seq(sourceDir / "scala-3")
@@ -123,7 +119,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       Seq(file)
     }.taskValue
   )
-  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212, scala211))
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Examples project
 lazy val examples = (projectMatrix in file("examples"))

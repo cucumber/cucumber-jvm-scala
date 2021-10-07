@@ -1,12 +1,11 @@
 package io.cucumber.scala
 
-import java.util.concurrent.atomic.AtomicBoolean
-
 import io.cucumber.core.backend._
 import org.junit.Assert.{assertEquals, assertTrue}
 import org.junit.{Before, Test}
 import org.mockito.Mockito.mock
 
+import java.util.concurrent.atomic.AtomicBoolean
 import scala.annotation.nowarn
 
 @nowarn
@@ -861,6 +860,54 @@ class ScalaDslHooksTest {
     assertObjectHook(Glue.registry.afterStepHooks.head, "tagExpression", 42)
   }
 
+  @Test
+  def testObjectBeforeAllHook(): Unit = {
+
+    object Glue extends ScalaDsl {
+      BeforeAll {
+        invoke()
+      }
+    }
+
+    assertObjectStaticHook(Glue.registry.beforeAllHooks.head, 1000)
+  }
+
+  @Test
+  def testObjectBeforeAllHookWithOrder(): Unit = {
+
+    object Glue extends ScalaDsl {
+      BeforeAll(42) {
+        invoke()
+      }
+    }
+
+    assertObjectStaticHook(Glue.registry.beforeAllHooks.head, 42)
+  }
+
+  @Test
+  def testObjectAfterAllHook(): Unit = {
+
+    object Glue extends ScalaDsl {
+      AfterAll {
+        invoke()
+      }
+    }
+
+    assertObjectStaticHook(Glue.registry.afterAllHooks.head, 1000)
+  }
+
+  @Test
+  def testObjectAfterAllHookWithOrder(): Unit = {
+
+    object Glue extends ScalaDsl {
+      AfterAll(42) {
+        invoke()
+      }
+    }
+
+    assertObjectStaticHook(Glue.registry.afterAllHooks.head, 42)
+  }
+
   private def assertClassHook(
       hookDetails: ScalaHookDetails,
       tagExpression: String,
@@ -877,6 +924,13 @@ class ScalaDslHooksTest {
     assertHook(ScalaHookDefinition(hookDetails, false), tagExpression, order)
   }
 
+  private def assertObjectStaticHook(
+      hookDetails: ScalaStaticHookDetails,
+      order: Int
+  ): Unit = {
+    assertStaticHook(ScalaStaticHookDefinition(hookDetails), order)
+  }
+
   private def assertHook(
       hook: HookDefinition,
       tagExpression: String,
@@ -885,6 +939,12 @@ class ScalaDslHooksTest {
     assertEquals(tagExpression, hook.getTagExpression)
     assertEquals(order, hook.getOrder)
     hook.execute(fakeState)
+    assertTrue(invoked.get())
+  }
+
+  private def assertStaticHook(hook: StaticHookDefinition, order: Int): Unit = {
+    assertEquals(order, hook.getOrder)
+    hook.execute()
     assertTrue(invoked.get())
   }
 

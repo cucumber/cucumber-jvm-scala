@@ -3,6 +3,19 @@ package io.cucumber.scala
 private[scala] trait HookDsl extends BaseScalaDsl {
   self =>
 
+  /** Defines a before all hook.
+    */
+  def BeforeAll: StaticHookBody = BeforeAll(DEFAULT_AFTER_ORDER)
+
+  /** Defines a before all hook.
+    * @param order the order in which this hook should run. Higher numbers are run first
+    */
+  def BeforeAll(order: Int): StaticHookBody = new StaticHookBody(
+    StaticHookType.BEFORE_ALL,
+    order,
+    Utils.frame(self)
+  )
+
   /** Defines an before hook.
     */
   def Before: HookBody = Before(EMPTY_TAG_EXPRESSION, DEFAULT_BEFORE_ORDER)
@@ -26,7 +39,12 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     * @param order         the order in which this hook should run. Higher numbers are run first
     */
   def Before(tagExpression: String, order: Int) =
-    new HookBody(HookType.BEFORE, tagExpression, order, Utils.frame(self))
+    new HookBody(
+      ScopedHookType.BEFORE,
+      tagExpression,
+      order,
+      Utils.frame(self)
+    )
 
   /** Defines an before step hook.
     */
@@ -52,7 +70,22 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     * @param order         the order in which this hook should run. Higher numbers are run first
     */
   def BeforeStep(tagExpression: String, order: Int) =
-    new HookBody(HookType.BEFORE_STEP, tagExpression, order, Utils.frame(self))
+    new HookBody(
+      ScopedHookType.BEFORE_STEP,
+      tagExpression,
+      order,
+      Utils.frame(self)
+    )
+
+  /** Defines a after all hook.
+    */
+  def AfterAll: StaticHookBody = AfterAll(DEFAULT_AFTER_ORDER)
+
+  /** Defines a after all hook.
+    * @param order the order in which this hook should run. Higher numbers are run first
+    */
+  def AfterAll(order: Int): StaticHookBody =
+    new StaticHookBody(StaticHookType.AFTER_ALL, order, Utils.frame(self))
 
   /** Defines and after hook.
     */
@@ -77,7 +110,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     * @param order         the order in which this hook should run. Higher numbers are run first
     */
   def After(tagExpression: String, order: Int) =
-    new HookBody(HookType.AFTER, tagExpression, order, Utils.frame(self))
+    new HookBody(ScopedHookType.AFTER, tagExpression, order, Utils.frame(self))
 
   /** Defines and after step hook.
     */
@@ -102,10 +135,15 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     * @param order         the order in which this hook should run. Higher numbers are run first
     */
   def AfterStep(tagExpression: String, order: Int) =
-    new HookBody(HookType.AFTER_STEP, tagExpression, order, Utils.frame(self))
+    new HookBody(
+      ScopedHookType.AFTER_STEP,
+      tagExpression,
+      order,
+      Utils.frame(self)
+    )
 
   final class HookBody(
-      hookType: HookType,
+      hookType: ScopedHookType,
       tagExpression: String,
       order: Int,
       frame: StackTraceElement
@@ -120,8 +158,25 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     }
 
     def apply(body: Scenario => Unit): Unit = {
-      val details = ScalaHookDetails(tagExpression, order, body)
-      registry.registerHook(hookType, details, frame)
+      val details = ScalaHookDetails(tagExpression, order, body, frame)
+      registry.registerDynamicHook(hookType, details)
+    }
+
+  }
+
+  final class StaticHookBody(
+      hookType: StaticHookType,
+      order: Int,
+      frame: StackTraceElement
+  ) {
+
+    // When a HookBody is created, we want to ensure that the apply method is called
+    // To be able to check this, we notice the registry to expect a hook
+    registry.expectHook(hookType, frame)
+
+    def apply(body: => Unit): Unit = {
+      val details = ScalaStaticHookDetails(order, () => body, frame)
+      registry.registerStaticHook(hookType, details)
     }
 
   }

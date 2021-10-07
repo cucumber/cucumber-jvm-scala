@@ -77,7 +77,16 @@ class Scenario(val delegate: TestCaseState) {
     */
   def getName: String = delegate.getName
 
-  /** @return the id of the Scenario.
+  /** Returns the unique identifier for this scenario.
+    * <p>
+    * If this is a Scenario from Scenario Outlines this will return the id of
+    * the example row in the Scenario Outline.
+    * <p>
+    * The id is not stable across multiple executions of Cucumber but does
+    * correlate with ids used in messages output. Use the uri + line number to
+    * obtain a somewhat stable identifier of a scenario.
+    *
+    * @return the id of the Scenario.
     */
   def getId: String = delegate.getId
 
@@ -85,9 +94,12 @@ class Scenario(val delegate: TestCaseState) {
     */
   def getUri: URI = delegate.getUri
 
-  /** @return the line in the feature file of the Scenario. If this is a Scenario
-    *         from Scenario Outlines this will return the line of the example row in
-    *         the Scenario Outline.
+  /** Returns the line in the feature file of the Scenario.
+    * <p>
+    * If this is a Scenario from Scenario Outlines this will return the line of
+    * the example row in the Scenario Outline.
+    *
+    * @return the line in the feature file of the Scenario
     */
   def getLine: Integer = delegate.getLine
 

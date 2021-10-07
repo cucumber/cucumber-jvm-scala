@@ -21,6 +21,7 @@ The table below shows the compatible versions:
 
 | Cucumber Scala version | Cucumber Core version | Scala versions        |
 |------------------------|-----------------------|-----------------------|
+| 8.x                    | 7.x                   | 2.12, 2.13, 3.0       |
 | 7.x                    | 6.x                   | 2.11, 2.12, 2.13, 3.0 |
 | 6.x                    | 6.x                   | 2.11, 2.12, 2.13      |
 | 5.x                    | 5.x                   | 2.11, 2.12, 2.13      |
@@ -30,6 +31,7 @@ The table below shows the compatible versions:
 
 - [Installation](./docs/install.md)
 - Upgrade notes
+  - [Version 8.x](docs/upgrade_v8.md)
   - [Version 7.x](docs/upgrade_v7.md)
   - [Version 6.x](docs/upgrade_v6.md)
   - [Version 5.x](docs/upgrade_v5.md)

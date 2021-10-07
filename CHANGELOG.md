@@ -9,15 +9,22 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+Check out the [Upgrade Guide](docs/upgrade_v8.md).
+
 ### Added
+
+-  [Scala] Added `BeforeAll` and `AfterAll` hooks. See [Hooks](docs/hooks.md).
 
 ### Changed
 
-- [Build] Upgrade sbt to 1.5.5
+- [Core] Updated `cucumber-core` dependency to [7.0.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
 
 ### Removed
+
+- [Scala] Remove support for Scala 2.11
+- [Core] Remove deprecated `io.cucumber.scala.TL`
 
 ### Fixed
 
