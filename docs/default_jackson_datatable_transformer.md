@@ -12,18 +12,18 @@ To use this optional transformer, you need to have Jackson Scala in your depende
 <dependency>
     <groupId>com.fasterxml.jackson.module</groupId>
     <artifactId>jackson-module-scala_2.13</artifactId>
-    <version>2.12.0</version>
+    <version>2.13.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 Or:
 ```sbt
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.12.0" % Test
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.13.0" % Test
 ```
 
 
-The current version of Cucumber Scala has been tested against Jackson Module Scala **version 2.12.0**.
+The current version of Cucumber Scala has been tested against Jackson Module Scala **version 2.13.0**.
 
 ## Add the transformer
 
