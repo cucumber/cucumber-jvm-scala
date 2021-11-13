@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
     - main
-    - v8.x
 
 jobs:
   build:
@@ -16,6 +15,7 @@ jobs:
         java:
           - 8.0
           - 11
+          - 17
     runs-on: ${{ matrix.os }}
     steps:
 
