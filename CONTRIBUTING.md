@@ -12,6 +12,5 @@ Please use this Github project for contributing, either through an issue or a Pu
 
 These pages aim to help Cucumber Scala developers understand the codebase.
 
-- [Building](docs/building.md)
-- [Project structure](docs/project_structure.md)
+- [Build](docs/build.md)
 - [Scala implementation details](docs/scala_implementation.md)
