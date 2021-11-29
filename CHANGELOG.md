@@ -13,15 +13,19 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Updated `cucumber-core` dependency to [7.1.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Build] Upgrade Scala to 2.12.14, 2.13.6 and 3.0.2
-- [Scala] Upgrade `jackson-module-scala` to 2.13.0
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.1.0] (2021-11-29)
+
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [7.1.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Upgrade Scala to 2.12.14, 2.13.6 and 3.0.2
+- [Scala] Upgrade `jackson-module-scala` to 2.13.0
 
 ## [8.0.0] (2021-10-07)
 
@@ -345,7 +349,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.0.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.1.0...main
+[8.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.0.0...v8.1.0
 [8.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v7.1.0...v8.0.0
 [7.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v7.0.0...v7.1.0
 [7.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v6.10.4...v7.0.0
