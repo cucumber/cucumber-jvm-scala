@@ -11,6 +11,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Scala] Support generic types in `DocStringType`
+
 ### Changed
 
 - [Core] Updated `cucumber-core` dependency to [7.2.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)

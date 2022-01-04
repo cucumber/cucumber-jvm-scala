@@ -1,11 +1,11 @@
 package io.cucumber.scala
 
-import Aliases.DocStringDefinitionBody
+import io.cucumber.scala.Aliases.DocStringDefinitionBody
 
-import scala.reflect.ClassTag
+import java.lang.reflect.{Type => JType}
 
 case class ScalaDocStringTypeDetails[T](
     contentType: String,
     body: DocStringDefinitionBody[T],
-    tag: ClassTag[T]
+    `type`: JType
 )

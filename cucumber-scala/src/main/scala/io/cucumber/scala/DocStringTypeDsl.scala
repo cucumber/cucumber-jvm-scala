@@ -2,8 +2,6 @@ package io.cucumber.scala
 
 import io.cucumber.scala.Aliases.DocStringDefinitionBody
 
-import scala.reflect.ClassTag
-
 private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
 
   /** Register doc string type.
@@ -15,9 +13,9 @@ private[scala] trait DocStringTypeDsl extends BaseScalaDsl {
     */
   def DocStringType[T](
       contentType: String
-  )(body: DocStringDefinitionBody[T])(implicit ev: ClassTag[T]): Unit = {
+  )(body: DocStringDefinitionBody[T])(implicit ev: Stepable[T]): Unit = {
     registry.registerDocStringType(
-      ScalaDocStringTypeDetails[T](contentType, body, ev)
+      ScalaDocStringTypeDetails[T](contentType, body, ev.asJavaType)
     )
   }
 

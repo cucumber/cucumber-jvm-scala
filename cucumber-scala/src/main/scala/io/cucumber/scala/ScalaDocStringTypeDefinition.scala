@@ -4,15 +4,11 @@ import io.cucumber.core.backend.{DocStringTypeDefinition, ScenarioScoped}
 import io.cucumber.docstring.DocStringType
 import io.cucumber.docstring.DocStringType.Transformer
 
-import scala.reflect.ClassTag
-
-trait ScalaDocStringTypeDefinition[T]
+abstract class ScalaDocStringTypeDefinition[T]
     extends DocStringTypeDefinition
     with AbstractGlueDefinition {
 
   val details: ScalaDocStringTypeDetails[T]
-
-  implicit val ev: ClassTag[T]
 
   override val location: StackTraceElement = new Exception().getStackTrace()(3)
 
@@ -21,7 +17,7 @@ trait ScalaDocStringTypeDefinition[T]
   }
 
   override val docStringType: DocStringType =
-    new DocStringType(ev.runtimeClass, details.contentType, transformer)
+    new DocStringType(details.`type`, details.contentType, transformer)
 
 }
 
@@ -32,9 +28,9 @@ object ScalaDocStringTypeDefinition {
       scenarioScoped: Boolean
   ): ScalaDocStringTypeDefinition[T] = {
     if (scenarioScoped) {
-      new ScalaScenarioScopedDocStringTypeDefinition(details)(details.tag)
+      new ScalaScenarioScopedDocStringTypeDefinition(details)
     } else {
-      new ScalaGlobalDocStringTypeDefinition(details)(details.tag)
+      new ScalaGlobalDocStringTypeDefinition(details)
     }
   }
 
@@ -42,11 +38,9 @@ object ScalaDocStringTypeDefinition {
 
 class ScalaScenarioScopedDocStringTypeDefinition[T](
     override val details: ScalaDocStringTypeDetails[T]
-)(implicit val ev: ClassTag[T])
-    extends ScalaDocStringTypeDefinition[T]
+) extends ScalaDocStringTypeDefinition[T]
     with ScenarioScoped {}
 
 class ScalaGlobalDocStringTypeDefinition[T](
     override val details: ScalaDocStringTypeDetails[T]
-)(implicit val ev: ClassTag[T])
-    extends ScalaDocStringTypeDefinition[T] {}
+) extends ScalaDocStringTypeDefinition[T] {}
