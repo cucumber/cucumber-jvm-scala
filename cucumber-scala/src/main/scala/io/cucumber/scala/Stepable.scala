@@ -219,7 +219,7 @@ object Stepable {
 
 }
 
-class ScalaParameterizedType(self: JavaType, args: Array[JavaType])
+class ScalaParameterizedType(val self: JavaType, val args: Array[JavaType])
     extends JavaParameterizedType {
 
   override def getActualTypeArguments: Array[JavaType] = args
@@ -227,5 +227,14 @@ class ScalaParameterizedType(self: JavaType, args: Array[JavaType])
   override def getRawType: JavaType = self
 
   override def getOwnerType: JavaType = null
+
+  override def getTypeName: String =
+    self.getTypeName + args.map(_.getTypeName).mkString("[", ",", "]")
+
+  override def equals(obj: Any): Boolean = obj match {
+    case x: ScalaParameterizedType =>
+      x.self == self && (x.args sameElements args)
+    case _ => false
+  }
 
 }
