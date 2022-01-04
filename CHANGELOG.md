@@ -11,18 +11,24 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
-- [Scala] Support generic types in `DocStringType`
-
 ### Changed
-
-- [Core] Updated `cucumber-core` dependency to [7.2.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Scala] Upgrade `jackson-module-scala` to 2.13.1
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.2.0] (2022-01-04)
+
+### Added
+
+- [Scala] Support generic types in `DocStringType`
+
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [7.2.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Upgrade `jackson-module-scala` to 2.13.1
 
 ## [8.1.0] (2021-11-29)
 
@@ -354,7 +360,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.1.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.0...main
+[8.2.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.1.0...v8.2.0
 [8.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.0.0...v8.1.0
 [8.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v7.1.0...v8.0.0
 [7.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v7.0.0...v7.1.0
