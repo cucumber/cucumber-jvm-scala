@@ -34,7 +34,7 @@ update-changelog:
 .PHONY: .commit-and-push-changelog
 
 .configure-cukebot-in-docker:
-	[ -f '/home/cukebot/configure' ] && /home/cukebot/configure
+	[ -f '/root/configure' ] && /root/configure
 .PHONY: .configure-cukebot-in-docker
 
 .release-in-docker: .configure-cukebot-in-docker default update-changelog update-installdoc .commit-and-push-changelog-and-docs
@@ -49,15 +49,14 @@ release:
 	docker pull cucumber/cucumber-build:latest
 	docker run \
 	  --volume "${shell pwd}":/app \
- 	  --volume "${shell pwd}/../secrets/configure":/home/cukebot/configure \
-	  --volume "${shell pwd}/../secrets/codesigning.key":/home/cukebot/codesigning.key \
-	  --volume "${shell pwd}/../secrets/gpg-with-passphrase":/home/cukebot/gpg-with-passphrase \
-	  --volume "${shell pwd}/../secrets/.ssh":/home/cukebot/.ssh \
-	  --volume "${HOME}/.ivy2":/home/cukebot/.ivy2 \
-	  --volume "${HOME}/.cache/coursier":/home/cukebot/.cache/coursier \
-	  --volume "${HOME}/.cache/sbt":/home/cukebot/.cache/sbt \
+ 	  --volume "${shell pwd}/../secrets/configure":/root/configure \
+	  --volume "${shell pwd}/../secrets/codesigning.key":/root/codesigning.key \
+	  --volume "${shell pwd}/../secrets/gpg-with-passphrase":/root/gpg-with-passphrase \
+	  --volume "${shell pwd}/../secrets/.ssh":/root/.ssh \
+	  --volume "${HOME}/.ivy2":/root/.ivy2 \
+	  --volume "${HOME}/.cache/coursier":/root/.cache/coursier \
+	  --volume "${HOME}/.cache/sbt":/root/.cache/sbt \
 	  --env-file "${shell pwd}/../secrets/secrets.list" \
-	  --user 1000 \
 	  --rm \
 	  -it cucumber/cucumber-build:latest \
 	  make .release-in-docker
