@@ -1,0 +1,9 @@
+_extends: .github
+
+repository:
+  name: cucumber-jvm-scala
+  description: Cucumber Scala
+
+collaborators:
+  - username: gaeljw
+    permission: maintain
