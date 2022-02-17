@@ -41,26 +41,18 @@ Check if branch name and version are as expected. To change version, update the 
 version in ThisBuild := "6.8.3-SNAPSHOT"
 ```
 
-## Secrets ##
-
-Secrets are required to make releases. Members of the core team can install
-keybase and join the `cucumberbdd` team to access these secrets.
-
-During the release process, secrets are fetched from keybase and used to sign
-and upload the maven artifacts.
-
 ## Make the release ##
 
-Check if branch name and version are as expected:
+Releases are automated via a [GitHub Actions workflow](./.github/workflows/release-mvn.yml). Only people with permission to push to `release/*` branches can make releases.
 
-```
-make version
-```
-
-Do the release:
-
-```
-make release
-``` 
-
-All done! Hurray!
+1. Push to a new `release/*` branch to trigger the `release-*` workflows
+   ```
+   export $next_release=<version> # <- insert version number here
+   git push origin main:release/v$next_release
+   ```
+1. Wait until the `release-*` workflows in GitHub Actions have passed
+1. In `pom.xml`, bump the **patch** version and append `-SNASHOT` (e.g. `1.2.4-SNAPSHOT`) and commit/push
+1. Announce the release
+   * in the `#newsletter` Slack channel
+   * on the `@cucumberbdd` Twitter account
+   * write a blog post
