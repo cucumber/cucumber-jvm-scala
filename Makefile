@@ -20,7 +20,7 @@ update-changelog:
 	mv CHANGELOG.md.tmp CHANGELOG.md
 .PHONY: update-changelog
 
-prepare-release: update-changelog update-installdoc .commit-and-push-changelog-and-docs
+prepare-release: update-changelog update-installdoc
 	git commit -am "Update CHANGELOG and docs for v$(VERSION)"
 	git push
 .PHONY: prepare-release
