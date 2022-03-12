@@ -5,3 +5,5 @@
 release.properties
 pom.xml.releaseBackup
 pom.xml.versionsBackup
+.metals/
+.vscode/

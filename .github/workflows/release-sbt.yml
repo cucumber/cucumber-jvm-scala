@@ -1,0 +1,34 @@
+name: Release scala package
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  pre-release-check:
+    uses: cucumber/.github/.github/workflows/prerelease-checks.yml@main
+
+  build:
+    uses: ./.github/workflows/build.yml
+
+  publish-mvn:
+    name: Publish Maven Package
+    needs: [pre-release-check, build]
+    runs-on: ubuntu-latest
+    environment: Release
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "11"
+      - uses: cucumber/action-publish-sbt@v1.0.0
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          nexus-username: cukebot
+          nexus-password: ${{ secrets.SONATYPE_PASSWORD }}
+          working-directory: .
