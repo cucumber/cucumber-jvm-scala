@@ -11,16 +11,16 @@ clean:
 .PHONY: clean
 
 update-installdoc:
-	cat docs/install.md | ./scripts/update-install-doc.sh $(NEW_VERSION) > docs/install.md.tmp
+	cat docs/install.md | ./scripts/update-install-doc.sh $(VERSION) > docs/install.md.tmp
 	mv docs/install.md.tmp docs/install.md
 .PHONY: update-installdoc
 
 update-changelog:
-	cat CHANGELOG.md | ./scripts/update-changelog.sh $(NEW_VERSION) > CHANGELOG.md.tmp
+	cat CHANGELOG.md | ./scripts/update-changelog.sh $(VERSION) > CHANGELOG.md.tmp
 	mv CHANGELOG.md.tmp CHANGELOG.md
 .PHONY: update-changelog
 
 prepare-release: update-changelog update-installdoc .commit-and-push-changelog-and-docs
-	git commit -am "Update CHANGELOG and docs for v$(NEW_VERSION)"
+	git commit -am "Update CHANGELOG and docs for v$(VERSION)"
 	git push
 .PHONY: prepare-release
