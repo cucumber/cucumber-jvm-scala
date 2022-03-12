@@ -9,7 +9,7 @@ See [Cucumber release process](https://github.com/cucumber/.github/blob/main/REL
 
 1. Decide what the next version should be according to semver
    ```bash
-   export $next_release=<version> # <- insert version number here
+   export next_release=<version> # <- insert version number here
    ```
 1. Update the `version.sbt` file with version to release:
     ```bash
