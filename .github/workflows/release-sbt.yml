@@ -12,8 +12,8 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
 
-  publish-mvn:
-    name: Publish Maven Package
+  publish-sbt:
+    name: Publish scala package
     needs: [pre-release-check, build]
     runs-on: ubuntu-latest
     environment: Release
@@ -25,6 +25,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "11"
+
       - uses: cucumber/action-publish-sbt@v1.0.0
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -32,3 +33,16 @@ jobs:
           nexus-username: cukebot
           nexus-password: ${{ secrets.SONATYPE_PASSWORD }}
           working-directory: .
+
+  create-github-release:
+      name: Create GitHub Release and Git tag
+      runs-on: ubuntu-latest
+      needs: [publish-sbt]
+      environment: Release
+      permissions:
+        contents: write
+      steps:
+        - uses: actions/checkout@v2
+        - uses: cucumber/action-create-github-release@v1.1.0
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
