@@ -21,13 +21,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ## [8.2.7] (2022-03-12)
 
-## [8.2.6] (2022-03-12)
-
-## [8.2.5] (2022-03-12)
-
-## [8.2.4] (2022-03-12)
-
-## [8.2.3] (2022-03-12)
+_This release contains no change, it was built to test a new release workflow._
 
 ## [8.2.2] (2022-01-14)
 
@@ -383,11 +377,7 @@ _Although there is no visible change from a user perspective, there are signific
 
 <!-- Releases -->
 [Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.7...main
-[8.2.7]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.6...v8.2.7
-[8.2.6]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.5...v8.2.6
-[8.2.5]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.4...v8.2.5
-[8.2.4]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.3...v8.2.4
-[8.2.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.2...v8.2.3
+[8.2.7]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.2...v8.2.7
 [8.2.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.1...v8.2.2
 [8.2.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.0...v8.2.1
 [8.2.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.1.0...v8.2.0
