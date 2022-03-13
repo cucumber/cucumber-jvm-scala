@@ -7,3 +7,5 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 .metals/
 .vscode/
+.bloop/
+metals.sbt
