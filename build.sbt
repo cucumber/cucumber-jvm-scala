@@ -144,9 +144,6 @@ ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 Global / publishMavenStyle := true
 Global / publishTo := sonatypePublishToBundle.value
 
-// https://github.com/sbt/sbt-pgp/issues/173
-Global / PgpKeys.gpgCommand := (baseDirectory.value / "gpg.sh").getAbsolutePath
-
 // https://github.com/xerial/sbt-sonatype#using-with-sbt-release-plugin
 releaseCrossBuild := true
 releaseProcess := Seq[ReleaseStep](
