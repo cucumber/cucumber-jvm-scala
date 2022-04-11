@@ -13,17 +13,21 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Scala] Upgrade `scala-collection-compat` to 2.7.0
-- [Build] Upgrade `mockito-scala` to 1.17.5
-- [Build] Upgrade workflows `setup-java` to v3
-- [Build] Upgrade `sbt-sonatype` to 3.9.11
-- [Build] Remove custom gpg command used in releases
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.2.8] (2022-04-11)
+
+### Changed
+
+- [Scala] Upgrade `scala-collection-compat` to 2.7.0
+- [Build] Upgrade `mockito-scala` to 1.17.5
+- [Build] Upgrade workflows `setup-java` to v3
+- [Build] Upgrade `sbt-sonatype` to 3.9.11
+- [Build] Remove custom gpg command used in releases
 
 ## [8.2.7] (2022-03-12)
 
@@ -382,7 +386,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.7...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.8...main
+[8.2.8]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.7...v8.2.8
 [8.2.7]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.2...v8.2.7
 [8.2.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.1...v8.2.2
 [8.2.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.2.0...v8.2.1
