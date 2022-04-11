@@ -13,9 +13,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Scala] Upgrade `scala-collection-compat` to 2.7.0
 - [Build] Upgrade `mockito-scala` to 1.17.5
 - [Build] Upgrade workflows `setup-java` to v3
 - [Build] Upgrade `sbt-sonatype` to 3.9.11
+- [Build] Remove custom gpg command used in releases
 
 ### Deprecated
 
