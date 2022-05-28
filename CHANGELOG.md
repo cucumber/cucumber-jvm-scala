@@ -13,14 +13,20 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [8.4.0] (2022-05-28)
+
+### Changed
+
 - [Build] Upgrade `sbt` to 1.6.2
 - [Build] Upgrade `mockito-scala` to 1.17.7
 - [Build] Upgrade `sbt-sonatype` to 3.9.13
 - [Build] Upgrade `jackson-module-scala` to 2.13.3
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
@@ -417,7 +423,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.3.3...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.4.0...main
+[8.4.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.3.3...v8.4.0
 [8.3.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.3.2...v8.3.3
 [8.3.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.3.1...v8.3.2
 [8.3.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.3.0...v8.3.1
