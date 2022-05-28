@@ -1,15 +1,32 @@
 package io.cucumber.scala
 
+import io.cucumber.core.backend._
+import io.cucumber.core.resource.{ClasspathScanner, ClasspathSupport}
+import io.cucumber.scala.ScalaBackend.isRegularClass
+
 import java.lang.reflect.Modifier
 import java.net.URI
 import java.util.function.Supplier
 import java.util.{List => JList}
-
-import io.cucumber.core.backend._
-import io.cucumber.core.resource.{ClasspathScanner, ClasspathSupport}
-
 import scala.jdk.CollectionConverters._
-import scala.util.Try
+import scala.util.{Failure, Try}
+
+object ScalaBackend {
+
+  /** @return true if it's a class, false if it's an object
+    */
+  private[scala] def isRegularClass(cls: Class[_]): Try[Boolean] = {
+    Try {
+      // Object don't have constructors
+      cls.getConstructors.headOption
+        .map(_.getModifiers)
+        .exists(Modifier.isPublic)
+    }.recoverWith { case ex: Throwable =>
+      Failure(new UnknownClassType(cls, ex))
+    }
+  }
+
+}
 
 class ScalaBackend(
     lookup: Lookup,
@@ -33,8 +50,15 @@ class ScalaBackend(
   override def buildWorld(): Unit = {
     // Instantiate all the glue classes and load the glue code from them
     scalaGlueClasses.foreach { glueClass =>
-      val glueInstance = lookup.getInstance(glueClass)
-      glueAdaptor.loadRegistry(glueInstance.registry, scenarioScoped = true)
+      val glueInstance = Option(lookup.getInstance(glueClass))
+      glueInstance match {
+        case Some(glue) =>
+          glueAdaptor.loadRegistry(glue.registry, scenarioScoped = true)
+        case None =>
+          throw new CucumberBackendException(
+            s"Not able to instantiate class ${glueClass.getName}. Please report this issue to cucumber-scala project."
+          )
+      }
     }
   }
 
@@ -54,7 +78,9 @@ class ScalaBackend(
       )
       .filter(glueClass => !glueClass.isInterface)
 
-    val (clsClasses, objClasses) = dslClasses.partition(isRegularClass)
+    // Voluntarily throw exception if not able to identify if it's a class
+    val (clsClasses, objClasses) =
+      dslClasses.partition(c => isRegularClass(c).get)
 
     // Retrieve Scala objects (singletons)
     val objInstances = objClasses.map { cls =>
@@ -76,10 +102,6 @@ class ScalaBackend(
     }
 
     ()
-  }
-
-  private def isRegularClass(cls: Class[_]): Boolean = {
-    Try(Modifier.isPublic(cls.getConstructor().getModifiers)).getOrElse(false)
   }
 
 }

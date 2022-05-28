@@ -2,8 +2,10 @@ package io.cucumber.scala
 
 import io.cucumber.core.backend._
 import io.cucumber.scala.steps.classes.{StepsA, StepsB, StepsC}
+import io.cucumber.scala.steps.dependencyinjection.{Injected, Injector}
 import io.cucumber.scala.steps.errors.incorrectclasshooks.IncorrectClassHooksDefinition
 import io.cucumber.scala.steps.errors.staticclasshooks.StaticClassHooksDefinition
+import io.cucumber.scala.steps.objects.StepsInObject
 import io.cucumber.scala.steps.traits.StepsInTrait
 import org.junit.Assert.{assertEquals, assertTrue, fail}
 import org.junit.{Before, Test}
@@ -43,6 +45,9 @@ class ScalaBackendTest {
       .thenReturn(new IncorrectClassHooksDefinition())
     when(fakeLookup.getInstance(classOf[StaticClassHooksDefinition]))
       .thenReturn(new StaticClassHooksDefinition())
+    when(fakeLookup.getInstance(classOf[Injected])).thenReturn(new Injected)
+    when(fakeLookup.getInstance(classOf[Injector]))
+      .thenReturn(new Injector(new Injected))
 
     // Create the instances
     backend = new ScalaBackend(fakeLookup, fakeContainer, classLoaderSupplier)
@@ -315,6 +320,68 @@ class ScalaBackendTest {
       case Success(_) =>
         fail("Expected ScenarioScopedStaticHookException")
     }
+  }
+
+  @Test
+  def loadGlueAndBuildWorld_DI(): Unit = {
+    // Load glue
+    backend.loadGlue(
+      fakeGlue,
+      List(
+        URI.create("classpath:io/cucumber/scala/steps/dependencyinjection")
+      ).asJava
+    )
+
+    assertEquals(2, backend.scalaGlueClasses.size)
+    assertTrue(
+      backend.scalaGlueClasses.toSet == Set(
+        classOf[Injected],
+        classOf[Injector]
+      )
+    )
+
+    verify(fakeContainer, times(2)).addClass(any())
+    verify(fakeContainer, times(1)).addClass(classOf[Injected])
+    verify(fakeContainer, times(1)).addClass(classOf[Injector])
+
+    // Build world
+    backend.buildWorld()
+
+    verify(fakeLookup, times(2)).getInstance(any())
+    verify(fakeLookup, times(1)).getInstance(classOf[Injected])
+    verify(fakeLookup, times(1)).getInstance(classOf[Injector])
+
+    // Building the world a second time should create new instances
+    backend.disposeWorld()
+    backend.buildWorld()
+
+    verify(fakeLookup, times(4)).getInstance(any())
+    verify(fakeLookup, times(2)).getInstance(classOf[Injected])
+    verify(fakeLookup, times(2)).getInstance(classOf[Injector])
+
+  }
+
+  @Test
+  def isRegularClass_class(): Unit = {
+    assertEquals(true, ScalaBackend.isRegularClass(classOf[StepsA]).get)
+  }
+
+  @Test
+  def isRegularClass_class_with_trait(): Unit = {
+    assertEquals(true, ScalaBackend.isRegularClass(classOf[StepsInTrait]).get)
+  }
+
+  @Test
+  def isRegularClass_class_with_args(): Unit = {
+    assertEquals(true, ScalaBackend.isRegularClass(classOf[Injector]).get)
+  }
+
+  @Test
+  def isRegularClass_object(): Unit = {
+    assertEquals(
+      false,
+      ScalaBackend.isRegularClass(StepsInObject.getClass).get
+    )
   }
 
 }
