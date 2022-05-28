@@ -66,6 +66,7 @@ lazy val root = (project in file("."))
     cucumberScala.projectRefs ++
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson.projectRefs ++
+      integrationTestsPicoContainer.projectRefs ++
       examples.projectRefs: _*
   )
 
@@ -145,6 +146,21 @@ lazy val integrationTestsJackson =
         "junit" % "junit" % junitVersion % Test,
         "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Test
+      ),
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+lazy val integrationTestsPicoContainer =
+  (projectMatrix in file("integration-tests/picocontainer"))
+    .settings(commonSettings)
+    .settings(
+      name := "integration-tests-picocontainer",
+      libraryDependencies ++= Seq(
+        "junit" % "junit" % junitVersion % Test,
+        "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
+        "io.cucumber" % "cucumber-picocontainer" % cucumberVersion % Test
       ),
       publishArtifact := false
     )
