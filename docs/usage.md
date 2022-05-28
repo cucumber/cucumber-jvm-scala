@@ -50,6 +50,37 @@ You can also define glue code in **objects**.
 Be aware that by definition objects are singleton and if your glue code is stateful you will probably have "state conflicts"
 between your scenarios if you use shared variables from objects.
 
+### Using dependency-injection
+
+Starting with cucumber-scala 8.4, it is possible to use DI modules in order to share state between steps.
+
+You can for instance have the following definition:
+```scala
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class A extends ScalaDsl with EN {
+
+  var input: String = _
+
+  Given("""a step defined in class A with arg {string}""") { (arg: String) =>
+    input = arg
+  }
+
+}
+
+class B(a: A) extends ScalaDsl with EN {
+
+  When("""a step defined in class B uses A""") { () =>
+    // Do something with a.input
+    println(a.input)
+  }
+
+}
+```
+
+To make it work, you only need a Cucumber DI module to be added as a dependency of your project
+(like `cucumber-picocontainer`, or `cucumber-guice`, or any other provided by Cucumber).
+
 ## Running Cucumber tests
 
 See also the Running Cucumber for Java [documentation](https://docs.cucumber.io/docs/cucumber/api/#running-cucumber).
