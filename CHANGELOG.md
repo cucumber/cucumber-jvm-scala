@@ -14,6 +14,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Build] Upgrade `mockito-scala` to 1.17.7
+- [Build] Upgrade `sbt-sonatype` to 3.9.13
 
 ### Deprecated
 
