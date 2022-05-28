@@ -12,25 +12,25 @@ To use this optional transformer, you need to have Jackson Scala in your depende
 <dependency>
     <groupId>com.fasterxml.jackson.module</groupId>
     <artifactId>jackson-module-scala_2.13</artifactId>
-    <version>@JACKSON_VERSION@</version>
+    <version>2.13.3</version>
     <scope>test</scope>
 </dependency>
 ```
 
 Or:
 ```sbt
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "@JACKSON_VERSION@" % Test
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.13.3" % Test
 ```
 
 
-The current version of Cucumber Scala has been tested against Jackson Module Scala **version @JACKSON_VERSION@**.
+The current version of Cucumber Scala has been tested against Jackson Module Scala **version 2.13.3**.
 
 ## Add the transformer
 
 The transformer has to be added to your glue code by extending the `JacksonDefaultDataTableEntryTransformer` trait.
 
 For instance:
-```scala mdoc:compile-only
+```scala
 import io.cucumber.scala.{EN, ScalaDsl, JacksonDefaultDataTableEntryTransformer}
 
 class MySteps extends ScalaDsl with EN with JacksonDefaultDataTableEntryTransformer {
@@ -45,7 +45,7 @@ Note that it should be included only once in your glue code. If you use multiple
 The default empty string replacement used by the default transformer is `[empty]`.
 
 You can override it if you need to:
-```scala mdoc:compile-only
+```scala
 import io.cucumber.scala.{EN, ScalaDsl, JacksonDefaultDataTableEntryTransformer}
 
 class MySteps extends ScalaDsl with EN with JacksonDefaultDataTableEntryTransformer {
@@ -69,7 +69,7 @@ Given I have the following datatable
 ```
 
 will be automatically converted to the following case class:
-```scala mdoc:compile-only
+```scala
 import io.cucumber.scala.{EN, ScalaDsl, JacksonDefaultDataTableEntryTransformer}
 
 case class MyCaseClass(field1: Double, field2: Boolean, field3: String)

@@ -22,7 +22,7 @@ Given the following table as Map of Map
 | row3 | val31 | val32 | val33 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import java.util.{Map => JavaMap}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
@@ -61,7 +61,7 @@ Given the following table as List of Map
 | val31 | val32 | val33 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import java.util.{List => JavaList, Map => JavaMap}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
@@ -99,7 +99,7 @@ Given the following table as Map of List
 | row3 | val31 | val32 | val33 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import java.util.{List => JavaList, Map => JavaMap}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
@@ -138,7 +138,7 @@ Given the following table as List of List
 | val31 | val32 | val33 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import java.util.{List => JavaList}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
@@ -176,7 +176,7 @@ Given the following table as Map
 | row3 | val31 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import java.util.{Map => JavaMap}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
@@ -214,7 +214,7 @@ Given the following table as List
 | val31 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import java.util.{List => JavaList}
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
@@ -254,7 +254,7 @@ Given the following table as DataTable
 | val31 | val32 | val33 |
 ```
 
-```scala mdoc:compile-only
+```scala
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.{EN, ScalaDsl}
 

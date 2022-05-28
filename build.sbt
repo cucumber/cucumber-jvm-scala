@@ -67,7 +67,8 @@ lazy val root = (project in file("."))
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
-      examples.projectRefs: _*
+      examples.projectRefs ++
+      docs.projectRefs: _*
   )
 
 // Main project
@@ -180,6 +181,24 @@ lazy val examples = (projectMatrix in file("examples"))
   )
   .dependsOn(cucumberScala % Test)
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+// Documentation project
+lazy val docs = (projectMatrix in file("cucumber-scala-docs"))
+  .settings(
+    name := "cucumber-scala-docs",
+    publishArtifact := false,
+    libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
+    // Mdoc
+    mdocIn := file("docs"),
+    mdocOut := file("generated-docs"),
+    mdocVariables := Map(
+      "VERSION" -> version.value,
+      "JACKSON_VERSION" -> jacksonVersion
+    )
+  )
+  .dependsOn(cucumberScala)
+  .jvmPlatform(scalaVersions = Seq(scala213))
+  .enablePlugins(MdocPlugin)
 
 // Version policy check
 

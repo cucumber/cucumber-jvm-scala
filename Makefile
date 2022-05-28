@@ -11,6 +11,7 @@ clean:
 .PHONY: clean
 
 update-installdoc:
+    # TODO sbt!
 	cat docs/install.md | ./scripts/update-install-doc.sh $(VERSION) > docs/install.md.tmp
 	mv docs/install.md.tmp docs/install.md
 .PHONY: update-installdoc
