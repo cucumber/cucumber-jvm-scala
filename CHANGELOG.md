@@ -19,6 +19,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
+- [Scala] Integration with DI modules like `cucumber-picocontainer` is now working
+
 ## [8.3.3] (2022-05-04)
 
 ### Changed
