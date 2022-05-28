@@ -13,6 +13,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] Upgrade `sbt` to 1.6.2
+- [Build] Upgrade `mockito-scala` to 1.17.7
+- [Build] Upgrade `sbt-sonatype` to 3.9.13
+- [Build] Upgrade `jackson-module-scala` to 2.13.3
+
 ### Deprecated
 
 ### Removed
