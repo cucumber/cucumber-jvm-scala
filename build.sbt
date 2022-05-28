@@ -64,6 +64,8 @@ lazy val root = (project in file("."))
   )
   .aggregate(
     cucumberScala.projectRefs ++
+      integrationTestsCommon.projectRefs ++
+      integrationTestsJackson.projectRefs ++
       examples.projectRefs: _*
   )
 
@@ -75,9 +77,8 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
-      ("com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided),
+      "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
       "junit" % "junit" % junitVersion % Test,
-      "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
         .cross(CrossVersion.for3Use2_13)
     ),
@@ -120,6 +121,36 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
   )
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
+// Integration tests
+lazy val integrationTestsCommon =
+  (projectMatrix in file("integration-tests/common"))
+    .settings(commonSettings)
+    .settings(
+      name := "integration-tests-common",
+      libraryDependencies ++= Seq(
+        "junit" % "junit" % junitVersion % Test,
+        "io.cucumber" % "cucumber-junit" % cucumberVersion % Test
+      ),
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+lazy val integrationTestsJackson =
+  (projectMatrix in file("integration-tests/jackson"))
+    .settings(commonSettings)
+    .settings(
+      name := "integration-tests-jackson",
+      libraryDependencies ++= Seq(
+        "junit" % "junit" % junitVersion % Test,
+        "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
+        "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Test
+      ),
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
 // Examples project
 lazy val examples = (projectMatrix in file("examples"))
   .settings(commonSettings)
@@ -156,7 +187,7 @@ releaseProcess := Seq[ReleaseStep](
   //commitReleaseVersion,
   //tagRelease,
   releaseStepCommandAndRemaining("publishSigned"),
-  releaseStepCommand("sonatypeBundleRelease"),
+  releaseStepCommand("sonatypeBundleRelease")
   // the 3 following steps are part of the Cucumber release process
   //setNextVersion,
   //commitNextVersion,
