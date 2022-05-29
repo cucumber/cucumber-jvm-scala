@@ -32,7 +32,8 @@ ThisBuild / homepage := Some(
 
 val scala212 = "2.12.15"
 val scala213 = "2.13.6"
-val scala3 = "3.0.2"
+val scala3CompileVersion = "3.1.2"
+val scala3OutputVersion = "3.0.2"
 
 scalaVersion := scala213
 
@@ -51,8 +52,14 @@ lazy val commonSettings = Seq(
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
-      case Some((3, 0))  => ScalacOptions.scalacOptions3
+      case Some((3, _))  => ScalacOptions.scalacOptions3
       case _             => Seq()
+    }
+  },
+  scalaOutputVersion := {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) => scala3OutputVersion
+      case _            => scalaVersion.value
     }
   }
 )
@@ -120,7 +127,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       Seq(file)
     }.taskValue
   )
-  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+  .jvmPlatform(scalaVersions = Seq(scala3CompileVersion, scala213, scala212))
 
 // Integration tests
 lazy val integrationTestsCommon =
@@ -135,7 +142,7 @@ lazy val integrationTestsCommon =
       publishArtifact := false
     )
     .dependsOn(cucumberScala % Test)
-    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+    .jvmPlatform(scalaVersions = Seq(scala3CompileVersion, scala213, scala212))
 
 lazy val integrationTestsJackson =
   (projectMatrix in file("integration-tests/jackson"))
@@ -150,7 +157,7 @@ lazy val integrationTestsJackson =
       publishArtifact := false
     )
     .dependsOn(cucumberScala % Test)
-    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+    .jvmPlatform(scalaVersions = Seq(scala3CompileVersion, scala213, scala212))
 
 lazy val integrationTestsPicoContainer =
   (projectMatrix in file("integration-tests/picocontainer"))
@@ -165,7 +172,7 @@ lazy val integrationTestsPicoContainer =
       publishArtifact := false
     )
     .dependsOn(cucumberScala % Test)
-    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+    .jvmPlatform(scalaVersions = Seq(scala3CompileVersion, scala213, scala212))
 
 // Examples project
 lazy val examples = (projectMatrix in file("examples"))
@@ -179,7 +186,7 @@ lazy val examples = (projectMatrix in file("examples"))
     publishArtifact := false
   )
   .dependsOn(cucumberScala % Test)
-  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+  .jvmPlatform(scalaVersions = Seq(scala3CompileVersion, scala213, scala212))
 
 // Version policy check
 
