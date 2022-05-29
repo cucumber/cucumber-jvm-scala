@@ -8,8 +8,12 @@ $ sbt clean compile test
 
 ## Project structure
 
-The project contains two functional subprojects:
+The project contains several subprojects:
 - `cucumber-scala`: contains the codebase of the Cucumber Scala implementation
+- `integration-tests`: contains integration tests projects
+  - `common`: general integration tests
+  - `jackson`: Jackson integration specific tests
+  - `picocontainer`: Picocontainer integration specific tests
 - `examples`: contains a sample project
 
 Each of these subproject is also derived for each target Scala version. See below.
