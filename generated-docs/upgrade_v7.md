@@ -15,22 +15,34 @@ This release brings Scala 3 support.
 
 If you use Scala 3, you might need to change slightly some of your glue code:
 - parenthesis are now necessary even around a single-argument step or hook definition
-```scala
-// Won't compile anymore
-Given("Something {}") { str: String =>
-    // ...
-}
+```scala mdoc:compile-only
+import io.cucumber.scala.{EN, ScalaDsl}
 
-// Instead use:
-Given("Something {}") { (str: String) =>
-  // ...
+class Steps extends ScalaDsl with EN {
+
+    // Won't compile anymore
+    Given("Something {}") { str: String =>
+        // ...
+    }
+    
+    // Instead use:
+    Given("Something {}") { (str: String) =>
+      // ...
+    }
+
 }
 ```
 - hooks must explicitly return `Unit` (most of the time you already had compile errors with such statements in Scala 2.x as well)
-```scala
-Before {
-  // ... // Some code not retuning Unit
-  () // Explicit Unit
+```scala mdoc:compile-only
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before {
+      // ... // Some code not retuning Unit
+      () // Explicit Unit
+    }
+
 }
 ```
 

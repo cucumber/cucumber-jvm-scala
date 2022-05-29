@@ -31,32 +31,56 @@ This is more consistent with the Java implementation.
 
 For instance, the following code:
 
-```scala
-Before(1, "@tag1", "@tag2") { _ =>
-  // Do Something    
+```scala mdoc:fail
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before(1, "@tag1", "@tag2") { _ =>
+      // Do Something    
+    }
+
 }
 ```
 
 Is replaced by:
 
-```scala
-Before("@tag1 or @tag2", 1) { _ =>
-  // Do Something    
+```scala mdoc:compile-only
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before("@tag1 or @tag2", 1) { _ =>
+      // Do Something    
+    }
+
 }
 ```
 
 ### Other changes
 
 As a side effect the following usage no longer compiles:
-```scala
-Before() { _ =>
-  // Do something
+```scala mdoc:fail
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before() { _ =>
+      // Do something
+    }
+
 }
 ```
 It can be replaced with:
-```scala
-Before { _ =>
-  // Do something
+```scala mdoc:compile-only
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before { _ =>
+      // Do something
+    }
+
 }
 ```
 

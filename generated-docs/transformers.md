@@ -25,12 +25,22 @@ As well as default transformers for:
 It is defined by a name (used in the steps definitions) and a regex.
 Each group of the regex will map to a parameter of the transformation function.
 
-For instance, the following transformer can be defined:
+For instance, the following transformer and step can be defined:
 ```scala
+import io.cucumber.scala.{EN, ScalaDsl}
+
 case class Point(x: Int, y: Int)
 
-ParameterType("coordinates", "(.+),(.+)") { (x, y) =>
-  Point(x.toInt, y.toInt)
+class Steps extends ScalaDsl with EN {
+
+  ParameterType("coordinates", "(.+),(.+)") { (x, y) =>
+    Point(x.toInt, y.toInt)
+  }
+  
+  Given("balloon coordinates {coordinates} in the game") { (coordinates: Point) =>
+    // Do something with the coordinates
+  }
+
 }
 ```
 
@@ -39,24 +49,28 @@ And used like this:
 Given balloon coordinates 123,456 in the game
 ```
 
-```scala
-Given("balloon coordinates {coordinates} in the game") { (coordinates: Point) =>
-  // Do something with the coordinates
-}
-```
-
 **Limitation:** there is a current limitation to 22 parameters in the `ParameterType` definition.
 
 ## DocString to any
 
 `DocStringType` allows to transform DocString values (multiline string) to a custom type.
 
-For instance, the following transformer can be defined:
+For instance, the following transformer and step can be defined:
 ```scala
+import io.cucumber.scala.{EN, ScalaDsl}
+
 case class JsonText(json: String)
 
-DocStringType("json") { text =>
-  JsonText(text)
+class Steps extends ScalaDsl with EN {
+
+  DocStringType("json") { text =>
+    JsonText(text)
+  }
+  
+  Given("the following json text") { json: JsonText =>
+    // Do something with JsonText
+  }
+
 }
 ```
 
@@ -68,12 +82,6 @@ Given the following json text
 "key": "value"
 }
 """
-```
-
-```scala
-Given("the following json text") { json: JsonText =>
-  // Do something with JsonText
-}
 ```
 
 ## DataTable to any
@@ -95,12 +103,29 @@ See also the [Datatable reference](https://github.com/cucumber/cucumber/tree/mas
 
 ### Lines with named headers
 
-For instance, the following transformer can be defined:
+For instance, the following transformer and step can be defined:
 ```scala
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.{EN, ScalaDsl}
+import io.cucumber.scala.Implicits._
+
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType { entry: Map[String, Option[String]] => // Or Map[String, String]
-  Author(entry("name").getOrElse("NoValue"), entry("surname").getOrElse("NoValue"), entry("famousBook").getOrElse("NoValue"))
+class Steps extends ScalaDsl with EN {
+
+  DataTableType { entry: Map[String, Option[String]] => // Or Map[String, String]
+    Author(entry("name").getOrElse("NoValue"), entry("surname").getOrElse("NoValue"), entry("famousBook").getOrElse("NoValue"))
+  }
+  
+  Given("the following authors") { (table: DataTable) =>
+    val authors = table.asScalaRawList[Author]
+  }
+  
+  // Or using Java type
+  Given("the following authors") { (authors: java.util.List[Author]) =>
+    // Do something
+  }
+
 }
 ```
 
@@ -112,27 +137,31 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-import io.cucumber.scala.Implicits._
-
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asScalaRawList[Author]
-}
-
-// Or using Java type
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
-}
-```
-
 ### Lines without headers
 
-For instance, the following transformer can be defined:
+For instance, the following transformer and step can be defined:
 ```scala
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.{EN, ScalaDsl}
+import io.cucumber.scala.Implicits._
+
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType { row: Seq[Option[String]] => // Or Seq[String]
-  Author(row(0).getOrElse("NoValue"), row(1).getOrElse("NoValue"), row(2).getOrElse("NoValue"))
+class Steps extends ScalaDsl with EN {
+
+  DataTableType { row: Seq[Option[String]] => // Or Seq[String]
+    Author(row(0).getOrElse("NoValue"), row(1).getOrElse("NoValue"), row(2).getOrElse("NoValue"))
+  }
+  
+  Given("the following authors") { (table: DataTable) =>
+    val authors = table.asScalaRawList[Author]
+  }
+  
+  // Or using Java types
+  Given("the following authors") { (authors: java.util.List[Author]) =>
+    // Do something
+  }
+
 }
 ```
 
@@ -143,34 +172,32 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-import io.cucumber.scala.Implicits._
-
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asScalaRawList[Author]
-}
-
-// Or using Java types
-Given("the following authors") { (authors: java.util.List[Author]) =>
-  // Do something
-}
-```
-
 ### DataTable
 
-For instance, the following transformer can be defined:
+For instance, the following transformer and step can be defined:
 ```scala
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.{EN, ScalaDsl}
 import io.cucumber.scala.Implicits._
+import scala.jdk.CollectionConverters._
 
 case class Author(name: String, surname: String, famousBook: String)
 case class GroupOfAuthor(authors: Seq[Author])
 
-DataTableType { table: DataTable =>
-  val authors = table.entries().asScala
-      .map(_.asScala)
-      .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
-      .toSeq
-  GroupOfAuthor(authors)
+class Steps extends ScalaDsl with EN {
+
+  DataTableType { table: DataTable =>
+    val authors = table.entries().asScala
+        .map(_.asScala)
+        .map(entry => Author(entry("name"), entry("surname"), entry("famousBook")))
+        .toSeq
+    GroupOfAuthor(authors)
+  }
+  
+  Given("the following authors") { (table: DataTable) =>
+    val authors = table.convert[GroupOfAuthor](classOf[GroupOfAuthor], false)
+  }
+
 }
 ```
 
@@ -185,20 +212,40 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.convert[GroupOfAuthor](classOf[GroupOfAuthor], false)
-}
-```
-
 ### Cell
 
-For instance, the following transformer can be defined:
+For instance, the following transformer and step can be defined:
 ```scala
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.{EN, ScalaDsl}
+import io.cucumber.scala.Implicits._
+
 case class RichCell(content: String)
 
-DataTableType { cell: Option[String] => // Or String
-  RichCell(cell.getOrElse("NoValue"))
+class Steps extends ScalaDsl with EN {
+
+  DataTableType { cell: Option[String] => // Or String
+    RichCell(cell.getOrElse("NoValue"))
+  }
+
+  Given("the following authors") { (table: DataTable) =>
+    val authors = table.asScalaRawLists[RichCell]
+  }
+  
+  // Or using Java types
+  Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
+    // Do something
+  }
+  
+  Given("the following authors with headers") { (table: DataTable) =>
+    val authors = table.asScalaRawMaps[String, RichCell]
+  }
+  
+  // Or with Java Types
+  Given("the following authors with headers") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
+    // Do something
+  }
+
 }
 ```
 
@@ -209,38 +256,12 @@ Given the following authors
 | Robert | Bob     | Le Petit Prince |
 ```
 
-```scala
-import io.cucumber.scala.Implicits._
-
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asScalaRawLists[RichCell]
-}
-
-// Or using Java types
-Given("the following authors") { (authors: java.util.List[java.util.List[RichCell]]) =>
-  // Do something
-}
-```
-
 Or with headers like this:
 ```gherkin
-Given the following authors
+Given the following authors with headers
 | name   | surname | famousBook      |
 | Alan   | Alou    | The Lion King   |
 | Robert | Bob     | Le Petit Prince |
-```
-
-```scala
-import io.cucumber.scala.Implicits._
-
-Given("the following authors") { (table: DataTable) =>
-  val authors = table.asScalaRawMaps[String, RichCell]
-}
-
-// Or with Java Types
-Given("the following authors") { (authors: java.util.List[java.util.Map[String, RichCell]]) =>
-  // Do something
-}
 ```
 
 ### Empty values
@@ -252,10 +273,16 @@ To do so, you can add a parameter to a `DataTableType` definition.
 
 For instance, with the following definition:
 ```scala
+import io.cucumber.scala.{EN, ScalaDsl}
+
 case class Author(name: String, surname: String, famousBook: String)
 
-DataTableType("[empty]") { (entry: Map[String, String]) => // Or Map[String, Option[String]]
-  Author(entry("name"), entry("surname"), entry("famousBook"))
+class Steps extends ScalaDsl with EN {
+
+  DataTableType("[empty]") { (entry: Map[String, String]) => // Or Map[String, Option[String]]
+    Author(entry("name"), entry("surname"), entry("famousBook"))
+  }
+
 }
 ```
 
@@ -279,17 +306,27 @@ See also [Default Jackson DataTable Transformer](default_jackson_datatable_trans
 
 ### String
 
-For instance, the following definition:
+For instance, the following definition will be used to convert such step definitions:
 ```scala
-DefaultParameterTransformer { (fromValue: String, toValueType: java.lang.Type) =>
-  // Apply logic to convert from String to toValueType
-}
-```
+import io.cucumber.scala.{EN, ScalaDsl}
 
-Will be used to convert with such step definitions:
-```scala
-Given("A step with a undefined {} string") { (param: SomeType) =>
-  // The string between {} will be converted to SomeType
+class SomeType {}
+
+class Steps extends ScalaDsl with EN {
+
+  DefaultParameterTransformer { (fromValue: String, toValueType: java.lang.reflect.Type) =>
+    // Apply logic to convert from String to toValueType
+    if (toValueType == classOf[SomeType]) {
+      new SomeType() // Use fromValue somehow
+    } else {
+      null
+    }
+  }
+  
+  Given("A step with a undefined {} string") { (param: SomeType) =>
+    // The string between {} will be converted to SomeType
+  }
+
 }
 ```
 
@@ -297,24 +334,34 @@ Given("A step with a undefined {} string") { (param: SomeType) =>
 
 #### Lines with named headers
 
-For instance the following definition:
+For instance the following definition will be used to convert such step definitions:
 ```scala
-DefaultDataTableEntryTransformer("[empty]") { (fromValue: Map[String, String], toValueType: java.lang.Type) =>
-  // Apply some logic to convert from Map to toValueType
-}
-```
-
-Will be used to convert with such step definitions:
-```scala
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.{EN, ScalaDsl}
 import io.cucumber.scala.Implicits._
 
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asScalaRawList[SomeType]
-}
+class SomeType {}
 
-// Or with Java types
-Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
-  // Do something
+class Steps extends ScalaDsl with EN {
+
+  DefaultDataTableEntryTransformer("[empty]") { (fromValue: Map[String, String], toValueType: java.lang.reflect.Type) =>
+    // Apply some logic to convert from Map to toValueType
+    if (toValueType == classOf[SomeType]) {
+      new SomeType() // Use fromValue somehow
+    } else {
+      null
+    }
+  }
+  
+  Given("A step with a datatable") { (dataTable: DataTable) =>
+    val table = dataTable.asScalaRawList[SomeType]
+  }
+  
+  // Or with Java types
+  Given("A step with a datatable") { (rows: java.util.List[SomeType]) =>
+    // Do something
+  }
+
 }
 ```
 
@@ -322,23 +369,33 @@ This is what to `DefaultJacksonDataTableTransformer` uses.
 
 #### Cells
 
-For instance the following definition:
+For instance the following definition will be used to convert such step definitions:
 ```scala
-DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: java.lang.Type) =>
-  // Apply some logic to convert from String to toValueType
-}
-```
-
-Will be used to convert with such step definitions:
-```scala
+import io.cucumber.datatable.DataTable
+import io.cucumber.scala.{EN, ScalaDsl}
 import io.cucumber.scala.Implicits._
 
-Given("A step with a datatable") { (dataTable: DataTable) =>
-  val table = dataTable.asScalaRawLists[SomeType]
-}
+class SomeType {}
 
-// Or with Java Types
-Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
-  // Do something
+class Steps extends ScalaDsl with EN {
+
+  DefaultDataTableCellTransformer("[empty]") { (fromValue: String, toValueType: java.lang.reflect.Type) =>
+    // Apply some logic to convert from String to toValueType
+    if (toValueType == classOf[SomeType]) {
+      new SomeType() // Use fromValue somehow
+    } else {
+      null
+    }
+  }
+  
+  Given("A step with a datatable") { (dataTable: DataTable) =>
+    val table = dataTable.asScalaRawLists[SomeType]
+  }
+  
+  // Or with Java Types
+  Given("A step with a datatable") { (rows: java.util.List[java.util.List[SomeType]]) =>
+    // Do something
+  }
+
 }
 ```

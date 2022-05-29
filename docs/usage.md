@@ -5,7 +5,7 @@
 To use Cucumber Scala, all your glue code (steps or hooks) has to be defined in **classes** extending both the `ScalaDsl` trait and a language trait.
 
 For instance, to use the English flavour:
-```scala
+```scala mdoc:compile-only
 import io.cucumber.scala.{EN, ScalaDsl}
 
 class MyGlueClass extends ScalaDsl with EN {
@@ -26,7 +26,7 @@ Cucumber will automatically load all the glue code defined in classes available 
 You can define glue code in **traits** as well and have a **class** extending the traits you need.
 
 For instance, you can do things like this:
-```scala
+```scala mdoc:compile-only
 import io.cucumber.scala.{EN, ScalaDsl}
 
 trait StepsForThis extends ScalaDsl with EN {
@@ -55,7 +55,7 @@ between your scenarios if you use shared variables from objects.
 Starting with cucumber-scala 8.4, it is possible to use DI modules in order to share state between steps.
 
 You can for instance have the following definition:
-```scala
+```scala mdoc:compile-only
 import io.cucumber.scala.{EN, ScalaDsl}
 
 class A extends ScalaDsl with EN {
@@ -88,7 +88,7 @@ See also the Running Cucumber for Java [documentation](https://docs.cucumber.io/
 Add the `cucumber-junit` dependency to your project.
 
 Then create a runner class like this:
-```scala
+```scala mdoc:compile-only
 import io.cucumber.junit.{Cucumber, CucumberOptions}
 import org.junit.runner.RunWith
 

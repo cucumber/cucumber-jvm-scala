@@ -19,9 +19,15 @@ Given I have 42 cucumbers in my belly
 ```
 
 Can be implemented with following Cucumber Expression in Scala:
-```scala
-Given("""I have {int} cucumbers in my belly"""){ (cucumberCount: Int) =>
-  // Do something    
+```scala mdoc:compile-only
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Given("""I have {int} cucumbers in my belly"""){ (cucumberCount: Int) =>
+      // Do something    
+    }
+
 }
 ```
 
@@ -33,8 +39,14 @@ Given I have 42 cucumbers in my belly
 ```
 
 Can be implemented with following Regular Expression in Scala:
-```scala
-Given("""^I have (\d+) cucumbers in my belly$"""){ (cucumberCount: Int) =>
-  // Do something    
+```scala mdoc:compile-only
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Given("""^I have (\d+) cucumbers in my belly$"""){ (cucumberCount: Int) =>
+      // Do something    
+    }
+
 }
 ```

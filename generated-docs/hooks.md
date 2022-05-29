@@ -16,9 +16,15 @@ Static hooks run once before/after all scenarios.
 `BeforeAll` hooks run once before all scenarios.
 
 ```scala
-BeforeAll {
-  // Do something before all scenarios
-  // Must return Unit
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    BeforeAll {
+      // Do something before all scenarios
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -27,9 +33,15 @@ BeforeAll {
 `AfterAll` hooks run once after all scenarios.
 
 ```scala
-AfterAll {
-  // Do something after each scenario
-  // Must return Unit
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    AfterAll {
+      // Do something after each scenario
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -42,15 +54,21 @@ Scenario hooks run for every scenario.
 `Before` hooks run before the first step of each scenario.
 
 ```scala
-Before { scenario : Scenario =>
-  // Do something before each scenario
-  // Must return Unit
-}
+import io.cucumber.scala.{EN, ScalaDsl, Scenario}
 
-// Or:
-Before {
-  // Do something before each scenario
-  // Must return Unit
+class Steps extends ScalaDsl with EN {
+
+    Before { scenario : Scenario =>
+      // Do something before each scenario
+      // Must return Unit
+    }
+    
+    // Or:
+    Before {
+      // Do something before each scenario
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -59,15 +77,21 @@ Before {
 `After` hooks run after the last step of each scenario.
 
 ```scala
-After { scenario : Scenario =>
-  // Do something after each scenario
-  // Must return Unit
-}
+import io.cucumber.scala.{EN, ScalaDsl, Scenario}
 
-// Or:
-After {
-  // Do something after each scenario
-  // Must return Unit
+class Steps extends ScalaDsl with EN {
+
+    After { scenario : Scenario =>
+      // Do something after each scenario
+      // Must return Unit
+    }
+    
+    // Or:
+    After {
+      // Do something after each scenario
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -78,30 +102,42 @@ Step hooks invoked before and after a step.
 ### BeforeStep
 
 ```scala
-BeforeStep { scenario : Scenario =>
-  // Do something before step
-  // Must return Unit
-}
+import io.cucumber.scala.{EN, ScalaDsl, Scenario}
 
-// Or:
-BeforeStep {
-  // Do something before step
-  // Must return Unit
+class Steps extends ScalaDsl with EN {
+
+    BeforeStep { scenario : Scenario =>
+      // Do something before step
+      // Must return Unit
+    }
+    
+    // Or:
+    BeforeStep {
+      // Do something before step
+      // Must return Unit
+    }
+
 }
 ```
 
 ### AfterStep
 
 ```scala
-AfterStep { scenario : Scenario =>
-  // Do something after step
-  // Must return Unit
-}
+import io.cucumber.scala.{EN, ScalaDsl, Scenario}
 
-// Or:
-AfterStep {
-  // Do something after step
-  // Must return Unit
+class Steps extends ScalaDsl with EN {
+
+    AfterStep { scenario : Scenario =>
+      // Do something after step
+      // Must return Unit
+    }
+    
+    // Or:
+    AfterStep {
+      // Do something after step
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -110,9 +146,15 @@ AfterStep {
 Hooks can be conditionally selected for execution based on the tags of the scenario.
 
 ```scala
-Before("@browser and not @headless") { 
-  // Do something before each scenario with tag @browser but not @headless
-  // Must return Unit
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before("@browser and not @headless") { 
+      // Do something before each scenario with tag @browser but not @headless
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -123,14 +165,20 @@ Note: this cannot be applied to static hooks (`BeforeAll`/`AfterAll`).
 You can define an order between multiple hooks.
 
 ```scala
-Before(10) { 
-  // Do something before each scenario
-  // Must return Unit
-}
+import io.cucumber.scala.{EN, ScalaDsl}
 
-Before(20) { 
-  // Do something before each scenario
-  // Must return Unit
+class Steps extends ScalaDsl with EN {
+
+    Before(10) { 
+      // Do something before each scenario
+      // Must return Unit
+    }
+    
+    Before(20) { 
+      // Do something before each scenario
+      // Must return Unit
+    }
+
 }
 ```
 
@@ -140,9 +188,15 @@ The **default order is 1000**.
 
 You mix up conditional and order hooks with following syntax:
 ```scala
-Before("@browser and not @headless", 10) {
-  // Do something before each scenario
-  // Must return Unit
+import io.cucumber.scala.{EN, ScalaDsl}
+
+class Steps extends ScalaDsl with EN {
+
+    Before("@browser and not @headless", 10) {
+      // Do something before each scenario
+      // Must return Unit
+    }
+
 }
 ```
 

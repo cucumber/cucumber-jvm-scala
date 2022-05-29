@@ -17,7 +17,7 @@ You can now map `DataTable`s to Scala collection types using additional `asScala
 
 For instance with `asScalaMaps`:
 
-```scala
+```scala mdoc:compile-only
 import io.cucumber.scala.{ScalaDsl, EN}
 import io.cucumber.scala.Implicits._
 
