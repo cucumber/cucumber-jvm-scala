@@ -30,7 +30,7 @@ jobs:
           distribution: "temurin"
           java-version: "11"
 
-      - uses: cucumber/action-publish-sbt@v1.0.0
+      - uses: cucumber/action-publish-sbt@v1.0.1
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
