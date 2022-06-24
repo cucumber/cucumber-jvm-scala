@@ -198,14 +198,14 @@ releaseProcess := Seq[ReleaseStep](
   inquireVersions,
   runClean,
   runTest,
-  // the 3 following steps are part of the Cucumber release process
-  //setReleaseVersion,
+  setReleaseVersion,
+  // the 2 following steps are part of the Cucumber release process
   //commitReleaseVersion,
   //tagRelease,
   releaseStepCommandAndRemaining("publishSigned"),
-  releaseStepCommand("sonatypeBundleRelease")
-  // the 3 following steps are part of the Cucumber release process
-  //setNextVersion,
+  releaseStepCommand("sonatypeBundleRelease"),
+  setNextVersion
+  // the 2 following steps are part of the Cucumber release process
   //commitNextVersion,
   //pushChanges
 )
