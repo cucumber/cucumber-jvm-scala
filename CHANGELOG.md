@@ -24,6 +24,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Core] Updated `cucumber-core` dependency to [7.4.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+
+### Fixed
+
 - [Build] Fix cross publication to Scala 2.12 and Scala 3 broken since version 8.2.7
 
 ## [8.5.0] (2022-06-23)
