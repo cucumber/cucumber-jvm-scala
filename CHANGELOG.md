@@ -13,11 +13,16 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.5.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Upgrade `scala-collection-compat` to 2.8.0
+
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- [Scala] Process glue classes distinctly ([#2582](https://github.com/cucumber/cucumber-jvm/pull/2582))
 
 ## [8.5.1] (2022-06-24)
 
