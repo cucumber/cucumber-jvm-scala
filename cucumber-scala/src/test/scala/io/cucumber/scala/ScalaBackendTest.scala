@@ -183,6 +183,32 @@ class ScalaBackendTest {
   }
 
   @Test
+  def loadGlueAndBuildWorld_once_by_classpath_url(): Unit = {
+    // Load glue
+    backend.loadGlue(
+      fakeGlue,
+      List(
+        URI.create("classpath:io/cucumber/scala/steps/classes"),
+        URI.create("classpath:io/cucumber/scala/steps/classes")
+      ).asJava
+    )
+
+    assertEquals(3, backend.scalaGlueClasses.size)
+    assertTrue(
+      backend.scalaGlueClasses.toSet == Set(
+        classOf[StepsA],
+        classOf[StepsB],
+        classOf[StepsC]
+      )
+    )
+
+    verify(fakeContainer, times(3)).addClass(any())
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsB])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsC])
+  }
+
+  @Test
   def loadGlueAndBuildWorld_class_incorrect_hooks_definitions(): Unit = {
     val result = Try {
       // Load glue

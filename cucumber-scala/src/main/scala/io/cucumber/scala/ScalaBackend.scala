@@ -77,6 +77,7 @@ class ScalaBackend(
           .asScala
       )
       .filter(glueClass => !glueClass.isInterface)
+      .distinct
 
     // Voluntarily throw exception if not able to identify if it's a class
     val (clsClasses, objClasses) =
