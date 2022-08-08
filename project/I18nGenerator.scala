@@ -25,7 +25,8 @@ object I18nGenerator {
   private def traitCode(language: String): String = {
     val traitName = language.replaceAll("[\\s-]", "_").toUpperCase()
     val keywords = dialectProvider
-      .getDialect(language, null)
+      .getDialect(language)
+      .get()
       .getStepKeywords()
       .asScala
       .filter(kw => !kw.contains('*') && !kw.matches("^\\d.*"))
