@@ -30,9 +30,9 @@ ThisBuild / homepage := Some(
 
 // Scala versions
 
-val scala212 = "2.12.15"
-val scala213 = "2.13.6"
-val scala3 = "3.0.2"
+val scala212 = "2.12.16"
+val scala213 = "2.13.8"
+val scala3 = "3.1.3"
 
 scalaVersion := scala213
 
@@ -51,7 +51,7 @@ lazy val commonSettings = Seq(
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 12)) => ScalacOptions.scalacOptions212
       case Some((2, 13)) => ScalacOptions.scalacOptions213
-      case Some((3, 0))  => ScalacOptions.scalacOptions3
+      case Some((3, _))  => ScalacOptions.scalacOptions3
       case _             => Seq()
     }
   }
