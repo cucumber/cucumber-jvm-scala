@@ -14,6 +14,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Scala] Upgrade Scala version to 2.12.16, 2.13.8 and 3.1.3
+- [sbt] Upgrade sbt to 1.7.1
 
 ### Deprecated
 
