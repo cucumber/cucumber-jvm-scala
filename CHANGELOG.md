@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Scala] Upgrade Scala version to 2.13.10
+
 ### Deprecated
 
 ### Removed
