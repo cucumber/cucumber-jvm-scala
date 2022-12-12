@@ -17,6 +17,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Scala] Updated `scala-collection-compat` dependency to 2.9.0
 - [Build] Updated `scalafmt` dependency to 2.5.0
 - [Build] Updated `sbt-sonatype` dependency to 3.9.15
+- [Build] Updated `sbt-version-policy` dependency to 2.1.0
+- [Build] Updated `sbt-pgp` dependency to 2.2.1
 
 ### Deprecated
 
