@@ -17,6 +17,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Scala] Upgrade Scala 3 version to 3.2.1
 
 - [Scala] Updated `scala-collection-compat` dependency to 2.9.0
+- [Build] Updated `jackson` dependency to 2.14.1 
 - [Build] Updated `scalafmt` dependency to 2.5.0
 - [Build] Updated `sbt-sonatype` dependency to 3.9.15
 - [Build] Updated `sbt-version-policy` dependency to 2.1.0
