@@ -19,13 +19,14 @@ of Cucumber Core projects.
 
 The table below shows the compatible versions:
 
-| Cucumber Scala version | Cucumber Core version | Scala versions        |
-|------------------------|-----------------------|-----------------------|
-| 8.x                    | 7.x                   | 2.12, 2.13, 3.0       |
-| 7.x                    | 6.x                   | 2.11, 2.12, 2.13, 3.0 |
-| 6.x                    | 6.x                   | 2.11, 2.12, 2.13      |
-| 5.x                    | 5.x                   | 2.11, 2.12, 2.13      |
-| 4.x                    | 4.x                   | 2.11, 2.12, 2.13      |
+| Cucumber Scala version | Cucumber Core version | Scala versions         |
+|------------------------|-----------------------|------------------------|
+| 8.13+                  | 7.x                   | 2.12, 2.13, 3.2+       |
+| 8.0-8.12               | 7.x                   | 2.12, 2.13, 3.0+       |
+| 7.x                    | 6.x                   | 2.11, 2.12, 2.13, 3.0+ |
+| 6.x                    | 6.x                   | 2.11, 2.12, 2.13       |
+| 5.x                    | 5.x                   | 2.11, 2.12, 2.13       |
+| 4.x                    | 4.x                   | 2.11, 2.12, 2.13       |
 
 ## Getting started
 

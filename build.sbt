@@ -32,14 +32,14 @@ ThisBuild / homepage := Some(
 
 val scala212 = "2.12.16"
 val scala213 = "2.13.10"
-val scala3 = "3.1.3"
+val scala3 = "3.2.1"
 
 scalaVersion := scala213
 
 // Library versions
 
 val cucumberVersion = "7.10.0"
-val jacksonVersion = "2.13.4"
+val jacksonVersion = "2.14.1"
 val mockitoScalaVersion = "1.17.12"
 val junitVersion = "4.13.2"
 
