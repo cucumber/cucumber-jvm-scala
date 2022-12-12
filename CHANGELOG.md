@@ -13,6 +13,16 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [8.13.0] (2022-12-12)
+
+### Changed
+
 - [Core] Updated `cucumber-core` dependency to [7.10.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 - [Scala] Upgrade Scala 3 version to 3.2.1
 
@@ -22,12 +32,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] Updated `sbt-sonatype` dependency to 3.9.15
 - [Build] Updated `sbt-version-policy` dependency to 2.1.0
 - [Build] Updated `sbt-pgp` dependency to 2.2.1
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [8.12.0] (2022-11-03)
 
@@ -506,7 +510,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.12.0...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.13.0...main
+[8.13.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.12.0...v8.13.0
 [8.12.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.11.0...v8.12.0
 [8.11.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.10.1...v8.11.0
 [8.10.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.10.0...v8.10.1
