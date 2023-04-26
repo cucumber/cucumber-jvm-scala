@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] Updated `jackson` dependency to 2.15.0
+
 ### Deprecated
 
 ### Removed
