@@ -1,6 +1,8 @@
 object ScalacOptions {
 
   val scalacOptions3 = Seq(
+    "-encoding",
+    "utf-8", // Specify character encoding used by source files.
     "-deprecation", // Emit warning and location for usages of deprecated APIs.
     "-explain", // Explain type errors in more detail.
 //    "-explaintypes", // Explain type errors in more detail.
@@ -10,6 +12,15 @@ object ScalacOptions {
     "-language:higherKinds", // Allow higher-kinded types
     "-language:implicitConversions", // Allow definition of implicit functions called views
     "-unchecked", // Enable additional warnings where generated code depends on assumptions.
+    "-Wvalue-discard", // Warn when non-Unit expression results are unused.
+    "-Wunused:implicits",  // Warn if an implicit parameter is unused.
+    "-Wunused:explicits",
+    "-Wunused:imports", // Warn if an import selector is not referenced.
+    "-Wunused:locals", // Warn if a local definition is unused.
+    "-Wunused:params", // Warn if a value parameter is unused.
+    "-Wunused:privates", // Warn if a private member is unused.
+    "-Ykind-projector",
+    "-Ysafe-init",
     "-Xfatal-warnings" // Fail the compilation if there are any warnings.
   )
 
