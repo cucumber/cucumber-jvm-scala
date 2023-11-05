@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] Upgraded Scala 3 to 3.3.1 (LTS)
+
 ### Deprecated
 
 ### Removed
