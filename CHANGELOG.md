@@ -13,6 +13,10 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.14.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Updated `jackson` dependency to 2.16.0
+- [Internal] Updated `sbt-sonatype` to 3.10.0
+
 ### Deprecated
 
 ### Removed
@@ -23,7 +27,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.14.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 - [Build] Upgraded Scala 3 to 3.3.1 (LTS)
+- [Build] Updated `jackson` dependency to 2.15.3
 
 ## [8.17.0] (2023-08-25)
 
