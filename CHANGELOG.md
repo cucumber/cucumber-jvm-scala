@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] Upgraded Scala 2.12.16 to 2.12.18 for JDK 21 purposes.
+
 ### Deprecated
 
 ### Removed
