@@ -13,13 +13,17 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Build] Upgraded Scala 2.12.16 to 2.12.18 for JDK 21 purposes.
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.19.0] (2023-11-28)
+
+### Changed
+
+- [Build] Upgraded Scala 2.12.16 to 2.12.18 for JDK 21 purposes.
 
 ## [8.18.1] (2023-11-26)
 
@@ -572,7 +576,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.18.1...main
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.19.0...main
+[8.19.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.18.1...v8.19.0
 [8.18.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.18.0...v8.18.1
 [8.18.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.17.0...v8.18.0
 [8.17.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.16.0...v8.17.0
