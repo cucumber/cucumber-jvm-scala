@@ -5,7 +5,7 @@ addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.9.2")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.2")
 
 // Version policy check
-addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "2.1.3")
+addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.1.0")
 
 // Release
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
