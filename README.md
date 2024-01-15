@@ -60,4 +60,4 @@ Support us with a monthly donation and help us continue our activities. [Become 
 
 You are using Cucumber Scala? We would love to know about you! Please open a PR to add your project or company to the list below.
 
-<img src="https://www.kelkoogroup.com/wp-content/uploads/2019/11/logo-1024x189-1.jpg" height="40" /> <img src="https://engineering.teads.com/wp-content/uploads/2019/07/Teads_logo_Black.svg" height="40" /> <img src="https://raw.githubusercontent.com/KelkooGroup/theGardener/master/public/images/logo.png" height="40" />
+<img src="https://www.kelkoogroup.com/wp-content/uploads/2019/11/logo-1024x189-1.jpg" height="40" /> <img src="https://engineering.teads.com/wp-content/uploads/2019/07/Teads_logo_Black.svg" height="40" /> <img src="https://raw.githubusercontent.com/KelkooGroup/theGardener/master/public/images/logo.png" height="40" /> <a href="https://github.com/lectra-tech"><img src="https://avatars.githubusercontent.com/u/42344873?s=200&v=4" height="40" /></a> <a href="https://github.com/lectra-tech/kapoeira"><img src="https://raw.githubusercontent.com/lectra-tech/kapoeira/main/docs/logos/kapoeira_logo_text.jpg" height="40" /></a>
