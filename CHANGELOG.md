@@ -13,6 +13,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.16.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Updated `jackson` dependency to 2.17.0
+- [Build] Upgraded sbt to 1.9.9
+- [Build] Upgraded Scala 2.13.13 to 2.12.18 for JDK 21 purposes. Thanks @dfurmans!
+
 ### Deprecated
 
 ### Removed
