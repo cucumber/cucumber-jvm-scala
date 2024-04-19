@@ -30,7 +30,9 @@ trait AbstractGlueDefinition extends Located {
     Optional.of(sourceReference)
   }
 
-  /** Executes the block of code and handle failures in the way asked by Cucumber specification: that is throwing a CucumberInvocationTargetException.
+  /** Executes the block of code and handle failures in the way asked by
+    * Cucumber specification: that is throwing a
+    * CucumberInvocationTargetException.
     */
   protected def executeAsCucumber(block: => Unit): Unit = {
     Try(block).recoverWith { case ex =>

@@ -8,7 +8,8 @@ private[scala] trait HookDsl extends BaseScalaDsl {
   def BeforeAll: StaticHookBody = BeforeAll(DEFAULT_AFTER_ORDER)
 
   /** Defines a before all hook.
-    * @param order the order in which this hook should run. Higher numbers are run first
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def BeforeAll(order: Int): StaticHookBody = new StaticHookBody(
     StaticHookType.BEFORE_ALL,
@@ -22,21 +23,27 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
   /** Defines an before hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
     */
   def Before(tagExpression: String): HookBody =
     Before(tagExpression, DEFAULT_BEFORE_ORDER)
 
   /** Defines an before hook.
     *
-    * @param order the order in which this hook should run. Higher numbers are run first
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def Before(order: Int): HookBody = Before(EMPTY_TAG_EXPRESSION, order)
 
   /** Defines an before hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
-    * @param order         the order in which this hook should run. Higher numbers are run first
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def Before(tagExpression: String, order: Int) =
     new HookBody(
@@ -53,21 +60,27 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
   /** Defines an before step hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
     */
   def BeforeStep(tagExpression: String): HookBody =
     BeforeStep(tagExpression, DEFAULT_BEFORE_ORDER)
 
   /** Defines an before step hook.
     *
-    * @param order the order in which this hook should run. Higher numbers are run first
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def BeforeStep(order: Int): HookBody = BeforeStep(EMPTY_TAG_EXPRESSION, order)
 
   /** Defines an before step hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
-    * @param order         the order in which this hook should run. Higher numbers are run first
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def BeforeStep(tagExpression: String, order: Int) =
     new HookBody(
@@ -82,7 +95,8 @@ private[scala] trait HookDsl extends BaseScalaDsl {
   def AfterAll: StaticHookBody = AfterAll(DEFAULT_AFTER_ORDER)
 
   /** Defines a after all hook.
-    * @param order the order in which this hook should run. Higher numbers are run first
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def AfterAll(order: Int): StaticHookBody =
     new StaticHookBody(StaticHookType.AFTER_ALL, order, Utils.frame(self))
@@ -93,21 +107,27 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
   /** Defines and after hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
     */
   def After(tagExpression: String): HookBody =
     After(tagExpression, DEFAULT_AFTER_ORDER)
 
   /** Defines and after hook.
     *
-    * @param order the order in which this hook should run. Higher numbers are run first
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def After(order: Int): HookBody = After(EMPTY_TAG_EXPRESSION, order)
 
   /** Defines and after hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
-    * @param order         the order in which this hook should run. Higher numbers are run first
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def After(tagExpression: String, order: Int) =
     new HookBody(ScopedHookType.AFTER, tagExpression, order, Utils.frame(self))
@@ -118,21 +138,27 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
   /** Defines and after step hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
     */
   def AfterStep(tagExpression: String): HookBody =
     AfterStep(tagExpression, DEFAULT_AFTER_ORDER)
 
   /** Defines and after step hook.
     *
-    * @param order the order in which this hook should run. Higher numbers are run first
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def AfterStep(order: Int): HookBody = AfterStep(EMPTY_TAG_EXPRESSION, order)
 
   /** Defines and after step hook.
     *
-    * @param tagExpression a tag expression, if the expression applies to the current scenario this hook will be executed
-    * @param order         the order in which this hook should run. Higher numbers are run first
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
     */
   def AfterStep(tagExpression: String, order: Int) =
     new HookBody(

@@ -62,8 +62,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any)(
-        using t1: Stepable[T1],
+    def apply[T1, T2, T3, T4](f: (T1, T2, T3, T4) => Any)(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4]
@@ -81,8 +81,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    def apply[T1, T2, T3, T4, T5](f: (T1, T2, T3, T4, T5) => Any)(
-        using t1: Stepable[T1],
+    def apply[T1, T2, T3, T4, T5](f: (T1, T2, T3, T4, T5) => Any)(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -102,8 +102,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
       }
     }
 
-    def apply[T1, T2, T3, T4, T5, T6](f: (T1, T2, T3, T4, T5, T6) => Any)(
-        using t1: Stepable[T1],
+    def apply[T1, T2, T3, T4, T5, T6](f: (T1, T2, T3, T4, T5, T6) => Any)(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -134,8 +134,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7](
         f: (T1, T2, T3, T4, T5, T6, T7) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -169,8 +169,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8](
         f: (T1, T2, T3, T4, T5, T6, T7, T8) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -207,8 +207,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -248,8 +248,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -292,8 +292,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -339,8 +339,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -389,8 +389,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -442,8 +442,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
 
     def apply[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](
         f: (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -514,8 +514,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T14,
             T15
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -623,8 +623,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T15,
             T16
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -738,8 +738,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T16,
             T17
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -859,8 +859,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T17,
             T18
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -986,8 +986,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T18,
             T19
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -1119,8 +1119,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T19,
             T20
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -1258,8 +1258,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T20,
             T21
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],
@@ -1403,8 +1403,8 @@ private[scala] trait StepDsl extends BaseScalaDsl {
             T21,
             T22
         ) => Any
-    )(
-        using t1: Stepable[T1],
+    )(using
+        t1: Stepable[T1],
         t2: Stepable[T2],
         t3: Stepable[T3],
         t4: Stepable[T4],

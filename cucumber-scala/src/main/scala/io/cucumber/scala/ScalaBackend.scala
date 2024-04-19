@@ -13,7 +13,8 @@ import scala.util.{Failure, Try}
 
 object ScalaBackend {
 
-  /** @return true if it's a class, false if it's an object
+  /** @return
+    *   true if it's a class, false if it's an object
     */
   private[scala] def isRegularClass(cls: Class[_]): Try[Boolean] = {
     Try {
