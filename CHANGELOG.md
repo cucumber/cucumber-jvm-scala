@@ -21,6 +21,13 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ## [8.22.0] (2024-04-19)
 
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [7.17.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Upgraded to scalafmt v3
+- [Build] Upgraded scala-collection-compat to v2.12.0
+
+
 ## [8.21.1] (2024-03-24)
 
 ### Changed
