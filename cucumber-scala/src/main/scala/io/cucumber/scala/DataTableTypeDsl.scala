@@ -8,13 +8,12 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
     */
   def DataTableType: DataTableTypeBody = DataTableType(NO_REPLACEMENT)
 
-  /** Register a data table type with a replacement.
-    * <p>
-    * A data table can only represent absent and non-empty strings. By replacing
-    * a known value (for example [empty]) a data table can also represent
-    * empty strings.
+  /** Register a data table type with a replacement. <p> A data table can only
+    * represent absent and non-empty strings. By replacing a known value (for
+    * example [empty]) a data table can also represent empty strings.
     *
-    * @param replaceWithEmptyString a string that will be replaced with an empty string.
+    * @param replaceWithEmptyString
+    *   a string that will be replaced with an empty string.
     */
   def DataTableType(replaceWithEmptyString: String): DataTableTypeBody =
     DataTableType(Seq(replaceWithEmptyString))

@@ -173,7 +173,7 @@ class CukesStepDefinitions extends ScalaDsl with EN {
     vermouth = 42
   }
 
-  When("^I shake my belly$") { //note the lack of  () =>
+  When("^I shake my belly$") { // note the lack of  () =>
     maritinis += vermouth * gin
   }
 

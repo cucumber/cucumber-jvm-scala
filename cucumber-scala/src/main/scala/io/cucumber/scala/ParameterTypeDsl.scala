@@ -6,9 +6,12 @@ private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
 
   /** Register parameter type.
     *
-    * @param name  used as the type name in typed expressions
-    * @param regex expression to match
-    * @see https://cucumber.io/docs/cucumber/cucumber-expressions
+    * @param name
+    *   used as the type name in typed expressions
+    * @param regex
+    *   expression to match
+    * @see
+    *   https://cucumber.io/docs/cucumber/cucumber-expressions
     */
   def ParameterType(name: String, regex: String) =
     new ParameterTypeBody(name, regex)

@@ -67,7 +67,7 @@ trait AbstractDatatableElementTransformerDefinition
       emptyPatterns.filter(emptyPattern => fromValue.contains(emptyPattern))
     val msg =
       s"After replacing ${conflict.headOption
-        .getOrElse("")} and ${conflict.drop(1).headOption.getOrElse("")} with empty strings the datatable entry contains duplicate keys: $fromValue"
+          .getOrElse("")} and ${conflict.drop(1).headOption.getOrElse("")} with empty strings the datatable entry contains duplicate keys: $fromValue"
     new IllegalArgumentException(msg)
   }
 

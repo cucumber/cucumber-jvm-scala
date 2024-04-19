@@ -10,7 +10,8 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
 
   /** Register default parameter type transformer.
     *
-    * @param body converts `String` argument to an instance of the `Type` argument
+    * @param body
+    *   converts `String` argument to an instance of the `Type` argument
     */
   def DefaultParameterTransformer(
       body: DefaultParameterTransformerBody
@@ -22,7 +23,8 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
 
   /** Register default data table cell transformer.
     *
-    * @param body converts `String` argument to an instance of the `Type` argument
+    * @param body
+    *   converts `String` argument to an instance of the `Type` argument
     */
   def DefaultDataTableCellTransformer(
       body: DefaultDataTableCellTransformerBody
@@ -30,15 +32,15 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
     DefaultDataTableCellTransformer(NO_REPLACEMENT)(body)
   }
 
-  /** Register default data table cell transformer with a replacement.
-    * <p>
-    * A data table can only represent absent and non-empty strings. By replacing
-    * a known value (for example [empty]) a data table can also represent
-    * empty strings.
-    * *
+  /** Register default data table cell transformer with a replacement. <p> A
+    * data table can only represent absent and non-empty strings. By replacing a
+    * known value (for example [empty]) a data table can also represent empty
+    * strings. *
     *
-    * @param replaceWithEmptyString a string that will be replaced with an empty string.
-    * @param body                   converts `String` argument to an instance of the `Type` argument
+    * @param replaceWithEmptyString
+    *   a string that will be replaced with an empty string.
+    * @param body
+    *   converts `String` argument to an instance of the `Type` argument
     */
   def DefaultDataTableCellTransformer(
       replaceWithEmptyString: String
@@ -56,7 +58,9 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
 
   /** Register default data table entry transformer.
     *
-    * @param body converts `Map[String,String]` argument to an instance of the `Type` argument
+    * @param body
+    *   converts `Map[String,String]` argument to an instance of the `Type`
+    *   argument
     */
   def DefaultDataTableEntryTransformer(
       body: DefaultDataTableEntryTransformerBody
@@ -64,14 +68,16 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
     DefaultDataTableEntryTransformer(NO_REPLACEMENT)(body)
   }
 
-  /** Register default data table cell transformer with a replacement.
-    * <p>
-    * A data table can only represent absent and non-empty strings. By replacing
-    * a known value (for example [empty]) a data table can also represent
-    * empty strings.
+  /** Register default data table cell transformer with a replacement. <p> A
+    * data table can only represent absent and non-empty strings. By replacing a
+    * known value (for example [empty]) a data table can also represent empty
+    * strings.
     *
-    * @param replaceWithEmptyString a string that will be replaced with an empty string.
-    * @param body                   converts `Map[String,String]` argument to an instance of the `Type` argument
+    * @param replaceWithEmptyString
+    *   a string that will be replaced with an empty string.
+    * @param body
+    *   converts `Map[String,String]` argument to an instance of the `Type`
+    *   argument
     */
   def DefaultDataTableEntryTransformer(
       replaceWithEmptyString: String
