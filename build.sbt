@@ -45,6 +45,7 @@ val mockitoScalaVersion = "1.17.45"
 val junitVersion = "4.13.2"
 val junitJupiterVersion = "5.13.4"
 val junitPlatformVersion = "1.13.4"
+val scalatestVersion = "3.2.18"
 
 // Projects and settings
 
@@ -73,6 +74,7 @@ lazy val root = (project in file("."))
   )
   .aggregate(
     cucumberScala.projectRefs ++
+      cucumberScalatest.projectRefs ++
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
@@ -133,6 +135,17 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
   )
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
+lazy val cucumberScalatest = (projectMatrix in file("scalatest"))
+  .settings(commonSettings)
+  .settings(
+    name := "cucumber-scalatest",
+    libraryDependencies ++= Seq(
+      "io.cucumber" % "cucumber-core" % cucumberVersion,
+      "org.scalatest" %% "scalatest" % scalatestVersion
+    )
+  )
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
 // Integration tests
 lazy val integrationTestsCommon =
   (projectMatrix in file("integration-tests/common"))
@@ -182,6 +195,19 @@ lazy val integrationTestsPicoContainer =
       publishArtifact := false
     )
     .dependsOn(cucumberScala % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+lazy val integrationTestsScalatest =
+  (projectMatrix in file("integration-tests/scalatest"))
+    .settings(commonSettings)
+    .settings(
+      name := "integration-tests-scalatest",
+      libraryDependencies ++= Seq(
+        "org.scalatest" %% "scalatest" % scalatestVersion % Test
+      ),
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test, cucumberScalatest % Test)
     .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Examples project
