@@ -42,6 +42,7 @@ val cucumberVersion = "7.18.0"
 val jacksonVersion = "2.17.1"
 val mockitoScalaVersion = "1.17.37"
 val junitVersion = "4.13.2"
+val scalatestVersion = "3.2.18"
 
 // Projects and settings
 
@@ -64,6 +65,7 @@ lazy val root = (project in file("."))
   )
   .aggregate(
     cucumberScala.projectRefs ++
+      cucumberScalatest.projectRefs ++
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
@@ -122,6 +124,17 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
   )
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
+lazy val cucumberScalatest = (projectMatrix in file("scalatest"))
+  .settings(commonSettings)
+  .settings(
+    name := "cucumber-scalatest",
+    libraryDependencies ++= Seq(
+      "io.cucumber" % "cucumber-core" % cucumberVersion,
+      "org.scalatest" %% "scalatest" % scalatestVersion
+    )
+  )
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
 // Integration tests
 lazy val integrationTestsCommon =
   (projectMatrix in file("integration-tests/common"))
@@ -167,6 +180,19 @@ lazy val integrationTestsPicoContainer =
     .dependsOn(cucumberScala % Test)
     .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
+lazy val integrationTestsScalatest =
+  (projectMatrix in file("integration-tests/scalatest"))
+    .settings(commonSettings)
+    .settings(
+      name := "integration-tests-scalatest",
+      libraryDependencies ++= Seq(
+        "org.scalatest" %% "scalatest" % scalatestVersion % Test
+      ),
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test, cucumberScalatest % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
 // Examples project
 lazy val examples = (projectMatrix in file("examples"))
   .settings(commonSettings)
@@ -200,12 +226,12 @@ releaseProcess := Seq[ReleaseStep](
   runTest,
   setReleaseVersion,
   // the 2 following steps are part of the Cucumber release process
-  //commitReleaseVersion,
-  //tagRelease,
+  // commitReleaseVersion,
+  // tagRelease,
   releaseStepCommandAndRemaining("publishSigned"),
   releaseStepCommand("sonatypeBundleRelease"),
   setNextVersion
   // the 2 following steps are part of the Cucumber release process
-  //commitNextVersion,
-  //pushChanges
+  // commitNextVersion,
+  // pushChanges
 )
