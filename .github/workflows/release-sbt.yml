@@ -34,9 +34,8 @@ jobs:
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          nexus-username: cukebot
+          nexus-username: ${{ secrets.SONATYPE_USERNAME }}
           nexus-password: ${{ secrets.SONATYPE_PASSWORD }}
-          working-directory: .
 
   create-github-release:
     name: Create GitHub Release and Git tag
