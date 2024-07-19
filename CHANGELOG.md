@@ -13,6 +13,16 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [8.23.1] (2024-07-19)
+
+### Changed
+
 - [Core] Updated `cucumber-core` dependency to [7.18.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 - [Build] update dependency sbt/sbt to v1.10.1
 - [Build] update dependency com.fasterxml.jackson.module:jackson-module-scala to v2.17.2
@@ -20,12 +30,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] update dependency org.xerial.sbt:sbt-sonatype to v3.11.0
 - [Build] update dependency org.mockito:mockito-scala to v1.17.37
 - [Build] update dependency scalafmt to v3.8.2
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [8.23.0] (2024-05-17)
 
@@ -623,7 +627,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.23.0...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.23.1...HEAD
+[8.23.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.23.0...v8.23.1
 [8.23.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.22.0...v8.23.0
 [8.22.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.21.1...v8.22.0
 [8.21.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.21.0...v8.21.1
