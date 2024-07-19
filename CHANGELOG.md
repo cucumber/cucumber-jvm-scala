@@ -13,6 +13,14 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.18.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] update dependency sbt/sbt to v1.10.1
+- [Build] update dependency com.fasterxml.jackson.module:jackson-module-scala to v2.17.2
+- [Build] update dependency com.eed3si9n:sbt-projectmatrix to v0.10.0
+- [Build] update dependency org.xerial.sbt:sbt-sonatype to v3.11.0
+- [Build] update dependency org.mockito:mockito-scala to v1.17.37
+- [Build] update dependency scalafmt to v3.8.2
+
 ### Deprecated
 
 ### Removed
