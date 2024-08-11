@@ -28,7 +28,3 @@ See [Cucumber release process](https://github.com/cucumber/.github/blob/main/REL
    ```
 1. Wait until the `release-*` workflows in GitHub Actions have passed
 1. In `version.sbt`, bump the **patch** version and append `-SNAPSHOT` (e.g. `1.2.4-SNAPSHOT`) and commit/push
-1. Announce the release
-   * in the `#newsletter` Slack channel
-   * on the `@cucumberbdd` Twitter account
-   * write a blog post
