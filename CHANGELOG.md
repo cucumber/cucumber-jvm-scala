@@ -13,6 +13,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.20.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] chore(deps): update dependency com.fasterxml.jackson.module:jackson-module-scala to v2.18.0
+
 ### Deprecated
 
 ### Removed
