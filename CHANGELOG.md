@@ -13,15 +13,19 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Updated `cucumber-core` dependency to [7.20.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Build] chore(deps): update dependency com.github.sbt:sbt-pgp to v2.3.0
-- [Build] chore(deps): update dependency org.xerial.sbt:sbt-sonatype to v3.12.0
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.25.1] (2024-10-10)
+
+### Changed
+
+- [Core] Updated `cucumber-core` dependency to [7.20.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] chore(deps): update dependency com.github.sbt:sbt-pgp to v2.3.0
+- [Build] chore(deps): update dependency org.xerial.sbt:sbt-sonatype to v3.12.0
 
 ## [8.25.0] (2024-10-09)
 
@@ -648,7 +652,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.25.0...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.25.1...HEAD
+[8.25.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.25.0...v8.25.1
 [8.25.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.24.0...v8.25.0
 [8.24.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.23.1...v8.24.0
 [8.23.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.23.0...v8.23.1
