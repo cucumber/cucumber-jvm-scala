@@ -13,6 +13,10 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.20.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] chore(deps): update dependency com.github.sbt:sbt-pgp to v2.3.0
+- [Build] chore(deps): update dependency org.xerial.sbt:sbt-sonatype to v3.12.0
+
 ### Deprecated
 
 ### Removed
