@@ -34,5 +34,7 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'adopt'
 
+      - uses: sbt/setup-sbt@v1
+
       - name: Version check
         run: sbt "project cucumberScala" versionPolicyCheck
