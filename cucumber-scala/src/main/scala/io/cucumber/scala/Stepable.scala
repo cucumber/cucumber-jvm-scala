@@ -14,18 +14,29 @@ trait Stepable[T] {
 
 object Stepable {
 
-  implicit def stepable9[T[
-      _,
-      _,
-      _,
-      _,
-      _,
-      _,
-      _,
-      _,
-      _
-  ], X1: Stepable, X2: Stepable, X3: Stepable, X4: Stepable, X5: Stepable, X6: Stepable, X7: Stepable, X8: Stepable, X9: Stepable](
-      implicit ct: ClassTag[T[X1, X2, X3, X4, X5, X6, X7, X8, X9]]
+  implicit def stepable9[
+      T[
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _
+      ],
+      X1: Stepable,
+      X2: Stepable,
+      X3: Stepable,
+      X4: Stepable,
+      X5: Stepable,
+      X6: Stepable,
+      X7: Stepable,
+      X8: Stepable,
+      X9: Stepable
+  ](implicit
+      ct: ClassTag[T[X1, X2, X3, X4, X5, X6, X7, X8, X9]]
   ): Stepable[T[X1, X2, X3, X4, X5, X6, X7, X8, X9]] =
     new Stepable[T[X1, X2, X3, X4, X5, X6, X7, X8, X9]] {
       def asJavaType: JavaType =
@@ -45,17 +56,27 @@ object Stepable {
         )
     }
 
-  implicit def stepable8[T[
-      _,
-      _,
-      _,
-      _,
-      _,
-      _,
-      _,
-      _
-  ], X1: Stepable, X2: Stepable, X3: Stepable, X4: Stepable, X5: Stepable, X6: Stepable, X7: Stepable, X8: Stepable](
-      implicit ct: ClassTag[T[X1, X2, X3, X4, X5, X6, X7, X8]]
+  implicit def stepable8[
+      T[
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _
+      ],
+      X1: Stepable,
+      X2: Stepable,
+      X3: Stepable,
+      X4: Stepable,
+      X5: Stepable,
+      X6: Stepable,
+      X7: Stepable,
+      X8: Stepable
+  ](implicit
+      ct: ClassTag[T[X1, X2, X3, X4, X5, X6, X7, X8]]
   ): Stepable[T[X1, X2, X3, X4, X5, X6, X7, X8]] =
     new Stepable[T[X1, X2, X3, X4, X5, X6, X7, X8]] {
       def asJavaType: JavaType =
@@ -74,16 +95,25 @@ object Stepable {
         )
     }
 
-  implicit def stepable7[T[
-      _,
-      _,
-      _,
-      _,
-      _,
-      _,
-      _
-  ], X1: Stepable, X2: Stepable, X3: Stepable, X4: Stepable, X5: Stepable, X6: Stepable, X7: Stepable](
-      implicit ct: ClassTag[T[X1, X2, X3, X4, X5, X6, X7]]
+  implicit def stepable7[
+      T[
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _
+      ],
+      X1: Stepable,
+      X2: Stepable,
+      X3: Stepable,
+      X4: Stepable,
+      X5: Stepable,
+      X6: Stepable,
+      X7: Stepable
+  ](implicit
+      ct: ClassTag[T[X1, X2, X3, X4, X5, X6, X7]]
   ): Stepable[T[X1, X2, X3, X4, X5, X6, X7]] =
     new Stepable[T[X1, X2, X3, X4, X5, X6, X7]] {
       def asJavaType: JavaType =
@@ -101,15 +131,23 @@ object Stepable {
         )
     }
 
-  implicit def stepable6[T[
-      _,
-      _,
-      _,
-      _,
-      _,
-      _
-  ], X1: Stepable, X2: Stepable, X3: Stepable, X4: Stepable, X5: Stepable, X6: Stepable](
-      implicit ct: ClassTag[T[X1, X2, X3, X4, X5, X6]]
+  implicit def stepable6[
+      T[
+          _,
+          _,
+          _,
+          _,
+          _,
+          _
+      ],
+      X1: Stepable,
+      X2: Stepable,
+      X3: Stepable,
+      X4: Stepable,
+      X5: Stepable,
+      X6: Stepable
+  ](implicit
+      ct: ClassTag[T[X1, X2, X3, X4, X5, X6]]
   ): Stepable[T[X1, X2, X3, X4, X5, X6]] =
     new Stepable[T[X1, X2, X3, X4, X5, X6]] {
       def asJavaType: JavaType =

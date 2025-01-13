@@ -22,7 +22,7 @@ object Implicits {
       * `.asMaps[K,V](classOf[K], classOf[V])` but returned as Scala collection
       * types without `null` values.
       *
-      * See also `asScalaRawMaps[T]` if you don't need `Option`s (for instance
+      * See also `asScalaRawMaps[T]` if you don't need `Option` s (for instance
       * if you are using a DataTableType).
       *
       * @tparam K
@@ -104,7 +104,7 @@ object Implicits {
       * `.asLists[T](classOf[T])` but returned as Scala collection types without
       * `null` values.
       *
-      * See also `asScalaRawLists[T]` if you don't need `Option`s (for instance
+      * See also `asScalaRawLists[T]` if you don't need `Option` s (for instance
       * if you are using a DataTableType).
       *
       * @tparam T
@@ -150,7 +150,7 @@ object Implicits {
       * of `.asList[T](classOf[T])` but returned as Scala collection types
       * without `null` values.
       *
-      * See also `asScalaRawList[T]` if you don't need `Option`s (for instance
+      * See also `asScalaRawList[T]` if you don't need `Option` s (for instance
       * if you are using a DataTableType).
       *
       * @tparam T
