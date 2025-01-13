@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 /** <p>This trait register a `DefaultDataTableEntryTransformer` using Jackson
-  * `ObjectMapper`.</p>
+  * `ObjectMapper`. </p>
   *
   * <p>The `[empty]` string is used as default empty string replacement. You can
   * override it if you need to.</p>
