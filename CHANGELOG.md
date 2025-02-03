@@ -13,6 +13,16 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [8.26.0] (2025-02-03)
+
+### Changed
+
 - [Core] Updated `cucumber-core` dependency to [7.21.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 - [Dependencies] Update Scala version to 2.13.16
 - [Dependencies] chore(deps): update dependency org.scala-lang.modules:scala-collection-compat to v2.13.0
@@ -24,12 +34,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] chore(deps): update dependency scalafmt to v3.8.6
 - [Build] chore(deps): update dependency org.scalameta:sbt-scalafmt to v2.5.4
 - [Build] use new groupId for sbt-release plugin and bump to v1.4.0
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [8.25.1] (2024-10-10)
 
@@ -664,7 +668,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.25.1...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.26.0...HEAD
+[8.26.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.25.1...v8.26.0
 [8.25.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.25.0...v8.25.1
 [8.25.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.24.0...v8.25.0
 [8.24.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.23.1...v8.24.0
