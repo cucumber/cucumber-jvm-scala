@@ -23,6 +23,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 - [Build] chore(deps): update dependency com.github.sbt:sbt-pgp to v2.3.1
 - [Build] chore(deps): update dependency scalafmt to v3.8.6
 - [Build] chore(deps): update dependency org.scalameta:sbt-scalafmt to v2.5.4
+- [Build] use new groupId for sbt-release plugin and bump to v1.4.0
 
 ### Deprecated
 
