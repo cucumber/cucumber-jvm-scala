@@ -13,6 +13,17 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Updated `cucumber-core` dependency to [7.21.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Dependencies] Update Scala version to 2.13.16
+- [Dependencies] chore(deps): update dependency org.scala-lang.modules:scala-collection-compat to v2.13.0
+- [Build] chore(deps): update dependency com.fasterxml.jackson.module:jackson-module-scala to v2.18.2
+- [Build] chore(deps): update dependency sbt/sbt to v1.10.7
+- [Build] chore(deps): update dependency org.xerial.sbt:sbt-sonatype to v3.12.2
+- [Build] chore(deps): update dependency com.eed3si9n:sbt-projectmatrix to v0.10.1
+- [Build] chore(deps): update dependency com.github.sbt:sbt-pgp to v2.3.1
+- [Build] chore(deps): update dependency scalafmt to v3.8.6
+- [Build] chore(deps): update dependency org.scalameta:sbt-scalafmt to v2.5.4
+
 ### Deprecated
 
 ### Removed
