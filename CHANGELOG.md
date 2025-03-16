@@ -13,6 +13,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Build] update `action-publish-sbt`
+- [Build] update `sbt-release`
+
 ### Deprecated
 
 ### Removed
