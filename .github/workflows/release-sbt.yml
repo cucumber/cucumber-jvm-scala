@@ -32,7 +32,7 @@ jobs:
 
       - uses: sbt/setup-sbt@v1
 
-      - uses: cucumber/action-publish-sbt@v1.0.1
+      - uses: cucumber/action-publish-sbt@v1.0.2
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
