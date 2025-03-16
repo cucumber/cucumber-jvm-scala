@@ -193,6 +193,7 @@ Global / publishTo := sonatypePublishToBundle.value
 
 // https://github.com/xerial/sbt-sonatype#using-with-sbt-release-plugin
 releaseCrossBuild := true
+releaseVersionBump := sbtrelease.Version.Bump.NextStable // Required since 1.4.0
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
   inquireVersions,
