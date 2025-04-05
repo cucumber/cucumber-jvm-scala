@@ -3,6 +3,8 @@ package io.cucumber.scala
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableCellTransformer}
 
+import scala.annotation.nowarn
+
 trait ScalaDataTableCellDefinition[T] extends ScalaDataTableTypeDefinition {
 
   val details: ScalaDataTableCellTypeDetails[T]
@@ -20,6 +22,7 @@ trait ScalaDataTableCellDefinition[T] extends ScalaDataTableTypeDefinition {
 
 }
 
+@nowarn
 class ScalaScenarioScopedDataTableCellDefinition[T](
     override val details: ScalaDataTableCellTypeDetails[T]
 ) extends ScalaDataTableCellDefinition[T]

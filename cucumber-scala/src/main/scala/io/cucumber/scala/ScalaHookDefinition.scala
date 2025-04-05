@@ -2,6 +2,8 @@ package io.cucumber.scala
 
 import io.cucumber.core.backend.{HookDefinition, ScenarioScoped, TestCaseState}
 
+import scala.annotation.nowarn
+
 trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
 
   val hookDetails: ScalaHookDetails
@@ -33,6 +35,7 @@ object ScalaHookDefinition {
 
 }
 
+@nowarn
 class ScalaScenarioScopedHookDefinition(
     override val hookDetails: ScalaHookDetails
 ) extends ScalaHookDefinition
