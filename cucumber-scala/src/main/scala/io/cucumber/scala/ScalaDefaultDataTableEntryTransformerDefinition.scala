@@ -1,17 +1,13 @@
 package io.cucumber.scala
 
-import java.lang.reflect.Type
-import java.util.{Map => JavaMap}
-
-import io.cucumber.core.backend.{
-  DefaultDataTableEntryTransformerDefinition,
-  ScenarioScoped
-}
+import io.cucumber.core.backend.DefaultDataTableEntryTransformerDefinition
 import io.cucumber.datatable.{
   TableCellByTypeTransformer,
   TableEntryByTypeTransformer
 }
 
+import java.lang.reflect.Type
+import java.util.{Map => JavaMap}
 import scala.jdk.CollectionConverters._
 
 trait ScalaDefaultDataTableEntryTransformerDefinition
@@ -55,8 +51,7 @@ object ScalaDefaultDataTableEntryTransformerDefinition {
 
 class ScalaScenarioScopedDataTableEntryTransformerDefinition(
     override val details: ScalaDefaultDataTableEntryTransformerDetails
-) extends ScalaDefaultDataTableEntryTransformerDefinition
-    with ScenarioScoped {}
+) extends ScalaDefaultDataTableEntryTransformerDefinition {}
 
 class ScalaGlobalDataTableEntryTransformerDefinition(
     override val details: ScalaDefaultDataTableEntryTransformerDetails

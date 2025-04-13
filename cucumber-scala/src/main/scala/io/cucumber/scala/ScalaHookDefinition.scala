@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import io.cucumber.core.backend.{HookDefinition, ScenarioScoped, TestCaseState}
+import io.cucumber.core.backend.{HookDefinition, TestCaseState}
 
 trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
 
@@ -35,8 +35,7 @@ object ScalaHookDefinition {
 
 class ScalaScenarioScopedHookDefinition(
     override val hookDetails: ScalaHookDetails
-) extends ScalaHookDefinition
-    with ScenarioScoped {}
+) extends ScalaHookDefinition {}
 
 class ScalaGlobalHookDefinition(override val hookDetails: ScalaHookDetails)
     extends ScalaHookDefinition {}

@@ -1,15 +1,14 @@
 package io.cucumber.scala
 
+import io.cucumber.core.backend.{ParameterInfo, StepDefinition}
+
 import java.lang.reflect.{Type => JType}
 import java.util.{List => JList}
-
-import io.cucumber.core.backend.{ParameterInfo, ScenarioScoped, StepDefinition}
-
 import scala.jdk.CollectionConverters._
 
 trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
 
-  val stepDetails: ScalaStepDetails
+  def stepDetails: ScalaStepDetails
 
   override val location: StackTraceElement = stepDetails.frame
 
@@ -57,9 +56,8 @@ object ScalaStepDefinition {
 }
 
 class ScalaScenarioScopedStepDefinition(
-    override val stepDetails: ScalaStepDetails
-) extends ScalaStepDefinition
-    with ScenarioScoped {}
+    override var stepDetails: ScalaStepDetails
+) extends ScalaStepDefinition {}
 
 class ScalaGlobalStepDefinition(override val stepDetails: ScalaStepDetails)
     extends ScalaStepDefinition {}

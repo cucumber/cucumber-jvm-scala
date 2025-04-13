@@ -1,6 +1,5 @@
 package io.cucumber.scala
 
-import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTable, DataTableType, TableTransformer}
 
 trait ScalaDataTableDefinition[T] extends ScalaDataTableTypeDefinition {
@@ -22,8 +21,7 @@ trait ScalaDataTableDefinition[T] extends ScalaDataTableTypeDefinition {
 
 class ScalaScenarioScopedDataTableDefinition[T](
     override val details: ScalaDataTableTableTypeDetails[T]
-) extends ScalaDataTableDefinition[T]
-    with ScenarioScoped {}
+) extends ScalaDataTableDefinition[T] {}
 
 class ScalaGlobalDataTableDefinition[T](
     override val details: ScalaDataTableTableTypeDetails[T]

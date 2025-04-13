@@ -42,6 +42,7 @@ class ScalaBackend(
 
   override def disposeWorld(): Unit = {
     // Nothing to do
+    // TODO maybe something
   }
 
   override def getSnippet(): Snippet = {
