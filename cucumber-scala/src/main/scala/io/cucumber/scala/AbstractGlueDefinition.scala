@@ -15,7 +15,11 @@ trait AbstractGlueDefinition extends Located {
 
   val location: StackTraceElement
 
-  lazy val sourceReference: SourceReference =
+  def body: Any => Any
+  
+//  def updateClosure(other: AbstractGlueDefinition): Unit
+  
+  private lazy val sourceReference: SourceReference =
     SourceReference.fromStackTraceElement(location)
 
   override def getLocation(): String = {

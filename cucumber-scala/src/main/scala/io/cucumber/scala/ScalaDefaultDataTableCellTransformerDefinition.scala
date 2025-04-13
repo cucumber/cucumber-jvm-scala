@@ -1,12 +1,9 @@
 package io.cucumber.scala
 
-import java.lang.reflect.Type
-
-import io.cucumber.core.backend.{
-  DefaultDataTableCellTransformerDefinition,
-  ScenarioScoped
-}
+import io.cucumber.core.backend.DefaultDataTableCellTransformerDefinition
 import io.cucumber.datatable.TableCellByTypeTransformer
+
+import java.lang.reflect.Type
 
 trait ScalaDefaultDataTableCellTransformerDefinition
     extends DefaultDataTableCellTransformerDefinition
@@ -45,8 +42,7 @@ object ScalaDefaultDataTableCellTransformerDefinition {
 
 class ScalaScenarioScopedDataTableCellTransformerDefinition(
     override val details: ScalaDefaultDataTableCellTransformerDetails
-) extends ScalaDefaultDataTableCellTransformerDefinition
-    with ScenarioScoped {}
+) extends ScalaDefaultDataTableCellTransformerDefinition {}
 
 class ScalaGlobalDataTableCellTransformerDefinition(
     override val details: ScalaDefaultDataTableCellTransformerDetails

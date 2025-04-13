@@ -1,12 +1,9 @@
 package io.cucumber.scala
 
-import java.lang.reflect.Type
-
-import io.cucumber.core.backend.{
-  DefaultParameterTransformerDefinition,
-  ScenarioScoped
-}
+import io.cucumber.core.backend.DefaultParameterTransformerDefinition
 import io.cucumber.cucumberexpressions.ParameterByTypeTransformer
+
+import java.lang.reflect.Type
 
 trait ScalaDefaultParameterTransformerDefinition
     extends DefaultParameterTransformerDefinition
@@ -40,8 +37,7 @@ object ScalaDefaultParameterTransformerDefinition {
 
 class ScalaScenarioScopedDefaultParameterTransformerDefinition(
     override val details: ScalaDefaultParameterTransformerDetails
-) extends ScalaDefaultParameterTransformerDefinition
-    with ScenarioScoped {}
+) extends ScalaDefaultParameterTransformerDefinition {}
 
 class ScalaGlobalDefaultParameterTransformerDefinition(
     override val details: ScalaDefaultParameterTransformerDetails

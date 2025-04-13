@@ -46,7 +46,7 @@ For each **class** identified when loading the glue:
 - hooks and steps definitions are extracted from it
 - definitions are added to the `Glue` instance provided by Cucumber Core, as `ScenarioScoped`
 
-Being `ScenarioScoped` ensure instances are flushed at the end of the scenario and recreated for the next one.
+Being `ScenarioScoped` ensure instances are flushed at the end of the scenario and recreated for the next one. TODO update doc
 
 ## Scala DSL
 

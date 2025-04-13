@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import io.cucumber.core.backend.{ParameterTypeDefinition, ScenarioScoped}
+import io.cucumber.core.backend.ParameterTypeDefinition
 import io.cucumber.cucumberexpressions.{CaptureGroupTransformer, ParameterType}
 
 import scala.jdk.CollectionConverters._
@@ -44,8 +44,7 @@ object ScalaParameterTypeDefinition {
 
 class ScalaScenarioScopedParameterTypeDefinition[R](
     override val details: ScalaParameterTypeDetails[R]
-) extends ScalaParameterTypeDefinition[R]
-    with ScenarioScoped {}
+) extends ScalaParameterTypeDefinition[R] {}
 
 class ScalaGlobalParameterTypeDefinition[R](
     override val details: ScalaParameterTypeDetails[R]

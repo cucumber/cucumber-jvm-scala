@@ -1,6 +1,6 @@
 package io.cucumber.scala
 
-import io.cucumber.core.backend.{DocStringTypeDefinition, ScenarioScoped}
+import io.cucumber.core.backend.DocStringTypeDefinition
 import io.cucumber.docstring.DocStringType
 import io.cucumber.docstring.DocStringType.Transformer
 
@@ -38,8 +38,7 @@ object ScalaDocStringTypeDefinition {
 
 class ScalaScenarioScopedDocStringTypeDefinition[T](
     override val details: ScalaDocStringTypeDetails[T]
-) extends ScalaDocStringTypeDefinition[T]
-    with ScenarioScoped {}
+) extends ScalaDocStringTypeDefinition[T] {}
 
 class ScalaGlobalDocStringTypeDefinition[T](
     override val details: ScalaDocStringTypeDetails[T]
