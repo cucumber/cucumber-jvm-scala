@@ -2,9 +2,9 @@ package io.cucumber.scala
 
 import java.lang.reflect.{Type => JType}
 import java.util.{List => JList}
-
 import io.cucumber.core.backend.{ParameterInfo, ScenarioScoped, StepDefinition}
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
 trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
@@ -56,6 +56,7 @@ object ScalaStepDefinition {
 
 }
 
+@nowarn
 class ScalaScenarioScopedStepDefinition(
     override val stepDetails: ScalaStepDetails
 ) extends ScalaStepDefinition

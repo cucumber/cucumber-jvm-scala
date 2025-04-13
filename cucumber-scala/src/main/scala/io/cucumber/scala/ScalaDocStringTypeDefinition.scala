@@ -4,6 +4,8 @@ import io.cucumber.core.backend.{DocStringTypeDefinition, ScenarioScoped}
 import io.cucumber.docstring.DocStringType
 import io.cucumber.docstring.DocStringType.Transformer
 
+import scala.annotation.nowarn
+
 abstract class ScalaDocStringTypeDefinition[T]
     extends DocStringTypeDefinition
     with AbstractGlueDefinition {
@@ -36,6 +38,7 @@ object ScalaDocStringTypeDefinition {
 
 }
 
+@nowarn
 class ScalaScenarioScopedDocStringTypeDefinition[T](
     override val details: ScalaDocStringTypeDetails[T]
 ) extends ScalaDocStringTypeDefinition[T]

@@ -1,10 +1,10 @@
 package io.cucumber.scala
 
 import java.util.{Map => JavaMap}
-
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableEntryTransformer}
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
 trait ScalaDataTableOptionalEntryDefinition[T]
@@ -29,6 +29,7 @@ trait ScalaDataTableOptionalEntryDefinition[T]
 
 }
 
+@nowarn
 class ScalaScenarioScopedDataTableOptionalEntryDefinition[T](
     override val details: ScalaDataTableOptionalEntryTypeDetails[T]
 ) extends ScalaDataTableOptionalEntryDefinition[T]

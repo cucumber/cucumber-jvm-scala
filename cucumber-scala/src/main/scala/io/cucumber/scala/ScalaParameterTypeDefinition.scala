@@ -3,6 +3,7 @@ package io.cucumber.scala
 import io.cucumber.core.backend.{ParameterTypeDefinition, ScenarioScoped}
 import io.cucumber.cucumberexpressions.{CaptureGroupTransformer, ParameterType}
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
 trait ScalaParameterTypeDefinition[R]
@@ -42,6 +43,7 @@ object ScalaParameterTypeDefinition {
 
 }
 
+@nowarn
 class ScalaScenarioScopedParameterTypeDefinition[R](
     override val details: ScalaParameterTypeDetails[R]
 ) extends ScalaParameterTypeDefinition[R]

@@ -1,10 +1,10 @@
 package io.cucumber.scala
 
 import java.util.{List => JavaList}
-
 import io.cucumber.core.backend.ScenarioScoped
 import io.cucumber.datatable.{DataTableType, TableRowTransformer}
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
 trait ScalaDataTableOptionalRowDefinition[T]
@@ -30,6 +30,7 @@ trait ScalaDataTableOptionalRowDefinition[T]
 
 }
 
+@nowarn
 class ScalaScenarioScopedDataTableOptionalRowDefinition[T](
     override val details: ScalaDataTableOptionalRowTypeDetails[T]
 ) extends ScalaDataTableOptionalRowDefinition[T]
