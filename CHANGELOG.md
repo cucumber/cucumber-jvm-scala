@@ -13,6 +13,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Update `cucumber-core` dependency to [7.22.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Update SBT to 1.10.11
+
 ### Deprecated
 
 ### Removed
