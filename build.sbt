@@ -39,7 +39,7 @@ scalaVersion := scala213
 // Library versions
 
 val cucumberVersion = "7.22.1"
-val jacksonVersion = "2.18.3"
+val jacksonVersion = "2.19.0"
 val mockitoScalaVersion = "1.17.37"
 val junitVersion = "4.13.2"
 
