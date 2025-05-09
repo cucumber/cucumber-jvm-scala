@@ -1,5 +1,6 @@
 import ReleaseTransformations._
 import xerial.sbt.Sonatype.sonatypeSettings
+import xerial.sbt.Sonatype.sonatypeCentralHost
 
 // Metadata
 
@@ -190,6 +191,8 @@ ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 
 Global / publishMavenStyle := true
 Global / publishTo := sonatypePublishToBundle.value
+// https://github.com/xerial/sbt-sonatype?tab=readme-ov-file#sonatype-central-host
+ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
 
 // https://github.com/xerial/sbt-sonatype#using-with-sbt-release-plugin
 releaseCrossBuild := true
