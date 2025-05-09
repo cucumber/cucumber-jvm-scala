@@ -13,6 +13,10 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Update `cucumber-core` dependency to [7.22.1](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Dependencies] chore(deps): update dependency com.fasterxml.jackson.module:jackson-module-scala to v2.19.0
+- [Build] Publish to Sonatype Central Host
+
 ### Deprecated
 
 ### Removed
