@@ -13,14 +13,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Update `cucumber-core` dependency to [7.23.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Build] Update SBT to 1.11.0
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.28.0] (2025-05-30)
+
+### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.23.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Build] Update SBT to 1.11.0
 
 ## [8.27.3] (2025-05-16)
 
@@ -706,7 +710,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.3...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.28.0...HEAD
+[8.28.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.3...v8.28.0
 [8.27.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.2...v8.27.3
 [8.27.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.1...v8.27.2
 [8.27.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.0...v8.27.1
