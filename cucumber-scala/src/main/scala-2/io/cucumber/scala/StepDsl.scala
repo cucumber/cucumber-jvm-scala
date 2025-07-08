@@ -46,7 +46,7 @@ private[scala] trait StepDsl extends BaseScalaDsl {
     def apply(fun: Fun0): Unit = {
       register() {
         case Nil => fun.f()
-        case _ =>
+        case _   =>
           throw new IncorrectStepDefinitionException()
       }
     }
