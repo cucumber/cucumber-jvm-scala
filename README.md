@@ -12,7 +12,7 @@ See: https://cucumber.io/support
 ## Compatibility matrix
 
 Cucumber Scala has a different release cycle than other Cucumber projects that you might use
-(like _cucumber-junit_).
+(like _cucumber-junit_). TODO
 
 As a rule of thumb, you can assume that latest version of Cucumber Scala targets the latest version
 of Cucumber Core projects.

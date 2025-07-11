@@ -2,8 +2,8 @@ package io.cucumber.scala
 
 import io.cucumber.datatable.DataTable
 import io.cucumber.scala.ScalaDslDataTableTypeTest.{Author, Cell, GroupOfAuthor}
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters._
 

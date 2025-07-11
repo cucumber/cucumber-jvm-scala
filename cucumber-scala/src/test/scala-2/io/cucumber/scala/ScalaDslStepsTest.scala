@@ -1,8 +1,8 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend._
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 import scala.annotation.nowarn
 import scala.util.Try
@@ -339,8 +339,8 @@ class ScalaDslStepsTest {
     // The result is different between Scala versions, that's why we don't check it precisely
     // assertEquals("$anonfun$can_provide_location_of_step$1", matched.getMethodName)
     assertTrue(
-      s"${matched.getClassName} did not contain $exceptionClassName",
-      matched.getClassName.contains(exceptionClassName)
+      matched.getClassName.contains(exceptionClassName),
+      s"${matched.getClassName} did not contain $exceptionClassName"
     )
     assertEquals(exceptionFile, matched.getFileName)
     assertEquals(exceptionLine, matched.getLineNumber)

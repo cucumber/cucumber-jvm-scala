@@ -85,6 +85,9 @@ To make it work, you only need a Cucumber DI module to be added as a dependency 
 
 See also the Running Cucumber for Java [documentation](https://docs.cucumber.io/docs/cucumber/api/#running-cucumber).
 
+TODO! junit 4 + junit 5 (do not forget the workaround + module sbt)
+TODO note for plugins
+
 Add the `cucumber-junit` dependency to your project.
 
 Then create a runner class like this:

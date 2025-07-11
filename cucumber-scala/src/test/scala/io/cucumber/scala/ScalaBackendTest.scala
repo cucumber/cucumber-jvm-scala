@@ -7,8 +7,8 @@ import io.cucumber.scala.steps.errors.incorrectclasshooks.IncorrectClassHooksDef
 import io.cucumber.scala.steps.errors.staticclasshooks.StaticClassHooksDefinition
 import io.cucumber.scala.steps.objects.StepsInObject
 import io.cucumber.scala.steps.traits.StepsInTrait
-import org.junit.Assert.{assertEquals, assertTrue, fail}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue, fail}
+import org.junit.jupiter.api.{BeforeEach, Test}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 
@@ -30,7 +30,7 @@ class ScalaBackendTest {
 
   private var backend: ScalaBackend = _
 
-  @Before
+  @BeforeEach
   def beforeEach(): Unit = {
     // Reset mocks
     reset(fakeGlue, fakeLookup, fakeContainer)
