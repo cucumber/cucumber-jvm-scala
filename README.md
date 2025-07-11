@@ -12,7 +12,7 @@ See: https://cucumber.io/support
 ## Compatibility matrix
 
 Cucumber Scala has a different release cycle than other Cucumber projects that you might use
-(like _cucumber-junit_).
+(like _cucumber-junit-platform-engine_).
 
 As a rule of thumb, you can assume that latest version of Cucumber Scala targets the latest version
 of Cucumber Core projects.
@@ -44,7 +44,7 @@ The table below shows the compatible versions:
   - [Hooks](docs/hooks.md)
   - [Transformers](docs/transformers.md)
     - [Default Jackson DataTable Transformer](docs/default_jackson_datatable_transformer.md)
-- [Example project](examples/README.md)
+- [Example project](examples/examples-junit5/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)
 

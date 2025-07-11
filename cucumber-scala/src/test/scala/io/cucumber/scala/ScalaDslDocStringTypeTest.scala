@@ -1,7 +1,7 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend._
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 import scala.annotation.nowarn
 

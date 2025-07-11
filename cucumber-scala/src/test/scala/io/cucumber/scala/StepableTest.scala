@@ -1,8 +1,8 @@
 package io.cucumber.scala
 
 import io.cucumber.datatable.DataTable
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 import java.lang.reflect.{ParameterizedType => JavaParameterizedType}
 import java.util.{List => JavaList, Map => JavaMap}
