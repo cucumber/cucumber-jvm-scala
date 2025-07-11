@@ -39,15 +39,16 @@ scalaVersion := scala213
 
 // Library versions
 
-val cucumberVersion = "7.23.0"
+val cucumberVersion = "7.26.0"
 val jacksonVersion = "2.19.1"
 val mockitoScalaVersion = "1.17.45"
 val junitVersion = "4.13.2"
+val junitJupiterVersion = "5.13.3"
+val junitPlatformVersion = "1.13.3"
 
 // Projects and settings
 
 lazy val commonSettings = Seq(
-  libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test,
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 12)) => ScalacOptions.scalacOptions212
@@ -56,6 +57,13 @@ lazy val commonSettings = Seq(
       case _             => Seq()
     }
   }
+)
+
+lazy val junit4SbtSupport = Seq(
+  libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test
+)
+lazy val junit5SbtSupport = Seq(
+  libraryDependencies += "com.github.sbt.junit" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
 )
 
 lazy val root = (project in file("."))
@@ -68,19 +76,21 @@ lazy val root = (project in file("."))
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
-      examples.projectRefs: _*
+      examplesJunit4.projectRefs ++
+      examplesJunit5.projectRefs: _*
   )
 
 // Main project
 lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
   .settings(commonSettings)
+  .settings(junit5SbtSupport)
   .settings(
     name := "cucumber-scala",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
-      "junit" % "junit" % junitVersion % Test,
+      "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
         .cross(CrossVersion.for3Use2_13)
     ),
@@ -127,11 +137,13 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
 lazy val integrationTestsCommon =
   (projectMatrix in file("integration-tests/common"))
     .settings(commonSettings)
+    .settings(junit5SbtSupport)
     .settings(
       name := "integration-tests-common",
       libraryDependencies ++= Seq(
-        "junit" % "junit" % junitVersion % Test,
-        "io.cucumber" % "cucumber-junit" % cucumberVersion % Test
+        "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
+        "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+        "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test
       ),
       publishArtifact := false
     )
@@ -141,11 +153,13 @@ lazy val integrationTestsCommon =
 lazy val integrationTestsJackson =
   (projectMatrix in file("integration-tests/jackson"))
     .settings(commonSettings)
+    .settings(junit5SbtSupport)
     .settings(
       name := "integration-tests-jackson",
       libraryDependencies ++= Seq(
-        "junit" % "junit" % junitVersion % Test,
-        "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
+        "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
+        "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+        "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Test
       ),
       publishArtifact := false
@@ -156,11 +170,13 @@ lazy val integrationTestsJackson =
 lazy val integrationTestsPicoContainer =
   (projectMatrix in file("integration-tests/picocontainer"))
     .settings(commonSettings)
+    .settings(junit5SbtSupport)
     .settings(
       name := "integration-tests-picocontainer",
       libraryDependencies ++= Seq(
-        "junit" % "junit" % junitVersion % Test,
-        "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
+        "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
+        "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+        "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
         "io.cucumber" % "cucumber-picocontainer" % cucumberVersion % Test
       ),
       publishArtifact := false
@@ -169,8 +185,9 @@ lazy val integrationTestsPicoContainer =
     .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Examples project
-lazy val examples = (projectMatrix in file("examples"))
+lazy val examplesJunit4 = (projectMatrix in file("examples/examples-junit4"))
   .settings(commonSettings)
+  .settings(junit4SbtSupport)
   .settings(
     name := "scala-examples",
     libraryDependencies ++= Seq(
@@ -180,7 +197,22 @@ lazy val examples = (projectMatrix in file("examples"))
     publishArtifact := false
   )
   .dependsOn(cucumberScala % Test)
-  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213))
+
+lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
+  .settings(commonSettings)
+  .settings(junit5SbtSupport)
+  .settings(
+    name := "scala-examples",
+    libraryDependencies ++= Seq(
+      "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
+      "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
+      "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test
+    ),
+    publishArtifact := false
+  )
+  .dependsOn(cucumberScala % Test)
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213))
 
 // Version policy check
 
@@ -204,12 +236,12 @@ releaseProcess := Seq[ReleaseStep](
   runTest,
   setReleaseVersion,
   // the 2 following steps are part of the Cucumber release process
-  //commitReleaseVersion,
-  //tagRelease,
+  // commitReleaseVersion,
+  // tagRelease,
   releaseStepCommandAndRemaining("publishSigned"),
   releaseStepCommand("sonatypeBundleRelease"),
   setNextVersion
   // the 2 following steps are part of the Cucumber release process
-  //commitNextVersion,
-  //pushChanges
+  // commitNextVersion,
+  // pushChanges
 )

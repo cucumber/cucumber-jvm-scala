@@ -85,6 +85,51 @@ To make it work, you only need a Cucumber DI module to be added as a dependency 
 
 See also the Running Cucumber for Java [documentation](https://docs.cucumber.io/docs/cucumber/api/#running-cucumber).
 
+### JUnit 5
+
+Add the `cucumber-junit-platform-engine` dependency to your project.
+
+Then create a runner class like this:
+```scala
+import io.cucumber.junit.platform.engine.Constants
+import org.junit.platform.suite.api._
+
+@Suite
+@IncludeEngines(Array("cucumber")) // Mandatory to load Cucumber engine
+@SelectPackages(Array("cucumber.examples.scalacalculator")) // Load all *.feature files in the given package
+// @SelectClasspathResource("cucumber/examples/scalacalculator/basic_arithmetic.feature") // Or, load a single feature file
+@ConfigurationParameter( // Set packages in which to look for glue code (classes containing steps definition)
+  key = Constants.GLUE_PROPERTY_NAME,
+  value = "cucumber.examples.scalacalculator"
+)
+class RunCucumberTest
+```
+
+Cucumber plugins can be added in the `junit-platform.properties` file (must be in the test resources classpath,
+usually `src/test/resources`): 
+```properties
+cucumber.plugin=pretty
+```
+
+#### Additional settings if using SBT
+
+You need to enable the support of JUnit 5 in SBT:
+```scala
+// plugins.sbt
+addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.0")
+// build.sbt
+libraryDependencies += "com.github.sbt.junit" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
+```
+
+And, because of an [issue in the SBT integration](https://github.com/sbt/sbt-jupiter-interface/issues/142), you need to
+set the following property in the `junit-platform.properties` file (must be in the test resources classpath, usually
+`src/test/resources`):
+```properties
+cucumber.junit-platform.discovery.as-root-engine=false
+```
+
+### JUnit 4
+
 Add the `cucumber-junit` dependency to your project.
 
 Then create a runner class like this:
@@ -97,6 +142,7 @@ import org.junit.runner.RunWith
 class RunCucumberTest
 ```
 
-You can define several options like:
+You can define several options via the `@CucumberOptions` parameters like:
 - the "glue path" (default to current package): packages in which to look for glue code
 - the "features path" (default to current folder): folder in which to look for features file
+- some plugins

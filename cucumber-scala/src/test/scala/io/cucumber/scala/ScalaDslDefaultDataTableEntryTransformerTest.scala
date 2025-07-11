@@ -1,8 +1,8 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend._
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters._
 

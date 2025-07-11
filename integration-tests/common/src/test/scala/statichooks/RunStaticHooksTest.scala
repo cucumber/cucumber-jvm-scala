@@ -1,31 +1,41 @@
 package statichooks
 
-import io.cucumber.junit.{Cucumber, CucumberOptions}
-import org.junit.{AfterClass, BeforeClass}
-import org.junit.Assert.assertEquals
-import org.junit.runner.RunWith
+import io.cucumber.junit.platform.engine.Constants
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.{AfterAll, BeforeAll}
+import org.junit.platform.suite.api.{
+  ConfigurationParameter,
+  IncludeEngines,
+  SelectPackages,
+  Suite
+}
 
-@RunWith(classOf[Cucumber])
-@CucumberOptions()
+@Suite
+@IncludeEngines(Array("cucumber"))
+@SelectPackages(Array("statichooks"))
+@ConfigurationParameter(
+  key = Constants.GLUE_PROPERTY_NAME,
+  value = "statichooks"
+)
 class RunStaticHooksTest
 
 object RunStaticHooksTest {
 
-  @BeforeClass
+  @BeforeAll
   def beforeAllJunit(): Unit = {
     assertEquals(
-      "Before Cucumber's BeforeAll",
       0L,
-      StaticHooksSteps.countBeforeAll.toLong
+      StaticHooksSteps.countBeforeAll.toLong,
+      "Before Cucumber's BeforeAll"
     )
   }
 
-  @AfterClass
+  @AfterAll
   def afterAllJunit(): Unit = {
     assertEquals(
-      "After Cucumber's AfterAll",
       1L,
-      StaticHooksSteps.countAfterAll.toLong
+      StaticHooksSteps.countAfterAll.toLong,
+      "After Cucumber's AfterAll"
     )
   }
 

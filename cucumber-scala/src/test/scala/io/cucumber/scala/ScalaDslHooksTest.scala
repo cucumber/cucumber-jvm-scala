@@ -1,8 +1,8 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend._
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.{BeforeEach, Test}
 import org.mockito.Mockito.mock
 
 import java.util.concurrent.atomic.AtomicBoolean
@@ -19,7 +19,7 @@ class ScalaDslHooksTest {
     invoked.set(true)
   }
 
-  @Before
+  @BeforeEach
   def beforeEach(): Unit = {
     // Reset the invoked flag
     invoked.set(false)

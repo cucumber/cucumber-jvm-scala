@@ -1,7 +1,7 @@
 package statichooks
 
 import io.cucumber.scala.{EN, ScalaDsl}
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 
 import scala.annotation.nowarn
 

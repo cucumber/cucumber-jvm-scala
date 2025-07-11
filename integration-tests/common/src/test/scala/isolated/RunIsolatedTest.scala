@@ -1,8 +1,18 @@
 package isolated
 
-import io.cucumber.junit.{Cucumber, CucumberOptions}
-import org.junit.runner.RunWith
+import io.cucumber.junit.platform.engine.Constants
+import org.junit.platform.suite.api.{
+  ConfigurationParameter,
+  IncludeEngines,
+  SelectPackages,
+  Suite
+}
 
-@RunWith(classOf[Cucumber])
-@CucumberOptions()
+@Suite
+@IncludeEngines(Array("cucumber"))
+@SelectPackages(Array("isolated"))
+@ConfigurationParameter(
+  key = Constants.GLUE_PROPERTY_NAME,
+  value = "isolated"
+)
 class RunIsolatedTest

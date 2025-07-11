@@ -9,9 +9,25 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+📢 As of Cucumber JVM 7.24, `cucumber-junit` (JUnit 4) is deprecated in favour of `cucumber-junit-platform-engine`
+(JUnit 5). Users are strongly encouraged to use the latter.
+
+📖 Read the "Run" section in [Basic usage](docs/usage.md) to see examples of Cucumber + JUnit 5.
+
+ℹ️ `cucumber-junit-platform-engine` 7.26+ is required when using SBT, lower versions will run Cucumber tests twice and
+fail with runtime errors due to [a bug in the SBT/JUnit 5 interface](https://github.com/sbt/sbt-jupiter-interface/issues/142).
+Thanks @mpkorstanje for providing a [workaround in Cucumber JVM](https://github.com/cucumber/cucumber-jvm/pull/3023)!
+
 ### Added
 
+- [Documentation] Integration with JUnit 5
+- Add example project with JUnit 5
+
 ### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.26.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Internal] Update integration tests to use JUnit 5
+- Drop support of Scala 2.12 in example test projects
 
 ### Deprecated
 
