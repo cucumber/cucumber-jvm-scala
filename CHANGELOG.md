@@ -9,6 +9,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ----
 ## [Unreleased] (In Git)
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [8.29.0] (2025-07-15)
+
 📢 As of Cucumber JVM 7.24, `cucumber-junit` (JUnit 4) is deprecated in favour of `cucumber-junit-platform-engine`
 (JUnit 5). Users are strongly encouraged to use the latter.
 
@@ -28,12 +40,6 @@ Thanks @mpkorstanje for providing a [workaround in Cucumber JVM](https://github.
 - [Core] Update `cucumber-core` dependency to [7.26.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 - [Internal] Update integration tests to use JUnit 5
 - Drop support of Scala 2.12 in example test projects
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [8.28.0] (2025-05-30)
 
@@ -726,7 +732,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.28.0...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.29.0...HEAD
+[8.29.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.28.0...v8.29.0
 [8.28.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.3...v8.28.0
 [8.27.3]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.2...v8.27.3
 [8.27.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.27.1...v8.27.2
