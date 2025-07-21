@@ -43,8 +43,8 @@ val cucumberVersion = "7.26.0"
 val jacksonVersion = "2.19.2"
 val mockitoScalaVersion = "1.17.45"
 val junitVersion = "4.13.2"
-val junitJupiterVersion = "5.13.3"
-val junitPlatformVersion = "1.13.3"
+val junitJupiterVersion = "5.13.4"
+val junitPlatformVersion = "1.13.4"
 
 // Projects and settings
 
