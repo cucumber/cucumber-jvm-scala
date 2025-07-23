@@ -271,7 +271,7 @@ class ScalaDslStepsTest {
       check: => Boolean
   ): Unit = {
     assertEquals(pattern, stepDefinition.getPattern)
-    assertEquals(location, stepDefinition.getLocation)
+    assertTrue(stepDefinition.getLocation.contains(location))
     stepDefinition.execute(args)
     assertTrue(check)
   }

@@ -35,10 +35,6 @@ trait ScalaStepDefinition extends StepDefinition with AbstractGlueDefinition {
 
   override def getPattern: String = stepDetails.pattern
 
-  // Easier to just print out fileName and lineNumber
-  override def getLocation(): String =
-    stepDetails.frame.getFileName + ":" + stepDetails.frame.getLineNumber
-
 }
 
 object ScalaStepDefinition {
