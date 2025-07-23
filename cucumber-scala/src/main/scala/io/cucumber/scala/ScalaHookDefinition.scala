@@ -1,7 +1,9 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend.{HookDefinition, ScenarioScoped, TestCaseState}
+import io.cucumber.scala.ScopedHookType.{AFTER, AFTER_STEP, BEFORE, BEFORE_STEP}
 
+import java.util.Optional
 import scala.annotation.nowarn
 
 trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
@@ -17,6 +19,16 @@ trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
   override def getTagExpression: String = hookDetails.tagExpression
 
   override def getOrder: Int = hookDetails.order
+
+  override def getHookType: Optional[HookDefinition.HookType] = {
+    val javaHookType = hookDetails.hookType match {
+      case BEFORE      => HookDefinition.HookType.BEFORE
+      case AFTER       => HookDefinition.HookType.AFTER
+      case BEFORE_STEP => HookDefinition.HookType.BEFORE_STEP
+      case AFTER_STEP  => HookDefinition.HookType.AFTER_STEP
+    }
+    Optional.of(javaHookType)
+  }
 
 }
 

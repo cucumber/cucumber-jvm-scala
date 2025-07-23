@@ -6,5 +6,6 @@ case class ScalaHookDetails(
     tagExpression: String,
     order: Int,
     body: HookDefinitionBody,
-    stackTraceElement: StackTraceElement
+    stackTraceElement: StackTraceElement,
+    hookType: ScopedHookType
 )

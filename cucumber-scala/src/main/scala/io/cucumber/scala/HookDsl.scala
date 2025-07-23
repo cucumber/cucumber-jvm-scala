@@ -184,7 +184,8 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     }
 
     def apply(body: Scenario => Unit): Unit = {
-      val details = ScalaHookDetails(tagExpression, order, body, frame)
+      val details =
+        ScalaHookDetails(tagExpression, order, body, frame, hookType)
       registry.registerDynamicHook(hookType, details)
     }
 
