@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Internal] Implement `HookDefinition.getHookType` and unimplement `Location.getLocation`. No impact expected for users.
+
 ### Deprecated
 
 ### Removed
