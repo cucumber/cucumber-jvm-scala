@@ -10,7 +10,7 @@ trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
 
   val hookDetails: ScalaHookDetails
 
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val location: StackTraceElement = hookDetails.stackTraceElement
 
   override def execute(state: TestCaseState): Unit = {
     executeAsCucumber(hookDetails.body.apply(new Scenario(state)))

@@ -12,7 +12,7 @@ trait ScalaParameterTypeDefinition[R]
 
   val details: ScalaParameterTypeDetails[R]
 
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val location: StackTraceElement = details.stackTraceElement
 
   private val transformer: CaptureGroupTransformer[R] =
     (parameterContent: Array[String]) => {

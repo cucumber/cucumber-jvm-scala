@@ -7,5 +7,6 @@ import java.lang.reflect.{Type => JType}
 case class ScalaDocStringTypeDetails[T](
     contentType: String,
     body: DocStringDefinitionBody[T],
-    `type`: JType
+    `type`: JType,
+    stackTraceElement: StackTraceElement
 )

@@ -7,11 +7,7 @@ import scala.annotation.nowarn
 
 trait ScalaDataTableDefinition[T] extends ScalaDataTableTypeDefinition {
 
-  val details: ScalaDataTableTableTypeDetails[T]
-
-  override val emptyPatterns: Seq[String] = details.emptyPatterns
-
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val details: ScalaDataTableTableTypeDetails[T]
 
   private val transformer: TableTransformer[T] = (table: DataTable) => {
     details.body.transform(replaceEmptyPatternsWithEmptyString(table))

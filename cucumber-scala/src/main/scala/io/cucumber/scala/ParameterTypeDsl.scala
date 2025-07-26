@@ -2,7 +2,7 @@ package io.cucumber.scala
 
 import scala.reflect.ClassTag
 
-private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
+private[scala] trait ParameterTypeDsl extends BaseScalaDsl { self =>
 
   /** Register parameter type.
     *
@@ -748,7 +748,7 @@ private[scala] trait ParameterTypeDsl extends BaseScalaDsl {
         pf: PartialFunction[List[String], R]
     )(implicit tag: ClassTag[R]): Unit = {
       registry.registerParameterType(
-        ScalaParameterTypeDetails[R](name, regex, pf, tag)
+        ScalaParameterTypeDetails[R](name, regex, pf, tag, Utils.frame(self))
       )
     }
 

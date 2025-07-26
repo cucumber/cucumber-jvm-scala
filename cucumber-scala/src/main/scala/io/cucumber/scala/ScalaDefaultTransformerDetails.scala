@@ -7,15 +7,18 @@ import Aliases.{
 }
 
 case class ScalaDefaultParameterTransformerDetails(
-    body: DefaultParameterTransformerBody
+    body: DefaultParameterTransformerBody,
+    stackTraceElement: StackTraceElement
 )
 
 case class ScalaDefaultDataTableCellTransformerDetails(
     emptyPatterns: Seq[String],
-    body: DefaultDataTableCellTransformerBody
+    body: DefaultDataTableCellTransformerBody,
+    stackTraceElement: StackTraceElement
 )
 
 case class ScalaDefaultDataTableEntryTransformerDetails(
     emptyPatterns: Seq[String],
-    body: DefaultDataTableEntryTransformerBody
+    body: DefaultDataTableEntryTransformerBody,
+    stackTraceElement: StackTraceElement
 )

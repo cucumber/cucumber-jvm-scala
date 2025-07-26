@@ -2,7 +2,7 @@ package io.cucumber.scala
 
 import scala.reflect.ClassTag
 
-private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
+private[scala] trait DataTableTypeDsl extends BaseScalaDsl { self =>
 
   /** Register a data table type.
     */
@@ -27,7 +27,12 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         body: DataTableEntryDefinitionBody[T]
     )(implicit ev: ClassTag[T]): Unit = {
       registry.registerDataTableType(
-        ScalaDataTableEntryTypeDetails[T](replaceWithEmptyString, body, ev)
+        ScalaDataTableEntryTypeDetails[T](
+          replaceWithEmptyString,
+          body,
+          ev,
+          Utils.frame(self)
+        )
       )
     }
 
@@ -38,7 +43,8 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         ScalaDataTableOptionalEntryTypeDetails[T](
           replaceWithEmptyString,
           body,
-          ev
+          ev,
+          Utils.frame(self)
         )
       )
     }
@@ -47,7 +53,12 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         body: DataTableRowDefinitionBody[T]
     )(implicit ev: ClassTag[T]): Unit = {
       registry.registerDataTableType(
-        ScalaDataTableRowTypeDetails[T](replaceWithEmptyString, body, ev)
+        ScalaDataTableRowTypeDetails[T](
+          replaceWithEmptyString,
+          body,
+          ev,
+          Utils.frame(self)
+        )
       )
     }
 
@@ -58,7 +69,8 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         ScalaDataTableOptionalRowTypeDetails[T](
           replaceWithEmptyString,
           body,
-          ev
+          ev,
+          Utils.frame(self)
         )
       )
     }
@@ -67,7 +79,12 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         body: DataTableCellDefinitionBody[T]
     )(implicit ev: ClassTag[T]): Unit = {
       registry.registerDataTableType(
-        ScalaDataTableCellTypeDetails[T](replaceWithEmptyString, body, ev)
+        ScalaDataTableCellTypeDetails[T](
+          replaceWithEmptyString,
+          body,
+          ev,
+          Utils.frame(self)
+        )
       )
     }
 
@@ -78,7 +95,8 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         ScalaDataTableOptionalCellTypeDetails[T](
           replaceWithEmptyString,
           body,
-          ev
+          ev,
+          Utils.frame(self)
         )
       )
     }
@@ -87,7 +105,12 @@ private[scala] trait DataTableTypeDsl extends BaseScalaDsl {
         body: DataTableDefinitionBody[T]
     )(implicit ev: ClassTag[T]): Unit = {
       registry.registerDataTableType(
-        ScalaDataTableTableTypeDetails[T](replaceWithEmptyString, body, ev)
+        ScalaDataTableTableTypeDetails[T](
+          replaceWithEmptyString,
+          body,
+          ev,
+          Utils.frame(self)
+        )
       )
     }
 
