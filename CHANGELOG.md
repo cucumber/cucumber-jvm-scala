@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Internal] Fix `getLocation` wherever it was wrongly defined. ([#404](https://github.com/cucumber/cucumber-jvm-scala/issues/404))
+
 ### Deprecated
 
 ### Removed
@@ -24,6 +26,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Internal] Implement `HookDefinition.getHookType` and unimplement `Location.getLocation`. No impact expected for users.
+([#401](https://github.com/cucumber/cucumber-jvm-scala/issues/401))
 
 ## [8.29.0] (2025-07-15)
 
