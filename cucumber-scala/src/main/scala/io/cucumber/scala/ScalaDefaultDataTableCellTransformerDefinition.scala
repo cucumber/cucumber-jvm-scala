@@ -17,7 +17,7 @@ trait ScalaDefaultDataTableCellTransformerDefinition
 
   override val emptyPatterns: Seq[String] = details.emptyPatterns
 
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val location: StackTraceElement = details.stackTraceElement
 
   override val tableCellByTypeTransformer: TableCellByTypeTransformer =
     (fromValue: String, toTypeValue: Type) => {

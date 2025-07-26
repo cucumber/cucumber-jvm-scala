@@ -8,7 +8,7 @@ trait ScalaStaticHookDefinition
 
   val hookDetails: ScalaStaticHookDetails
 
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val location: StackTraceElement = hookDetails.stackTraceElement
 
   override def execute(): Unit = {
     executeAsCucumber(hookDetails.body.apply())

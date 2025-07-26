@@ -8,11 +8,7 @@ import scala.annotation.nowarn
 trait ScalaDataTableOptionalCellDefinition[T]
     extends ScalaDataTableTypeDefinition {
 
-  val details: ScalaDataTableOptionalCellTypeDetails[T]
-
-  override val emptyPatterns: Seq[String] = details.emptyPatterns
-
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val details: ScalaDataTableOptionalCellTypeDetails[T]
 
   private val transformer: TableCellTransformer[T] = (cell: String) => {
     details.body.transform(Option(replaceEmptyPatternsWithEmptyString(cell)))

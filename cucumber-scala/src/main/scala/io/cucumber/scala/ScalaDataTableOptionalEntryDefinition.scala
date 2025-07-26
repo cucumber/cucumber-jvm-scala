@@ -10,11 +10,7 @@ import scala.jdk.CollectionConverters._
 trait ScalaDataTableOptionalEntryDefinition[T]
     extends ScalaDataTableTypeDefinition {
 
-  val details: ScalaDataTableOptionalEntryTypeDetails[T]
-
-  override val emptyPatterns: Seq[String] = details.emptyPatterns
-
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val details: ScalaDataTableOptionalEntryTypeDetails[T]
 
   private val transformer: TableEntryTransformer[T] =
     (entry: JavaMap[String, String]) => {

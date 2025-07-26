@@ -6,7 +6,7 @@ import io.cucumber.scala.Aliases.{
   DefaultParameterTransformerBody
 }
 
-private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
+private[scala] trait DefaultTransformerDsl extends BaseScalaDsl { self =>
 
   /** Register default parameter type transformer.
     *
@@ -17,7 +17,7 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
       body: DefaultParameterTransformerBody
   ): Unit = {
     registry.registerDefaultParameterTransformer(
-      ScalaDefaultParameterTransformerDetails(body)
+      ScalaDefaultParameterTransformerDetails(body, Utils.frame(self))
     )
   }
 
@@ -52,7 +52,11 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
       replaceWithEmptyString: Seq[String]
   )(body: DefaultDataTableCellTransformerBody): Unit = {
     registry.registerDefaultDataTableCellTransformer(
-      ScalaDefaultDataTableCellTransformerDetails(replaceWithEmptyString, body)
+      ScalaDefaultDataTableCellTransformerDetails(
+        replaceWithEmptyString,
+        body,
+        Utils.frame(self)
+      )
     )
   }
 
@@ -89,7 +93,11 @@ private[scala] trait DefaultTransformerDsl extends BaseScalaDsl {
       replaceWithEmptyString: Seq[String]
   )(body: DefaultDataTableEntryTransformerBody): Unit = {
     registry.registerDefaultDataTableEntryTransformer(
-      ScalaDefaultDataTableEntryTransformerDetails(replaceWithEmptyString, body)
+      ScalaDefaultDataTableEntryTransformerDetails(
+        replaceWithEmptyString,
+        body,
+        Utils.frame(self)
+      )
     )
   }
 

@@ -12,7 +12,7 @@ abstract class ScalaDocStringTypeDefinition[T]
 
   val details: ScalaDocStringTypeDetails[T]
 
-  override val location: StackTraceElement = new Exception().getStackTrace()(3)
+  override val location: StackTraceElement = details.stackTraceElement
 
   private val transformer: Transformer[T] = (s: String) => {
     details.body.apply(s)
