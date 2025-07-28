@@ -21,8 +21,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ## [8.31.0] (2025-07-28)
 
-## [8.30.2-SNAPSHOT] (2025-07-28)
-
 ### Changed
 
 - [Core] Update `cucumber-core` dependency to [7.27.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
