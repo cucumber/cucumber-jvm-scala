@@ -15,4 +15,4 @@ addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.12.2")
 addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.1")
 
 // Junit 5
-addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.0")
+addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.1")
