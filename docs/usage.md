@@ -102,11 +102,12 @@ import org.junit.platform.suite.api._
   key = Constants.GLUE_PROPERTY_NAME,
   value = "cucumber.examples.scalacalculator"
 )
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty")
 class RunCucumberTest
 ```
 
-Cucumber plugins can be added in the `junit-platform.properties` file (must be in the test resources classpath,
-usually `src/test/resources`): 
+Some properties can also be applied for all suites by adding them in the `junit-platform.properties` file (must be in the test resources classpath,
+usually `src/test/resources`). For instance: 
 ```properties
 cucumber.plugin=pretty
 ```
@@ -116,16 +117,10 @@ cucumber.plugin=pretty
 You need to enable the support of JUnit 5 in SBT:
 ```scala
 // plugins.sbt
-addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.0")
+// version 0.15.1+ is important, earlier versions have a bug preventing properly running Cucumber tests (https://github.com/sbt/sbt-jupiter-interface/issues/142)
+addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.1")
 // build.sbt
 libraryDependencies += "com.github.sbt.junit" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
-```
-
-And, because of an [issue in the SBT integration](https://github.com/sbt/sbt-jupiter-interface/issues/142), you need to
-set the following property in the `junit-platform.properties` file (must be in the test resources classpath, usually
-`src/test/resources`):
-```properties
-cucumber.junit-platform.discovery.as-root-engine=false
 ```
 
 ### JUnit 4
