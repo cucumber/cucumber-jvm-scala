@@ -1,3 +1,4 @@
+import com.here.bom.Bom
 import ReleaseTransformations._
 import xerial.sbt.Sonatype.sonatypeSettings
 import xerial.sbt.Sonatype.sonatypeCentralHost
@@ -42,9 +43,11 @@ scalaVersion := scala213
 val cucumberVersion = "7.28.0"
 val jacksonVersion = "2.20.0"
 val mockitoScalaVersion = "1.17.45"
-val junitVersion = "4.13.2"
-val junitJupiterVersion = "5.13.4"
-val junitPlatformVersion = "1.13.4"
+val junit4Version = "4.13.2"
+
+// BOMs
+
+lazy val junitBom = Bom("org.junit" % "junit-bom" % "5.13.4")
 
 // Projects and settings
 
@@ -56,7 +59,11 @@ lazy val commonSettings = Seq(
       case Some((3, _))  => ScalacOptions.scalacOptions3
       case _             => Seq()
     }
-  }
+  },
+  // Load BOMs
+  junitBom,
+  // Add all dependencies of the BOM in dependencyOverrides
+  dependencyOverrides ++= junitBom.key.value.bomDependencies
 )
 
 lazy val junit4SbtSupport = Seq(
@@ -90,7 +97,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
-      "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
+      "org.junit.jupiter" % "junit-jupiter" % junitBom.key.value % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
         .cross(CrossVersion.for3Use2_13)
     ),
@@ -141,8 +148,7 @@ lazy val integrationTestsCommon =
     .settings(
       name := "integration-tests-common",
       libraryDependencies ++= Seq(
-        "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
-        "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+        "org.junit.platform" % "junit-platform-suite" % junitBom.key.value % Test,
         "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test
       ),
       publishArtifact := false
@@ -157,8 +163,7 @@ lazy val integrationTestsJackson =
     .settings(
       name := "integration-tests-jackson",
       libraryDependencies ++= Seq(
-        "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
-        "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+        "org.junit.platform" % "junit-platform-suite" % junitBom.key.value % Test,
         "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Test
       ),
@@ -174,8 +179,7 @@ lazy val integrationTestsPicoContainer =
     .settings(
       name := "integration-tests-picocontainer",
       libraryDependencies ++= Seq(
-        "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
-        "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test,
+        "org.junit.platform" % "junit-platform-suite" % junitBom.key.value % Test,
         "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
         "io.cucumber" % "cucumber-picocontainer" % cucumberVersion % Test
       ),
@@ -192,7 +196,7 @@ lazy val examplesJunit4 = (projectMatrix in file("examples/examples-junit4"))
     name := "scala-examples",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
-      "junit" % "junit" % junitVersion % Test
+      "junit" % "junit" % junit4Version % Test
     ),
     publishArtifact := false
   )
@@ -206,8 +210,7 @@ lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
     name := "scala-examples",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
-      "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
-      "org.junit.platform" % "junit-platform-suite" % junitPlatformVersion % Test
+      "org.junit.platform" % "junit-platform-suite" % junitBom.key.value % Test
     ),
     publishArtifact := false
   )
