@@ -49,7 +49,7 @@ class ScalaDslStepsTest {
     assertClassStepDefinition(
       glue.registry.stepDefinitions.head,
       "Something",
-      "ScalaDslStepsTest.scala:43",
+      "ScalaDslStepsTest.scala:42",
       Array(),
       invoked
     )
@@ -119,7 +119,7 @@ class ScalaDslStepsTest {
       classOf[IncorrectStepDefinitionException],
       "io.cucumber.scala.ScalaDslStepsTest",
       "ScalaDslStepsTest.scala",
-      323,
+      326,
       Array(null)
     )
   }
@@ -162,7 +162,7 @@ class ScalaDslStepsTest {
     assertObjectStepDefinition(
       Glue.registry.stepDefinitions.head,
       "Something",
-      "ScalaDslStepsTest.scala:158",
+      "ScalaDslStepsTest.scala:157",
       Array(),
       invoked
     )
@@ -226,7 +226,7 @@ class ScalaDslStepsTest {
       classOf[IncorrectStepDefinitionException],
       "io.cucumber.scala.ScalaDslStepsTest",
       "ScalaDslStepsTest.scala",
-      323,
+      326,
       Array(null)
     )
   }
@@ -271,7 +271,10 @@ class ScalaDslStepsTest {
       check: => Boolean
   ): Unit = {
     assertEquals(pattern, stepDefinition.getPattern)
-    assertTrue(stepDefinition.getLocation.contains(location))
+    assertTrue(
+      stepDefinition.getLocation.contains(location),
+      s"Expected location '${stepDefinition.getLocation}' to contain '$location'"
+    )
     stepDefinition.execute(args)
     assertTrue(check)
   }
