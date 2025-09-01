@@ -23,7 +23,7 @@ libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" 
 ```
 
 
-The current version of Cucumber Scala has been tested against Jackson Module Scala **version 2.13.3**.
+The current version of Cucumber Scala has been tested against Jackson Module Scala **version 2.20.0**.
 
 ## Add the transformer
 
