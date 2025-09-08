@@ -18,4 +18,4 @@ addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.1")
 addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.1")
 
 // Usage of BOMs
-addSbtPlugin("com.here.platform" % "sbt-bom" % "1.0.27")
+addSbtPlugin("com.here.platform" % "sbt-bom" % "1.0.28")
