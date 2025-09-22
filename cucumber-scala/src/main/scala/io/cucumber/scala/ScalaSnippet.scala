@@ -3,6 +3,7 @@ package io.cucumber.scala
 import java.lang.reflect.Type
 import java.text.MessageFormat
 import java.util.{Map => JMap}
+import java.util.Optional
 
 import io.cucumber.core.backend.Snippet
 import io.cucumber.datatable.DataTable
@@ -19,6 +20,10 @@ object ScalaSnippet {
 class ScalaSnippet extends Snippet {
 
   import ScalaSnippet.tripleDoubleQuotes
+
+  override def language(): Optional[String] = {
+    Optional.of("scala")
+  }
 
   override def template(): MessageFormat = {
     new MessageFormat(

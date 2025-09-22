@@ -11,7 +11,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Scala] `ScalaSnippet` now implements `language()` method from `io.cucumber.core.backend.Snippet`
+
 ### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.29.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
 
