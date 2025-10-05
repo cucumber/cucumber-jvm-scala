@@ -12,7 +12,8 @@ The project contains several subprojects:
 - `cucumber-scala`: contains the codebase of the Cucumber Scala implementation
 - `integration-tests`: contains integration tests projects
   - `common`: general integration tests
-  - `jackson`: Jackson integration specific tests
+  - `jackson2`: Jackson 2.x integration specific tests
+  - `jackson3`: Jackson 3.x integration specific tests
   - `picocontainer`: Picocontainer integration specific tests
 - `examples`: contains a sample project
 

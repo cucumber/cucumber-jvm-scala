@@ -11,6 +11,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Scala] Support for Jackson 3.x with `Jackson3DefaultDataTableEntryTransformer` trait
+    - Jackson 2.x is still supported with `JacksonDefaultDataTableEntryTransformer` trait
+
 ### Changed
 
 ### Deprecated

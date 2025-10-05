@@ -1,7 +1,8 @@
 package io.cucumber.scala
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.scala.ScalaModule
 
 /** <p>This trait register a `DefaultDataTableEntryTransformer` using Jackson
   * `ObjectMapper`. </p>
@@ -10,25 +11,28 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
   * override it if you need to.</p>
   *
   * <p>Note: Jackson is not included with Cucumber Scala, you have to add the
-  * dependency: `com.fasterxml.jackson.module:jackson-module-scala` to your
-  * project if you want to use this trait.</p>
+  * dependency: `tools.jackson.module:jackson-module-scala` to your project if
+  * you want to use this trait.</p>
   *
-  * <p>For Jackson 3.x, use `Jackson3DefaultDataTableEntryTransformer`
+  * <p>For Jackson 2.x, use `JacksonDefaultDataTableEntryTransformer`
   * instead.</p>
   */
-trait JacksonDefaultDataTableEntryTransformer extends ScalaDsl {
+trait Jackson3DefaultDataTableEntryTransformer extends ScalaDsl {
 
   /** Define the string to be used as replacement for empty. Default is
     * `[empty]`.
     */
   def emptyStringReplacement: String = "[empty]"
 
-  /** Create the Jackson ObjectMapper to be used. Default is a simple
-    * ObjectMapper with DefaultScalaModule registered.
+  /** Create the Jackson ObjectMapper to be used. Default is a simple JsonMapper
+    * with ScalaModule (including all builtin modules) registered.
     */
   def createObjectMapper(): ObjectMapper = {
-    val objectMapper = new ObjectMapper()
-    objectMapper.registerModule(DefaultScalaModule)
+    val scalaModule = ScalaModule
+      .builder()
+      .addAllBuiltinModules()
+      .build()
+    JsonMapper.builder().addModule(scalaModule).build()
   }
 
   private lazy val objectMapper: ObjectMapper = createObjectMapper()
