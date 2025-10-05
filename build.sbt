@@ -60,6 +60,8 @@ lazy val commonSettings = Seq(
       case _             => Seq()
     }
   },
+  // Explicitly set target to Java 8
+  scalacOptions += "-release:8",
   // Load BOMs
   junitBom,
   // Add all dependencies of the BOM in dependencyOverrides
