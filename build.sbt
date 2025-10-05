@@ -42,6 +42,7 @@ scalaVersion := scala213
 
 val cucumberVersion = "7.30.0"
 val jacksonVersion = "2.20.0"
+val jackson3Version = "3.0.0"
 val mockitoScalaVersion = "1.17.45"
 val junit4Version = "4.13.2"
 
@@ -83,7 +84,8 @@ lazy val root = (project in file("."))
   .aggregate(
     cucumberScala.projectRefs ++
       integrationTestsCommon.projectRefs ++
-      integrationTestsJackson.projectRefs ++
+      integrationTestsJackson2.projectRefs ++
+      integrationTestsJackson3.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
       examplesJunit4.projectRefs ++
       examplesJunit5.projectRefs: _*
@@ -99,6 +101,7 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       "io.cucumber" % "cucumber-core" % cucumberVersion,
       // Users have to provide it (for JacksonDefaultDataTableTransformer)
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Provided,
+      "tools.jackson.module" %% "jackson-module-scala" % jackson3Version % Provided,
       "org.junit.jupiter" % "junit-jupiter" % junitBom.key.value % Test,
       ("org.mockito" %% "mockito-scala" % mockitoScalaVersion % Test)
         .cross(CrossVersion.for3Use2_13)
@@ -158,16 +161,32 @@ lazy val integrationTestsCommon =
     .dependsOn(cucumberScala % Test)
     .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
-lazy val integrationTestsJackson =
-  (projectMatrix in file("integration-tests/jackson"))
+lazy val integrationTestsJackson2 =
+  (projectMatrix in file("integration-tests/jackson2"))
     .settings(commonSettings)
     .settings(junit5SbtSupport)
     .settings(
-      name := "integration-tests-jackson",
+      name := "integration-tests-jackson2",
       libraryDependencies ++= Seq(
         "org.junit.platform" % "junit-platform-suite" % junitBom.key.value % Test,
         "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion % Test
+      ),
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+lazy val integrationTestsJackson3 =
+  (projectMatrix in file("integration-tests/jackson3"))
+    .settings(commonSettings)
+    .settings(junit5SbtSupport)
+    .settings(
+      name := "integration-tests-jackson3",
+      libraryDependencies ++= Seq(
+        "org.junit.platform" % "junit-platform-suite" % junitBom.key.value % Test,
+        "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
+        "tools.jackson.module" %% "jackson-module-scala" % jackson3Version % Test
       ),
       publishArtifact := false
     )

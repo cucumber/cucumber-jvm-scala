@@ -6,32 +6,54 @@ It can be used to automatically convert DataTables to case classes without defin
 
 ## Add Jackson dependency
 
+### Jackson 2.x
+
 To use this optional transformer, you need to have Jackson Scala in your dependencies.
 
 ```xml
 <dependency>
     <groupId>com.fasterxml.jackson.module</groupId>
     <artifactId>jackson-module-scala_2.13</artifactId>
-    <version>2.13.3</version>
+    <version>2.20.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 Or:
 ```sbt
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.13.3" % Test
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.20.0" % Test
 ```
-
 
 The current version of Cucumber Scala has been tested against Jackson Module Scala **version 2.20.0**.
 
+### Jackson 3.x
+
+To use this optional transformer, you need to have Jackson Scala in your dependencies.
+
+```xml
+<dependency>
+    <groupId>tools.jackson.module</groupId>
+    <artifactId>jackson-module-scala_2.13</artifactId>
+    <version>3.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+Or:
+```sbt
+libraryDependencies += "tools.jackson.module" %% "jackson-module-scala" % "3.0.0" % Test
+```
+
+The current version of Cucumber Scala has been tested against Jackson Module Scala **version 3.0.0**.
+
 ## Add the transformer
 
-The transformer has to be added to your glue code by extending the `JacksonDefaultDataTableEntryTransformer` trait.
+The transformer has to be added to your glue code by extending the `JacksonDefaultDataTableEntryTransformer` (Jackson 2.x)
+or `Jackson3DefaultDataTableEntryTransformer` (Jackson 3.x) trait.
 
 For instance:
 ```scala
-class MySteps extends ScalaDsl with EN with JacksonDefaultDataTableEntryTransformer {
+class MySteps extends ScalaDsl with EN with Jackson3DefaultDataTableEntryTransformer {
   // Your usual glue code
 }
 ```
