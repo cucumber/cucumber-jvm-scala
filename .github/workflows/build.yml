@@ -18,10 +18,9 @@ jobs:
       matrix:
         os: [ ubuntu-latest ]
         java:
-          - 8.0
-          - 11
           - 17
           - 21
+          - 25
     runs-on: ${{ matrix.os }}
     steps:
 
@@ -40,7 +39,7 @@ jobs:
       uses: actions/setup-java@v5
       with:
         java-version: ${{ matrix.java }}
-        distribution: 'adopt'
+        distribution: 'temurin'
 
     - uses: sbt/setup-sbt@v1
 
