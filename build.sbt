@@ -237,7 +237,8 @@ lazy val integrationTestsScalatest =
     .settings(
       name := "integration-tests-scalatest",
       libraryDependencies ++= Seq(
-        "org.scalatest" %% "scalatest" % scalatestVersion % Test
+        "org.scalatest" %% "scalatest" % scalatestVersion % Test,
+        "org.junit.jupiter" % "junit-jupiter" % junitBom.key.value % Test
       ),
       publishArtifact := false
     )

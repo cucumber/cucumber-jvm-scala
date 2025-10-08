@@ -1,7 +1,7 @@
 package misc
 
-import io.cucumber.core.options.CucumberOptions
-import io.cucumber.scalatest.CucumberSuite
+import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
+
 
 @CucumberOptions(
   glue = Array("misc"),

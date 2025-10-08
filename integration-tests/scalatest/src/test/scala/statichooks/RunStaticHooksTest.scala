@@ -1,7 +1,7 @@
 package statichooks
 
-import io.cucumber.core.options.CucumberOptions
-import io.cucumber.scalatest.CucumberSuite
+import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
+
 import org.scalatest.{BeforeAndAfterAll, Assertions}
 
 @CucumberOptions(
@@ -17,6 +17,7 @@ class RunStaticHooksTest extends CucumberSuite with BeforeAndAfterAll with Asser
       StaticHooksSteps.countBeforeAll.toLong == 0L,
       "Before Cucumber's BeforeAll"
     )
+    ()
   }
 
   override def afterAll(): Unit = {
@@ -25,6 +26,7 @@ class RunStaticHooksTest extends CucumberSuite with BeforeAndAfterAll with Asser
       "After Cucumber's AfterAll"
     )
     super.afterAll()
+    ()
   }
 
 }

@@ -2,12 +2,9 @@ package io.cucumber.scalatest
 
 import io.cucumber.core.options.{RuntimeOptionsBuilder, CucumberOptionsAnnotationParser}
 import io.cucumber.core.runtime.{Runtime => CucumberRuntime}
-import io.cucumber.core.plugin.event._
 import org.scalatest.{Args, Status, Suite}
-import org.scalatest.events._
 
 import scala.annotation.nowarn
-import scala.jdk.CollectionConverters._
 
 /** A trait that allows Cucumber scenarios to be run with ScalaTest.
   *
@@ -48,294 +45,56 @@ trait CucumberSuite extends Suite {
       )
     }
 
-    val reporter = args.reporter
-    val tracker = args.tracker
-    val suiteStartTime = System.currentTimeMillis()
-
-    reporter(SuiteStarting(
-      tracker.nextOrdinal(),
-      suiteName,
-      suiteId,
-      Some(getClass.getName),
-      None,
-      None,
-      None,
-      None,
-      None
-    ))
-
-    var suiteSucceeded = true
+    val runtimeOptions = buildRuntimeOptions()
+    val classLoader = getClass.getClassLoader
     
-    try {
-      val runtimeOptions = buildRuntimeOptions()
-      val classLoader = getClass.getClassLoader
-      
-      val runtime = CucumberRuntime
-        .builder()
-        .withRuntimeOptions(runtimeOptions)
-        .withClassLoader(new java.util.function.Supplier[ClassLoader] {
-          override def get(): ClassLoader = classLoader
-        })
-        .build()
+    val runtime = CucumberRuntime
+      .builder()
+      .withRuntimeOptions(runtimeOptions)
+      .withClassLoader(new java.util.function.Supplier[ClassLoader] {
+        override def get(): ClassLoader = classLoader
+      })
+      .build()
 
-      val eventBus = runtime.getBus()
-      
-      // Register a custom event handler to report to ScalaTest
-      val eventHandler = new ScalaTestEventHandler(
-        reporter,
-        tracker,
-        suiteId,
-        suiteName,
-        getClass.getName
-      )
-      eventBus.registerHandlerFor(classOf[TestCaseStarted], eventHandler)
-      eventBus.registerHandlerFor(classOf[TestCaseFinished], eventHandler)
-
-      runtime.run()
-
-      suiteSucceeded = eventHandler.getTestsFailed() == 0
-
-      if (suiteSucceeded) {
-        reporter(SuiteCompleted(
-          tracker.nextOrdinal(),
-          suiteName,
-          suiteId,
-          Some(getClass.getName),
-          Some(System.currentTimeMillis() - suiteStartTime),
-          None,
-          None,
-          None,
-          None
-        ))
-      } else {
-        reporter(SuiteAborted(
-          tracker.nextOrdinal(),
-          s"${eventHandler.getTestsFailed()} scenario(s) failed",
-          suiteName,
-          suiteId,
-          Some(getClass.getName),
-          None,
-          Some(System.currentTimeMillis() - suiteStartTime),
-          None,
-          None,
-          None,
-          None
-        ))
-      }
-
-    } catch {
-      case e: Throwable =>
-        suiteSucceeded = false
-        reporter(SuiteAborted(
-          tracker.nextOrdinal(),
-          e.getMessage,
-          suiteName,
-          suiteId,
-          Some(getClass.getName),
-          Some(e),
-          Some(System.currentTimeMillis() - suiteStartTime),
-          None,
-          None,
-          None,
-          None
-        ))
+    runtime.run()
+    
+    val exitStatus = runtime.exitStatus()
+    if (exitStatus == 0) {
+      org.scalatest.SucceededStatus
+    } else {
+      throw new RuntimeException(s"Cucumber scenarios failed with exit status: $exitStatus")
     }
-    
-    org.scalatest.SucceededStatus
-
   }
 
   private def buildRuntimeOptions(): io.cucumber.core.options.RuntimeOptions = {
+    // Try the built-in annotation parser which works with various annotations
     val annotationParser = new CucumberOptionsAnnotationParser()
-    val annotationOptions = annotationParser.parse(getClass).build()
-    
-    new RuntimeOptionsBuilder()
-      .build(annotationOptions)
-  }
-}
-
-@nowarn
-class ScalaTestEventHandler(
-    reporter: org.scalatest.Reporter,
-    tracker: org.scalatest.events.Tracker,
-    suiteId: String,
-    suiteName: String,
-    suiteClassName: String
-) extends io.cucumber.plugin.EventListener {
-
-  private var testsFailed = 0
-  private val testStartTimes = new scala.collection.mutable.HashMap[String, Long]()
-
-  override def setEventPublisher(
-      publisher: io.cucumber.plugin.event.EventPublisher
-  ): Unit = {
-    // Not used in this implementation
-  }
-
-  def handleTestCaseStarted(
-      event: TestCaseStarted
-  ): Unit = {
-    val testCase = event.getTestCase()
-    val testName = testCase.getName()
-    val uri = testCase.getUri().toString()
-    val line = testCase.getLocation().getLine()
-    
-    testStartTimes.put(testName, System.currentTimeMillis())
-    
-    reporter(TestStarting(
-      tracker.nextOrdinal(),
-      suiteName,
-      suiteId,
-      Some(suiteClassName),
-      testName,
-      testName,
-      Some(MotionToSuppress),
-      Some(LineInFile(line, uri, None)),
-      None,
-      None,
-      None,
-      None
-    ))
-  }
-
-  def handleTestCaseFinished(
-      event: TestCaseFinished
-  ): Unit = {
-    val testCase = event.getTestCase()
-    val result = event.getResult()
-    val testName = testCase.getName()
-    val uri = testCase.getUri().toString()
-    val line = testCase.getLocation().getLine()
-    
-    val startTime = testStartTimes.getOrElse(testName, System.currentTimeMillis())
-    val duration = Some(System.currentTimeMillis() - startTime)
-    
-    result.getStatus() match {
-      case io.cucumber.plugin.event.Status.PASSED =>
-        reporter(TestSucceeded(
-          tracker.nextOrdinal(),
-          suiteName,
-          suiteId,
-          Some(suiteClassName),
-          testName,
-          testName,
-          None,
-          duration,
-          None,
-          Some(LineInFile(line, uri, None)),
-          None,
-          None,
-          None,
-          None
-        ))
-        
-      case io.cucumber.plugin.event.Status.FAILED =>
-        testsFailed += 1
-        val error = result.getError()
-        reporter(TestFailed(
-          tracker.nextOrdinal(),
-          error.getMessage(),
-          suiteName,
-          suiteId,
-          Some(suiteClassName),
-          testName,
-          testName,
-          None,
-          None,
-          Some(error),
-          duration,
-          None,
-          Some(LineInFile(line, uri, None)),
-          None,
-          None,
-          None,
-          None
-        ))
-        
-      case io.cucumber.plugin.event.Status.SKIPPED =>
-        reporter(TestIgnored(
-          tracker.nextOrdinal(),
-          suiteName,
-          suiteId,
-          Some(suiteClassName),
-          testName,
-          testName,
-          None,
-          Some(LineInFile(line, uri, None)),
-          None,
-          None,
-          None
-        ))
-        
-      case io.cucumber.plugin.event.Status.PENDING =>
-        reporter(TestPending(
-          tracker.nextOrdinal(),
-          suiteName,
-          suiteId,
-          Some(suiteClassName),
-          testName,
-          testName,
-          None,
-          duration,
-          None,
-          Some(LineInFile(line, uri, None)),
-          None,
-          None,
-          None
-        ))
-        
-      case io.cucumber.plugin.event.Status.UNDEFINED =>
-        testsFailed += 1
-        reporter(TestFailed(
-          tracker.nextOrdinal(),
-          "Step undefined",
-          suiteName,
-          suiteId,
-          Some(suiteClassName),
-          testName,
-          testName,
-          None,
-          None,
-          None,
-          duration,
-          None,
-          Some(LineInFile(line, uri, None)),
-          None,
-          None,
-          None,
-          None
-        ))
-        
-      case io.cucumber.plugin.event.Status.AMBIGUOUS =>
-        testsFailed += 1
-        val error = result.getError()
-        reporter(TestFailed(
-          tracker.nextOrdinal(),
-          error.getMessage(),
-          suiteName,
-          suiteId,
-          Some(suiteClassName),
-          testName,
-          testName,
-          None,
-          None,
-          Some(error),
-          duration,
-          None,
-          Some(LineInFile(line, uri, None)),
-          None,
-          None,
-          None,
-          None
-        ))
-        
-      case io.cucumber.plugin.event.Status.UNUSED =>
-        // Do nothing for unused steps
-        ()
+    try {
+      val annotationOptions = annotationParser.parse(getClass).build()
+      
+      // If no features were specified, use convention (classpath:package/name)
+      val builder = new RuntimeOptionsBuilder()
+      val options = builder.build(annotationOptions)
+      
+      // Check if we have features, if not, add the package as convention
+      if (options.getFeaturePaths().isEmpty) {
+        val packageName = getClass.getPackage.getName
+        val featurePath = "classpath:" + packageName.replace('.', '/')
+        builder.addFeature(io.cucumber.core.feature.FeatureWithLines.parse(featurePath))
+        builder.addGlue(java.net.URI.create("classpath:" + packageName))
+        builder.build(annotationOptions)
+      } else {
+        options
+      }
+    } catch {
+      case _: Exception =>
+        // If that fails, use convention based on package name
+        val packageName = getClass.getPackage.getName
+        val featurePath = "classpath:" + packageName.replace('.', '/')
+        val builder = new RuntimeOptionsBuilder()
+        builder.addFeature(io.cucumber.core.feature.FeatureWithLines.parse(featurePath))
+        builder.addGlue(java.net.URI.create("classpath:" + packageName))
+        builder.build()
     }
-    
-    testStartTimes.remove(testName)
   }
-
-  def getTestsFailed(): Int = testsFailed
 }
