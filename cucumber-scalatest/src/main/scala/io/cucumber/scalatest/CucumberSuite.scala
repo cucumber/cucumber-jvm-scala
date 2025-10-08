@@ -69,17 +69,16 @@ trait CucumberSuite extends Suite {
   private def buildRuntimeOptions(): io.cucumber.core.options.RuntimeOptions = {
     // Try the built-in annotation parser which works with various annotations
     val annotationParser = new CucumberOptionsAnnotationParser()
+    val packageName = getClass.getPackage.getName
+    val featurePath = "classpath:" + packageName.replace('.', '/')
+    
     try {
       val annotationOptions = annotationParser.parse(getClass).build()
+      val options = new RuntimeOptionsBuilder().build(annotationOptions)
       
       // If no features were specified, use convention (classpath:package/name)
-      val builder = new RuntimeOptionsBuilder()
-      val options = builder.build(annotationOptions)
-      
-      // Check if we have features, if not, add the package as convention
       if (options.getFeaturePaths().isEmpty) {
-        val packageName = getClass.getPackage.getName
-        val featurePath = "classpath:" + packageName.replace('.', '/')
+        val builder = new RuntimeOptionsBuilder()
         builder.addFeature(io.cucumber.core.feature.FeatureWithLines.parse(featurePath))
         builder.addGlue(java.net.URI.create("classpath:" + packageName))
         builder.build(annotationOptions)
@@ -89,8 +88,6 @@ trait CucumberSuite extends Suite {
     } catch {
       case _: Exception =>
         // If that fails, use convention based on package name
-        val packageName = getClass.getPackage.getName
-        val featurePath = "classpath:" + packageName.replace('.', '/')
         val builder = new RuntimeOptionsBuilder()
         builder.addFeature(io.cucumber.core.feature.FeatureWithLines.parse(featurePath))
         builder.addGlue(java.net.URI.create("classpath:" + packageName))
