@@ -94,7 +94,8 @@ lazy val root = (project in file("."))
       integrationTestsPicoContainer.projectRefs ++
       integrationTestsScalatest.projectRefs ++
       examplesJunit4.projectRefs ++
-      examplesJunit5.projectRefs: _*
+      examplesJunit5.projectRefs ++
+      examplesScalatest.projectRefs: _*
   )
 
 // Main project
@@ -273,6 +274,20 @@ lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
     publishArtifact := false
   )
   .dependsOn(cucumberScala % Test)
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213))
+
+lazy val examplesScalatest = (projectMatrix in file("examples/examples-scalatest"))
+  .settings(commonSettings)
+  .settings(scalatestSbtSupport)
+  .settings(
+    name := "scala-examples-scalatest",
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % scalatestVersion % Test
+    ),
+    publishArtifact := false
+  )
+  .dependsOn(cucumberScala % Test)
+  .dependsOn(cucumberScalatest % Test)
   .jvmPlatform(scalaVersions = Seq(scala3, scala213))
 
 // Version policy check
