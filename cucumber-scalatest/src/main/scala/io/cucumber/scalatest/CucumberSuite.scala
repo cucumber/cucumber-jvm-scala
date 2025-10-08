@@ -1,6 +1,9 @@
 package io.cucumber.scalatest
 
-import io.cucumber.core.options.{RuntimeOptionsBuilder, CucumberOptionsAnnotationParser}
+import io.cucumber.core.options.{
+  RuntimeOptionsBuilder,
+  CucumberOptionsAnnotationParser
+}
 import io.cucumber.core.runtime.{Runtime => CucumberRuntime}
 import org.scalatest.{Args, Status, Suite}
 
@@ -29,11 +32,14 @@ trait CucumberSuite extends Suite {
 
   /** Runs the Cucumber scenarios.
     *
-    * @param testName An optional name of one test to run. If None, all relevant
-    *                 tests should be run.
-    * @param args the Args for this run
-    * @return a Status object that indicates when all tests started by this method
-    *         have completed, and whether or not a failure occurred.
+    * @param testName
+    *   An optional name of one test to run. If None, all relevant tests should
+    *   be run.
+    * @param args
+    *   the Args for this run
+    * @return
+    *   a Status object that indicates when all tests started by this method
+    *   have completed, and whether or not a failure occurred.
     */
   abstract override def run(
       testName: Option[String],
@@ -47,7 +53,7 @@ trait CucumberSuite extends Suite {
 
     val runtimeOptions = buildRuntimeOptions()
     val classLoader = getClass.getClassLoader
-    
+
     val runtime = CucumberRuntime
       .builder()
       .withRuntimeOptions(runtimeOptions)
@@ -57,12 +63,14 @@ trait CucumberSuite extends Suite {
       .build()
 
     runtime.run()
-    
+
     val exitStatus = runtime.exitStatus()
     if (exitStatus == 0) {
       org.scalatest.SucceededStatus
     } else {
-      throw new RuntimeException(s"Cucumber scenarios failed with exit status: $exitStatus")
+      throw new RuntimeException(
+        s"Cucumber scenarios failed with exit status: $exitStatus"
+      )
     }
   }
 
@@ -71,15 +79,17 @@ trait CucumberSuite extends Suite {
     val annotationParser = new CucumberOptionsAnnotationParser()
     val packageName = getClass.getPackage.getName
     val featurePath = "classpath:" + packageName.replace('.', '/')
-    
+
     try {
       val annotationOptions = annotationParser.parse(getClass).build()
       val options = new RuntimeOptionsBuilder().build(annotationOptions)
-      
+
       // If no features were specified, use convention (classpath:package/name)
       if (options.getFeaturePaths().isEmpty) {
         val builder = new RuntimeOptionsBuilder()
-        builder.addFeature(io.cucumber.core.feature.FeatureWithLines.parse(featurePath))
+        builder.addFeature(
+          io.cucumber.core.feature.FeatureWithLines.parse(featurePath)
+        )
         builder.addGlue(java.net.URI.create("classpath:" + packageName))
         builder.build(annotationOptions)
       } else {
@@ -89,7 +99,9 @@ trait CucumberSuite extends Suite {
       case _: Exception =>
         // If that fails, use convention based on package name
         val builder = new RuntimeOptionsBuilder()
-        builder.addFeature(io.cucumber.core.feature.FeatureWithLines.parse(featurePath))
+        builder.addFeature(
+          io.cucumber.core.feature.FeatureWithLines.parse(featurePath)
+        )
         builder.addGlue(java.net.URI.create("classpath:" + packageName))
         builder.build()
     }

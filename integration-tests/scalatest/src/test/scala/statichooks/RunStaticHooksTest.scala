@@ -9,7 +9,10 @@ import org.scalatest.{BeforeAndAfterAll, Assertions}
   features = Array("classpath:statichooks"),
   plugin = Array("pretty")
 )
-class RunStaticHooksTest extends CucumberSuite with BeforeAndAfterAll with Assertions {
+class RunStaticHooksTest
+    extends CucumberSuite
+    with BeforeAndAfterAll
+    with Assertions {
 
   override def beforeAll(): Unit = {
     super.beforeAll()
@@ -30,4 +33,3 @@ class RunStaticHooksTest extends CucumberSuite with BeforeAndAfterAll with Asser
   }
 
 }
-

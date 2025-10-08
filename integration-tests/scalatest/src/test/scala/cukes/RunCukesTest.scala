@@ -6,4 +6,3 @@ import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
   plugin = Array("pretty")
 )
 class RunCukesTest extends CucumberSuite
-

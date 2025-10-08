@@ -13,7 +13,10 @@ class RpnCalculatorStepDefinitions extends ScalaDsl with EN {
   }
 
   Then("the result is {double}") { (expected: Double) =>
-    assert(math.abs(expected - calc.value) < 0.001, s"Expected $expected but got ${calc.value}")
+    assert(
+      math.abs(expected - calc.value) < 0.001,
+      s"Expected $expected but got ${calc.value}"
+    )
   }
 
   Before("not @foo") { (scenario: Scenario) =>
