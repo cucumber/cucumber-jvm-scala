@@ -92,7 +92,6 @@ lazy val root = (project in file("."))
       integrationTestsJackson2.projectRefs ++
       integrationTestsJackson3.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
-      integrationTestsScalatest.projectRefs ++
       examplesJunit4.projectRefs ++
       examplesJunit5.projectRefs ++
       examplesScalatest.projectRefs: _*
@@ -229,22 +228,6 @@ lazy val integrationTestsPicoContainer =
       publishArtifact := false
     )
     .dependsOn(cucumberScala % Test)
-    .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
-
-lazy val integrationTestsScalatest =
-  (projectMatrix in file("integration-tests/scalatest"))
-    .settings(commonSettings)
-    .settings(scalatestSbtSupport)
-    .settings(
-      name := "integration-tests-scalatest",
-      libraryDependencies ++= Seq(
-        "org.scalatest" %% "scalatest" % scalatestVersion % Test,
-        "org.junit.jupiter" % "junit-jupiter" % junitBom.key.value % Test
-      ),
-      publishArtifact := false
-    )
-    .dependsOn(cucumberScala % Test)
-    .dependsOn(cucumberScalatest % Test)
     .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Examples project

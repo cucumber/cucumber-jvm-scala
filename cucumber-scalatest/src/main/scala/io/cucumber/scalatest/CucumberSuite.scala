@@ -1,34 +1,51 @@
 package io.cucumber.scalatest
 
-import io.cucumber.core.options.{
-  RuntimeOptionsBuilder,
-  CucumberOptionsAnnotationParser
-}
+import io.cucumber.core.options.RuntimeOptionsBuilder
 import io.cucumber.core.runtime.{Runtime => CucumberRuntime}
 import org.scalatest.{Args, Status, Suite}
 
 import scala.annotation.nowarn
 
+/** Configuration for Cucumber tests.
+  *
+  * @param features
+  *   paths to feature files or directories (e.g., "classpath:features")
+  * @param glue
+  *   packages containing step definitions (e.g., "com.example.steps")
+  * @param plugin
+  *   plugins to use (e.g., "pretty", "json:target/cucumber.json")
+  */
+case class CucumberOptions(
+    features: List[String] = List.empty,
+    glue: List[String] = List.empty,
+    plugin: List[String] = List.empty
+)
+
 /** A trait that allows Cucumber scenarios to be run with ScalaTest.
   *
-  * Mix this trait into your test class and optionally annotate it with
-  * `@CucumberOptions` to configure the Cucumber runtime.
+  * Mix this trait into your test class and define the `cucumberOptions` value
+  * to configure the Cucumber runtime.
   *
   * Example:
   * {{{
-  * import io.cucumber.scalatest.CucumberSuite
-  * import io.cucumber.core.options.CucumberOptions
+  * import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
   *
-  * @CucumberOptions(
-  *   features = Array("classpath:features"),
-  *   glue = Array("com.example.stepdefinitions"),
-  *   plugin = Array("pretty")
-  * )
-  * class RunCucumberTest extends CucumberSuite
+  * class RunCucumberTest extends CucumberSuite {
+  *   override val cucumberOptions = CucumberOptions(
+  *     features = List("classpath:features"),
+  *     glue = List("com.example.stepdefinitions"),
+  *     plugin = List("pretty")
+  *   )
+  * }
   * }}}
   */
 @nowarn
 trait CucumberSuite extends Suite {
+
+  /** Override this value to configure Cucumber options. If not overridden,
+    * defaults will be used based on the package name.
+    */
+  def cucumberOptions: CucumberOptions = CucumberOptions()
 
   /** Runs the Cucumber scenarios.
     *
@@ -75,35 +92,34 @@ trait CucumberSuite extends Suite {
   }
 
   private def buildRuntimeOptions(): io.cucumber.core.options.RuntimeOptions = {
-    // Try the built-in annotation parser which works with various annotations
-    val annotationParser = new CucumberOptionsAnnotationParser()
     val packageName = getClass.getPackage.getName
-    val featurePath = "classpath:" + packageName.replace('.', '/')
+    val builder = new RuntimeOptionsBuilder()
 
-    try {
-      val annotationOptions = annotationParser.parse(getClass).build()
-      val options = new RuntimeOptionsBuilder().build(annotationOptions)
+    // Add features
+    val features =
+      if (cucumberOptions.features.nonEmpty) cucumberOptions.features
+      else List("classpath:" + packageName.replace('.', '/'))
 
-      // If no features were specified, use convention (classpath:package/name)
-      if (options.getFeaturePaths().isEmpty) {
-        val builder = new RuntimeOptionsBuilder()
-        builder.addFeature(
-          io.cucumber.core.feature.FeatureWithLines.parse(featurePath)
-        )
-        builder.addGlue(java.net.URI.create("classpath:" + packageName))
-        builder.build(annotationOptions)
-      } else {
-        options
-      }
-    } catch {
-      case _: Exception =>
-        // If that fails, use convention based on package name
-        val builder = new RuntimeOptionsBuilder()
-        builder.addFeature(
-          io.cucumber.core.feature.FeatureWithLines.parse(featurePath)
-        )
-        builder.addGlue(java.net.URI.create("classpath:" + packageName))
-        builder.build()
+    features.foreach { feature =>
+      builder.addFeature(
+        io.cucumber.core.feature.FeatureWithLines.parse(feature)
+      )
     }
+
+    // Add glue
+    val glue =
+      if (cucumberOptions.glue.nonEmpty) cucumberOptions.glue
+      else List(packageName)
+
+    glue.foreach { g =>
+      builder.addGlue(java.net.URI.create("classpath:" + g))
+    }
+
+    // Add plugins
+    cucumberOptions.plugin.foreach { p =>
+      builder.addPluginName(p)
+    }
+
+    builder.build()
   }
 }
