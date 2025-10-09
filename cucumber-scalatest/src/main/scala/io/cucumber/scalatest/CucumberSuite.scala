@@ -14,11 +14,14 @@ import scala.annotation.nowarn
   *   packages containing step definitions (e.g., "com.example.steps")
   * @param plugin
   *   plugins to use (e.g., "pretty", "json:target/cucumber.json")
+  * @param tags
+  *   tag expression to filter scenarios (e.g., "@foo or @bar", "not @wip")
   */
 case class CucumberOptions(
     features: List[String] = List.empty,
     glue: List[String] = List.empty,
-    plugin: List[String] = List.empty
+    plugin: List[String] = List.empty,
+    tags: Option[String] = None
 )
 
 /** A trait that allows Cucumber scenarios to be run with ScalaTest.
@@ -118,6 +121,13 @@ trait CucumberSuite extends Suite {
     // Add plugins
     cucumberOptions.plugin.foreach { p =>
       builder.addPluginName(p)
+    }
+
+    // Add tags filter if specified
+    cucumberOptions.tags.foreach { tagExpression =>
+      builder.addTagFilter(
+        io.cucumber.tagexpressions.TagExpressionParser.parse(tagExpression)
+      )
     }
 
     builder.build()
