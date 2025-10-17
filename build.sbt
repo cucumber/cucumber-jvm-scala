@@ -48,7 +48,7 @@ val junit4Version = "4.13.2"
 
 // BOMs
 
-lazy val junitBom = Bom("org.junit" % "junit-bom" % "5.13.4")
+lazy val junitBom = Bom("org.junit" % "junit-bom" % "5.14.0")
 
 // Projects and settings
 
