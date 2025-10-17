@@ -15,7 +15,7 @@ addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.12.2")
 addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.1")
 
 // Junit 5
-addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.15.1")
+addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.17.0")
 
 // Usage of BOMs
 addSbtPlugin("com.here.platform" % "sbt-bom" % "1.0.29")
