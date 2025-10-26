@@ -29,6 +29,13 @@ case class CucumberOptions(
   * Mix this trait into your test class and define the `cucumberOptions` value
   * to configure the Cucumber runtime.
   *
+  * Options can be configured via:
+  *   - The `cucumberOptions` value (programmatic configuration, takes
+  *     precedence)
+  *   - cucumber.properties file on the classpath
+  *   - Environment variables starting with CUCUMBER_
+  *   - System properties starting with cucumber.
+  *
   * Example:
   * {{{
   * import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
@@ -49,6 +56,8 @@ trait CucumberSuite extends Suite {
     * defaults will be used based on the package name.
     */
   def cucumberOptions: CucumberOptions = CucumberOptions()
+
+  private lazy val classLoader: ClassLoader = getClass.getClassLoader
 
   /** Runs the Cucumber scenarios.
     *
@@ -98,7 +107,44 @@ trait CucumberSuite extends Suite {
     val packageName = getClass.getPackage.getName
     val builder = new RuntimeOptionsBuilder()
 
-    // Add features
+    // Parse options from cucumber.properties file on classpath
+    scala.util.Try {
+      val propertiesUrl = classLoader.getResource("cucumber.properties")
+      if (propertiesUrl != null) {
+        val props = new java.util.Properties()
+        val is = propertiesUrl.openStream()
+        try {
+          props.load(is)
+        } finally {
+          is.close()
+        }
+        import scala.jdk.CollectionConverters._
+        props.asScala.foreach { case (key, value) =>
+          applyProperty(builder, key.toString, value.toString)
+        }
+      }
+    }
+
+    // Parse options from environment variables (CUCUMBER_*)
+    scala.util.Try {
+      sys.env.foreach { case (key, value) =>
+        if (key.startsWith("CUCUMBER_")) {
+          val propertyName = key.substring(9).toLowerCase.replace('_', '.')
+          applyProperty(builder, "cucumber." + propertyName, value)
+        }
+      }
+    }
+
+    // Parse options from system properties (cucumber.*)
+    scala.util.Try {
+      sys.props.foreach { case (key, value) =>
+        if (key.startsWith("cucumber.")) {
+          applyProperty(builder, key, value)
+        }
+      }
+    }
+
+    // Add features (programmatic options take precedence)
     val features =
       if (cucumberOptions.features.nonEmpty) cucumberOptions.features
       else List("classpath:" + packageName.replace('.', '/'))
@@ -131,5 +177,34 @@ trait CucumberSuite extends Suite {
     }
 
     builder.build()
+  }
+
+  private def applyProperty(
+      builder: RuntimeOptionsBuilder,
+      key: String,
+      value: String
+  ): Unit = {
+    // Map property keys to builder methods
+    key match {
+      case "cucumber.glue" =>
+        value.split(",").foreach { g =>
+          builder.addGlue(java.net.URI.create("classpath:" + g.trim))
+        }
+      case "cucumber.plugin" =>
+        value.split(",").foreach { p =>
+          builder.addPluginName(p.trim)
+        }
+      case "cucumber.tags" | "cucumber.filter.tags" =>
+        builder.addTagFilter(
+          io.cucumber.tagexpressions.TagExpressionParser.parse(value)
+        )
+      case "cucumber.features" =>
+        value.split(",").foreach { f =>
+          builder.addFeature(
+            io.cucumber.core.feature.FeatureWithLines.parse(f.trim)
+          )
+        }
+      case _ => // Ignore unknown properties
+    }
   }
 }
