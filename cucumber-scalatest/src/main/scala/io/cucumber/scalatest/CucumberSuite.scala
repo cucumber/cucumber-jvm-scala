@@ -1,9 +1,16 @@
 package io.cucumber.scalatest
 
-import io.cucumber.core.options.RuntimeOptionsBuilder
-import io.cucumber.core.runtime.{Runtime => CucumberRuntime}
+import io.cucumber.core.feature.FeatureParser
+import io.cucumber.core.filter.Filters
+import io.cucumber.core.gherkin.{Feature, Pickle}
+import io.cucumber.core.options._
+import io.cucumber.core.plugin.{PluginFactory, Plugins}
+import io.cucumber.core.runtime._
 import org.scalatest.{Args, Status, Suite}
 
+import java.time.Clock
+import java.util.function.{Predicate, Supplier}
+import scala.jdk.CollectionConverters._
 import scala.annotation.nowarn
 
 /** Configuration for Cucumber tests.
@@ -36,6 +43,9 @@ case class CucumberOptions(
   *   - Environment variables starting with CUCUMBER_
   *   - System properties starting with cucumber.
   *
+  * Each feature file appears as a nested suite, and each scenario within a
+  * feature appears as a test within that suite.
+  *
   * Example:
   * {{{
   * import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
@@ -59,90 +69,98 @@ trait CucumberSuite extends Suite {
 
   private lazy val classLoader: ClassLoader = getClass.getClassLoader
 
-  /** Runs the Cucumber scenarios.
-    *
-    * @param testName
-    *   An optional name of one test to run. If None, all relevant tests should
-    *   be run.
-    * @param args
-    *   the Args for this run
-    * @return
-    *   a Status object that indicates when all tests started by this method
-    *   have completed, and whether or not a failure occurred.
-    */
-  abstract override def run(
-      testName: Option[String],
-      args: Args
-  ): Status = {
-    if (testName.isDefined) {
-      throw new IllegalArgumentException(
-        "Suite traits implemented by Cucumber do not support running a single test"
-      )
-    }
-
+  private lazy val (features, context, filters) = {
     val runtimeOptions = buildRuntimeOptions()
-    val classLoader = getClass.getClassLoader
-
-    val runtime = CucumberRuntime
-      .builder()
-      .withRuntimeOptions(runtimeOptions)
-      .withClassLoader(new java.util.function.Supplier[ClassLoader] {
-        override def get(): ClassLoader = classLoader
-      })
-      .build()
-
-    runtime.run()
-
-    val exitStatus = runtime.exitStatus()
-    if (exitStatus == 0) {
-      org.scalatest.SucceededStatus
-    } else {
-      throw new RuntimeException(
-        s"Cucumber scenarios failed with exit status: $exitStatus"
-      )
+    val classLoaderSupplier = new Supplier[ClassLoader] {
+      override def get(): ClassLoader = classLoader
     }
+
+    val uuidGeneratorServiceLoader =
+      new UuidGeneratorServiceLoader(classLoaderSupplier, runtimeOptions)
+    val bus = SynchronizedEventBus.synchronize(
+      new TimeServiceEventBus(
+        Clock.systemUTC(),
+        uuidGeneratorServiceLoader.loadUuidGenerator()
+      )
+    )
+
+    val parser = new FeatureParser(bus.generateId _)
+    val featureSupplier =
+      new FeaturePathFeatureSupplier(
+        classLoaderSupplier,
+        runtimeOptions,
+        parser
+      )
+    val features = featureSupplier.get().asScala.toList
+
+    val plugins = new Plugins(new PluginFactory(), runtimeOptions)
+    val exitStatus = new ExitStatus(runtimeOptions)
+    plugins.addPlugin(exitStatus)
+
+    val objectFactoryServiceLoader =
+      new ObjectFactoryServiceLoader(classLoaderSupplier, runtimeOptions)
+    val objectFactorySupplier =
+      new ThreadLocalObjectFactorySupplier(objectFactoryServiceLoader)
+    val backendSupplier =
+      new BackendServiceLoader(classLoaderSupplier, objectFactorySupplier)
+    val runnerSupplier = new ThreadLocalRunnerSupplier(
+      runtimeOptions,
+      bus,
+      backendSupplier,
+      objectFactorySupplier
+    )
+
+    val context =
+      new CucumberExecutionContext(bus, exitStatus, runnerSupplier)
+    val filters: Predicate[Pickle] = new Filters(runtimeOptions)
+
+    plugins.setEventBusOnEventListenerPlugins(bus)
+
+    (features, context, filters)
   }
 
-  private def buildRuntimeOptions(): io.cucumber.core.options.RuntimeOptions = {
+  override def nestedSuites: collection.immutable.IndexedSeq[Suite] = {
+    features
+      .map(feature => new FeatureSuite(feature, context, filters))
+      .toIndexedSeq
+  }
+
+  override def run(testName: Option[String], args: Args): Status = {
+    if (testName.isDefined) {
+      throw new IllegalArgumentException(
+        "Running a single test by name is not supported in CucumberSuite"
+      )
+    }
+    context.runFeatures(() => super.run(testName, args))
+    org.scalatest.SucceededStatus
+  }
+
+  private def buildRuntimeOptions(): RuntimeOptions = {
+    val packageName = getClass.getPackage.getName
+
+    // Parse options from different sources in order of precedence
+    val propertiesFileOptions = new CucumberPropertiesParser()
+      .parse(CucumberProperties.fromPropertiesFile())
+      .build()
+
+    val annotationOptions = buildProgrammaticOptions(propertiesFileOptions)
+
+    val environmentOptions = new CucumberPropertiesParser()
+      .parse(CucumberProperties.fromEnvironment())
+      .build(annotationOptions)
+
+    val runtimeOptions = new CucumberPropertiesParser()
+      .parse(CucumberProperties.fromSystemProperties())
+      .build(environmentOptions)
+
+    runtimeOptions
+  }
+
+  private def buildProgrammaticOptions(
+      base: RuntimeOptions
+  ): RuntimeOptions = {
     val packageName = getClass.getPackage.getName
     val builder = new RuntimeOptionsBuilder()
-
-    // Parse options from cucumber.properties file on classpath
-    scala.util.Try {
-      val propertiesUrl = classLoader.getResource("cucumber.properties")
-      if (propertiesUrl != null) {
-        val props = new java.util.Properties()
-        val is = propertiesUrl.openStream()
-        try {
-          props.load(is)
-        } finally {
-          is.close()
-        }
-        import scala.jdk.CollectionConverters._
-        props.asScala.foreach { case (key, value) =>
-          applyProperty(builder, key.toString, value.toString)
-        }
-      }
-    }
-
-    // Parse options from environment variables (CUCUMBER_*)
-    scala.util.Try {
-      sys.env.foreach { case (key, value) =>
-        if (key.startsWith("CUCUMBER_")) {
-          val propertyName = key.substring(9).toLowerCase.replace('_', '.')
-          applyProperty(builder, "cucumber." + propertyName, value)
-        }
-      }
-    }
-
-    // Parse options from system properties (cucumber.*)
-    scala.util.Try {
-      sys.props.foreach { case (key, value) =>
-        if (key.startsWith("cucumber.")) {
-          applyProperty(builder, key, value)
-        }
-      }
-    }
 
     // Add features (programmatic options take precedence)
     val features =
@@ -176,35 +194,62 @@ trait CucumberSuite extends Suite {
       )
     }
 
-    builder.build()
+    builder.build(base)
   }
 
-  private def applyProperty(
-      builder: RuntimeOptionsBuilder,
-      key: String,
-      value: String
-  ): Unit = {
-    // Map property keys to builder methods
-    key match {
-      case "cucumber.glue" =>
-        value.split(",").foreach { g =>
-          builder.addGlue(java.net.URI.create("classpath:" + g.trim))
+  private class FeatureSuite(
+      feature: Feature,
+      context: CucumberExecutionContext,
+      filters: Predicate[Pickle]
+  ) extends Suite {
+
+    override def suiteName: String =
+      feature.getName.orElse("EMPTY_NAME")
+
+    override def nestedSuites: collection.immutable.IndexedSeq[Suite] = {
+      feature
+        .getPickles()
+        .asScala
+        .filter(filters.test)
+        .map(pickle => new PickleSuite(feature, pickle, context))
+        .toIndexedSeq
+    }
+
+    override def run(testName: Option[String], args: Args): Status = {
+      context.beforeFeature(feature)
+      super.run(testName, args)
+    }
+  }
+
+  private class PickleSuite(
+      feature: Feature,
+      pickle: Pickle,
+      context: CucumberExecutionContext
+  ) extends Suite {
+
+    override def suiteName: String = pickle.getName
+
+    override def testNames: Set[String] = Set(pickle.getName)
+
+    override protected def runTest(
+        testName: String,
+        args: Args
+    ): Status = {
+      var testFailed: Option[Throwable] = None
+
+      context.runTestCase(runner => {
+        try {
+          runner.runPickle(pickle)
+        } catch {
+          case ex: Throwable =>
+            testFailed = Some(ex)
         }
-      case "cucumber.plugin" =>
-        value.split(",").foreach { p =>
-          builder.addPluginName(p.trim)
-        }
-      case "cucumber.tags" | "cucumber.filter.tags" =>
-        builder.addTagFilter(
-          io.cucumber.tagexpressions.TagExpressionParser.parse(value)
-        )
-      case "cucumber.features" =>
-        value.split(",").foreach { f =>
-          builder.addFeature(
-            io.cucumber.core.feature.FeatureWithLines.parse(f.trim)
-          )
-        }
-      case _ => // Ignore unknown properties
+      })
+
+      testFailed match {
+        case Some(ex) => throw ex
+        case None     => org.scalatest.SucceededStatus
+      }
     }
   }
 }
