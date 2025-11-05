@@ -13,16 +13,20 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Update `cucumber-core` dependency to [7.31.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Scala] Update `scala-collection-compat` to 2.14.0
-- [Scala] Test against Jackson 2.20.1 and 3.0.1
-- [Internal] Upgrade to JUnit 6.x
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.36.0] (2025-11-05)
+
+### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.31.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Update `scala-collection-compat` to 2.14.0
+- [Scala] Test against Jackson 2.20.1 and 3.0.1
+- [Internal] Upgrade to JUnit 6.x
 
 ## [8.35.0] (2025-10-05)
 
@@ -807,6 +811,7 @@ _Although there is no visible change from a user perspective, there are signific
 <!-- Releases -->
 [Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.2-SNAPSHOT...HEAD
 [8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.2...v8.31.0-SNAPSHOT
+[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.36.0...v8.31.0-SNAPSHOT
 [8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.35.0...v8.31.0-SNAPSHOT
 [8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.34.0...v8.31.0-SNAPSHOT
 [8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.33.0...v8.31.0-SNAPSHOT
