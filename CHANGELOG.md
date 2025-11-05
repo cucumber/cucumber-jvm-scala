@@ -13,6 +13,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Update `cucumber-core` dependency to [7.31.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Update `scala-collection-compat` to 2.14.0
+- [Scala] Test against Jackson 2.20.1 and 3.0.1
+- [Internal] Upgrade to JUnit 6.x
+
 ### Deprecated
 
 ### Removed
