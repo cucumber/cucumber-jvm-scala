@@ -131,8 +131,20 @@ trait CucumberSuite extends Suite {
         "Running a single test by name is not supported in CucumberSuite"
       )
     }
-    context.runFeatures(() => super.run(testName, args))
-    org.scalatest.SucceededStatus
+    var status: Status = org.scalatest.SucceededStatus
+    try {
+      context.runFeatures(() => {
+        println(s"About to call super.run")
+        status = super.run(testName, args)
+        println(s"super.run returned status: $status, succeeds=${status.succeeds()}")
+      })
+    } catch {
+      case ex: Throwable =>
+        println(s"CucumberSuite.run caught exception: ${ex.getClass.getName}: ${ex.getMessage}")
+        throw ex
+    }
+    println(s"CucumberSuite.run returning status: $status, succeeds=${status.succeeds()}")
+    status
   }
 
   private def buildRuntimeOptions(): RuntimeOptions = {
@@ -216,8 +228,17 @@ trait CucumberSuite extends Suite {
     }
 
     override def run(testName: Option[String], args: Args): Status = {
+      println(s"FeatureSuite.run called")
       context.beforeFeature(feature)
-      super.run(testName, args)
+      try {
+        val status = super.run(testName, args)
+        println(s"FeatureSuite.run returning status: $status, succeeds=${status.succeeds()}")
+        status
+      } catch {
+        case ex: Throwable =>
+          println(s"FeatureSuite.run caught exception: ${ex.getClass.getName}: ${ex.getMessage}")
+          throw ex
+      }
     }
   }
 
@@ -229,26 +250,39 @@ trait CucumberSuite extends Suite {
 
     override def suiteName: String = pickle.getName
 
-    override def testNames: Set[String] = Set(pickle.getName)
+    override def testNames: Set[String] = Set("scenario")
 
-    override protected def runTest(
-        testName: String,
-        args: Args
-    ): Status = {
+    override def run(testName: Option[String], args: Args): Status = {
       var testFailed: Option[Throwable] = None
 
+      // Execute the test
       context.runTestCase(runner => {
-        try {
-          runner.runPickle(pickle)
-        } catch {
-          case ex: Throwable =>
-            testFailed = Some(ex)
+        // Subscribe to TestCaseFinished events to detect failures
+        val handler = new io.cucumber.plugin.event.EventHandler[io.cucumber.plugin.event.TestCaseFinished] {
+          override def receive(event: io.cucumber.plugin.event.TestCaseFinished): Unit = {
+            val result = event.getResult
+            if (!result.getStatus.isOk) {
+              val error = result.getError
+              if (error != null) {
+                testFailed = Some(error)
+              } else {
+                testFailed = Some(new RuntimeException(s"Test failed with status: ${result.getStatus}"))
+              }
+            }
+          }
         }
+        runner.getBus.registerHandlerFor(classOf[io.cucumber.plugin.event.TestCaseFinished], handler)
+        
+        runner.runPickle(pickle)
       })
 
       testFailed match {
-        case Some(ex) => throw ex
-        case None     => org.scalatest.SucceededStatus
+        case Some(ex) => 
+          println(s"PickleSuite.run returning FailedStatus for: ${ex.getMessage}")
+          org.scalatest.FailedStatus
+        case None     => 
+          println(s"PickleSuite.run returning SucceededStatus")
+          org.scalatest.SucceededStatus
       }
     }
   }
