@@ -1,2 +1,2 @@
-libraryDependencies += "io.cucumber" % "cucumber-core" % "7.33.0"
+libraryDependencies += "io.cucumber" % "cucumber-core" % "7.34.0"
 libraryDependencies += "org.scala-lang.modules" %% "scala-collection-compat" % "2.14.0"
