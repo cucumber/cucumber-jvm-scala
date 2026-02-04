@@ -17,10 +17,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
 
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Cache sbt
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           path: |
             ~/.sbt
@@ -29,12 +29,12 @@ jobs:
           key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
       - name: Set up JDK
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
 
-      - uses: sbt/setup-sbt@ae54f7cfe46ec0d24ade661d77f007360ab48bda # v1
+      - uses: sbt/setup-sbt@ae54f7cfe46ec0d24ade661d77f007360ab48bda # v1.1.16
 
       - name: Version check
         run: sbt "project cucumberScala" versionPolicyCheck

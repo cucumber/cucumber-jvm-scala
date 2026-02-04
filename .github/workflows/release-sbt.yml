@@ -19,18 +19,18 @@ jobs:
     environment: Release
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-      - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
+      - uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
           java-version: "17"
 
-      - uses: sbt/setup-sbt@ae54f7cfe46ec0d24ade661d77f007360ab48bda # v1
+      - uses: sbt/setup-sbt@ae54f7cfe46ec0d24ade661d77f007360ab48bda # v1.1.16
 
       - uses: cucumber/action-publish-sbt@38eca71785261ae2763630bf0c2f551365263600 # v1.0.2
         with:
@@ -47,7 +47,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: cucumber/action-create-github-release@cf2c6f77ba35d2424362e83393a1c4c004cf2ddb # v1.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
