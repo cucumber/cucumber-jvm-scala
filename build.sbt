@@ -45,6 +45,7 @@ val jacksonVersion = "2.21.0"
 val jackson3Version = "3.0.4"
 val mockitoScalaVersion = "2.0.0"
 val junit4Version = "4.13.2"
+val scalatestVersion = "3.2.19"
 
 // BOMs
 
@@ -75,6 +76,9 @@ lazy val junit4SbtSupport = Seq(
 lazy val junit5SbtSupport = Seq(
   libraryDependencies += "com.github.sbt.junit" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
 )
+lazy val scalatestSbtSupport = Seq(
+  libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % Test
+)
 
 lazy val root = (project in file("."))
   .settings(commonSettings)
@@ -83,12 +87,14 @@ lazy val root = (project in file("."))
   )
   .aggregate(
     cucumberScala.projectRefs ++
+      cucumberScalatest.projectRefs ++
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson2.projectRefs ++
       integrationTestsJackson3.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
       examplesJunit4.projectRefs ++
-      examplesJunit5.projectRefs: _*
+      examplesJunit5.projectRefs ++
+      examplesScalatest.projectRefs: _*
   )
 
 // Main project
@@ -143,6 +149,21 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       Seq(file)
     }.taskValue
   )
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+// Scalatest integration
+lazy val cucumberScalatest = (projectMatrix in file("cucumber-scalatest"))
+  .settings(commonSettings)
+  .settings(scalatestSbtSupport)
+  .settings(
+    name := "cucumber-scalatest",
+    libraryDependencies ++= Seq(
+      "io.cucumber" % "cucumber-core" % cucumberVersion,
+      "org.scalatest" %% "scalatest-core" % scalatestVersion
+    ),
+    publishArtifact := true
+  )
+  .dependsOn(cucumberScala)
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Integration tests
@@ -236,6 +257,20 @@ lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
     publishArtifact := false
   )
   .dependsOn(cucumberScala % Test)
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213))
+
+lazy val examplesScalatest = (projectMatrix in file("examples/examples-scalatest"))
+  .settings(commonSettings)
+  .settings(scalatestSbtSupport)
+  .settings(
+    name := "scala-examples-scalatest",
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % scalatestVersion % Test
+    ),
+    publishArtifact := false
+  )
+  .dependsOn(cucumberScala % Test)
+  .dependsOn(cucumberScalatest % Test)
   .jvmPlatform(scalaVersions = Seq(scala3, scala213))
 
 // Version policy check
