@@ -21,6 +21,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ## [8.39.1] (2026-03-08)
 
+- [Core] Update `cucumber-core` dependency to [7.34.3](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Test against Jackson 2.21.1 and 3.1.0
+
 ## [8.39.0] (2026-01-30)
 
 ### Changed
@@ -834,21 +837,20 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.2-SNAPSHOT...HEAD
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.2...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.1...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.38.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.37.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.36.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.35.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.34.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.33.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.32.2...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.32.1...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.32.0...v8.31.0-SNAPSHOT
-[8.31.0-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.31.1...v8.31.0-SNAPSHOT
-[8.30.2-SNAPSHOT]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.1...v8.30.2-SNAPSHOT
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.1...HEAD
+[8.39.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.0...v8.39.1
+[8.39.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.38.0...v8.39.0
+[8.38.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.37.0...v8.38.0
+[8.37.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.36.0...v8.37.0
+[8.36.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.35.0...v8.36.0
+[8.35.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.34.0...v8.35.0
+[8.34.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.33.0...v8.34.0
+[8.33.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.32.2...v8.33.0
+[8.32.2]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.32.1...v8.32.2
+[8.32.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.32.0...v8.32.1
+[8.32.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.31.1...v8.32.0
+[8.31.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.31.0...v8.31.1
+[8.31.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.1...v8.31.0
 [8.30.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.30.0...v8.30.1
 [8.30.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.29.0...v8.30.0
 [8.29.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.28.0...v8.29.0
