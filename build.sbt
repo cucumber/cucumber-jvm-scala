@@ -42,7 +42,7 @@ scalaVersion := scala213
 
 val cucumberVersion = "7.34.3"
 val jacksonVersion = "2.21.2"
-val jackson3Version = "3.1.1"
+val jackson3Version = "3.1.2"
 val mockitoScalaVersion = "2.1.0"
 val junit4Version = "4.13.2"
 
