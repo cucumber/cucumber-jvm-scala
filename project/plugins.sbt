@@ -2,7 +2,7 @@
 addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.11.0")
 
 // Scalafmt (formatter)
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.6")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.0")
 
 // Version policy check
 addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.2.1")
