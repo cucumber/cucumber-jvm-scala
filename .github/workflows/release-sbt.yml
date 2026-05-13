@@ -29,7 +29,7 @@ jobs:
 
       - uses: sbt/setup-sbt@93e926cbdb4a428e41b4ef754124ec82925ffdc2 # v1.1.23
 
-      - uses: cucumber/action-publish-sbt@38eca71785261ae2763630bf0c2f551365263600 # v1.0.2
+      - uses: cucumber/action-publish-sbt@3ab9a6d1d2eecf0a2f1bc7ac7f7e487848566ce1 # v1.0.3
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
