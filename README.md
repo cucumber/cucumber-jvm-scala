@@ -1,9 +1,21 @@
-# Cucumber Scala
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/cucumber/cucumber-js/46a5a78107be27e99c6e044c69b6e8f885ce456c/docs/images/logo.svg" alt="Cucumber logo" width="75">
+  <br>
+  Cucumber Scala
+</h1>
+<div align="center">
+
+**Cucumber Scala is the Scala implementation of [Cucumber](https://cucumber.io/).**
+
+</div>
+
+<div align="center">
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.cucumber/cucumber-scala_2.13.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.cucumber%22%20AND%20a:%22cucumber-scala_2.13%22)
-![Build Status](https://github.com/cucumber/cucumber-jvm-scala/workflows/Cucumber%20Scala%20CI/badge.svg)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/cucumber/cucumber-jvm-scala/badge)](https://scorecard.dev/viewer/?uri=github.com/cucumber/cucumber-jvm-scala)
 
-Cucumber Scala is the Scala implementation of [Cucumber](https://cucumber.io/).
+![Build Status](https://github.com/cucumber/cucumber-jvm-scala/workflows/Cucumber%20Scala%20CI/badge.svg)
+</div>
 
 ## Help & Support
 
