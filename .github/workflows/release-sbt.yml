@@ -27,7 +27,7 @@ jobs:
           distribution: 'temurin'
           java-version: "17"
 
-      - uses: sbt/setup-sbt@93e926cbdb4a428e41b4ef754124ec82925ffdc2 # v1.1.23
+      - uses: sbt/setup-sbt@4ed7b7ec4bfa2074fe48554c09e341267397247c # v1.2.0
 
       - uses: cucumber/action-publish-sbt@3ab9a6d1d2eecf0a2f1bc7ac7f7e487848566ce1 # v1.0.3
         with:
