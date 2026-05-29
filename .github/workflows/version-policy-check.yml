@@ -38,7 +38,7 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
 
-      - uses: sbt/setup-sbt@4ed7b7ec4bfa2074fe48554c09e341267397247c # v1.2.0
+      - uses: sbt/setup-sbt@af116cce31c00823d3903ce687f9cda3a4f19f1b # v1.2.1
 
       - name: Version check
         run: sbt "project cucumberScala" versionPolicyCheck
