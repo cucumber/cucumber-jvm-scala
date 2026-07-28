@@ -21,6 +21,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ## [8.39.2] (2026-07-27)
 
+### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.34.5](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Test against Jackson 2.22.1 and 3.2.1
+
 ## [8.39.1] (2026-03-08)
 
 ### Changed
