@@ -8,6 +8,7 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.2")
 addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.3.0")
 
 // Release
+addSbtPlugin("com.github.sbt" % "sbt-dynver" % "5.1.1")
 addSbtPlugin("com.github.sbt" % "sbt-release" % "1.5.0")
 
 // Publishing

@@ -1,7 +1,7 @@
 Releasing
 =========
 
-Releases are automated via a [GitHub Actions workflow](./.github/workflows/release-sbt.yml). Only people with permission to push to `release/*` branches can make releases.
+Releases are automated via a [GitHub Actions workflow](./.github/workflows/release-sbt.yaml). Only people with permission to push to `release/*` branches can make releases.
 
 See [Cucumber release process](https://github.com/cucumber/.github/blob/main/RELEASING.md) for the whole process.
 
@@ -11,13 +11,9 @@ See [Cucumber release process](https://github.com/cucumber/.github/blob/main/REL
    ```bash
    export next_release=<version> # <- insert version number here
    ```
-2. Update the `version.sbt` file with version to release:
+2. Update the CHANGELOG and documentation for the release version, commit and push:
     ```bash
-    echo "ThisBuild / version := \"$next_release\"" > version.sbt
-    ```
-3. Update the CHANGELOG and documentation, commit and push:
-    ```bash
-    make prepare-release
+    make prepare-release VERSION="$next_release"
     ```
 
 ## Release
@@ -27,5 +23,3 @@ See [Cucumber release process](https://github.com/cucumber/.github/blob/main/REL
    git tag --message "v$next_release" "v$next_release"
    git push origin main "v$next_release"
    ```
-2. Wait until the `release-*` workflows in GitHub Actions have passed
-3. In `version.sbt`, bump the **patch** version and append `-SNAPSHOT` (e.g. `1.2.4-SNAPSHOT`) and commit/push
