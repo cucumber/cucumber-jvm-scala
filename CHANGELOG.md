@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- Internal CI changes
+
 ### Deprecated
 
 ### Removed
