@@ -4,7 +4,7 @@ default:
 	sbt clean +publishLocal
 .PHONY: default
 
-VERSION = $(shell sbt "print cucumberScala/version" | tail -n 1)
+VERSION ?= $(shell sbt "print cucumberScala/version" | tail -n 1)
 
 clean:
 	sbt clean
