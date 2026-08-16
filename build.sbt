@@ -1,7 +1,4 @@
 import com.here.bom.Bom
-import ReleaseTransformations._
-import xerial.sbt.Sonatype.sonatypeSettings
-import xerial.sbt.Sonatype.sonatypeCentralHost
 
 // Metadata
 
@@ -242,30 +239,3 @@ lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
 
 ThisBuild / versionScheme := Some("early-semver")
 ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
-
-// Release & Publish
-
-Global / publishMavenStyle := true
-Global / publishTo := sonatypePublishToBundle.value
-// https://github.com/xerial/sbt-sonatype?tab=readme-ov-file#sonatype-central-host
-ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
-
-// https://github.com/xerial/sbt-sonatype#using-with-sbt-release-plugin
-releaseCrossBuild := true
-releaseVersionBump := sbtrelease.Version.Bump.NextStable // Required since 1.4.0
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  // the 2 following steps are part of the Cucumber release process
-  // commitReleaseVersion,
-  // tagRelease,
-  releaseStepCommandAndRemaining("publishSigned"),
-  releaseStepCommand("sonatypeBundleRelease"),
-  setNextVersion
-  // the 2 following steps are part of the Cucumber release process
-  // commitNextVersion,
-  // pushChanges
-)
