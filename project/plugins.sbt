@@ -7,13 +7,8 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.2")
 // Version policy check
 addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.3.0")
 
-// Release
-addSbtPlugin("com.github.sbt" % "sbt-dynver" % "5.1.1")
-addSbtPlugin("com.github.sbt" % "sbt-release" % "1.5.0")
-
 // Publishing
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.12.2")
-addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.1")
+addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.12.0")
 
 // Junit 5
 addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.19.0")
