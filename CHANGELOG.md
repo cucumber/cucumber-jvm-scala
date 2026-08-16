@@ -13,6 +13,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- Internal CI changes
+
 ### Deprecated
 
 ### Removed
@@ -24,6 +26,7 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - Internal CI changes
+- [Scala] Test against Jackson 3.2.2
 
 ## [8.39.4] (2026-08-15)
 
