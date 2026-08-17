@@ -1,7 +1,7 @@
 Releasing
 =========
 
-Releases are automated via a [GitHub Actions workflow](./.github/workflows/release-sbt.yaml). Only people with permission to push to `release/*` branches can make releases.
+Releases are automated via a [GitHub Actions workflow](./.github/workflows/release-sbt.yaml). Only people with permission to create tags can make releases.
 
 See [Cucumber release process](https://github.com/cucumber/.github/blob/main/RELEASING.md) for the whole process.
 
