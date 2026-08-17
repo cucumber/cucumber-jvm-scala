@@ -13,14 +13,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
-- [Core] Update `cucumber-core` dependency to [7.34.7](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-- [Scala] Test against Jackson 2.22.2
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+## [8.39.7] (2026-08-17)
+
+### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.34.7](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Test against Jackson 2.22.2
 
 ## [8.39.6] (2026-08-16)
 
@@ -874,7 +878,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.6...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.7...HEAD
+[8.39.7]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.6...v8.39.7
 [8.39.6]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.5...v8.39.6
 [8.39.5]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.4...v8.39.5
 [8.39.4]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.3...v8.39.4
