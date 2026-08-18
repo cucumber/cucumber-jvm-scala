@@ -207,7 +207,7 @@ lazy val examplesJunit4 = (projectMatrix in file("examples/examples-junit4"))
   .settings(commonSettings)
   .settings(junit4SbtSupport)
   .settings(
-    name := "scala-examples",
+    name := "examples-junit4",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-junit" % cucumberVersion % Test,
       "junit" % "junit" % junit4Version % Test
@@ -221,7 +221,7 @@ lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
   .settings(commonSettings)
   .settings(junit5SbtSupport)
   .settings(
-    name := "scala-examples",
+    name := "examples-junit5",
     libraryDependencies ++= Seq(
       "io.cucumber" % "cucumber-junit-platform-engine" % cucumberVersion % Test,
       "org.junit.platform" % "junit-platform-suite" % "*" % Test
