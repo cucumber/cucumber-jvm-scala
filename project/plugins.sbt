@@ -12,6 +12,3 @@ addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.12.0")
 
 // Junit 5
 addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.19.0")
-
-// Usage of BOMs
-addSbtPlugin("com.here.platform" % "sbt-bom" % "1.0.34")
