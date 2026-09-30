@@ -29,7 +29,7 @@ ThisBuild / homepage := Some(
 
 val scala212 = "2.12.20"
 val scala213 = "2.13.18"
-val scala3 = "3.3.6"
+val scala3 = "3.3.8"
 
 scalaVersion := scala213
 
