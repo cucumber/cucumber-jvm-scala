@@ -282,7 +282,11 @@ class ScalaSnippetTest {
     parameterType.foreach { pt =>
       parameterTypeRegistry.defineParameterType(pt)
     }
-    val snippet = new SnippetGenerator(new ScalaSnippet, parameterTypeRegistry)
+    val snippet = new SnippetGenerator(
+      "en",
+      new ScalaSnippet,
+      parameterTypeRegistry
+    )
       .getSnippet(step, snippetType)
       .asScala
     snippet.mkString("\n")
