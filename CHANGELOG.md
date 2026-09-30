@@ -21,6 +21,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ## [8.39.8] (2026-09-30)
 
+### Changed
+
+- [Core] Update `cucumber-core` dependency to [7.34.9](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Target Scala 3.3.8
+
 ## [8.39.7] (2026-08-17)
 
 ### Changed
