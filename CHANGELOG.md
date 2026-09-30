@@ -19,6 +19,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
+## [8.39.8] (2026-09-30)
+
 ## [8.39.7] (2026-08-17)
 
 ### Changed
@@ -878,7 +880,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.7...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.8...HEAD
+[8.39.8]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.7...v8.39.8
 [8.39.7]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.6...v8.39.7
 [8.39.6]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.5...v8.39.6
 [8.39.5]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.4...v8.39.5
