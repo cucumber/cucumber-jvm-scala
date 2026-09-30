@@ -35,7 +35,7 @@ scalaVersion := scala213
 
 // Library versions
 
-val cucumberVersion = "7.34.9"
+val cucumberVersion = "8.0.3"
 val jacksonVersion = "2.22.2"
 val jackson3Version = "3.2.2"
 val mockitoScalaVersion = "2.2.3"
@@ -57,7 +57,7 @@ lazy val commonSettings = Seq(
     }
   },
   // Explicitly set target to Java 8
-  scalacOptions += "-release:8",
+  scalacOptions += "-release:17",
   // Load BOMs
   libraryDependencies += ("org.junit" % "junit-bom" % junitBomVersion).pomOnly(),
   // Workaround for intermittent FileSystemAlreadyExistsException during test discovery,

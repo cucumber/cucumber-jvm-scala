@@ -74,8 +74,15 @@ class ScalaBackend(
       .map(ClasspathSupport.packageName)
       .flatMap(basePackageName =>
         classFinder
-          .scanForSubClassesInPackage(basePackageName, classOf[ScalaDsl])
+          .scanForClassesInPackage(
+            basePackageName,
+            (cls: Class[_]) =>
+              classOf[ScalaDsl] != cls && classOf[ScalaDsl].isAssignableFrom(
+                cls
+              )
+          )
           .asScala
+          .map(_.asSubclass(classOf[ScalaDsl]))
       )
       .filter(glueClass => !glueClass.isInterface)
       .distinct
