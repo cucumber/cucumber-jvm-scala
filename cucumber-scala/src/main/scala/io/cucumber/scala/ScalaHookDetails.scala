@@ -7,5 +7,6 @@ case class ScalaHookDetails(
     order: Int,
     body: HookDefinitionBody,
     stackTraceElement: StackTraceElement,
-    hookType: ScopedHookType
+    hookType: ScopedHookType,
+    name: Option[String] = None
 )

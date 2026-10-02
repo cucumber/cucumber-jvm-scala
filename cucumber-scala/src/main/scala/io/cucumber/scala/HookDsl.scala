@@ -53,6 +53,32 @@ private[scala] trait HookDsl extends BaseScalaDsl {
       Utils.frame(self)
     )
 
+  /** Defines a named Before hook. The name is used for reporting.
+    *
+    * Every argument other than the name is optional, for example
+    * `Before(name = "Open the browser")`.
+    *
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
+    * @param name
+    *   the name of this hook, used for reporting
+    */
+  def Before(
+      tagExpression: String = EMPTY_TAG_EXPRESSION,
+      order: Int = DEFAULT_BEFORE_ORDER,
+      name: String
+  ) =
+    new HookBody(
+      ScopedHookType.BEFORE,
+      tagExpression,
+      order,
+      Utils.frame(self),
+      Option(name).filter(_.nonEmpty)
+    )
+
   /** Defines an before step hook.
     */
   def BeforeStep: HookBody =
@@ -88,6 +114,32 @@ private[scala] trait HookDsl extends BaseScalaDsl {
       tagExpression,
       order,
       Utils.frame(self)
+    )
+
+  /** Defines a named BeforeStep hook. The name is used for reporting.
+    *
+    * Every argument other than the name is optional, for example
+    * `BeforeStep(name = "Open the browser")`.
+    *
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
+    * @param name
+    *   the name of this hook, used for reporting
+    */
+  def BeforeStep(
+      tagExpression: String = EMPTY_TAG_EXPRESSION,
+      order: Int = DEFAULT_BEFORE_ORDER,
+      name: String
+  ) =
+    new HookBody(
+      ScopedHookType.BEFORE_STEP,
+      tagExpression,
+      order,
+      Utils.frame(self),
+      Option(name).filter(_.nonEmpty)
     )
 
   /** Defines a after all hook.
@@ -132,6 +184,32 @@ private[scala] trait HookDsl extends BaseScalaDsl {
   def After(tagExpression: String, order: Int) =
     new HookBody(ScopedHookType.AFTER, tagExpression, order, Utils.frame(self))
 
+  /** Defines a named After hook. The name is used for reporting.
+    *
+    * Every argument other than the name is optional, for example
+    * `After(name = "Open the browser")`.
+    *
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
+    * @param name
+    *   the name of this hook, used for reporting
+    */
+  def After(
+      tagExpression: String = EMPTY_TAG_EXPRESSION,
+      order: Int = DEFAULT_AFTER_ORDER,
+      name: String
+  ) =
+    new HookBody(
+      ScopedHookType.AFTER,
+      tagExpression,
+      order,
+      Utils.frame(self),
+      Option(name).filter(_.nonEmpty)
+    )
+
   /** Defines and after step hook.
     */
   def AfterStep: HookBody = AfterStep(EMPTY_TAG_EXPRESSION, DEFAULT_AFTER_ORDER)
@@ -168,11 +246,38 @@ private[scala] trait HookDsl extends BaseScalaDsl {
       Utils.frame(self)
     )
 
+  /** Defines a named AfterStep hook. The name is used for reporting.
+    *
+    * Every argument other than the name is optional, for example
+    * `AfterStep(name = "Open the browser")`.
+    *
+    * @param tagExpression
+    *   a tag expression, if the expression applies to the current scenario this
+    *   hook will be executed
+    * @param order
+    *   the order in which this hook should run. Higher numbers are run first
+    * @param name
+    *   the name of this hook, used for reporting
+    */
+  def AfterStep(
+      tagExpression: String = EMPTY_TAG_EXPRESSION,
+      order: Int = DEFAULT_AFTER_ORDER,
+      name: String
+  ) =
+    new HookBody(
+      ScopedHookType.AFTER_STEP,
+      tagExpression,
+      order,
+      Utils.frame(self),
+      Option(name).filter(_.nonEmpty)
+    )
+
   final class HookBody(
       hookType: ScopedHookType,
       tagExpression: String,
       order: Int,
-      frame: StackTraceElement
+      frame: StackTraceElement,
+      name: Option[String] = None
   ) {
 
     // When a HookBody is created, we want to ensure that the apply method is called
@@ -185,7 +290,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
 
     def apply(body: Scenario => Unit): Unit = {
       val details =
-        ScalaHookDetails(tagExpression, order, body, frame, hookType)
+        ScalaHookDetails(tagExpression, order, body, frame, hookType, name)
       registry.registerDynamicHook(hookType, details)
     }
 

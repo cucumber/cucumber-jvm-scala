@@ -20,6 +20,9 @@ trait ScalaHookDefinition extends HookDefinition with AbstractGlueDefinition {
 
   override def getOrder: Int = hookDetails.order
 
+  override def getName: Optional[String] =
+    Optional.ofNullable(hookDetails.name.orNull)
+
   override def getHookType: Optional[HookDefinition.HookType] = {
     val javaHookType = hookDetails.hookType match {
       case BEFORE      => HookDefinition.HookType.BEFORE
