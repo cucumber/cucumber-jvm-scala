@@ -1,13 +1,15 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend._
-import io.cucumber.core.resource.{ClasspathScanner, ClasspathSupport}
+import io.cucumber.core.backend.discovery.{
+  GlueDiscoveryRequest,
+  GlueDiscoverySelectorResolver
+}
+import io.cucumber.core.resource.ClasspathScanner
 import io.cucumber.scala.ScalaBackend.isRegularClass
 
 import java.lang.reflect.Modifier
-import java.net.URI
 import java.util.function.Supplier
-import java.util.{List => JList}
 import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Try}
 
@@ -35,7 +37,11 @@ class ScalaBackend(
     classLoaderProvider: Supplier[ClassLoader]
 ) extends Backend {
 
-  private val classFinder = new ClasspathScanner(classLoaderProvider)
+  private val resolver = new GlueDiscoverySelectorResolver(
+    new ClasspathScanner(classLoaderProvider),
+    (cls: Class[_]) =>
+      classOf[ScalaDsl] != cls && classOf[ScalaDsl].isAssignableFrom(cls)
+  )
 
   private var glueAdaptor: GlueAdaptor = _
   private[scala] var scalaGlueClasses: Seq[Class[_ <: ScalaDsl]] = Nil
@@ -63,29 +69,17 @@ class ScalaBackend(
     }
   }
 
-  override def loadGlue(glue: Glue, gluePaths: JList[URI]): Unit = {
+  override def loadGlue(glue: Glue, request: GlueDiscoveryRequest): Unit = {
 
     glueAdaptor = new GlueAdaptor(glue)
 
-    val dslClasses = gluePaths.asScala
-      .filter(gluePath =>
-        ClasspathSupport.CLASSPATH_SCHEME.equals(gluePath.getScheme)
-      )
-      .map(ClasspathSupport.packageName)
-      .flatMap(basePackageName =>
-        classFinder
-          .scanForClassesInPackage(
-            basePackageName,
-            (cls: Class[_]) =>
-              classOf[ScalaDsl] != cls && classOf[ScalaDsl].isAssignableFrom(
-                cls
-              )
-          )
-          .asScala
-          .map(_.asSubclass(classOf[ScalaDsl]))
-      )
+    val dslClasses = resolver
+      .resolve(request)
+      .iterator()
+      .asScala
+      .map(_.asSubclass(classOf[ScalaDsl]))
       .filter(glueClass => !glueClass.isInterface)
-      .distinct
+      .toSeq
 
     // Voluntarily throw exception if not able to identify if it's a class
     val (clsClasses, objClasses) =
