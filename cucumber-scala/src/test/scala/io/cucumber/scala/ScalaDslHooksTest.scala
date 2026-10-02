@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
 import org.junit.jupiter.api.{BeforeEach, Test}
 import org.mockito.Mockito.mock
 
+import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
 import scala.annotation.nowarn
 
@@ -869,7 +870,11 @@ class ScalaDslHooksTest {
       }
     }
 
-    assertObjectStaticHook(Glue.registry.beforeAllHooks.head, 1000)
+    assertObjectStaticHook(
+      Glue.registry.beforeAllHooks.head,
+      1000,
+      StaticHookDefinition.HookType.BEFORE_ALL
+    )
   }
 
   @Test
@@ -881,7 +886,11 @@ class ScalaDslHooksTest {
       }
     }
 
-    assertObjectStaticHook(Glue.registry.beforeAllHooks.head, 42)
+    assertObjectStaticHook(
+      Glue.registry.beforeAllHooks.head,
+      42,
+      StaticHookDefinition.HookType.BEFORE_ALL
+    )
   }
 
   @Test
@@ -893,7 +902,11 @@ class ScalaDslHooksTest {
       }
     }
 
-    assertObjectStaticHook(Glue.registry.afterAllHooks.head, 1000)
+    assertObjectStaticHook(
+      Glue.registry.afterAllHooks.head,
+      1000,
+      StaticHookDefinition.HookType.AFTER_ALL
+    )
   }
 
   @Test
@@ -905,7 +918,11 @@ class ScalaDslHooksTest {
       }
     }
 
-    assertObjectStaticHook(Glue.registry.afterAllHooks.head, 42)
+    assertObjectStaticHook(
+      Glue.registry.afterAllHooks.head,
+      42,
+      StaticHookDefinition.HookType.AFTER_ALL
+    )
   }
 
   private def assertClassHook(
@@ -926,9 +943,10 @@ class ScalaDslHooksTest {
 
   private def assertObjectStaticHook(
       hookDetails: ScalaStaticHookDetails,
-      order: Int
+      order: Int,
+      hookType: StaticHookDefinition.HookType
   ): Unit = {
-    assertStaticHook(ScalaStaticHookDefinition(hookDetails), order)
+    assertStaticHook(ScalaStaticHookDefinition(hookDetails), order, hookType)
   }
 
   private def assertHook(
@@ -942,8 +960,13 @@ class ScalaDslHooksTest {
     assertTrue(invoked.get())
   }
 
-  private def assertStaticHook(hook: StaticHookDefinition, order: Int): Unit = {
+  private def assertStaticHook(
+      hook: StaticHookDefinition,
+      order: Int,
+      hookType: StaticHookDefinition.HookType
+  ): Unit = {
     assertEquals(order, hook.getOrder)
+    assertEquals(Optional.of(hookType), hook.getHookType)
     hook.execute()
     assertTrue(invoked.get())
   }

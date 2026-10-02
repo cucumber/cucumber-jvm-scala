@@ -11,6 +11,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [Scala] Report the hook type (`BeforeAll`/`AfterAll`) of static hooks to Cucumber Core, so that they are emitted in messages
+
 ### Changed
 
 ### Deprecated
