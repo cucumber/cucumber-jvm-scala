@@ -517,9 +517,62 @@ class ScalaBackendTest {
       case Failure(ex: CucumberBackendException) =>
         assertTrue(ex.getMessage.contains("java.lang.String"))
         assertTrue(ex.getMessage.contains("must extend"))
-      case other =>
+      case Failure(other) =>
+        println(other.printStackTrace())
         fail(s"Expected CucumberBackendException but got $other")
+      case Success(_) =>
+        fail(s"Expected CucumberBackendException but got a success")
     }
+  }
+
+  @Test
+  def loadGlue_request_with_duplicated_class_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectClass(classOf[StepsA].getName),
+          GlueDiscoverySelector.selectClass(classOf[StepsA].getName)
+        )
+      )
+    )
+
+    assertEquals(
+      Seq[Class[_]](classOf[StepsA]),
+      backend.scalaGlueClasses
+    )
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+  }
+
+  @Test
+  def loadGlue_request_with_duplicated_object_class_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectClass(StepsInObject.getClass.getName),
+          GlueDiscoverySelector.selectClass(StepsInObject.getClass.getName)
+        )
+      )
+    )
+
+    verify(fakeGlue, times(1)).addStepDefinition(any())
+  }
+
+  @Test
+  def loadGlue_request_with_duplicated_uri_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      uriRequest(
+        "classpath:io/cucumber/scala/steps/classes",
+        "classpath:io/cucumber/scala/steps/classes"
+      )
+    )
+
+    assertEquals(3, backend.scalaGlueClasses.size)
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsB])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsC])
   }
 
   private def uriRequest(paths: String*): GlueDiscoveryRequest =

@@ -91,7 +91,6 @@ class ScalaBackend(
         glueClass != classOf[ScalaDsl] && !glueClass.isInterface
       )
       .toSeq
-      .distinct
 
     // Voluntarily throw exception if not able to identify if it's a class
     val (clsClasses, objClasses) =
