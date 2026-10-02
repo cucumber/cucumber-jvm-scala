@@ -13,8 +13,11 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 - [Scala] Report the hook type (`BeforeAll`/`AfterAll`) of static hooks to Cucumber Core, so that they are emitted in messages
 - [Scala] Add optional names to `Before`, `After`, `BeforeStep` and `AfterStep` hooks and emit hook names in messages (e.g. `Before(name = "Open the browser")`)
+- [Scala] Support registering individual glue classes via the `cucumber.glue.classes` property (or `--glue-classes` CLI option) and class filtering via the `cucumber.glue.{included,excluded}-class-name-pattern` properties
 
 ### Changed
+
+- [Core] Update `cucumber-core` dependency to [8.0.4](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
 
 ### Deprecated
 
