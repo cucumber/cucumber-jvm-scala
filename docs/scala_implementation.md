@@ -24,11 +24,17 @@ This is handled by the `ScalaBackend#loadGlue()` method.
 #### Scala implementation
 
 In the Cucumber Scala implementation, loading the glue code means:
-- finding all the **classes** inheriting `io.cucumber.scala.ScalaDsl` in the _glue path_, and for each:
+- finding all the **classes** inheriting `io.cucumber.scala.ScalaDsl` in the _glue path_ and in the _glue classes_, and for each:
   - add it to the `Container` instance provided by Cucumber Core
-- finding all the **objects** singletons instances inheriting `io.cucumber.scala.ScalaDsl` in the _glue path_ and for each:
+- finding all the **objects** singletons instances inheriting `io.cucumber.scala.ScalaDsl` in the _glue path_ and in the _glue classes_ and for each:
   - extract the hooks and step definitions from it
   - add the definitions to the `Glue` instance provided by Cucumber Core, as NOT `ScenarioScoped`
+
+The glue is discovered from a `GlueDiscoveryRequest` provided by Cucumber Core, so the standard options are supported:
+- the _glue path_ (`cucumber.glue`), which can be restricted by the `cucumber.glue.included-class-name-pattern` and `cucumber.glue.excluded-class-name-pattern` options
+- the _glue classes_ (`cucumber.glue.classes`): fully qualified names of the glue classes to load.
+  Note that the class name of a Scala `object` ends with a `$`, e.g. `com.example.MySteps$`.
+  A class which does not extend `io.cucumber.scala.ScalaDsl` is rejected.
 
 Ideally all the glue code should be instantiated further (see next section), this is why we register classes (actually a list of `Class`) to the Container.
 But this cannot work for objects because they are by definitions singletons and already instantiated way before Cucumber.
