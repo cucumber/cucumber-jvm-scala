@@ -202,7 +202,7 @@ private[scala] trait HookDsl extends BaseScalaDsl {
     registry.expectHook(hookType, frame)
 
     def apply(body: => Unit): Unit = {
-      val details = ScalaStaticHookDetails(order, () => body, frame)
+      val details = ScalaStaticHookDetails(order, () => body, frame, hookType)
       registry.registerStaticHook(hookType, details)
     }
 
