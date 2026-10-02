@@ -1,6 +1,11 @@
 package io.cucumber.scala
 
 import io.cucumber.core.backend._
+import io.cucumber.core.backend.discovery.{
+  GlueDiscoveryFilter,
+  GlueDiscoveryRequest,
+  GlueDiscoverySelector
+}
 import io.cucumber.scala.steps.classes.{StepsA, StepsB, StepsC}
 import io.cucumber.scala.steps.dependencyinjection.{Injected, Injector}
 import io.cucumber.scala.steps.errors.incorrectclasshooks.IncorrectClassHooksDefinition
@@ -12,8 +17,8 @@ import org.junit.jupiter.api.{BeforeEach, Test}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 
-import java.net.URI
 import java.util.function.Supplier
+import java.util.regex.Pattern
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
@@ -58,7 +63,7 @@ class ScalaBackendTest {
     // Load glue
     backend.loadGlue(
       fakeGlue,
-      List(URI.create("classpath:io/cucumber/scala/steps/classes")).asJava
+      uriRequest("classpath:io/cucumber/scala/steps/classes")
     )
 
     assertEquals(3, backend.scalaGlueClasses.size)
@@ -116,7 +121,7 @@ class ScalaBackendTest {
     // Load glue
     backend.loadGlue(
       fakeGlue,
-      List(URI.create("classpath:io/cucumber/scala/steps/traits")).asJava
+      uriRequest("classpath:io/cucumber/scala/steps/traits")
     )
 
     assertEquals(1, backend.scalaGlueClasses.size)
@@ -162,7 +167,7 @@ class ScalaBackendTest {
     // Load glue
     backend.loadGlue(
       fakeGlue,
-      List(URI.create("classpath:io/cucumber/scala/steps/objects")).asJava
+      uriRequest("classpath:io/cucumber/scala/steps/objects")
     )
 
     assertEquals(0, backend.scalaGlueClasses.size)
@@ -187,10 +192,10 @@ class ScalaBackendTest {
     // Load glue
     backend.loadGlue(
       fakeGlue,
-      List(
-        URI.create("classpath:io/cucumber/scala/steps/classes"),
-        URI.create("classpath:io/cucumber/scala/steps/classes")
-      ).asJava
+      uriRequest(
+        "classpath:io/cucumber/scala/steps/classes",
+        "classpath:io/cucumber/scala/steps/classes"
+      )
     )
 
     assertEquals(3, backend.scalaGlueClasses.size)
@@ -214,11 +219,9 @@ class ScalaBackendTest {
       // Load glue
       backend.loadGlue(
         fakeGlue,
-        List(
-          URI.create(
-            "classpath:io/cucumber/scala/steps/errors/incorrectclasshooks"
-          )
-        ).asJava
+        uriRequest(
+          "classpath:io/cucumber/scala/steps/errors/incorrectclasshooks"
+        )
       )
 
       // Build world
@@ -267,11 +270,9 @@ class ScalaBackendTest {
       // Load glue
       backend.loadGlue(
         fakeGlue,
-        List(
-          URI.create(
-            "classpath:io/cucumber/scala/steps/errors/incorrectobjecthooks"
-          )
-        ).asJava
+        uriRequest(
+          "classpath:io/cucumber/scala/steps/errors/incorrectobjecthooks"
+        )
       )
     }
 
@@ -317,11 +318,7 @@ class ScalaBackendTest {
       // Load glue
       backend.loadGlue(
         fakeGlue,
-        List(
-          URI.create(
-            "classpath:io/cucumber/scala/steps/errors/staticclasshooks"
-          )
-        ).asJava
+        uriRequest("classpath:io/cucumber/scala/steps/errors/staticclasshooks")
       )
 
       // Build world
@@ -353,9 +350,7 @@ class ScalaBackendTest {
     // Load glue
     backend.loadGlue(
       fakeGlue,
-      List(
-        URI.create("classpath:io/cucumber/scala/steps/dependencyinjection")
-      ).asJava
+      uriRequest("classpath:io/cucumber/scala/steps/dependencyinjection")
     )
 
     assertEquals(2, backend.scalaGlueClasses.size)
@@ -386,6 +381,212 @@ class ScalaBackendTest {
     verify(fakeLookup, times(2)).getInstance(classOf[Injector])
 
   }
+
+  @Test
+  def loadGlue_request_with_uri_selector(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectUri(
+            "classpath:io/cucumber/scala/steps/classes"
+          )
+        )
+      )
+    )
+
+    assertEquals(
+      Set[Class[_]](classOf[StepsA], classOf[StepsB], classOf[StepsC]),
+      backend.scalaGlueClasses.toSet[Class[_]]
+    )
+  }
+
+  @Test
+  def loadGlue_request_with_class_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectClass(classOf[StepsA].getName),
+          GlueDiscoverySelector.selectClass(classOf[StepsC].getName)
+        )
+      )
+    )
+
+    assertEquals(
+      Set[Class[_]](classOf[StepsA], classOf[StepsC]),
+      backend.scalaGlueClasses.toSet[Class[_]]
+    )
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsC])
+    verify(fakeContainer, never()).addClass(classOf[StepsB])
+  }
+
+  @Test
+  def loadGlue_request_with_object_class_selector(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(GlueDiscoverySelector.selectClass(StepsInObject.getClass.getName))
+      )
+    )
+
+    assertEquals(0, backend.scalaGlueClasses.size)
+    verify(fakeContainer, never()).addClass(any())
+    verify(fakeGlue, times(1)).addStepDefinition(any())
+  }
+
+  @Test
+  def loadGlue_request_with_class_and_uri_selectors_is_distinct(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectUri(
+            "classpath:io/cucumber/scala/steps/classes"
+          ),
+          GlueDiscoverySelector.selectClass(classOf[StepsA].getName)
+        )
+      )
+    )
+
+    assertEquals(3, backend.scalaGlueClasses.size)
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+  }
+
+  @Test
+  def loadGlue_request_with_include_class_name_filter(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectUri(
+            "classpath:io/cucumber/scala/steps/classes"
+          )
+        ),
+        List(
+          GlueDiscoveryFilter.includeClassNamePatterns(
+            Pattern.compile(".*Steps[AB]")
+          )
+        )
+      )
+    )
+
+    assertEquals(
+      Set[Class[_]](classOf[StepsA], classOf[StepsB]),
+      backend.scalaGlueClasses.toSet[Class[_]]
+    )
+  }
+
+  @Test
+  def loadGlue_request_with_exclude_class_name_filter(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectUri(
+            "classpath:io/cucumber/scala/steps/classes"
+          )
+        ),
+        List(
+          GlueDiscoveryFilter.excludeClassNamePatterns(
+            Pattern.compile(".*StepsA")
+          )
+        )
+      )
+    )
+
+    assertEquals(
+      Set[Class[_]](classOf[StepsB], classOf[StepsC]),
+      backend.scalaGlueClasses.toSet[Class[_]]
+    )
+  }
+
+  @Test
+  def loadGlue_request_with_class_selector_not_a_glue_class(): Unit = {
+    val result = Try {
+      backend.loadGlue(
+        fakeGlue,
+        request(
+          List(GlueDiscoverySelector.selectClass(classOf[String].getName))
+        )
+      )
+    }
+
+    result match {
+      case Failure(ex: CucumberBackendException) =>
+        assertTrue(ex.getMessage.contains("java.lang.String"))
+        assertTrue(ex.getMessage.contains("must extend"))
+      case Failure(other) =>
+        println(other.printStackTrace())
+        fail(s"Expected CucumberBackendException but got $other")
+      case Success(_) =>
+        fail(s"Expected CucumberBackendException but got a success")
+    }
+  }
+
+  @Test
+  def loadGlue_request_with_duplicated_class_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectClass(classOf[StepsA].getName),
+          GlueDiscoverySelector.selectClass(classOf[StepsA].getName)
+        )
+      )
+    )
+
+    assertEquals(
+      Seq[Class[_]](classOf[StepsA]),
+      backend.scalaGlueClasses
+    )
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+  }
+
+  @Test
+  def loadGlue_request_with_duplicated_object_class_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      request(
+        List(
+          GlueDiscoverySelector.selectClass(StepsInObject.getClass.getName),
+          GlueDiscoverySelector.selectClass(StepsInObject.getClass.getName)
+        )
+      )
+    )
+
+    verify(fakeGlue, times(1)).addStepDefinition(any())
+  }
+
+  @Test
+  def loadGlue_request_with_duplicated_uri_selectors(): Unit = {
+    backend.loadGlue(
+      fakeGlue,
+      uriRequest(
+        "classpath:io/cucumber/scala/steps/classes",
+        "classpath:io/cucumber/scala/steps/classes"
+      )
+    )
+
+    assertEquals(3, backend.scalaGlueClasses.size)
+    verify(fakeContainer, times(1)).addClass(classOf[StepsA])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsB])
+    verify(fakeContainer, times(1)).addClass(classOf[StepsC])
+  }
+
+  private def uriRequest(paths: String*): GlueDiscoveryRequest =
+    request(paths.toList.map(GlueDiscoverySelector.selectUri))
+
+  private def request(
+      selectors: List[GlueDiscoverySelector],
+      filters: List[GlueDiscoveryFilter] = Nil
+  ): GlueDiscoveryRequest =
+    GlueDiscoveryRequest
+      .builder()
+      .selectors(selectors.asJava)
+      .filters(filters.asJava)
+      .build()
 
   @Test
   def isRegularClass_class(): Unit = {
