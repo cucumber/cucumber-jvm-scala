@@ -925,6 +925,101 @@ class ScalaDslHooksTest {
     )
   }
 
+  @Test
+  def testHooksWithoutNameHaveNoName(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before { invoke() }
+      Before("tagExpression", 42) { invoke() }
+      BeforeStep { invoke() }
+      After(10) { invoke() }
+      AfterStep("tagExpression") { invoke() }
+    }
+
+    val glue = new Glue()
+    val registry = glue.registry
+
+    val hooks = registry.beforeHooks ++ registry.beforeStepHooks ++
+      registry.afterHooks ++ registry.afterStepHooks
+    assertEquals(5, hooks.size)
+    hooks.foreach { details =>
+      assertEquals(
+        Optional.empty[String](),
+        ScalaHookDefinition(details, true).getName
+      )
+    }
+  }
+
+  @Test
+  def testNamedHooks(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before(name = "before") { invoke() }
+      BeforeStep(name = "before step") { invoke() }
+      After(name = "after") { invoke() }
+      AfterStep(name = "after step") { invoke() }
+    }
+
+    val glue = new Glue()
+    val registry = glue.registry
+
+    assertNamedClassHook(registry.beforeHooks.head, "before", "", 1000)
+    assertNamedClassHook(registry.beforeStepHooks.head, "before step", "", 1000)
+    assertNamedClassHook(registry.afterHooks.head, "after", "", 1000)
+    assertNamedClassHook(registry.afterStepHooks.head, "after step", "", 1000)
+  }
+
+  @Test
+  def testNamedHooksWithTagAndOrder(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before("tagExpression", 42, "with tag and order") { invoke() }
+      After(order = 7, name = "with order") { invoke() }
+      BeforeStep(tagExpression = "tag", name = "with tag") { _ =>
+        invoke()
+      }
+    }
+
+    val glue = new Glue()
+    val registry = glue.registry
+
+    assertNamedClassHook(
+      registry.beforeHooks.head,
+      "with tag and order",
+      "tagExpression",
+      42
+    )
+    assertNamedClassHook(registry.afterHooks.head, "with order", "", 7)
+    assertNamedClassHook(registry.beforeStepHooks.head, "with tag", "tag", 1000)
+  }
+
+  @Test
+  def testEmptyHookNameIsNoName(): Unit = {
+
+    class Glue extends ScalaDsl {
+      Before(name = "") { invoke() }
+    }
+
+    val glue = new Glue()
+
+    assertEquals(
+      Optional.empty[String](),
+      ScalaHookDefinition(glue.registry.beforeHooks.head, true).getName
+    )
+  }
+
+  private def assertNamedClassHook(
+      hookDetails: ScalaHookDetails,
+      name: String,
+      tagExpression: String,
+      order: Int
+  ): Unit = {
+    val hook = ScalaHookDefinition(hookDetails, true)
+    assertEquals(Optional.of(name), hook.getName)
+    assertHook(hook, tagExpression, order)
+    invoked.set(false)
+  }
+
   private def assertClassHook(
       hookDetails: ScalaHookDetails,
       tagExpression: String,

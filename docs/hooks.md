@@ -147,3 +147,22 @@ Before("@browser and not @headless", 10) {
 ```
 
 Note: this cannot be applied to static hooks (`BeforeAll`/`AfterAll`).
+
+## Named hooks
+
+Hooks can have an optional name, which is used for reporting (it is emitted in the Cucumber messages).
+Every other argument is optional when a name is given.
+
+```scala
+Before(name = "Open the browser") {
+  // Do something before each scenario
+  // Must return Unit
+}
+
+Before("@browser and not @headless", 10, "Open the headless browser") {
+  // Do something before each scenario with tag @browser but not @headless
+  // Must return Unit
+}
+```
+
+Note: this cannot be applied to static hooks (`BeforeAll`/`AfterAll`).
