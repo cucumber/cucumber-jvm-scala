@@ -11,6 +11,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+- [ScalaTest] New `cucumber-scalatest` module: extend `CucumberSuite` to run Cucumber features with ScalaTest instead of JUnit.
+  This is experimental, try it and report any issue you'd find. 
+
 ### Changed
 
 ### Deprecated

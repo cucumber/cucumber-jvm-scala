@@ -40,6 +40,7 @@ val jacksonVersion = "2.22.2"
 val jackson3Version = "3.2.2"
 val mockitoScalaVersion = "2.2.3"
 val junit4Version = "4.13.2"
+val scalatestVersion = "3.2.20"
 
 // BOMs
 
@@ -80,12 +81,14 @@ lazy val root = (project in file("."))
   )
   .aggregate(
     cucumberScala.projectRefs ++
+      cucumberScalatest.projectRefs ++
       integrationTestsCommon.projectRefs ++
       integrationTestsJackson2.projectRefs ++
       integrationTestsJackson3.projectRefs ++
       integrationTestsPicoContainer.projectRefs ++
       examplesJunit4.projectRefs ++
-      examplesJunit5.projectRefs: _*
+      examplesJunit5.projectRefs ++
+      examplesScalatest.projectRefs: _*
   )
 
 // Main project
@@ -140,6 +143,20 @@ lazy val cucumberScala = (projectMatrix in file("cucumber-scala"))
       Seq(file)
     }.taskValue
   )
+  .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
+
+// ScalaTest integration
+lazy val cucumberScalatest = (projectMatrix in file("cucumber-scalatest"))
+  .settings(commonSettings)
+  .settings(
+    name := "cucumber-scalatest",
+    libraryDependencies ++= Seq(
+      // Users have to provide ScalaTest (they need it to write their suites)
+      "org.scalatest" %% "scalatest-core" % scalatestVersion % Provided,
+      "org.scalatest" %% "scalatest" % scalatestVersion % Test
+    )
+  )
+  .dependsOn(cucumberScala)
   .jvmPlatform(scalaVersions = Seq(scala3, scala213, scala212))
 
 // Integration tests
@@ -234,6 +251,18 @@ lazy val examplesJunit5 = (projectMatrix in file("examples/examples-junit5"))
   )
   .dependsOn(cucumberScala % Test)
   .jvmPlatform(scalaVersions = Seq(scala3, scala213))
+
+lazy val examplesScalatest =
+  (projectMatrix in file("examples/examples-scalatest"))
+    .settings(commonSettings)
+    .settings(
+      name := "examples-scalatest",
+      libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % Test,
+      publishArtifact := false
+    )
+    .dependsOn(cucumberScala % Test)
+    .dependsOn(cucumberScalatest % Test)
+    .jvmPlatform(scalaVersions = Seq(scala3, scala213))
 
 // Version policy check
 

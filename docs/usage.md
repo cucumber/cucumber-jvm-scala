@@ -85,6 +85,32 @@ To make it work, you only need a Cucumber DI module to be added as a dependency 
 
 See also the Running Cucumber for Java [documentation](https://docs.cucumber.io/docs/cucumber/api/#running-cucumber).
 
+### ScalaTest
+
+**Status: Experimental**, added in version 9.2.
+
+Add the `cucumber-scalatest` dependency to your project (it brings `cucumber-scala` and expects ScalaTest to be provided by your project).
+
+Then create a suite like this:
+```scala
+import io.cucumber.scalatest.{CucumberOptions, CucumberSuite}
+
+class RunCucumberTest extends CucumberSuite {
+  override def cucumberOptions = CucumberOptions(
+    features = Seq("classpath:cucumber/examples/scalacalculator"), // default: the folder matching the suite's package
+    glue = Seq("cucumber.examples.scalacalculator"), // default: the suite's package
+    plugin = Seq("pretty"),
+    tags = Some("not @wip")
+  )
+}
+```
+`CucumberOptions` is optional: `class RunCucumberTest extends CucumberSuite` uses the features and glue code of its own package.
+`cucumber.properties`, `CUCUMBER_*` environment variables and `cucumber.*` system properties are also supported and take precedence.
+
+Limitations:
+- scenarios are always executed sequentially
+- ScalaTest filters (`-z`, `-t`, `-n`...) and running a single test by name are not supported, use the Cucumber options (like `cucumber.filter.tags`) instead
+
 ### JUnit 5
 
 Add the `cucumber-junit-platform-engine` dependency to your project.
