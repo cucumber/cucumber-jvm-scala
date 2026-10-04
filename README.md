@@ -57,7 +57,10 @@ The table below shows the compatible versions:
   - [Hooks](docs/hooks.md)
   - [Transformers](docs/transformers.md)
     - [Default Jackson DataTable Transformer](docs/default_jackson_datatable_transformer.md)
-- [Example project](examples/examples-junit5/README.md)
+- Example projects
+  - [JUnit 4](examples/examples-junit4/README.md)
+  - [JUnit 5+](examples/examples-junit5/README.md)
+  - [ScalaTest](examples/examples-scalatest/README.md)
 - [Reference documentation for Java](https://docs.cucumber.io/docs/cucumber/)
 - [Changelog](CHANGELOG.md)
 
