@@ -11,9 +11,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
-- [ScalaTest] New `cucumber-scalatest` module: extend `CucumberSuite` to run Cucumber features with ScalaTest instead of JUnit.
-  This is experimental, try it and report any issue you'd find. 
-
 ### Changed
 
 ### Deprecated
@@ -21,6 +18,13 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Removed
 
 ### Fixed
+
+## [9.2.0] (2026-10-04)
+
+### Added
+
+- [ScalaTest] New `cucumber-scalatest` module: extend `CucumberSuite` to run Cucumber features with ScalaTest instead of JUnit.
+  This is experimental, try it and report any issue you'd find. 
 
 ## [9.1.0] (2026-10-04)
 
@@ -907,7 +911,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v9.1.0...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v9.2.0...HEAD
+[9.2.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v9.1.0...v9.2.0
 [9.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v9.0.0...v9.1.0
 [9.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.8...v9.0.0
 [8.39.8]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.7...v8.39.8
