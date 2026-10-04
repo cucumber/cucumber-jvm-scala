@@ -11,6 +11,18 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [9.1.0] (2026-10-04)
+
+### Added
+
 - [Scala] Report the hook type (`BeforeAll`/`AfterAll`) of static hooks to Cucumber Core, so that they are emitted in messages
 - [Scala] Add optional names to `Before`, `After`, `BeforeStep` and `AfterStep` hooks and emit hook names in messages (e.g. `Before(name = "Open the browser")`)
 - [Scala] Support registering individual glue classes via the `cucumber.glue.classes` property (or `--glue-classes` CLI option) and class filtering via the `cucumber.glue.{included,excluded}-class-name-pattern` properties
@@ -18,12 +30,6 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 ### Changed
 
 - [Core] Update `cucumber-core` dependency to [8.0.4](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [9.0.0] (2026-10-01)
 
@@ -898,7 +904,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v9.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v9.1.0...HEAD
+[9.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v9.0.0...v9.1.0
 [9.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.8...v9.0.0
 [8.39.8]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.7...v8.39.8
 [8.39.7]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.6...v8.39.7
