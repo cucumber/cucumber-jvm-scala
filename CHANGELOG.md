@@ -19,6 +19,10 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
+## [9.2.1] (2026-10-05)
+
+### Fixed
+
 - [ScalaTest] Include the feature and scenario names in the test names of the test report ([#454](https://github.com/cucumber/cucumber-jvm-scala/issues/454))
 
 ## [9.2.0] (2026-10-04)
@@ -913,7 +917,8 @@ _Although there is no visible change from a user perspective, there are signific
 - [Build] Update Scala versions to 2.11.12 and 2.12.7 ([#11](https://github.com/cucumber/cucumber-jvm-scala/issues/11) Arturas Smorgun)
 
 <!-- Releases -->
-[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v9.2.0...HEAD
+[Unreleased]: https://github.com/cucumber/cucumber-jvm-scala/compare/v9.2.1...HEAD
+[9.2.1]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v9.2.0...v9.2.1
 [9.2.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v9.1.0...v9.2.0
 [9.1.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v9.0.0...v9.1.0
 [9.0.0]:  https://github.com/cucumber/cucumber-jvm-scala/compare/v8.39.8...v9.0.0
