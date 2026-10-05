@@ -19,6 +19,8 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Fixed
 
+- [ScalaTest] Include the feature and scenario names in the test names of the test report ([#454](https://github.com/cucumber/cucumber-jvm-scala/issues/454))
+
 ## [9.2.0] (2026-10-04)
 
 ### Added
