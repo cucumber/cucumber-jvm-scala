@@ -67,6 +67,15 @@ private[scalatest] final class ScenarioSuite(
       if (count == 1) name else s"$name ($count)"
     }
 
+    // Reports that only keep the test name (e.g. JUnit XML) have no other
+    // trace of the feature and scenario; the displayed text stays the step.
+    def qualified(name: String): String = {
+      val featureName = feature.getName.orElse("")
+      val featureLabel =
+        if (featureName.nonEmpty) featureName else feature.getUri.toString
+      s"$featureLabel > $suiteName > $name"
+    }
+
     def location(line: Int): Option[Location] =
       Some(LineInFile(line, feature.getUri.toString, None))
 
@@ -81,7 +90,7 @@ private[scalatest] final class ScenarioSuite(
           suiteName,
           suiteId,
           className,
-          name,
+          qualified(name),
           name,
           formatter = Some(MotionToSuppress),
           location = location(line)
@@ -102,7 +111,7 @@ private[scalatest] final class ScenarioSuite(
             suiteName,
             suiteId,
             className,
-            name,
+            qualified(name),
             name,
             Vector.empty,
             Vector.empty,
@@ -121,7 +130,7 @@ private[scalatest] final class ScenarioSuite(
               suiteName,
               suiteId,
               className,
-              name,
+              qualified(name),
               name,
               Vector.empty,
               duration,
@@ -137,7 +146,7 @@ private[scalatest] final class ScenarioSuite(
               suiteName,
               suiteId,
               className,
-              name,
+              qualified(name),
               name,
               Vector.empty,
               error,

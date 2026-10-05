@@ -31,9 +31,9 @@ class CucumberSuiteTest extends AnyFunSuite with Matchers {
       case e: SuiteStarting  => s"suite ${e.suiteName}"
       case e: SuiteCompleted => s"end   ${e.suiteName}"
       case e: SuiteAborted   => s"abort ${e.suiteName}"
-      case e: TestSucceeded  => s"  passed   ${e.testName}"
-      case e: TestFailed     => s"  failed   ${e.testName}"
-      case e: TestCanceled   => s"  canceled ${e.testName}"
+      case e: TestSucceeded  => s"  passed   ${e.testText}"
+      case e: TestFailed     => s"  failed   ${e.testText}"
+      case e: TestCanceled   => s"  canceled ${e.testText}"
     }
     def failures: List[TestFailed] = events.toList.collect {
       case e: TestFailed => e
@@ -190,6 +190,18 @@ class CucumberSuiteTest extends AnyFunSuite with Matchers {
       "end   Passing before the AfterAll fails",
       "end   AfterAll feature"
     )
+  }
+
+  test("test names include the feature and scenario, test texts do not") {
+    val (_, recorder) = run(new PassingCucumberSuite)
+    val succeeded = recorder.events.toList.collect { case e: TestSucceeded =>
+      e
+    }
+
+    succeeded.head.testName shouldBe
+      "Passing feature > Simple scenario > Given a passing step"
+    succeeded.head.testText shouldBe "Given a passing step"
+    succeeded.map(_.testName).distinct should have size succeeded.size.toLong
   }
 
   test("running a single test by name is not supported") {
