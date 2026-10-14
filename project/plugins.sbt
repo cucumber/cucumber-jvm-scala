@@ -2,7 +2,7 @@
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.2")
 
 // Version policy check
-addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.3.0")
+addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.4.0")
 
 // Publishing
 addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.12.1")
