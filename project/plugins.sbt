@@ -8,4 +8,4 @@ addSbtPlugin("ch.epfl.scala" % "sbt-version-policy" % "3.4.0")
 addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.12.1")
 
 // Junit 5
-addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.19.0")
+addSbtPlugin("com.github.sbt.junit" % "sbt-jupiter-interface" % "0.20.0")
