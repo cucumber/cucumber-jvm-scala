@@ -13,6 +13,9 @@ See also the [CHANGELOG](https://github.com/cucumber/cucumber-jvm/blob/master/CH
 
 ### Changed
 
+- [Core] Update `cucumber-core` dependency to [8.1.0](https://github.com/cucumber/cucumber-jvm/blob/main/CHANGELOG.md)
+- [Scala] Test against Jackson 2.23.0 and 3.3.0
+
 ### Deprecated
 
 ### Removed
